@@ -9,7 +9,36 @@ export interface IPage {
 
 @Component({
     selector: 'kb-pagination-controls',
-    template: "",
+    template: `
+    <ul class="pagination" role="navigation" aria-label="Pagination">
+
+        <li class="pagination-previous" [class.disabled]="getCurrent() === 1">
+            <a *ngIf="1 < getCurrent()"
+               (click)="setCurrent(getCurrent() - 1)" aria-label="Next page">Previous <span class="show-for-sr">page</span></a>
+            <span *ngIf="getCurrent() === 1">Previous <span class="show-for-sr">page</span></span>
+        </li>
+
+        <li [class.current]="getCurrent() === page.value" *ngFor="#page of pages">
+            <a (click)="setCurrent(page.value)" *ngIf="getCurrent() !== page.value">
+                <span class="show-for-sr">Page</span>
+                <span>{{ page.label }}</span>
+            </a>
+            <div *ngIf="getCurrent() === page.value">
+                <span class="show-for-sr">You're on page</span>
+                <span>{{ page.label }}</span>
+            </div>
+        </li>
+
+        <li class="pagination-next" [class.disabled]="getCurrent() === pages.length">
+            <a *ngIf="getCurrent() < pages.length"
+               (click)="setCurrent(getCurrent() + 1)" aria-label="Next page">
+                Next <span class="show-for-sr">page</span>
+            </a>
+            <span *ngIf="getCurrent() === pages.length">Next <span class="show-for-sr">page</span></span>
+        </li>
+
+    </ul>
+    `,
     directives: [CORE_DIRECTIVES]
 })
 export class PaginationControlsCmp {
