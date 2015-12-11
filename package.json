@@ -11,6 +11,13 @@
     "angular2",
     "pagination"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelbromley/ng2-pagination"
+  },
+  "bugs": {
+    "url": "https://github.com/michaelbromley/ng2-pagination/issues"
+  },
   "author": "Michael Bromley <michael@michaelbromley.co.uk>",
   "license": "MIT",
   "devDependencies": {

@@ -59,7 +59,13 @@ The following features from the 1.x version have not yet been implemented:
 - Page-change event support
 - Custom template support
 - Various style options for the pagination controls template
+- Full test suite
 
+## Build
+
+To build, first run  `npm install` to get all the dev dependencies. Then you can use the `npm run build` script to
+compile the TypeScript and generate the definition files. `npm run test` will fire up Karma with the Webpack
+plugin to run the tests.
 
 ## License
 
