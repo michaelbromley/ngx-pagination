@@ -14,6 +14,9 @@ var PaginationControlsCmp = (function () {
         this.service = service;
         this.pages = [];
     }
+    /**
+     * Set up the subscription to the PaginationService.change observable.
+     */
     PaginationControlsCmp.prototype.ngOnInit = function () {
         var _this = this;
         if (this.id === undefined) {
@@ -30,13 +33,17 @@ var PaginationControlsCmp = (function () {
         // TODO: do i need to manually clean these up??? What's the difference between unsubscribe() and remove()
         this.changeSub.unsubscribe();
     };
+    /**
+     * Set the current page number.
+     */
     PaginationControlsCmp.prototype.setCurrent = function (page) {
         this.service.setCurrentPage(this.id, page);
     };
+    /**
+     * Get the current page number.
+     */
     PaginationControlsCmp.prototype.getCurrent = function () {
         return this.service.getCurrentPage(this.id);
-    };
-    PaginationControlsCmp.prototype.setNext = function () {
     };
     /**
      * Returns an array of IPage objects to use in the pagination controls.

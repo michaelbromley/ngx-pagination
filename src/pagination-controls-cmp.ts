@@ -52,6 +52,9 @@ export class PaginationControlsCmp {
     constructor(private service: PaginationService) {
     }
 
+    /**
+     * Set up the subscription to the PaginationService.change observable.
+     */
     private ngOnInit() {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
@@ -70,16 +73,18 @@ export class PaginationControlsCmp {
         this.changeSub.unsubscribe();
     }
 
+    /**
+     * Set the current page number.
+     */
     public setCurrent(page: number) {
         this.service.setCurrentPage(this.id, page);
     }
 
+    /**
+     * Get the current page number.
+     */
     public getCurrent(): number {
         return this.service.getCurrentPage(this.id);
-    }
-
-    public setNext() {
-
     }
 
     /**

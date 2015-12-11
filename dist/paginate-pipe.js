@@ -14,29 +14,47 @@ var PaginatePipe = (function () {
         this.service = service;
     }
     PaginatePipe.prototype.transform = function (collection, args) {
-        var itemsPerPage = parseInt(args[0]);
-        var id = args[1] || this.service.defaultId;
+        var usingConfig = typeof args[0] === 'object';
+        var serverSideMode = usingConfig && args[0].totalItems !== undefined;
+        var instance; // = this.service.getInstance(id);
+        var id = usingConfig ? args[0].id : this.service.defaultId;
         var start, end;
-        var instance = this.service.getInstance(id);
-        if (!instance) {
-            this.service.register({
-                id: id,
-                itemsPerPage: itemsPerPage,
-                currentPage: 1,
-                totalItems: collection.length
-            });
-        }
-        else if (instance.totalItems !== collection.length) {
+        instance = this.createInstance(collection, args);
+        this.service.register(instance);
+        if (!usingConfig && instance.totalItems !== collection.length) {
             this.service.setTotalItems(id, collection.length);
         }
-        console.log('pagination pipe');
-        if (collection instanceof Array) {
+        var itemsPerPage = instance.itemsPerPage;
+        if (!serverSideMode && collection instanceof Array) {
             itemsPerPage = itemsPerPage || 9999999999;
             start = (this.service.getCurrentPage(id) - 1) * itemsPerPage;
             end = start + itemsPerPage;
             return collection.slice(start, end);
         }
         return collection;
+    };
+    PaginatePipe.prototype.createInstance = function (collection, args) {
+        var instance;
+        if (typeof args[0] === 'string' || typeof args[0] === 'number') {
+            instance = {
+                id: this.service.defaultId,
+                itemsPerPage: parseInt(args[0]),
+                currentPage: 1,
+                totalItems: collection.length
+            };
+        }
+        else if (typeof args[0] === 'object') {
+            instance = {
+                id: args[0].id || this.service.defaultId,
+                itemsPerPage: args[0].itemsPerPage,
+                currentPage: args[0].currentPage,
+                totalItems: args[0].totalItems || collection.length
+            };
+        }
+        else {
+            throw new Error("PaginatePipe: Argument must be a string, number or an object. Got " + typeof args[0]);
+        }
+        return instance;
     };
     PaginatePipe = __decorate([
         core_1.Pipe({

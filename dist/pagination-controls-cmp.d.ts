@@ -9,11 +9,19 @@ export declare class PaginationControlsCmp {
     private changeSub;
     pages: IPage[];
     constructor(service: PaginationService);
+    /**
+     * Set up the subscription to the PaginationService.change observable.
+     */
     private ngOnInit();
     private ngOnDestroy();
+    /**
+     * Set the current page number.
+     */
     setCurrent(page: number): void;
+    /**
+     * Get the current page number.
+     */
     getCurrent(): number;
-    setNext(): void;
     /**
      * Returns an array of IPage objects to use in the pagination controls.
      */

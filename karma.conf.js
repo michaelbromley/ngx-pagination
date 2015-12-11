@@ -39,12 +39,12 @@ module.exports = function(config) {
             // webpack configuration
             resolve: {
                 root: './src',
-                extensions: ['', '.js', '.ts'],
-                modulesDirectories: ['node_modules', 'src']
+                extensions: ['', '.ts', '.js'],
+                modulesDirectories: ['node_modules']
             },
             module: {
                 loaders: [
-                    {test: /\.ts$/, loader: 'ts?transpileOnly=true'}
+                    {test: /\.ts$/, loader: 'ts?configFileName=tsconfig.tests.json'}
                 ]
             }
         },

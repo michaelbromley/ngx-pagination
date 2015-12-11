@@ -26,7 +26,7 @@ import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagina
     selector: 'my-component',
     template: `
     <ul>
-      <li *ngFor="#item of collection | paginate: ITEMS_PER_PAGE : PAGINATION_ID"> ... </li>
+      <li *ngFor="#item of collection | paginate: [ITEMS_PER_PAGE or CONFIG_OBJECT] "> ... </li>
     <ul>
                
     <pagination-controls></pagination-controls>
@@ -49,6 +49,17 @@ export class MyComponent {
 
 }
 ```
+
+## API
+
+### PaginatePipe
+
+The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, which should be 
+either a `number` or an object confirming to `IPaginationInstance`. If the argument is a number, the number sets the
+value of `itemsPerPage`. 
+
+Using an object allows some more advanced configuration. See the [IPaginationInstance definition](./src/pagination-service.ts)
+for an explanation of the available properties.
 
 ## To Do
 

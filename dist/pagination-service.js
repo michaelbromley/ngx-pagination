@@ -17,23 +17,39 @@ var PaginationService = (function () {
         this.instances[instance.id] = instance;
         this.change.emit(instance.id);
     };
+    /**
+     * Returns the current page number.
+     */
     PaginationService.prototype.getCurrentPage = function (id) {
         if (this.instances[id]) {
             return this.instances[id].currentPage;
         }
     };
+    /**
+     * Sets the current page number.
+     */
     PaginationService.prototype.setCurrentPage = function (id, page) {
         if (this.instances[id]) {
-            this.instances[id].currentPage = page;
-            this.change.emit(id);
+            var instance = this.instances[id];
+            var maxPage = Math.floor(instance.totalItems / instance.itemsPerPage);
+            if (page <= maxPage && 1 <= page) {
+                this.instances[id].currentPage = page;
+                this.change.emit(id);
+            }
         }
     };
+    /**
+     * Sets the value of instance.totalItems
+     */
     PaginationService.prototype.setTotalItems = function (id, totalItems) {
-        if (this.instances[id]) {
+        if (this.instances[id] && 0 <= totalItems) {
             this.instances[id].totalItems = totalItems;
             this.change.emit(id);
         }
     };
+    /**
+     * Sets the value of instance.itemsPerPage.
+     */
     PaginationService.prototype.setItemsPerPage = function (id, itemsPerPage) {
         if (this.instances[id]) {
             this.instances[id].itemsPerPage = itemsPerPage;
