@@ -1,12 +1,19 @@
 # Angular2 Pagination
 
-This is a work-in-progress port of my [angular-utils-pagination](https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination)
+This is a **work-in-progress** port of my [angular-utils-pagination](https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination)
 module from Angular 1.x to Angular 2.
 
 Currently it is missing many features, but I hope to bring it eventually to full feature-parity with the 1.x version.
 
 The API will not quite be the same, and it should be significantly simpler and easier to develop than the 1.x version.
 
+## Installation
+
+I am currently working with TypeScript 1.7.3, so these instructions may not work with earlier versions.
+
+```
+npm install ng2-pagination --save
+```
 
 
 ## Example of usage
@@ -42,3 +49,18 @@ export class MyComponent {
 
 }
 ```
+
+## To Do
+
+The following features from the 1.x version have not yet been implemented:
+
+- Handling of multiple independent instances within the same component.
+- Server-side paging support
+- Page-change event support
+- Custom template support
+- Various style options for the pagination controls template
+
+
+## License
+
+MIT
