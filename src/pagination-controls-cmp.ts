@@ -8,7 +8,7 @@ export interface IPage {
 }
 
 @Component({
-    selector: 'kb-pagination-controls',
+    selector: 'pagination-controls',
     template: `
     <ul class="pagination" role="navigation" aria-label="Pagination">
 

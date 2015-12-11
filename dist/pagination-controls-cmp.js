@@ -103,8 +103,8 @@ var PaginationControlsCmp = (function () {
     ], PaginationControlsCmp.prototype, "id", void 0);
     PaginationControlsCmp = __decorate([
         angular2_1.Component({
-            selector: 'kb-pagination-controls',
-            template: "",
+            selector: 'pagination-controls',
+            template: "\n    <ul class=\"pagination\" role=\"navigation\" aria-label=\"Pagination\">\n\n        <li class=\"pagination-previous\" [class.disabled]=\"getCurrent() === 1\">\n            <a *ngIf=\"1 < getCurrent()\"\n               (click)=\"setCurrent(getCurrent() - 1)\" aria-label=\"Next page\">Previous <span class=\"show-for-sr\">page</span></a>\n            <span *ngIf=\"getCurrent() === 1\">Previous <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n        <li [class.current]=\"getCurrent() === page.value\" *ngFor=\"#page of pages\">\n            <a (click)=\"setCurrent(page.value)\" *ngIf=\"getCurrent() !== page.value\">\n                <span class=\"show-for-sr\">Page</span>\n                <span>{{ page.label }}</span>\n            </a>\n            <div *ngIf=\"getCurrent() === page.value\">\n                <span class=\"show-for-sr\">You're on page</span>\n                <span>{{ page.label }}</span>\n            </div>\n        </li>\n\n        <li class=\"pagination-next\" [class.disabled]=\"getCurrent() === pages.length\">\n            <a *ngIf=\"getCurrent() < pages.length\"\n               (click)=\"setCurrent(getCurrent() + 1)\" aria-label=\"Next page\">\n                Next <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"getCurrent() === pages.length\">Next <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n    </ul>\n    ",
             directives: [angular2_1.CORE_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [pagination_service_1.PaginationService])
