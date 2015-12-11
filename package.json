@@ -2,7 +2,7 @@
   "name": "ng2-pagination",
   "version": "0.0.1-alpha.1",
   "description": "Pagination for Angular2",
-  "main": "dist/ng2-pagination.js",
+  "main": "index.js",
   "scripts": {
     "build": "node node_modules/typescript/bin/tsc",
     "test": "node node_modules/karma/bin/karma start karma.conf.js"
