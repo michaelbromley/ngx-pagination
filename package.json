@@ -1,0 +1,33 @@
+{
+  "name": "ng2-pagination",
+  "version": "0.0.0",
+  "description": "Pagination for Angular2",
+  "main": "index.js",
+  "scripts": {
+    "build": "node node_modules/typescript/bin/tsc",
+    "test": "node node_modules/karma/bin/karma start karma.conf.js"
+  },
+  "keywords": [
+    "angular2",
+    "pagination"
+  ],
+  "author": "Michael Bromley <michael@michaelbromley.co.uk>",
+  "license": "MIT",
+  "devDependencies": {
+    "angular2": "^2.0.0-alpha.52",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.13",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.15",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-webpack": "^1.7.0",
+    "reflect-metadata": "^0.1.2",
+    "rxjs": "^5.0.0-alpha.14",
+    "ts-loader": "^0.7.2",
+    "typescript": "^1.7.3",
+    "webpack": "^1.12.9",
+    "zone.js": "^0.5.8"
+  },
+  "dependencies": {}
+}
