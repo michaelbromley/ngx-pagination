@@ -8,9 +8,7 @@ export interface IPage {
     value: any;
 }
 
-@Component({
-    selector: 'pagination-controls',
-    template: `
+const DEFAULT_TEMPLATE = `
     <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="!autoHide || pages.length === 0">
 
         <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
@@ -39,7 +37,15 @@ export interface IPage {
         </li>
 
     </ul>
-    `,
+    `;
+
+function getTemplate(): string {
+    return PaginationService.template || DEFAULT_TEMPLATE;
+}
+
+@Component({
+    selector: 'pagination-controls',
+    template: getTemplate(),
     directives: [CORE_DIRECTIVES]
 })
 export class PaginationControlsCmp {
