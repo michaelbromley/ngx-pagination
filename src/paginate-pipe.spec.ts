@@ -50,24 +50,49 @@ describe('paginate pipe', () => {
 
     describe('config object argument', () => {
 
-        let config: IPaginationInstance;
-
-        beforeEach(() => {
-            config = {
+        it('should allow independent instances by setting an id', () => {
+            let config1 = {
+                id: 'first_one',
                 itemsPerPage: 10,
-                currentPage: 1,
-                totalItems: 500
+                currentPage: 1
             };
+            let config2 = {
+                id: 'other_one',
+                itemsPerPage: 50,
+                currentPage: 2
+            };
+            let result1 = pipe.transform(collection, [config1]);
+            let result2 = pipe.transform(collection, [config2]);
 
-            collection = collection.slice(0, 10);
+            expect(result1.length).toBe(10);
+            expect(result1[0]).toBe('item 0');
+            expect(result1[9]).toBe('item 9');
+
+            expect(result2.length).toBe(50);
+            expect(result2[0]).toBe('item 50');
+            expect(result2[49]).toBe('item 99');
         });
 
-        it('should truncate collection', () => {
-            let result = pipe.transform(collection, [config]);
+        describe('server-side pagination', () => {
+            let config: IPaginationInstance;
 
-            expect(result.length).toBe(10);
-            expect(result[0]).toBe('item 0');
-            expect(result[9]).toBe('item 9');
+            beforeEach(() => {
+                config = {
+                    itemsPerPage: 10,
+                    currentPage: 1,
+                    totalItems: 500
+                };
+
+                collection = collection.slice(0, 10);
+            });
+
+            it('should truncate collection', () => {
+                let result = pipe.transform(collection, [config]);
+
+                expect(result.length).toBe(10);
+                expect(result[0]).toBe('item 0');
+                expect(result[9]).toBe('item 9');
+            });
         });
 
     });
