@@ -1,4 +1,5 @@
-import {Component, Input, CORE_DIRECTIVES} from 'angular2/angular2'
+import {Component, Input} from 'angular2/core'
+import {CORE_DIRECTIVES} from 'angular2/common'
 import {Subscription} from 'rxjs';
 import {PaginationService} from "./pagination-service";
 
@@ -45,6 +46,8 @@ export class PaginationControlsCmp {
 
     @Input()
     private id: string;
+
+
 
     private changeSub: Subscription<string>;
     public pages: IPage[] = [];

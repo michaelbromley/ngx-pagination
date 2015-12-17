@@ -1,7 +1,7 @@
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
 var PaginationService = (function () {
     function PaginationService() {
-        this.change = new angular2_1.EventEmitter();
+        this.change = new core_1.EventEmitter();
         this.instances = {};
         this.DEFAULT_ID = 'DEFAULT_PAGINATION_ID';
     }

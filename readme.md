@@ -19,7 +19,8 @@ npm install ng2-pagination --save
 ## Example of usage
 
 ```TypeScript
-import {Component, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component} from 'angular2/core';
+import {CORE_DIRECTIVES} from 'angular2/common';
 import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagination';
 
 @Component({

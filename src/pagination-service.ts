@@ -1,4 +1,4 @@
-import {EventEmitter} from 'angular2/angular2'
+import {EventEmitter} from 'angular2/core'
 
 export interface IPaginationInstance {
     /**
