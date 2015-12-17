@@ -32,7 +32,7 @@ export interface IPage {
         </li>
 
         <li class="pagination-next" [class.disabled]="isLastPage()" *ngIf="directionLinks">
-            <a *ngIf="getCurrent() < pages.length" (click)="setCurrent(getCurrent() + 1)" aria-label="Next page">
+            <a *ngIf="!isLastPage()" (click)="setCurrent(getCurrent() + 1)" aria-label="Next page">
                 Next <span class="show-for-sr">page</span>
             </a>
             <span *ngIf="isLastPage()">Next <span class="show-for-sr">page</span></span>
@@ -107,6 +107,8 @@ export class PaginationControlsCmp {
      * Returns an array of IPage objects to use in the pagination controls.
      */
     private createPageArray(currentPage: number, itemsPerPage: number, totalItems: number, paginationRange: number): IPage[] {
+        // paginationRange could be a string if passed from attribute, so cast to number.
+        paginationRange = +paginationRange;
         let pages = [];
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         const halfWay = Math.ceil(paginationRange / 2);
