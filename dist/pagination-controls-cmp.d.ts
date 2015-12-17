@@ -6,7 +6,10 @@ export interface IPage {
 }
 export declare class PaginationControlsCmp {
     private service;
-    private id;
+    id: string;
+    maxSize: number;
+    directionLinks: boolean;
+    autoHide: boolean;
     pageChange: EventEmitter<number>;
     private changeSub;
     pages: IPage[];
@@ -24,10 +27,12 @@ export declare class PaginationControlsCmp {
      * Get the current page number.
      */
     getCurrent(): number;
+    isFirstPage(): boolean;
+    isLastPage(): boolean;
     /**
      * Returns an array of IPage objects to use in the pagination controls.
      */
-    private createPageArray(currentPage, itemsPerPage, totalItems, paginationRange?);
+    private createPageArray(currentPage, itemsPerPage, totalItems, paginationRange);
     /**
      * Given the position in the sequence of pagination links [i],
      * figure out what page number corresponds to that position.

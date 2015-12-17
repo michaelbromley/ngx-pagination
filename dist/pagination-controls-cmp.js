@@ -13,6 +13,9 @@ var pagination_service_1 = require("./pagination-service");
 var PaginationControlsCmp = (function () {
     function PaginationControlsCmp(service) {
         this.service = service;
+        this.maxSize = 7;
+        this.directionLinks = true;
+        this.autoHide = false;
         this.pageChange = new core_1.EventEmitter();
         this.pages = [];
     }
@@ -27,8 +30,8 @@ var PaginationControlsCmp = (function () {
         this.changeSub = this.service.change
             .filter(function (id) { return _this.id === id; })
             .subscribe(function () {
-            var instance = _this.service.getInstance(_this.id);
-            _this.pages = _this.createPageArray(instance.currentPage, instance.itemsPerPage, instance.totalItems);
+            var inst = _this.service.getInstance(_this.id);
+            _this.pages = _this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, _this.maxSize);
         });
     };
     PaginationControlsCmp.prototype.ngOnDestroy = function () {
@@ -48,11 +51,17 @@ var PaginationControlsCmp = (function () {
     PaginationControlsCmp.prototype.getCurrent = function () {
         return this.service.getCurrentPage(this.id);
     };
+    PaginationControlsCmp.prototype.isFirstPage = function () {
+        return this.getCurrent() === 1;
+    };
+    PaginationControlsCmp.prototype.isLastPage = function () {
+        var inst = this.service.getInstance(this.id);
+        return Math.ceil(inst.totalItems / inst.itemsPerPage) === inst.currentPage;
+    };
     /**
      * Returns an array of IPage objects to use in the pagination controls.
      */
     PaginationControlsCmp.prototype.createPageArray = function (currentPage, itemsPerPage, totalItems, paginationRange) {
-        if (paginationRange === void 0) { paginationRange = 5; }
         var pages = [];
         var totalPages = Math.ceil(totalItems / itemsPerPage);
         var halfWay = Math.ceil(paginationRange / 2);
@@ -112,13 +121,25 @@ var PaginationControlsCmp = (function () {
         __metadata('design:type', String)
     ], PaginationControlsCmp.prototype, "id", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], PaginationControlsCmp.prototype, "maxSize", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], PaginationControlsCmp.prototype, "directionLinks", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], PaginationControlsCmp.prototype, "autoHide", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
     ], PaginationControlsCmp.prototype, "pageChange", void 0);
     PaginationControlsCmp = __decorate([
         core_1.Component({
             selector: 'pagination-controls',
-            template: "\n    <ul class=\"pagination\" role=\"navigation\" aria-label=\"Pagination\">\n\n        <li class=\"pagination-previous\" [class.disabled]=\"getCurrent() === 1\">\n            <a *ngIf=\"1 < getCurrent()\"\n               (click)=\"setCurrent(getCurrent() - 1)\" aria-label=\"Next page\">Previous <span class=\"show-for-sr\">page</span></a>\n            <span *ngIf=\"getCurrent() === 1\">Previous <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n        <li [class.current]=\"getCurrent() === page.value\" *ngFor=\"#page of pages\">\n            <a (click)=\"setCurrent(page.value)\" *ngIf=\"getCurrent() !== page.value\">\n                <span class=\"show-for-sr\">Page</span>\n                <span>{{ page.label }}</span>\n            </a>\n            <div *ngIf=\"getCurrent() === page.value\">\n                <span class=\"show-for-sr\">You're on page</span>\n                <span>{{ page.label }}</span>\n            </div>\n        </li>\n\n        <li class=\"pagination-next\" [class.disabled]=\"getCurrent() === pages.length\">\n            <a *ngIf=\"getCurrent() < pages.length\"\n               (click)=\"setCurrent(getCurrent() + 1)\" aria-label=\"Next page\">\n                Next <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"getCurrent() === pages.length\">Next <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n    </ul>\n    ",
+            template: "\n    <ul class=\"pagination\" role=\"navigation\" aria-label=\"Pagination\" *ngIf=\"!autoHide || pages.length === 0\">\n\n        <li class=\"pagination-previous\" [class.disabled]=\"isFirstPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"1 < getCurrent()\" (click)=\"setCurrent(getCurrent() - 1)\" aria-label=\"Next page\">\n                Previous <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isFirstPage()\">Previous <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n        <li [class.current]=\"getCurrent() === page.value\" *ngFor=\"#page of pages\">\n            <a (click)=\"setCurrent(page.value)\" *ngIf=\"getCurrent() !== page.value\">\n                <span class=\"show-for-sr\">Page</span>\n                <span>{{ page.label }}</span>\n            </a>\n            <div *ngIf=\"getCurrent() === page.value\">\n                <span class=\"show-for-sr\">You're on page</span>\n                <span>{{ page.label }}</span>\n            </div>\n        </li>\n\n        <li class=\"pagination-next\" [class.disabled]=\"isLastPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"getCurrent() < pages.length\" (click)=\"setCurrent(getCurrent() + 1)\" aria-label=\"Next page\">\n                Next <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isLastPage()\">Next <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n    </ul>\n    ",
             directives: [common_1.CORE_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [pagination_service_1.PaginationService])

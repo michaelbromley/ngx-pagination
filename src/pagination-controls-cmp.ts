@@ -11,12 +11,13 @@ export interface IPage {
 @Component({
     selector: 'pagination-controls',
     template: `
-    <ul class="pagination" role="navigation" aria-label="Pagination">
+    <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="!autoHide || pages.length === 0">
 
-        <li class="pagination-previous" [class.disabled]="getCurrent() === 1">
-            <a *ngIf="1 < getCurrent()"
-               (click)="setCurrent(getCurrent() - 1)" aria-label="Next page">Previous <span class="show-for-sr">page</span></a>
-            <span *ngIf="getCurrent() === 1">Previous <span class="show-for-sr">page</span></span>
+        <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
+            <a *ngIf="1 < getCurrent()" (click)="setCurrent(getCurrent() - 1)" aria-label="Next page">
+                Previous <span class="show-for-sr">page</span>
+            </a>
+            <span *ngIf="isFirstPage()">Previous <span class="show-for-sr">page</span></span>
         </li>
 
         <li [class.current]="getCurrent() === page.value" *ngFor="#page of pages">
@@ -30,12 +31,11 @@ export interface IPage {
             </div>
         </li>
 
-        <li class="pagination-next" [class.disabled]="getCurrent() === pages.length">
-            <a *ngIf="getCurrent() < pages.length"
-               (click)="setCurrent(getCurrent() + 1)" aria-label="Next page">
+        <li class="pagination-next" [class.disabled]="isLastPage()" *ngIf="directionLinks">
+            <a *ngIf="getCurrent() < pages.length" (click)="setCurrent(getCurrent() + 1)" aria-label="Next page">
                 Next <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="getCurrent() === pages.length">Next <span class="show-for-sr">page</span></span>
+            <span *ngIf="isLastPage()">Next <span class="show-for-sr">page</span></span>
         </li>
 
     </ul>
@@ -44,11 +44,12 @@ export interface IPage {
 })
 export class PaginationControlsCmp {
 
-    @Input()
-    private id: string;
+    @Input() id: string;
+    @Input() maxSize: number = 7;
+    @Input() directionLinks: boolean = true;
+    @Input() autoHide: boolean = false;
 
-    @Output()
-    public pageChange: EventEmitter<number> = new EventEmitter();
+    @Output() pageChange: EventEmitter<number> = new EventEmitter();
 
 
     private changeSub: Subscription<string>;
@@ -68,8 +69,8 @@ export class PaginationControlsCmp {
         this.changeSub = this.service.change
             .filter(id => this.id === id)
             .subscribe(() => {
-                let instance = this.service.getInstance(this.id);
-                this.pages = this.createPageArray(instance.currentPage, instance.itemsPerPage, instance.totalItems);
+                let inst = this.service.getInstance(this.id);
+                this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
             });
     }
 
@@ -93,10 +94,19 @@ export class PaginationControlsCmp {
         return this.service.getCurrentPage(this.id);
     }
 
+    public isFirstPage(): boolean {
+        return this.getCurrent() === 1;
+    }
+
+    public isLastPage(): boolean {
+        let inst = this.service.getInstance(this.id);
+        return Math.ceil(inst.totalItems / inst.itemsPerPage) === inst.currentPage;
+    }
+
     /**
      * Returns an array of IPage objects to use in the pagination controls.
      */
-    private createPageArray(currentPage: number, itemsPerPage: number, totalItems: number, paginationRange: number = 5): IPage[] {
+    private createPageArray(currentPage: number, itemsPerPage: number, totalItems: number, paginationRange: number): IPage[] {
         let pages = [];
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         const halfWay = Math.ceil(paginationRange / 2);
