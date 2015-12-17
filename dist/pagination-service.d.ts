@@ -28,6 +28,8 @@ export declare class PaginationService {
     private instances;
     private DEFAULT_ID;
     defaultId: string;
+    static templateUrl: string;
+    static template: string;
     register(instance: IPaginationInstance): void;
     /**
      * Returns the current page number.
