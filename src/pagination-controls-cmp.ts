@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core'
+import {Component, Input, Output, EventEmitter} from 'angular2/core'
 import {CORE_DIRECTIVES} from 'angular2/common'
 import {Subscription} from 'rxjs';
 import {PaginationService} from "./pagination-service";
@@ -47,6 +47,8 @@ export class PaginationControlsCmp {
     @Input()
     private id: string;
 
+    @Output()
+    public pageChange: EventEmitter<number> = new EventEmitter();
 
 
     private changeSub: Subscription<string>;
@@ -81,6 +83,7 @@ export class PaginationControlsCmp {
      */
     public setCurrent(page: number) {
         this.service.setCurrentPage(this.id, page);
+        this.pageChange.emit(this.service.getCurrentPage(this.id));
     }
 
     /**

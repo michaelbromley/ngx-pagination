@@ -1,3 +1,4 @@
+import { EventEmitter } from 'angular2/core';
 import { PaginationService } from "./pagination-service";
 export interface IPage {
     label: string;
@@ -6,6 +7,7 @@ export interface IPage {
 export declare class PaginationControlsCmp {
     private service;
     private id;
+    pageChange: EventEmitter<number>;
     private changeSub;
     pages: IPage[];
     constructor(service: PaginationService);

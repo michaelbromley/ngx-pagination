@@ -13,6 +13,7 @@ var pagination_service_1 = require("./pagination-service");
 var PaginationControlsCmp = (function () {
     function PaginationControlsCmp(service) {
         this.service = service;
+        this.pageChange = new core_1.EventEmitter();
         this.pages = [];
     }
     /**
@@ -39,6 +40,7 @@ var PaginationControlsCmp = (function () {
      */
     PaginationControlsCmp.prototype.setCurrent = function (page) {
         this.service.setCurrentPage(this.id, page);
+        this.pageChange.emit(this.service.getCurrentPage(this.id));
     };
     /**
      * Get the current page number.
@@ -109,6 +111,10 @@ var PaginationControlsCmp = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], PaginationControlsCmp.prototype, "id", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], PaginationControlsCmp.prototype, "pageChange", void 0);
     PaginationControlsCmp = __decorate([
         core_1.Component({
             selector: 'pagination-controls',

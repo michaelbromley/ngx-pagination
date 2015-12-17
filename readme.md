@@ -66,9 +66,9 @@ for an explanation of the available properties.
 
 The following features from the 1.x version have not yet been implemented:
 
-- Handling of multiple independent instances within the same component.
-- Server-side paging support
-- Page-change event support
+- ~~Handling of multiple independent instances within the same component.~~
+- ~~Server-side paging support~~
+- ~~Page-change event support~~
 - Custom template support
 - Various style options for the pagination controls template
 - Full test suite
