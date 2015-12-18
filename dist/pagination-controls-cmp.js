@@ -149,6 +149,10 @@ var PaginationControlsCmp = (function () {
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
     ], PaginationControlsCmp.prototype, "pageChange", void 0);
+    __decorate([
+        core_1.ContentChild(core_1.TemplateRef), 
+        __metadata('design:type', Object)
+    ], PaginationControlsCmp.prototype, "itemTmpl", void 0);
     PaginationControlsCmp = __decorate([
         core_1.Component({
             selector: 'pagination-controls',

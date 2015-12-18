@@ -2,6 +2,8 @@ import {Pipe} from "angular2/core";
 import {PaginationService} from "./pagination-service";
 import {IPaginationInstance} from "../dist/pagination-service";
 
+const LARGE_NUMBER = 999999999;
+
 interface IPipeState {
     collection: any[];
     start: number;
@@ -36,7 +38,7 @@ export class PaginatePipe {
         }
         let itemsPerPage = instance.itemsPerPage;
         if (!serverSideMode && collection instanceof Array) {
-            itemsPerPage = itemsPerPage || 9999999999;
+            itemsPerPage = itemsPerPage || LARGE_NUMBER;
             start = (this.service.getCurrentPage(id) - 1) * itemsPerPage;
             end = start + itemsPerPage;
 
@@ -65,7 +67,7 @@ export class PaginatePipe {
         } else if (typeof args[0] === 'object') {
             instance = {
                 id: args[0].id || this.service.defaultId,
-                itemsPerPage: args[0].itemsPerPage,
+                itemsPerPage: args[0].itemsPerPage || 0,
                 currentPage: args[0].currentPage,
                 totalItems: args[0].totalItems || collection.length
             };

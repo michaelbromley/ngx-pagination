@@ -11,6 +11,7 @@ export declare class PaginationControlsCmp {
     directionLinks: boolean;
     autoHide: boolean;
     pageChange: EventEmitter<number>;
+    itemTmpl: any;
     private changeSub;
     pages: IPage[];
     constructor(service: PaginationService);

@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core'
+import {Component, Input, Output, EventEmitter, ContentChild, TemplateRef} from 'angular2/core'
 import {CORE_DIRECTIVES} from 'angular2/common'
 import {Subscription} from 'rxjs';
 import {PaginationService} from "./pagination-service";
@@ -56,6 +56,8 @@ export class PaginationControlsCmp {
     @Input() autoHide: boolean = false;
 
     @Output() pageChange: EventEmitter<number> = new EventEmitter();
+
+    @ContentChild(TemplateRef) itemTmpl;
 
 
     private changeSub: Subscription<string>;

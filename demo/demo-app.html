@@ -34,6 +34,17 @@
         <div class="code-container" [class.expanded]="showAdvanced">
             <pre><code>{{ advancedCode }}</code></pre>
         </div>
+
+        <h2>Custom Template Example</h2>
+        <div class="callout">
+            <custom-template-example [data]="meals"></custom-template-example>
+            <button type="button" class="button" (click)="showAdvanced = !showAdvanced">
+                View Code
+            </button>
+        </div>
+        <div class="code-container" [class.expanded]="showAdvanced">
+            <pre><code>{{ advancedCode }}</code></pre>
+        </div>
     </div>
 </div>
 
