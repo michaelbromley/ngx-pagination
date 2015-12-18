@@ -1,0 +1,13 @@
+.meal-list {
+    padding-left: 30px;
+}
+
+.code-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.code-container.expanded {
+    max-height: 1000px;
+}

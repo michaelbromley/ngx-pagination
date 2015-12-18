@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <title>ng2-pagination demo</title>
+
+    <!-- 1. Load libraries -->
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.js"></script>
+    <script src="node_modules/typescript/lib/typescript.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.min.js"></script>
+    <script src="node_modules/angular2/bundles/http.min.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.min.js"></script>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github-gist.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="node_modules/foundation-sites/dist/foundation.min.css">
+    <link rel="stylesheet" href="demo/style.css">
+
+    <!-- 2. Configure SystemJS -->
+    <script>
+        System.config({
+            transpiler: 'typescript',
+            typescriptOptions: {
+                emitDecoratorMetadata: true
+            },
+            packages: {
+                demo: {
+                    main: './demo-app.ts',
+                    defaultExtension: 'ts'
+                },
+                src: {
+                    defaultExtension: 'ts'
+                }
+
+            }
+        });
+        System.import('demo/demo-app.ts')
+                .then(null, console.error.bind(console));
+
+    </script>
+
+</head>
+
+<!-- 3. Display the application -->
+<body>
+<demo-app>Loading...</demo-app>
+</body>
+
+</html>

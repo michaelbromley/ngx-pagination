@@ -1,0 +1,39 @@
+<div class="row">
+    <div class=" large-offset-2 large-8 columns">
+        <h1>ng2-pagination <small><a href="https://github.com/michaelbromley/ng2-pagination">GitHub Repo</a></small></h1>
+        <h4>
+            Pagination for Angular2, from the creator of
+            <a href="https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination">angular-utils-pagination</a>.
+        </h4>
+        <p>This is a work-in-progress port of my popular Angular 1.x pagination module. Docs can be found
+            <a href="https://github.com/michaelbromley/ng2-pagination">in the GitHub repo</a>. Feedback and contributions welcome.
+            [ <a href="http://www.michaelbromley.co.uk">blog</a> / <a href="https://twitter.com/michlbrmly">twitter</a> ]
+        </p>
+
+        <h2>Basic Example</h2>
+        <div class="callout">
+            <basic-example [data]="meals"></basic-example>
+            <button type="button" class="button" (click)="showBasic = !showBasic">
+                View Code
+            </button>
+        </div>
+
+        <div class="code-container" [class.expanded]="showBasic">
+            <pre><code>{{ basicCode }}</code></pre>
+        </div>
+
+        <hr>
+
+        <h2>Advanced Example</h2>
+        <div class="callout">
+            <advanced-example [data]="meals"></advanced-example>
+            <button type="button" class="button" (click)="showAdvanced = !showAdvanced">
+                View Code
+            </button>
+        </div>
+        <div class="code-container" [class.expanded]="showAdvanced">
+            <pre><code>{{ advancedCode }}</code></pre>
+        </div>
+    </div>
+</div>
+
