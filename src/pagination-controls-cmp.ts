@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ContentChild, TemplateRef} from 'angular2/core'
+import {Component, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewContainerRef} from 'angular2/core'
 import {CORE_DIRECTIVES} from 'angular2/common'
 import {Subscription} from 'rxjs';
 import {PaginationService} from "./pagination-service";
@@ -9,7 +9,7 @@ export interface IPage {
 }
 
 const DEFAULT_TEMPLATE = `
-    <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="!autoHide || 1 < pages.length">
+    <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="displayDefaultTemplate()">
 
         <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
             <a *ngIf="1 < getCurrent()" (click)="setCurrent(getCurrent() - 1)" aria-label="Next page">
@@ -57,13 +57,14 @@ export class PaginationControlsCmp {
 
     @Output() pageChange: EventEmitter<number> = new EventEmitter();
 
-    @ContentChild(TemplateRef) itemTmpl;
+    @ContentChild(TemplateRef) customTemplate;
 
 
     private changeSub: Subscription<string>;
     public pages: IPage[] = [];
 
-    constructor(private service: PaginationService) {
+    constructor(private service: PaginationService,
+                private viewContainer: ViewContainerRef) {
         this.changeSub = this.service.change
             .subscribe(id => {
                 if (this.id === id) {
@@ -72,13 +73,16 @@ export class PaginationControlsCmp {
             });
     }
 
-    ngOnChanges() {
-        this.updatePages();
-    }
-
     private updatePages() {
         let inst = this.service.getInstance(this.id);
         this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+    }
+
+    public displayDefaultTemplate(): boolean {
+        if (this.customTemplate !== null) {
+            return false;
+        }
+        return !this.autoHide || 1 < this.pages.length;
     }
 
     /**
@@ -88,6 +92,16 @@ export class PaginationControlsCmp {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
         }
+    }
+
+    private ngAfterContentInit () {
+        if (this.customTemplate !== null) {
+            this.viewContainer.createEmbeddedView(this.customTemplate);
+        }
+    }
+
+    private ngOnChanges() {
+        this.updatePages();
     }
 
     private ngOnDestroy() {
