@@ -45,9 +45,28 @@ export class PaginationService {
 
         if (!this.instances[instance.id]) {
             this.instances[instance.id] = instance;
+            this.change.emit(instance.id);
         } else {
-            Object.assign(this.instances[instance.id], instance);
+            let changed = this.updateInstance(instance);
+            if (changed) {
+                this.change.emit(instance.id);
+            }
         }
+    }
+
+    /**
+     * Check each property of the instance and update any that have changed. Return
+     * true if any changes were made, else return false.
+     */
+    private updateInstance(instance: IPaginationInstance): boolean {
+        let changed = false;
+        for (let prop in this.instances[instance.id]) {
+            if (instance[prop] !== this.instances[instance.id][prop]) {
+                this.instances[instance.id][prop] = instance[prop];
+                changed = true;
+            }
+        }
+        return changed;
     }
 
     /**

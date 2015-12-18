@@ -32,6 +32,11 @@ export declare class PaginationService {
     static template: string;
     register(instance: IPaginationInstance): void;
     /**
+     * Check each property of the instance and update any that have changed. Return
+     * true if any changes were made, else return false.
+     */
+    private updateInstance(instance);
+    /**
      * Returns the current page number.
      */
     getCurrentPage(id: string): number;

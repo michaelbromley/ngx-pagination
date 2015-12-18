@@ -14,6 +14,8 @@ export declare class PaginationControlsCmp {
     private changeSub;
     pages: IPage[];
     constructor(service: PaginationService);
+    ngOnChanges(): void;
+    private updatePages();
     /**
      * Set up the subscription to the PaginationService.change observable.
      */

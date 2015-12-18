@@ -9,7 +9,7 @@ export interface IPage {
 }
 
 const DEFAULT_TEMPLATE = `
-    <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="!autoHide || pages.length === 0">
+    <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="!autoHide || 1 < pages.length">
 
         <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
             <a *ngIf="1 < getCurrent()" (click)="setCurrent(getCurrent() - 1)" aria-label="Next page">
@@ -62,6 +62,21 @@ export class PaginationControlsCmp {
     public pages: IPage[] = [];
 
     constructor(private service: PaginationService) {
+        this.changeSub = this.service.change
+            .subscribe(id => {
+                if (this.id === id) {
+                    this.updatePages();
+                }
+            });
+    }
+
+    ngOnChanges() {
+        this.updatePages();
+    }
+
+    private updatePages() {
+        let inst = this.service.getInstance(this.id);
+        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
     }
 
     /**
@@ -71,14 +86,6 @@ export class PaginationControlsCmp {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
         }
-
-        this.changeSub = this.service.change
-            .subscribe(id => {
-                if (this.id === id) {
-                    let inst = this.service.getInstance(this.id);
-                    this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
-                }
-            });
     }
 
     private ngOnDestroy() {
