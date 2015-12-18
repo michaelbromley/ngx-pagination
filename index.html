@@ -3,21 +3,19 @@
 <head>
     <title>ng2-pagination demo</title>
 
-    <!-- 1. Load libraries -->
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="node_modules/systemjs/dist/system.js"></script>
-    <script src="node_modules/typescript/lib/typescript.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.min.js"></script>
-    <script src="node_modules/angular2/bundles/http.min.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.min.js"></script>
-
+    <script src="//code.angularjs.org/2.0.0-beta.0/angular2-polyfills.js"></script>
+    <script src="//code.angularjs.org/tools/system.js"></script>
+    <script src="//code.angularjs.org/tools/typescript.js"></script>
+    <script src="//code.angularjs.org/2.0.0-beta.0/Rx.js"></script>
+    <script src="//code.angularjs.org/2.0.0-beta.0/angular2.min.js"></script>
+    <script src="//code.angularjs.org/2.0.0-beta.0/http.min.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github-gist.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
 
-    <link rel="stylesheet" href="node_modules/foundation-sites/dist/foundation.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/6.0.5/css/foundation.min.css">
     <link rel="stylesheet" href="demo/style.css">
 
-    <!-- 2. Configure SystemJS -->
+
     <script>
         System.config({
             transpiler: 'typescript',
@@ -42,9 +40,10 @@
 
 </head>
 
-<!-- 3. Display the application -->
 <body>
-<demo-app>Loading...</demo-app>
+<demo-app>
+    <div class="loading">Loading...</div>
+</demo-app>
 </body>
 
 </html>

@@ -29,8 +29,6 @@
     "angular2": "^2.0.0-beta.0",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.13",
-    "foundation-sites": "^6.0.6",
-    "highlight.js": "^9.0.0",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.15",
     "karma-chrome-launcher": "^0.2.2",
@@ -44,6 +42,5 @@
     "zone.js": "^0.5.10"
   },
   "dependencies": {
-    "systemjs": "^0.19.9"
   }
 }
