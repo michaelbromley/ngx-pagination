@@ -53,7 +53,7 @@ var PaginationService = (function () {
     PaginationService.prototype.setCurrentPage = function (id, page) {
         if (this.instances[id]) {
             var instance = this.instances[id];
-            var maxPage = Math.floor(instance.totalItems / instance.itemsPerPage);
+            var maxPage = Math.ceil(instance.totalItems / instance.itemsPerPage);
             if (page <= maxPage && 1 <= page) {
                 this.instances[id].currentPage = page;
                 this.change.emit(id);
