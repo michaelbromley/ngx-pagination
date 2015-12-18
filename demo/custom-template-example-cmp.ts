@@ -4,13 +4,13 @@ import {PaginatePipe, PaginationControlsCmp, IPaginationInstance} from '../src/n
 
 
 @Component({
-    selector: 'basic-example',
-    templateUrl: 'demo/basic-example-cmp.html',
+    selector: 'custom-template-example',
+    templateUrl: 'demo/custom-template-example-cmp.html',
     directives: [PaginationControlsCmp],
     pipes: [PaginatePipe],
     providers: [CORE_DIRECTIVES]
 })
-export class BasicExampleCmp {
+export class CustomTemplateExampleCmp {
 
     @Input('data') meals: string[] = [];
 

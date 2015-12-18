@@ -5,13 +5,14 @@ import {bootstrap} from "angular2/platform/browser";
 import {BasicExampleCmp} from "./basic-example-cmp";
 import {PaginationService} from "../src/ng2-pagination";
 import {AdvancedExampleCmp} from "./advanced-example-cmp";
+import {CustomTemplateExampleCmp} from "./custom-template-example-cmp";
 
 declare var hljs: any;
 
 @Component({
     selector: 'demo-app',
     templateUrl: 'demo/demo-app.html',
-    directives: [BasicExampleCmp, AdvancedExampleCmp],
+    directives: [BasicExampleCmp, AdvancedExampleCmp, CustomTemplateExampleCmp],
     providers: [CORE_DIRECTIVES]
 })
 class DemoApp {
@@ -19,6 +20,7 @@ class DemoApp {
     public meals: string[] = [];
     public basicCode: string = '';
     public advancedCode: string = '';
+    public customTemplateCode: string = '';
 
     constructor(private http: Http) {}
 
@@ -26,6 +28,7 @@ class DemoApp {
         this.meals = this.generateMeals();
         this.loadCodeSnippet('basicCode', 'demo/basic-example-cmp.html');
         this.loadCodeSnippet('advancedCode', 'demo/advanced-example-cmp.html');
+        this.loadCodeSnippet('customTemplateCode', 'demo/custom-template-example-cmp.html');
     }
 
     /**

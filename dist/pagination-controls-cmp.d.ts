@@ -1,4 +1,4 @@
-import { EventEmitter } from 'angular2/core';
+import { EventEmitter, ViewContainerRef } from 'angular2/core';
 import { PaginationService } from "./pagination-service";
 export interface IPage {
     label: string;
@@ -6,20 +6,24 @@ export interface IPage {
 }
 export declare class PaginationControlsCmp {
     private service;
+    private viewContainer;
     id: string;
     maxSize: number;
     directionLinks: boolean;
     autoHide: boolean;
     pageChange: EventEmitter<number>;
+    customTemplate: any;
     private changeSub;
     pages: IPage[];
-    constructor(service: PaginationService);
-    ngOnChanges(): void;
+    constructor(service: PaginationService, viewContainer: ViewContainerRef);
     private updatePages();
+    displayDefaultTemplate(): boolean;
     /**
      * Set up the subscription to the PaginationService.change observable.
      */
     private ngOnInit();
+    private ngAfterContentInit();
+    private ngOnChanges();
     private ngOnDestroy();
     /**
      * Set the current page number.

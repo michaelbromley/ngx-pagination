@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("angular2/core");
 var pagination_service_1 = require("./pagination-service");
+var LARGE_NUMBER = 999999999;
 var PaginatePipe = (function () {
     function PaginatePipe(service) {
         this.service = service;
@@ -28,7 +29,7 @@ var PaginatePipe = (function () {
         }
         var itemsPerPage = instance.itemsPerPage;
         if (!serverSideMode && collection instanceof Array) {
-            itemsPerPage = itemsPerPage || 9999999999;
+            itemsPerPage = itemsPerPage || LARGE_NUMBER;
             start = (this.service.getCurrentPage(id) - 1) * itemsPerPage;
             end = start + itemsPerPage;
             var isIdentical = this.stateIsIdentical(id, collection, start, end);
@@ -57,7 +58,7 @@ var PaginatePipe = (function () {
         else if (typeof args[0] === 'object') {
             instance = {
                 id: args[0].id || this.service.defaultId,
-                itemsPerPage: args[0].itemsPerPage,
+                itemsPerPage: args[0].itemsPerPage || 0,
                 currentPage: args[0].currentPage,
                 totalItems: args[0].totalItems || collection.length
             };
