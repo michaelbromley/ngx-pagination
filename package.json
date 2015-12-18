@@ -7,6 +7,11 @@
     "build": "node node_modules/typescript/bin/tsc",
     "test": "node node_modules/karma/bin/karma start karma.conf.js"
   },
+  "files": [
+    "dist",
+    "index.js",
+    "index.d.ts"
+  ],
   "keywords": [
     "angular2",
     "pagination"
@@ -24,7 +29,9 @@
     "angular2": "^2.0.0-beta.0",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.13",
+    "foundation-sites": "^6.0.6",
     "jasmine-core": "^2.4.1",
+    "jquery": "^2.1.4",
     "karma": "^0.13.15",
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.6",
@@ -36,5 +43,7 @@
     "webpack": "^1.12.9",
     "zone.js": "^0.5.10"
   },
-  "dependencies": {}
+  "dependencies": {
+    "systemjs": "^0.19.9"
+  }
 }

@@ -42,8 +42,12 @@ export class PaginationService {
         if (!instance.id) {
             instance.id = this.DEFAULT_ID;
         }
-        this.instances[instance.id] = instance;
-        this.change.emit(instance.id);
+
+        if (!this.instances[instance.id]) {
+            this.instances[instance.id] = instance;
+        } else {
+            Object.assign(this.instances[instance.id], instance);
+        }
     }
 
     /**
@@ -61,7 +65,7 @@ export class PaginationService {
     public setCurrentPage(id: string, page: number) {
         if (this.instances[id]) {
             let instance = this.instances[id];
-            let maxPage = Math.floor(instance.totalItems / instance.itemsPerPage)
+            let maxPage = Math.floor(instance.totalItems / instance.itemsPerPage);
             if (page <= maxPage && 1 <= page) {
                 this.instances[id].currentPage = page;
                 this.change.emit(id);

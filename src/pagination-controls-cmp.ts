@@ -73,10 +73,11 @@ export class PaginationControlsCmp {
         }
 
         this.changeSub = this.service.change
-            .filter(id => this.id === id)
-            .subscribe(() => {
-                let inst = this.service.getInstance(this.id);
-                this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+            .subscribe(id => {
+                if (this.id === id) {
+                    let inst = this.service.getInstance(this.id);
+                    this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+                }
             });
     }
 
