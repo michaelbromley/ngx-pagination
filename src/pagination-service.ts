@@ -84,7 +84,7 @@ export class PaginationService {
     public setCurrentPage(id: string, page: number) {
         if (this.instances[id]) {
             let instance = this.instances[id];
-            let maxPage = Math.floor(instance.totalItems / instance.itemsPerPage);
+            let maxPage = Math.ceil(instance.totalItems / instance.itemsPerPage);
             if (page <= maxPage && 1 <= page) {
                 this.instances[id].currentPage = page;
                 this.change.emit(id);

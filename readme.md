@@ -3,9 +3,17 @@
 This is a **work-in-progress** port of my [angular-utils-pagination](https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination)
 module from Angular 1.x to Angular 2.
 
-Currently it is missing many features, but I hope to bring it eventually to full feature-parity with the 1.x version.
+It is not yet well production-tested and is currently missing a few features, but I hope to bring it eventually to full 
+feature-parity with the 1.x version.
 
-The API will not quite be the same, and it should be significantly simpler and easier to develop than the 1.x version.
+The API will not quite be the same, but it should be significantly simpler and easier to develop than the 1.x version (I hope).
+
+## Demo
+
+Check out the live demo here: http://michaelbromley.github.io/ng2-pagination/
+
+To play with the demo, just clone this repo and start editing the files in the `/demo` folder. The index for the demo is
+`index.html` in the root folder.
 
 ## Installation
 
@@ -117,6 +125,9 @@ The following features from the 1.x version have not yet been implemented:
 - Custom template support
 - ~~Various style options for the pagination controls template~~
 - Full test suite
+
+I have written a few tests, but right now I am waiting for the Angular team to publish some guidelines on how
+best to test components.
 
 ## Build
 
