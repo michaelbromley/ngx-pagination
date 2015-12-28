@@ -101,7 +101,7 @@ interface IPaginationInstance {
 
 ```HTML
 <pagination-controls  id="some_id"
-                      (change)="pageChanged($event)
+                      (change)="pageChanged($event)"
                       maxSize="9"
                       autoHide="true">
 </pagination-controls>
