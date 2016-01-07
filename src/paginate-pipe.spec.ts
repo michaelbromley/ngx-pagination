@@ -46,6 +46,7 @@ describe('paginate pipe', () => {
             instance = paginationService.getInstance();
             expect(instance.itemsPerPage).toBe(50);
         });
+
     });
 
     describe('config object argument', () => {
@@ -95,6 +96,40 @@ describe('paginate pipe', () => {
             });
         });
 
+        it('should return identical array for the same input values', () => {
+            let config = {
+                id: 'first_one',
+                itemsPerPage: 10,
+                currentPage: 1
+            };
+            let result1 = pipe.transform(collection, [config]);
+            let result2 = pipe.transform(collection, [config]);
+
+            expect(result1 === result2).toBe(true);
+        });
+
+    });
+
+    describe('unexpected input', () => {
+
+        it('should throw exception on non-array inputs', () => {
+            let input;
+
+            input = '';
+            expect(() => pipe.transform(<any>input, ['10'])).toThrow();
+
+            input = 1;
+            expect(() => pipe.transform(<any>input, ['10'])).toThrow();
+
+            input = {};
+            expect(() => pipe.transform(<any>input, ['10'])).toThrow();
+
+            input = null;
+            expect(() => pipe.transform(<any>input, ['10'])).toThrow();
+
+            input = undefined;
+            expect(() => pipe.transform(<any>input, ['10'])).toThrow();
+        });
     });
 
 

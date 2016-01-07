@@ -24,6 +24,12 @@ export class PaginatePipe {
     }
 
     public transform(collection: any[], args: any[]): any {
+
+        // for non-array types, throw an exception
+        if (!(collection instanceof Array)) {
+            throw new Error(`PaginationPipe: Argument error - expected an array, got ${typeof collection}`);
+        }
+
         let usingConfig = typeof args[0] === 'object';
         let serverSideMode = usingConfig && args[0].totalItems !== undefined;
         let instance; // = this.service.getInstance(id);
