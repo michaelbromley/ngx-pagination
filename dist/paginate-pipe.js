@@ -17,12 +17,15 @@ var PaginatePipe = (function () {
         this.state = {};
     }
     PaginatePipe.prototype.transform = function (collection, args) {
+        // for non-array types, throw an exception
+        if (!(collection instanceof Array)) {
+            throw new Error("PaginationPipe: Argument error - expected an array, got " + typeof collection);
+        }
         var usingConfig = typeof args[0] === 'object';
         var serverSideMode = usingConfig && args[0].totalItems !== undefined;
-        var instance; // = this.service.getInstance(id);
-        var id = usingConfig ? args[0].id : this.service.defaultId;
+        var instance = this.createInstance(collection, args);
+        var id = instance.id;
         var start, end;
-        instance = this.createInstance(collection, args);
         this.service.register(instance);
         if (!usingConfig && instance.totalItems !== collection.length) {
             this.service.setTotalItems(id, collection.length);

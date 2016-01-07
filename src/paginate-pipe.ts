@@ -32,11 +32,10 @@ export class PaginatePipe {
 
         let usingConfig = typeof args[0] === 'object';
         let serverSideMode = usingConfig && args[0].totalItems !== undefined;
-        let instance; // = this.service.getInstance(id);
-        let id = usingConfig ? args[0].id : this.service.defaultId;
+        let instance = this.createInstance(collection, args);
+        let id = instance.id;
         let start, end;
 
-        instance = this.createInstance(collection, args);
         this.service.register(instance);
 
         if (!usingConfig && instance.totalItems !== collection.length) {

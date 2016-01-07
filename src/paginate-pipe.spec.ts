@@ -51,6 +51,17 @@ describe('paginate pipe', () => {
 
     describe('config object argument', () => {
 
+        it('should use default id if none specified', () => {
+            let config = {
+                itemsPerPage: 10,
+                currentPage: 1
+            };
+
+            expect(paginationService.getInstance()).not.toBeDefined();
+            pipe.transform(collection, [config]);
+            expect(paginationService.getInstance()).toBeDefined();
+        });
+
         it('should allow independent instances by setting an id', () => {
             let config1 = {
                 id: 'first_one',
