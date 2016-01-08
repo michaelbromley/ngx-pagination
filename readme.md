@@ -23,6 +23,7 @@ I am currently working with TypeScript 1.7.3, so these instructions may not work
 npm install ng2-pagination --save
 ```
 
+**Note** that currently this module only supports commonjs, which means it should work with Webpack or Browserify, but not with SystemJS.
 
 ## Example of usage
 
