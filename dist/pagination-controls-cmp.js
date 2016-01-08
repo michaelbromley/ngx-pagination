@@ -33,7 +33,9 @@ var PaginationControlsCmp = (function () {
     }
     PaginationControlsCmp.prototype.updatePages = function () {
         var inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        if(inst){
+            this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        }
     };
     PaginationControlsCmp.prototype.displayDefaultTemplate = function () {
         if (this.customTemplate !== null) {
