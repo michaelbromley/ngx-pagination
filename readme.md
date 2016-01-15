@@ -102,8 +102,9 @@ interface IPaginationInstance {
 
 ```HTML
 <pagination-controls  id="some_id"
-                      (change)="pageChanged($event)"
+                      (pageChange)="pageChanged($event)"
                       maxSize="9"
+                      directionLinks="true"
                       autoHide="true">
 </pagination-controls>
 ```
@@ -113,8 +114,9 @@ matches the id set in the PaginatePipe config.
 * **`change`** [function] The function specified will be invoked whenever the page changes via a click on one of the
 pagination controls. The `$event` argument will be the number of the new page.
 * **maxSize** [number] Defines the maximum number of page links to display. Default is `7`.
+* ** directionLinks ** [boolean] If set to `false`, the "previous" and "next" links will not be displayed. Default is `true`.
 * **`autoHide`** [boolean] If set to `true`, the pagination controls will not be displayed when all items in the
-collection fit onto the first page. Default is `false`
+collection fit onto the first page. Default is `false`.
 
 ## To Do
 
