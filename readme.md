@@ -138,6 +138,10 @@ To build, first run  `npm install` to get all the dev dependencies. Then you can
 compile the TypeScript and generate the definition files. `npm run test` will fire up Karma with the Webpack
 plugin to run the tests.
 
+## Dart Version
+
+For Dart users, there is a Dart port available here: https://github.com/laagland/ng2-dart-pagination. Note that this version was written and is maintained by a different author.
+
 ## License
 
 MIT
