@@ -79,6 +79,7 @@ var PaginatePipe = (function () {
      */
     PaginatePipe.prototype.saveState = function (id, collection, slice, start, end) {
         this.state[id] = {
+            size: collection.length,
             collection: collection,
             slice: slice,
             start: start,
@@ -93,7 +94,10 @@ var PaginatePipe = (function () {
         if (!state) {
             return false;
         }
-        return state.collection === collection && state.start === start && state.end === end;
+        return state.collection === collection &&
+            state.size === collection.length &&
+            state.start === start &&
+            state.end === end;
     };
     PaginatePipe = __decorate([
         core_1.Pipe({

@@ -6,6 +6,7 @@ const LARGE_NUMBER = 999999999;
 
 interface IPipeState {
     collection: any[];
+    size: number;
     start: number;
     end: number;
     slice: any[];
@@ -90,6 +91,7 @@ export class PaginatePipe {
      */
     private saveState(id: string, collection: any[], slice: any[], start: number, end: number) {
         this.state[id] = {
+            size: collection.length,
             collection,
             slice,
             start,
@@ -106,6 +108,9 @@ export class PaginatePipe {
             return false;
         }
 
-        return state.collection === collection && state.start === start && state.end === end;
+        return state.collection === collection &&
+            state.size === collection.length &&
+            state.start === start &&
+            state.end === end;
     }
 }
