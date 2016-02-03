@@ -75,7 +75,9 @@ export class PaginationControlsCmp {
 
     private updatePages() {
         let inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        if(inst){
+            this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        }
     }
 
     public displayDefaultTemplate(): boolean {
