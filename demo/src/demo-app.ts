@@ -2,7 +2,7 @@ import {Component, enableProdMode} from "angular2/core";
 import {Http, HTTP_PROVIDERS} from "angular2/http";
 import {CORE_DIRECTIVES} from "angular2/common";
 import {bootstrap} from "angular2/platform/browser";
-import {PaginationService} from "../../dist/ng2-pagination";
+import {PaginationService} from "../../src/ng2-pagination";
 import {BasicExampleCmp} from "./basic-example-cmp";
 import {AdvancedExampleCmp} from "./advanced-example-cmp";
 import {CustomTemplateExampleCmp} from "./custom-template-example-cmp";

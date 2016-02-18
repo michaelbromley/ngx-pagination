@@ -1,4 +1,4 @@
-import { EventEmitter, ViewContainerRef } from 'angular2/core';
+import { EventEmitter, TemplateRef, ViewContainerRef, ElementRef } from 'angular2/core';
 import { PaginationService } from "./pagination-service";
 export interface IPage {
     label: string;
@@ -7,6 +7,8 @@ export interface IPage {
 export declare class PaginationControlsCmp {
     private service;
     private viewContainer;
+    private elementRef;
+    private templateRef;
     id: string;
     maxSize: number;
     directionLinks: boolean;
@@ -15,7 +17,7 @@ export declare class PaginationControlsCmp {
     customTemplate: any;
     private changeSub;
     pages: IPage[];
-    constructor(service: PaginationService, viewContainer: ViewContainerRef);
+    constructor(service: PaginationService, viewContainer: ViewContainerRef, elementRef: ElementRef, templateRef: TemplateRef);
     private updatePages();
     displayDefaultTemplate(): boolean;
     /**
@@ -45,3 +47,4 @@ export declare class PaginationControlsCmp {
      */
     private calculatePageNumber(i, currentPage, paginationRange, totalPages);
 }
+export declare const PAGINATION_DIRECTIVES: typeof PaginationControlsCmp[];

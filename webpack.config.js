@@ -47,12 +47,12 @@ var config = {
             minChunks: Infinity
         }),
         new webpack.NoErrorsPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
+       /* new webpack.optimize.UglifyJsPlugin({
             mangle: false
-        })
+        })*/
     ],
     debug: true,
-    devtool: 'cheap-source-map'
+    devtool: 'eval-source-map'
 };
 
 module.exports = config;

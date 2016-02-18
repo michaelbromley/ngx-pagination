@@ -1,5 +1,6 @@
-import {Component, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewContainerRef} from 'angular2/core'
+import {Component, Directive, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewContainerRef, EmbeddedViewRef, Query, QueryList, ElementRef} from 'angular2/core'
 import {CORE_DIRECTIVES} from 'angular2/common'
+import {CONST_EXPR} from 'angular2/src/facade/lang';
 import {Subscription} from 'rxjs';
 import {PaginationService} from "./pagination-service";
 
@@ -39,10 +40,9 @@ const DEFAULT_TEMPLATE = `
     </ul>
     `;
 
-@Component({
-    selector: 'pagination-controls',
-    template: DEFAULT_TEMPLATE,
-    directives: [CORE_DIRECTIVES]
+@Directive({
+    selector: '[pagination-controls]'
+    //template: DEFAULT_TEMPLATE,
 })
 export class PaginationControlsCmp {
 
@@ -56,17 +56,23 @@ export class PaginationControlsCmp {
     @ContentChild(TemplateRef) customTemplate;
 
 
+
     private changeSub: Subscription<string>;
     public pages: IPage[] = [];
 
     constructor(private service: PaginationService,
-                private viewContainer: ViewContainerRef) {
+                private viewContainer: ViewContainerRef,
+                private elementRef: ElementRef,
+                private templateRef: TemplateRef) {
         this.changeSub = this.service.change
             .subscribe(id => {
                 if (this.id === id) {
                     this.updatePages();
                 }
             });
+
+        viewContainer.createEmbeddedView(templateRef).setLocal('some-tmpl', 'hello');
+        debugger;
     }
 
     private updatePages() {
@@ -188,3 +194,5 @@ export class PaginationControlsCmp {
         }
     }
 }
+
+export const PAGINATION_DIRECTIVES = CONST_EXPR([PaginationControlsCmp]);

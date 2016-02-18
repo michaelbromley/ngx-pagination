@@ -8,14 +8,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
-var common_1 = require('angular2/common');
+var lang_1 = require('angular2/src/facade/lang');
 var pagination_service_1 = require("./pagination-service");
 var DEFAULT_TEMPLATE = "\n    <ul class=\"pagination\" role=\"navigation\" aria-label=\"Pagination\" *ngIf=\"displayDefaultTemplate()\">\n\n        <li class=\"pagination-previous\" [class.disabled]=\"isFirstPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"1 < getCurrent()\" (click)=\"setCurrent(getCurrent() - 1)\" aria-label=\"Next page\">\n                Previous <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isFirstPage()\">Previous <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n        <li [class.current]=\"getCurrent() === page.value\" *ngFor=\"#page of pages\">\n            <a (click)=\"setCurrent(page.value)\" *ngIf=\"getCurrent() !== page.value\">\n                <span class=\"show-for-sr\">Page</span>\n                <span>{{ page.label }}</span>\n            </a>\n            <div *ngIf=\"getCurrent() === page.value\">\n                <span class=\"show-for-sr\">You're on page</span>\n                <span>{{ page.label }}</span>\n            </div>\n        </li>\n\n        <li class=\"pagination-next\" [class.disabled]=\"isLastPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"!isLastPage()\" (click)=\"setCurrent(getCurrent() + 1)\" aria-label=\"Next page\">\n                Next <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isLastPage()\">Next <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n    </ul>\n    ";
 var PaginationControlsCmp = (function () {
-    function PaginationControlsCmp(service, viewContainer) {
+    function PaginationControlsCmp(service, viewContainer, elementRef, templateRef) {
         var _this = this;
         this.service = service;
         this.viewContainer = viewContainer;
+        this.elementRef = elementRef;
+        this.templateRef = templateRef;
         this.maxSize = 7;
         this.directionLinks = true;
         this.autoHide = false;
@@ -27,6 +29,8 @@ var PaginationControlsCmp = (function () {
                 _this.updatePages();
             }
         });
+        viewContainer.createEmbeddedView(templateRef).setLocal('some-tmpl', 'hello');
+        debugger;
     }
     PaginationControlsCmp.prototype.updatePages = function () {
         var inst = this.service.getInstance(this.id);
@@ -163,13 +167,12 @@ var PaginationControlsCmp = (function () {
         __metadata('design:type', Object)
     ], PaginationControlsCmp.prototype, "customTemplate", void 0);
     PaginationControlsCmp = __decorate([
-        core_1.Component({
-            selector: 'pagination-controls',
-            template: DEFAULT_TEMPLATE,
-            directives: [common_1.CORE_DIRECTIVES]
+        core_1.Directive({
+            selector: '[pagination-controls]'
         }), 
-        __metadata('design:paramtypes', [pagination_service_1.PaginationService, core_1.ViewContainerRef])
+        __metadata('design:paramtypes', [pagination_service_1.PaginationService, core_1.ViewContainerRef, core_1.ElementRef, core_1.TemplateRef])
     ], PaginationControlsCmp);
     return PaginationControlsCmp;
 })();
 exports.PaginationControlsCmp = PaginationControlsCmp;
+exports.PAGINATION_DIRECTIVES = lang_1.CONST_EXPR([PaginationControlsCmp]);

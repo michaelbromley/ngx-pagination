@@ -1,12 +1,12 @@
 import {Component, Input} from "angular2/core";
 import {CORE_DIRECTIVES} from "angular2/common";
-import {PaginatePipe, PaginationControlsCmp, IPaginationInstance} from '../../dist/ng2-pagination';
+import {PaginatePipe, PAGINATION_DIRECTIVES, IPaginationInstance} from '../../src/ng2-pagination';
 import {StringFilterPipe} from "./string-filter-pipe";
 
 @Component({
     selector: 'advanced-example',
     templateUrl: 'demo/src/advanced-example-cmp.html',
-    directives: [PaginationControlsCmp],
+    directives: [PAGINATION_DIRECTIVES],
     pipes: [PaginatePipe, StringFilterPipe],
     providers: [CORE_DIRECTIVES]
 })
