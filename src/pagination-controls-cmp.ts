@@ -39,13 +39,9 @@ const DEFAULT_TEMPLATE = `
     </ul>
     `;
 
-function getTemplate(): string {
-    return PaginationService.template || DEFAULT_TEMPLATE;
-}
-
 @Component({
     selector: 'pagination-controls',
-    template: getTemplate(),
+    template: DEFAULT_TEMPLATE,
     directives: [CORE_DIRECTIVES]
 })
 export class PaginationControlsCmp {

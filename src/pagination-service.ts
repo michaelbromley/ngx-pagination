@@ -33,11 +33,6 @@ export class PaginationService {
     private DEFAULT_ID = 'DEFAULT_PAGINATION_ID';
     get defaultId() { return this.DEFAULT_ID }
 
-
-    // static template config
-    static templateUrl: string;
-    static template: string;
-
     public register(instance: IPaginationInstance) {
         if (!instance.id) {
             instance.id = this.DEFAULT_ID;

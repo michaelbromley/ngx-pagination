@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "node node_modules/typescript/bin/tsc",
-    "test": "node node_modules/karma/bin/karma start karma.conf.js"
+    "test": "node node_modules/karma/bin/karma start karma.conf.js",
+    "demo:watch": "webpack --progress --colors --watch"
   },
   "files": [
     "dist",
@@ -26,9 +27,11 @@
   "author": "Michael Bromley <michael@michaelbromley.co.uk>",
   "license": "MIT",
   "devDependencies": {
-    "angular2": "^2.0.0-beta.0",
+    "angular2": "^2.0.0-beta.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.13",
+    "highlight.js": "^9.1.0",
+    "html-loader": "^0.4.3",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.15",
     "karma-chrome-launcher": "^0.2.2",
@@ -41,6 +44,5 @@
     "webpack": "^1.12.9",
     "zone.js": "^0.5.10"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

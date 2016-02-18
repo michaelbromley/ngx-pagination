@@ -2,16 +2,18 @@ import {Component, enableProdMode} from "angular2/core";
 import {Http, HTTP_PROVIDERS} from "angular2/http";
 import {CORE_DIRECTIVES} from "angular2/common";
 import {bootstrap} from "angular2/platform/browser";
+import {PaginationService} from "../../dist/ng2-pagination";
 import {BasicExampleCmp} from "./basic-example-cmp";
-import {PaginationService} from "../src/ng2-pagination";
 import {AdvancedExampleCmp} from "./advanced-example-cmp";
 import {CustomTemplateExampleCmp} from "./custom-template-example-cmp";
 
-declare var hljs: any;
+const hljs = require('highlight.js');
+require('highlight.js/styles/github-gist.css');
+
 
 @Component({
     selector: 'demo-app',
-    templateUrl: 'demo/demo-app.html',
+    templateUrl: 'demo/src/demo-app.html',
     directives: [BasicExampleCmp, AdvancedExampleCmp, CustomTemplateExampleCmp],
     providers: [CORE_DIRECTIVES]
 })
@@ -22,13 +24,14 @@ class DemoApp {
     public advancedCode: string = '';
     public customTemplateCode: string = '';
 
-    constructor(private http: Http) {}
-
-    ngOnInit() {
+    constructor(private http: Http) {
         this.meals = this.generateMeals();
-        this.loadCodeSnippet('basicCode', 'demo/basic-example-cmp.html');
-        this.loadCodeSnippet('advancedCode', 'demo/advanced-example-cmp.html');
-        this.loadCodeSnippet('customTemplateCode', 'demo/custom-template-example-cmp.html');
+    }
+
+    ngAfterViewInit() {
+        this.loadCodeSnippet('basicCode', 'demo/src/basic-example-cmp.html');
+        this.loadCodeSnippet('advancedCode', 'demo/src/advanced-example-cmp.html');
+        this.loadCodeSnippet('customTemplateCode', 'demo/src/custom-template-example-cmp.html');
     }
 
     /**

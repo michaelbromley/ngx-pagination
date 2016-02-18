@@ -11,9 +11,6 @@ var core_1 = require('angular2/core');
 var common_1 = require('angular2/common');
 var pagination_service_1 = require("./pagination-service");
 var DEFAULT_TEMPLATE = "\n    <ul class=\"pagination\" role=\"navigation\" aria-label=\"Pagination\" *ngIf=\"displayDefaultTemplate()\">\n\n        <li class=\"pagination-previous\" [class.disabled]=\"isFirstPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"1 < getCurrent()\" (click)=\"setCurrent(getCurrent() - 1)\" aria-label=\"Next page\">\n                Previous <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isFirstPage()\">Previous <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n        <li [class.current]=\"getCurrent() === page.value\" *ngFor=\"#page of pages\">\n            <a (click)=\"setCurrent(page.value)\" *ngIf=\"getCurrent() !== page.value\">\n                <span class=\"show-for-sr\">Page</span>\n                <span>{{ page.label }}</span>\n            </a>\n            <div *ngIf=\"getCurrent() === page.value\">\n                <span class=\"show-for-sr\">You're on page</span>\n                <span>{{ page.label }}</span>\n            </div>\n        </li>\n\n        <li class=\"pagination-next\" [class.disabled]=\"isLastPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"!isLastPage()\" (click)=\"setCurrent(getCurrent() + 1)\" aria-label=\"Next page\">\n                Next <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isLastPage()\">Next <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n    </ul>\n    ";
-function getTemplate() {
-    return pagination_service_1.PaginationService.template || DEFAULT_TEMPLATE;
-}
 var PaginationControlsCmp = (function () {
     function PaginationControlsCmp(service, viewContainer) {
         var _this = this;
@@ -168,7 +165,7 @@ var PaginationControlsCmp = (function () {
     PaginationControlsCmp = __decorate([
         core_1.Component({
             selector: 'pagination-controls',
-            template: getTemplate(),
+            template: DEFAULT_TEMPLATE,
             directives: [common_1.CORE_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [pagination_service_1.PaginationService, core_1.ViewContainerRef])

@@ -5,12 +5,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": false,
-    "moduleResolution": "node",
-    "declaration": true,
-    "outDir": "./dist"
+    "moduleResolution": "node"
   },
   "files": [
-    "src/ng2-pagination.ts",
+    "demo/src/demo-app.ts",
     "typings/main.d.ts"
   ]
 }

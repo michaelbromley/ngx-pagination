@@ -3,47 +3,20 @@
 <head>
     <title>ng2-pagination demo</title>
 
-    <script src="//code.angularjs.org/2.0.0-beta.0/angular2-polyfills.js"></script>
-    <script src="//code.angularjs.org/tools/system.js"></script>
-    <script src="//code.angularjs.org/tools/typescript.js"></script>
-    <script src="//code.angularjs.org/2.0.0-beta.0/Rx.js"></script>
-    <script src="//code.angularjs.org/2.0.0-beta.0/angular2.js"></script>
-    <script src="//code.angularjs.org/2.0.0-beta.0/http.min.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github-gist.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github-gist.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>-->
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/6.0.5/css/foundation.min.css">
-    <link rel="stylesheet" href="demo/style.css">
-
-
-    <script>
-        System.config({
-            transpiler: 'typescript',
-            typescriptOptions: {
-                emitDecoratorMetadata: true
-            },
-            packages: {
-                demo: {
-                    main: './demo-app.ts',
-                    defaultExtension: 'ts'
-                },
-                src: {
-                    defaultExtension: 'ts'
-                }
-
-            }
-        });
-        System.import('demo/demo-app.ts')
-                .then(null, console.error.bind(console));
-
-    </script>
-
+    <link rel="stylesheet" href="demo/src/style.css">
 </head>
 
 <body>
 <demo-app>
     <div class="loading">Loading...</div>
 </demo-app>
+
+<script src="demo/build/common.js"></script>
+<script src="demo/build/app.js"></script>
 </body>
 
 </html>

@@ -28,8 +28,6 @@ export declare class PaginationService {
     private instances;
     private DEFAULT_ID;
     defaultId: string;
-    static templateUrl: string;
-    static template: string;
     register(instance: IPaginationInstance): void;
     /**
      * Check each property of the instance and update any that have changed. Return
