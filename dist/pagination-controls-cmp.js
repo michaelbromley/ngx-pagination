@@ -1,3 +1,8 @@
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,8 +16,8 @@ var core_1 = require('angular2/core');
 var lang_1 = require('angular2/src/facade/lang');
 var pagination_service_1 = require("./pagination-service");
 var DEFAULT_TEMPLATE = "\n    <ul class=\"pagination\" role=\"navigation\" aria-label=\"Pagination\" *ngIf=\"displayDefaultTemplate()\">\n\n        <li class=\"pagination-previous\" [class.disabled]=\"isFirstPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"1 < getCurrent()\" (click)=\"setCurrent(getCurrent() - 1)\" aria-label=\"Next page\">\n                Previous <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isFirstPage()\">Previous <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n        <li [class.current]=\"getCurrent() === page.value\" *ngFor=\"#page of pages\">\n            <a (click)=\"setCurrent(page.value)\" *ngIf=\"getCurrent() !== page.value\">\n                <span class=\"show-for-sr\">Page</span>\n                <span>{{ page.label }}</span>\n            </a>\n            <div *ngIf=\"getCurrent() === page.value\">\n                <span class=\"show-for-sr\">You're on page</span>\n                <span>{{ page.label }}</span>\n            </div>\n        </li>\n\n        <li class=\"pagination-next\" [class.disabled]=\"isLastPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"!isLastPage()\" (click)=\"setCurrent(getCurrent() + 1)\" aria-label=\"Next page\">\n                Next <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isLastPage()\">Next <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n    </ul>\n    ";
-var PaginationControlsCmp = (function () {
-    function PaginationControlsCmp(service, viewContainer, elementRef, templateRef) {
+var PaginationControlsBase = (function () {
+    function PaginationControlsBase(service, viewContainer, elementRef, templateRef) {
         var _this = this;
         this.service = service;
         this.viewContainer = viewContainer;
@@ -30,13 +35,12 @@ var PaginationControlsCmp = (function () {
             }
         });
         viewContainer.createEmbeddedView(templateRef).setLocal('some-tmpl', 'hello');
-        debugger;
     }
-    PaginationControlsCmp.prototype.updatePages = function () {
+    PaginationControlsBase.prototype.updatePages = function () {
         var inst = this.service.getInstance(this.id);
         this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
     };
-    PaginationControlsCmp.prototype.displayDefaultTemplate = function () {
+    PaginationControlsBase.prototype.displayDefaultTemplate = function () {
         if (this.customTemplate !== null) {
             return false;
         }
@@ -45,47 +49,47 @@ var PaginationControlsCmp = (function () {
     /**
      * Set up the subscription to the PaginationService.change observable.
      */
-    PaginationControlsCmp.prototype.ngOnInit = function () {
+    PaginationControlsBase.prototype.ngOnInit = function () {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
         }
     };
-    PaginationControlsCmp.prototype.ngAfterContentInit = function () {
+    PaginationControlsBase.prototype.ngAfterContentInit = function () {
         if (this.customTemplate !== null) {
             this.viewContainer.createEmbeddedView(this.customTemplate);
         }
     };
-    PaginationControlsCmp.prototype.ngOnChanges = function () {
+    PaginationControlsBase.prototype.ngOnChanges = function () {
         this.updatePages();
     };
-    PaginationControlsCmp.prototype.ngOnDestroy = function () {
+    PaginationControlsBase.prototype.ngOnDestroy = function () {
         // TODO: do i need to manually clean these up??? What's the difference between unsubscribe() and remove()
         this.changeSub.unsubscribe();
     };
     /**
      * Set the current page number.
      */
-    PaginationControlsCmp.prototype.setCurrent = function (page) {
+    PaginationControlsBase.prototype.setCurrent = function (page) {
         this.service.setCurrentPage(this.id, page);
         this.pageChange.emit(this.service.getCurrentPage(this.id));
     };
     /**
      * Get the current page number.
      */
-    PaginationControlsCmp.prototype.getCurrent = function () {
+    PaginationControlsBase.prototype.getCurrent = function () {
         return this.service.getCurrentPage(this.id);
     };
-    PaginationControlsCmp.prototype.isFirstPage = function () {
+    PaginationControlsBase.prototype.isFirstPage = function () {
         return this.getCurrent() === 1;
     };
-    PaginationControlsCmp.prototype.isLastPage = function () {
+    PaginationControlsBase.prototype.isLastPage = function () {
         var inst = this.service.getInstance(this.id);
         return Math.ceil(inst.totalItems / inst.itemsPerPage) === inst.currentPage;
     };
     /**
      * Returns an array of IPage objects to use in the pagination controls.
      */
-    PaginationControlsCmp.prototype.createPageArray = function (currentPage, itemsPerPage, totalItems, paginationRange) {
+    PaginationControlsBase.prototype.createPageArray = function (currentPage, itemsPerPage, totalItems, paginationRange) {
         // paginationRange could be a string if passed from attribute, so cast to number.
         paginationRange = +paginationRange;
         var pages = [];
@@ -119,7 +123,7 @@ var PaginationControlsCmp = (function () {
      * Given the position in the sequence of pagination links [i],
      * figure out what page number corresponds to that position.
      */
-    PaginationControlsCmp.prototype.calculatePageNumber = function (i, currentPage, paginationRange, totalPages) {
+    PaginationControlsBase.prototype.calculatePageNumber = function (i, currentPage, paginationRange, totalPages) {
         var halfWay = Math.ceil(paginationRange / 2);
         if (i === paginationRange) {
             return totalPages;
@@ -145,27 +149,34 @@ var PaginationControlsCmp = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
-    ], PaginationControlsCmp.prototype, "id", void 0);
+    ], PaginationControlsBase.prototype, "id", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Number)
-    ], PaginationControlsCmp.prototype, "maxSize", void 0);
+    ], PaginationControlsBase.prototype, "maxSize", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean)
-    ], PaginationControlsCmp.prototype, "directionLinks", void 0);
+    ], PaginationControlsBase.prototype, "directionLinks", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean)
-    ], PaginationControlsCmp.prototype, "autoHide", void 0);
+    ], PaginationControlsBase.prototype, "autoHide", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
-    ], PaginationControlsCmp.prototype, "pageChange", void 0);
+    ], PaginationControlsBase.prototype, "pageChange", void 0);
     __decorate([
         core_1.ContentChild(core_1.TemplateRef), 
         __metadata('design:type', Object)
-    ], PaginationControlsCmp.prototype, "customTemplate", void 0);
+    ], PaginationControlsBase.prototype, "customTemplate", void 0);
+    return PaginationControlsBase;
+})();
+var PaginationControlsCmp = (function (_super) {
+    __extends(PaginationControlsCmp, _super);
+    function PaginationControlsCmp(service, viewContainer, elementRef, templateRef) {
+        _super.call(this, service, viewContainer, elementRef, templateRef);
+    }
     PaginationControlsCmp = __decorate([
         core_1.Directive({
             selector: '[pagination-controls]'
@@ -173,6 +184,6 @@ var PaginationControlsCmp = (function () {
         __metadata('design:paramtypes', [pagination_service_1.PaginationService, core_1.ViewContainerRef, core_1.ElementRef, core_1.TemplateRef])
     ], PaginationControlsCmp);
     return PaginationControlsCmp;
-})();
+})(PaginationControlsBase);
 exports.PaginationControlsCmp = PaginationControlsCmp;
 exports.PAGINATION_DIRECTIVES = lang_1.CONST_EXPR([PaginationControlsCmp]);

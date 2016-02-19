@@ -1,4 +1,4 @@
-import {Component, Directive, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewContainerRef, EmbeddedViewRef, Query, QueryList, ElementRef} from 'angular2/core'
+import {Component, Directive, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewContainerRef, EmbeddedViewRef, Query, QueryList, ElementRef, ChangeDetectorRef} from 'angular2/core'
 import {CORE_DIRECTIVES} from 'angular2/common'
 import {CONST_EXPR} from 'angular2/src/facade/lang';
 import {Subscription} from 'rxjs';
@@ -10,7 +10,7 @@ export interface IPage {
 }
 
 const DEFAULT_TEMPLATE = `
-    <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="displayDefaultTemplate()">
+    <ul class="pagination" role="navigation" aria-label="Pagination">
 
         <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
             <a *ngIf="1 < getCurrent()" (click)="setCurrent(getCurrent() - 1)" aria-label="Next page">
@@ -40,81 +40,56 @@ const DEFAULT_TEMPLATE = `
     </ul>
     `;
 
-@Directive({
-    selector: '[pagination-controls]'
-    //template: DEFAULT_TEMPLATE,
-})
-export class PaginationControlsCmp {
+class PaginationControlsBase {
 
-    @Input() id: string;
-    @Input() maxSize: number = 7;
-    @Input() directionLinks: boolean = true;
-    @Input() autoHide: boolean = false;
+    id: string;
+    maxSize: number = 7;
+    directionLinks: boolean = true;
+    autoHide: boolean = false;
 
     @Output() pageChange: EventEmitter<number> = new EventEmitter();
-
-    @ContentChild(TemplateRef) customTemplate;
-
-
 
     private changeSub: Subscription<string>;
     public pages: IPage[] = [];
 
-    constructor(private service: PaginationService,
-                private viewContainer: ViewContainerRef,
-                private elementRef: ElementRef,
-                private templateRef: TemplateRef) {
+    constructor(private service: PaginationService) {
         this.changeSub = this.service.change
             .subscribe(id => {
+                console.log('change event emmited for id', id);
                 if (this.id === id) {
                     this.updatePages();
                 }
             });
-
-        viewContainer.createEmbeddedView(templateRef).setLocal('some-tmpl', 'hello');
-        debugger;
     }
 
-    private updatePages() {
+    updatePages() {
+        console.log('updatePages()');
         let inst = this.service.getInstance(this.id);
         this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
-    }
-
-    public displayDefaultTemplate(): boolean {
-        if (this.customTemplate !== null) {
-            return false;
-        }
-        return !this.autoHide || 1 < this.pages.length;
     }
 
     /**
      * Set up the subscription to the PaginationService.change observable.
      */
-    private ngOnInit() {
+    ngOnInit() {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
         }
     }
 
-    private ngAfterContentInit () {
-        if (this.customTemplate !== null) {
-            this.viewContainer.createEmbeddedView(this.customTemplate);
-        }
-    }
-
-    private ngOnChanges() {
+    ngOnChanges() {
         this.updatePages();
     }
 
-    private ngOnDestroy() {
-        // TODO: do i need to manually clean these up??? What's the difference between unsubscribe() and remove()
+    ngOnDestroy() {
         this.changeSub.unsubscribe();
     }
 
     /**
      * Set the current page number.
      */
-    public setCurrent(page: number) {
+    setCurrent(page: number) {
+        console.log('setCurrent()');
         this.service.setCurrentPage(this.id, page);
         this.pageChange.emit(this.service.getCurrentPage(this.id));
     }
@@ -122,15 +97,15 @@ export class PaginationControlsCmp {
     /**
      * Get the current page number.
      */
-    public getCurrent(): number {
+    getCurrent(): number {
         return this.service.getCurrentPage(this.id);
     }
 
-    public isFirstPage(): boolean {
+    isFirstPage(): boolean {
         return this.getCurrent() === 1;
     }
 
-    public isLastPage(): boolean {
+    isLastPage(): boolean {
         let inst = this.service.getInstance(this.id);
         return Math.ceil(inst.totalItems / inst.itemsPerPage) === inst.currentPage;
     }
@@ -195,4 +170,72 @@ export class PaginationControlsCmp {
     }
 }
 
-export const PAGINATION_DIRECTIVES = CONST_EXPR([PaginationControlsCmp]);
+@Directive({
+    selector: '[paginationControls]'
+})
+export class PaginationControlsDirective extends PaginationControlsBase{
+    @Input() id: string;
+    @Input() maxSize: number = 7;
+    @Input() directionLinks: boolean = true;
+    @Input() autoHide: boolean = false;
+
+    @ContentChild(TemplateRef) customTemplate;
+    private templateView: EmbeddedViewRef;
+
+    constructor(service: PaginationService,
+                private viewContainer: ViewContainerRef,
+                private cdr: ChangeDetectorRef) {
+        super(service);
+
+    }
+
+    ngOnInit() {
+        this.cdr.detach();
+    }
+
+    public api: any = {};
+
+    ngAfterViewInit() {
+        this.api = {
+            pages: [],
+            directionLinks: this.directionLinks,
+            autoHide: this.autoHide,
+            maxSize: this.maxSize,
+            getCurrent: () => this.getCurrent(),
+            setCurrent: (val) => this.setCurrent(val),
+            isFirstPage: () => this.isFirstPage(),
+            isLastPage: () => this.isLastPage()
+        };
+
+        if (this.customTemplate !== null) {
+            this.templateView = this.viewContainer.createEmbeddedView(this.customTemplate);
+            this.templateView.setLocal('paginationApi', this.api);
+        }
+
+        setTimeout(() => this.cdr.reattach());
+    }
+
+    ngAfterViewChecked() {
+        //console.log('ngAfterViewChecked directive, pages', this.pages, 'id', this.id);
+        this.api.pages = this.pages;
+    }
+
+}
+
+@Component({
+    selector: 'pagination-controls',
+    template: DEFAULT_TEMPLATE
+})
+export class PaginationControlsCmp extends PaginationControlsBase {
+    @Input() id: string;
+    @Input() maxSize: number = 7;
+    @Input() directionLinks: boolean = true;
+    @Input() autoHide: boolean = false;
+
+    constructor(service: PaginationService) {
+        super(service);
+    }
+
+}
+
+export const PAGINATION_DIRECTIVES = CONST_EXPR([PaginationControlsDirective, PaginationControlsCmp]);

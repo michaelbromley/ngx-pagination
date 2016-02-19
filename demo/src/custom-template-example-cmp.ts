@@ -14,4 +14,9 @@ export class CustomTemplateExampleCmp {
 
     @Input('data') meals: string[] = [];
 
+    public config: IPaginationInstance = {
+        id: 'custom',
+        itemsPerPage: 10,
+        currentPage: 1
+    };
 }

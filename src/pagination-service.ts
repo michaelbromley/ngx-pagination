@@ -40,12 +40,14 @@ export class PaginationService {
 
         if (!this.instances[instance.id]) {
             this.instances[instance.id] = instance;
+            console.log('service: 1st register()', instance.id);
             this.change.emit(instance.id);
         } else {
-            let changed = this.updateInstance(instance);
+            /*let changed = this.updateInstance(instance);
             if (changed) {
+                console.log('service: 2nd register()', instance.id);
                 this.change.emit(instance.id);
-            }
+            }*/
         }
     }
 
@@ -77,6 +79,7 @@ export class PaginationService {
      * Sets the current page number.
      */
     public setCurrentPage(id: string, page: number) {
+        console.log('service: setCurrentPage()', id);
         if (this.instances[id]) {
             let instance = this.instances[id];
             let maxPage = Math.ceil(instance.totalItems / instance.itemsPerPage);
@@ -91,6 +94,7 @@ export class PaginationService {
      * Sets the value of instance.totalItems
      */
     public setTotalItems(id: string, totalItems: number) {
+        console.log('service: setTotalItems()', id);
         if (this.instances[id] && 0 <= totalItems) {
             this.instances[id].totalItems = totalItems;
             this.change.emit(id);
@@ -101,6 +105,7 @@ export class PaginationService {
      * Sets the value of instance.itemsPerPage.
      */
     public setItemsPerPage(id: string, itemsPerPage: number) {
+        console.log('service: setItemsPerPage()', id);
         if (this.instances[id]) {
             this.instances[id].itemsPerPage = itemsPerPage;
             this.change.emit(id);

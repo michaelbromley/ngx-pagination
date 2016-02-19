@@ -1,10 +1,34 @@
 <ul class="meal-list">
-    <li *ngFor="#meal of meals | paginate: 10">
+    <li *ngFor="#meal of meals | paginate: config">
         {{ meal }}
     </li>
 </ul>
 
 <div class="text-center">
-    <div template="pagination-controls: var greeting=some-tmpl">[ {{ greeting }} ]</div>
-    <!--<div *paginationControls="#greeting=some-tmpl">[ {{ greeting }} ]</div>-->
+    <template paginationControls #p="paginationApi" [id]="config.id">
+        <ul class="pagination" role="navigation" aria-label="Pagination">
+
+            <li class="pagination-previous" [class.disabled]="p.isFirstPage()">
+                <a *ngIf="1 < p.getCurrent()" (click)="p.setCurrent(p.getCurrent() - 1)"> < </a>
+                <span *ngIf="p.isFirstPage()"> < </span>
+            </li>
+
+            <li [class.current]="p.getCurrent() === page.value" *ngFor="#page of p.pages">
+                <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                    <span>{{ page.label }}</span>
+                </a>
+                <div *ngIf="p.getCurrent() === page.value">
+                    <span>{{ page.label }}</span>
+                </div>
+            </li>
+
+            <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
+                <a *ngIf="!p.isLastPage()" (click)="p.setCurrent(p.getCurrent() + 1)"> > </a>
+                <span *ngIf="p.isLastPage()"> > </span>
+            </li>
+
+        </ul>
+    </template>
+    <!-- <div template="paginationControls: var p = pages" id="SHIT">[ {{ p | json }} ]</div>-->
+    <!--<div *paginationControls="#p = pages" id="SHIT">[ {{ p | json }} ]</div>-->
 </div>

@@ -36,6 +36,7 @@ export class PaginatePipe {
         let id = instance.id;
         let start, end;
 
+        console.log('paginatePipe() transform - calling service.register()', id);
         this.service.register(instance);
 
         if (!usingConfig && instance.totalItems !== collection.length) {
