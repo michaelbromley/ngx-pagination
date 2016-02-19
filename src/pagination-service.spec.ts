@@ -1,6 +1,7 @@
+import {describe, expect, it} from 'angular2/testing';
 import {PaginationService, IPaginationInstance} from "./pagination-service";
 
-describe('pagination service', () => {
+describe('PaginationService:', () => {
     let service: PaginationService;
     let instance: IPaginationInstance;
     const ID = 'test';

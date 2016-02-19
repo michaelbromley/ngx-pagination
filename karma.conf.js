@@ -7,28 +7,25 @@ module.exports = function(config) {
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '',
 
-
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
 
-
         // list of files / patterns to load in the browser
         files: [
             'node_modules/angular2/bundles/angular2-polyfills.js',
-            'src/**/*.spec.ts'
+            './testing-bootstrap.js',
+            { pattern: './src/*.ts', watched: true, served: false, included: false }
         ],
-
 
         // list of files to exclude
         exclude: [
         ],
 
-
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'src/**/*.spec.ts': ['webpack']
+            'testing-bootstrap.js': ['webpack']
         },
 
         webpack: {
@@ -49,28 +46,19 @@ module.exports = function(config) {
             }
         },
 
-        webpackMiddleware: {
-            // webpack-dev-middleware configuration
-            // i. e.
-            noInfo: true
-        },
-
         plugins: [
             require("karma-webpack"),
             'karma-jasmine',
             'karma-chrome-launcher'
         ],
 
-
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
         reporters: ['progress'],
 
-
         // web server port
         port: 9876,
-
 
         // enable / disable colors in the output (reporters and logs)
         colors: true,

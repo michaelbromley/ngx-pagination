@@ -3,6 +3,7 @@ import {CORE_DIRECTIVES} from 'angular2/common'
 import {CONST_EXPR} from 'angular2/src/facade/lang';
 import {Subscription} from 'rxjs';
 import {PaginationService} from "./pagination-service";
+import {IPaginationInstance} from './pagination-service';
 
 export interface IPage {
     label: string;
@@ -47,7 +48,7 @@ class PaginationControlsBase {
     directionLinks: boolean = true;
     autoHide: boolean = false;
 
-    @Output() pageChange: EventEmitter<number> = new EventEmitter();
+    pageChange: EventEmitter<number> = new EventEmitter();
 
     private changeSub: Subscription<string>;
     public pages: IPage[] = [];
@@ -55,7 +56,6 @@ class PaginationControlsBase {
     constructor(private service: PaginationService) {
         this.changeSub = this.service.change
             .subscribe(id => {
-                console.log('change event emmited for id', id);
                 if (this.id === id) {
                     this.updatePages();
                 }
@@ -63,9 +63,13 @@ class PaginationControlsBase {
     }
 
     updatePages() {
-        console.log('updatePages()');
         let inst = this.service.getInstance(this.id);
         this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+
+        const correctedCurrentPage = this.outOfBoundCorrection(inst);
+        if (correctedCurrentPage !== inst.currentPage) {
+            this.setCurrent(correctedCurrentPage);
+        }
     }
 
     /**
@@ -89,9 +93,7 @@ class PaginationControlsBase {
      * Set the current page number.
      */
     setCurrent(page: number) {
-        console.log('setCurrent()');
-        this.service.setCurrentPage(this.id, page);
-        this.pageChange.emit(this.service.getCurrentPage(this.id));
+        this.pageChange.emit(page);
     }
 
     /**
@@ -108,6 +110,21 @@ class PaginationControlsBase {
     isLastPage(): boolean {
         let inst = this.service.getInstance(this.id);
         return Math.ceil(inst.totalItems / inst.itemsPerPage) === inst.currentPage;
+    }
+
+    /**
+     * Checks that the instance.currentPage property is within bounds for the current page range.
+     * If not, return a correct value for currentPage, or the current value if OK.
+     */
+    private outOfBoundCorrection(instance: IPaginationInstance): number {
+        const totalPages = Math.ceil(instance.totalItems / instance.itemsPerPage);
+        if (totalPages < instance.currentPage) {
+            return totalPages;
+        } else if (instance.currentPage < 1) {
+            return 1;
+        }
+
+        return instance.currentPage;
     }
 
     /**
@@ -216,7 +233,6 @@ export class PaginationControlsDirective extends PaginationControlsBase{
     }
 
     ngAfterViewChecked() {
-        //console.log('ngAfterViewChecked directive, pages', this.pages, 'id', this.id);
         this.api.pages = this.pages;
     }
 
@@ -231,8 +247,10 @@ export class PaginationControlsCmp extends PaginationControlsBase {
     @Input() maxSize: number = 7;
     @Input() directionLinks: boolean = true;
     @Input() autoHide: boolean = false;
+    @Output() pageChange: EventEmitter<number>;
 
     constructor(service: PaginationService) {
+        super(service);
         super(service);
     }
 

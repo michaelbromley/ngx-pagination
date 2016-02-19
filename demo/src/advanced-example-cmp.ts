@@ -24,4 +24,19 @@ export class AdvancedExampleCmp {
         currentPage: 1
     };
 
+    private popped = [];
+
+    onPageChange(number: number) {
+        console.log('change to page', number);
+        this.config.currentPage = number;
+    }
+
+    pushItem() {
+        let item = this.popped.pop() || 'A newly-created meal!';
+        this.meals.push(item);
+    }
+
+    popItem() {
+        this.popped.push(this.meals.pop());
+    }
 }

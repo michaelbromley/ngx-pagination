@@ -36,10 +36,10 @@ import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagina
     selector: 'my-component',
     template: `
     <ul>
-      <li *ngFor="#item of collection | paginate: [ITEMS_PER_PAGE or CONFIG_OBJECT] "> ... </li>
+      <li *ngFor="#item of collection | paginate: { itemsPerPage: 10, currentPage: p }"> ... </li>
     <ul>
                
-    <pagination-controls></pagination-controls>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
     `,
     directives: [CORE_DIRECTIVES, PaginationControlsCmp],
     pipes: [PaginatePipe],
@@ -64,11 +64,8 @@ export class MyComponent {
 
 ### PaginatePipe
 
-The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, which should be 
-either a `number` or an object confirming to `IPaginationInstance`. If the argument is a number, the number sets the
-value of `itemsPerPage`. 
-
-Using an object allows some more advanced configuration. The following config options are available:
+The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object confirming 
+to `IPaginationInstance`. The following config options are available:
 
 ```JavaScript
 interface IPaginationInstance {
@@ -111,7 +108,7 @@ interface IPaginationInstance {
 
 * **`id`** [string] If you need to support more than one instance of pagination at a time, set the `id` and ensure it
 matches the id set in the PaginatePipe config.
-* **`change`** [function] The function specified will be invoked whenever the page changes via a click on one of the
+* **`pageChange`** [function] The function specified will be invoked whenever the page changes via a click on one of the
 pagination controls. The `$event` argument will be the number of the new page.
 * **`maxSize`** [number] Defines the maximum number of page links to display. Default is `7`.
 * **`directionLinks`** [boolean] If set to `false`, the "previous" and "next" links will not be displayed. Default is `true`.

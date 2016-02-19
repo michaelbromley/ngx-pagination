@@ -21,20 +21,19 @@ var PaginatePipe = (function () {
         if (!(collection instanceof Array)) {
             throw new Error("PaginationPipe: Argument error - expected an array, got " + typeof collection);
         }
-        var usingConfig = typeof args[0] === 'object';
-        var serverSideMode = usingConfig && args[0].totalItems !== undefined;
+        var serverSideMode = args[0].totalItems !== undefined;
         var instance = this.createInstance(collection, args);
         var id = instance.id;
         var start, end;
         this.service.register(instance);
-        if (!usingConfig && instance.totalItems !== collection.length) {
+        /*if (instance.totalItems !== collection.length) {
             this.service.setTotalItems(id, collection.length);
-        }
-        var itemsPerPage = instance.itemsPerPage;
+        }*/
+        var perPage = instance.itemsPerPage;
         if (!serverSideMode && collection instanceof Array) {
-            itemsPerPage = itemsPerPage || LARGE_NUMBER;
-            start = (this.service.getCurrentPage(id) - 1) * itemsPerPage;
-            end = start + itemsPerPage;
+            perPage = perPage || LARGE_NUMBER;
+            start = (instance.currentPage - 1) * perPage;
+            end = start + perPage;
             var isIdentical = this.stateIsIdentical(id, collection, start, end);
             if (isIdentical) {
                 return this.state[id].slice;
@@ -42,34 +41,35 @@ var PaginatePipe = (function () {
             else {
                 var slice = collection.slice(start, end);
                 this.saveState(id, collection, slice, start, end);
+                this.service.change.emit(id);
                 return slice;
             }
         }
         return collection;
     };
+    /**
+     * Create an IPaginationInstance object, using defaults for any optional properties not supplied.
+     */
     PaginatePipe.prototype.createInstance = function (collection, args) {
-        var instance;
-        if (typeof args[0] === 'string' || typeof args[0] === 'number') {
-            var id = this.service.defaultId;
-            instance = {
-                id: id,
-                itemsPerPage: parseInt(args[0]),
-                currentPage: this.service.getCurrentPage(id) || 1,
-                totalItems: collection.length
-            };
-        }
-        else if (typeof args[0] === 'object') {
-            instance = {
-                id: args[0].id || this.service.defaultId,
-                itemsPerPage: args[0].itemsPerPage || 0,
-                currentPage: args[0].currentPage,
-                totalItems: args[0].totalItems || collection.length
-            };
-        }
-        else {
-            throw new Error("PaginatePipe: Argument must be a string, number or an object. Got " + typeof args[0]);
-        }
+        var config = args[0];
+        this.checkConfig(config);
+        var instance = {
+            id: config.id || this.service.defaultId,
+            itemsPerPage: config.itemsPerPage || 0,
+            currentPage: config.currentPage || 1,
+            totalItems: config.totalItems || collection.length
+        };
         return instance;
+    };
+    /**
+     * Ensure the argument passed to the filter contains the required properties.
+     */
+    PaginatePipe.prototype.checkConfig = function (config) {
+        var required = ['itemsPerPage', 'currentPage'];
+        var missing = required.filter(function (prop) { return !config.hasOwnProperty(prop); });
+        if (0 < missing.length) {
+            throw new Error("PaginatePipe: Argument is missing the following required properties: " + missing.join(', '));
+        }
     };
     /**
      * To avoid returning a brand new array each time the pipe is run, we store the state of the sliced
@@ -80,20 +80,24 @@ var PaginatePipe = (function () {
     PaginatePipe.prototype.saveState = function (id, collection, slice, start, end) {
         this.state[id] = {
             collection: collection,
+            size: collection.length,
             slice: slice,
             start: start,
             end: end
         };
     };
     /**
-     * For a given id, returns true if the collection, start and end values are identical.
+     * For a given id, returns true if the collection, size, start and end values are identical.
      */
     PaginatePipe.prototype.stateIsIdentical = function (id, collection, start, end) {
         var state = this.state[id];
         if (!state) {
             return false;
         }
-        return state.collection === collection && state.start === start && state.end === end;
+        return state.collection === collection &&
+            state.size === collection.length &&
+            state.start === start &&
+            state.end === end;
     };
     PaginatePipe = __decorate([
         core_1.Pipe({

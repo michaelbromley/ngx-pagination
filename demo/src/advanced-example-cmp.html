@@ -1,7 +1,20 @@
 <!-- The form controls for the various config parameters -->
-<label>Input Label
-    <input type="text" placeholder="filter" [(ngModel)]="filter">
-</label>
+<div class="row">
+    <div class="medium-6 columns">
+        <label>Filter items
+            <input type="text" placeholder="filter" [(ngModel)]="filter">
+        </label>
+    </div>
+    <div class="medium-3 columns">
+        <label>currentPage
+            <input type="number" min="0" [(ngModel)]="config.currentPage">
+        </label>
+    </div>
+    <div class="medium-3 columns">
+        <button class="button small" (click)="pushItem()">Push Item</button>
+        <button class="button small" (click)="popItem()">Pop Item</button>
+    </div>
+</div>
 <div class="row">
     <div class="medium-4 columns">
         <label>itemsPerPage
@@ -31,5 +44,5 @@
                          [maxSize]="maxSize"
                          [directionLinks]="directionLinks"
                          [autoHide]="autoHide"
-                         (pageChange)="config.currentPage = $event"></pagination-controls>
+                         (pageChange)="onPageChange($event)"></pagination-controls>
 </div>
