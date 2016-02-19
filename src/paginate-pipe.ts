@@ -96,7 +96,6 @@ export class PaginatePipe {
      */
     private saveState(id: string, collection: any[], slice: any[], start: number, end: number) {
         this.state[id] = {
-            size: collection.length,
             collection,
             size: collection.length,
             slice,
