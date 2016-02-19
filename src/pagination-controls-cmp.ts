@@ -13,29 +13,29 @@ export interface IPage {
 const DEFAULT_TEMPLATE = `
     <ul class="pagination" role="navigation" aria-label="Pagination">
 
-        <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
-            <a *ngIf="1 < getCurrent()" (click)="setCurrent(getCurrent() - 1)" aria-label="Next page">
+        <li class="pagination-previous" [class.disabled]="api.isFirstPage()" *ngIf="api.directionLinks">
+            <a *ngIf="1 < api.getCurrent()" (click)="api.previous()" aria-label="Next page">
                 Previous <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="isFirstPage()">Previous <span class="show-for-sr">page</span></span>
+            <span *ngIf="api.isFirstPage()">Previous <span class="show-for-sr">page</span></span>
         </li>
 
-        <li [class.current]="getCurrent() === page.value" *ngFor="#page of pages">
-            <a (click)="setCurrent(page.value)" *ngIf="getCurrent() !== page.value">
+        <li [class.current]="api.getCurrent() === page.value" *ngFor="#page of api.pages">
+            <a (click)="api.setCurrent(page.value)" *ngIf="api.getCurrent() !== page.value">
                 <span class="show-for-sr">Page</span>
                 <span>{{ page.label }}</span>
             </a>
-            <div *ngIf="getCurrent() === page.value">
+            <div *ngIf="api.getCurrent() === page.value">
                 <span class="show-for-sr">You're on page</span>
                 <span>{{ page.label }}</span>
             </div>
         </li>
 
-        <li class="pagination-next" [class.disabled]="isLastPage()" *ngIf="directionLinks">
-            <a *ngIf="!isLastPage()" (click)="setCurrent(getCurrent() + 1)" aria-label="Next page">
+        <li class="pagination-next" [class.disabled]="api.isLastPage()" *ngIf="api.directionLinks">
+            <a *ngIf="!api.isLastPage()" (click)="api.next()" aria-label="Next page">
                 Next <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="isLastPage()">Next <span class="show-for-sr">page</span></span>
+            <span *ngIf="api.isLastPage()">Next <span class="show-for-sr">page</span></span>
         </li>
 
     </ul>
@@ -44,14 +44,25 @@ const DEFAULT_TEMPLATE = `
 class PaginationControlsBase {
 
     id: string;
-    maxSize: number = 7;
-    directionLinks: boolean = true;
-    autoHide: boolean = false;
-
     pageChange: EventEmitter<number> = new EventEmitter();
-
+    /**
+     * The api object provides data and methods to be used in the template.
+     * The reason it is done this way, rather than just using instance members, is so that we can
+     * unify the way the component and directive templates access them.
+     */
+    api = {
+        pages: [],
+        directionLinks: true,
+        autoHide: false,
+        maxSize: 7,
+        getCurrent: () => this.getCurrent(),
+        setCurrent: (val) => this.setCurrent(val),
+        previous: () => this.setCurrent(this.getCurrent() - 1),
+        next: () => this.setCurrent(this.getCurrent() + 1),
+        isFirstPage: () => this.getCurrent() === 1,
+        isLastPage: () => this.getLastPage() === this.getCurrent()
+    };
     private changeSub: Subscription<string>;
-    public pages: IPage[] = [];
 
     constructor(private service: PaginationService) {
         this.changeSub = this.service.change
@@ -64,7 +75,7 @@ class PaginationControlsBase {
 
     updatePages() {
         let inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        this.api.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.api.maxSize);
 
         const correctedCurrentPage = this.outOfBoundCorrection(inst);
         if (correctedCurrentPage !== inst.currentPage) {
@@ -72,9 +83,6 @@ class PaginationControlsBase {
         }
     }
 
-    /**
-     * Set up the subscription to the PaginationService.change observable.
-     */
     ngOnInit() {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
@@ -103,13 +111,12 @@ class PaginationControlsBase {
         return this.service.getCurrentPage(this.id);
     }
 
-    isFirstPage(): boolean {
-        return this.getCurrent() === 1;
-    }
-
-    isLastPage(): boolean {
+    /**
+     * Returns the last page number
+     */
+    getLastPage(): number {
         let inst = this.service.getInstance(this.id);
-        return Math.ceil(inst.totalItems / inst.itemsPerPage) === inst.currentPage;
+        return Math.ceil(inst.totalItems / inst.itemsPerPage);
     }
 
     /**
@@ -192,9 +199,16 @@ class PaginationControlsBase {
 })
 export class PaginationControlsDirective extends PaginationControlsBase{
     @Input() id: string;
-    @Input() maxSize: number = 7;
-    @Input() directionLinks: boolean = true;
-    @Input() autoHide: boolean = false;
+    @Input() set maxSize(value: number) {
+        this.api.maxSize = value;
+    }
+    @Input() set directionLinks(value: boolean) {
+        this.api.directionLinks = value;
+    }
+    @Input() set autoHide(value: boolean) {
+        this.api.autoHide = value;
+    }
+    @Output() pageChange: EventEmitter<number>;
 
     @ContentChild(TemplateRef) customTemplate;
     private templateView: EmbeddedViewRef;
@@ -203,27 +217,15 @@ export class PaginationControlsDirective extends PaginationControlsBase{
                 private viewContainer: ViewContainerRef,
                 private cdr: ChangeDetectorRef) {
         super(service);
-
     }
 
     ngOnInit() {
+        // we need to detach the change detector initially, to prevent a
+        // "changed after checked" error.
         this.cdr.detach();
     }
 
-    public api: any = {};
-
     ngAfterViewInit() {
-        this.api = {
-            pages: [],
-            directionLinks: this.directionLinks,
-            autoHide: this.autoHide,
-            maxSize: this.maxSize,
-            getCurrent: () => this.getCurrent(),
-            setCurrent: (val) => this.setCurrent(val),
-            isFirstPage: () => this.isFirstPage(),
-            isLastPage: () => this.isLastPage()
-        };
-
         if (this.customTemplate !== null) {
             this.templateView = this.viewContainer.createEmbeddedView(this.customTemplate);
             this.templateView.setLocal('paginationApi', this.api);
@@ -233,7 +235,7 @@ export class PaginationControlsDirective extends PaginationControlsBase{
     }
 
     ngAfterViewChecked() {
-        this.api.pages = this.pages;
+       //  this.api.pages = this.pages;
     }
 
 }
@@ -244,13 +246,18 @@ export class PaginationControlsDirective extends PaginationControlsBase{
 })
 export class PaginationControlsCmp extends PaginationControlsBase {
     @Input() id: string;
-    @Input() maxSize: number = 7;
-    @Input() directionLinks: boolean = true;
-    @Input() autoHide: boolean = false;
+    @Input() set maxSize(value: number) {
+        this.api.maxSize = value;
+    }
+    @Input() set directionLinks(value: boolean) {
+        this.api.directionLinks = value;
+    }
+    @Input() set autoHide(value: boolean) {
+        this.api.autoHide = value;
+    }
     @Output() pageChange: EventEmitter<number>;
 
     constructor(service: PaginationService) {
-        super(service);
         super(service);
     }
 

@@ -28,14 +28,12 @@ export function getListItems(fixture: ComponentFixture): HTMLLIElement[] {
  * Return the list items making up the pagination links, e.g.
  * ['1', '2', '3', '...', '10']
  */
-export function getPageLinkItems(fixture: ComponentFixture): string[] {
-    return fixture.debugElement.queryAll(By.css('pagination-controls li'))
+export function getPageLinkItems(fixture: ComponentFixture, selector?: string = 'pagination-controls li'): string[] {
+    return fixture.debugElement.queryAll(By.css(selector))
         .map((el: DebugElement) => el.nativeElement.innerText)
         .filter(str => str.match(/\d+|\.\.\./))
         .map(str => str.match(/\d+|\.\.\./)[0]);
 }
-
-
 
 /**
  * Test Component
@@ -56,6 +54,48 @@ export function getPageLinkItems(fixture: ComponentFixture): string[] {
     providers: [PaginationService]
 })
 export class TestCmp {
+    maxSize: number = 9;
+    directionLinks: boolean = true;
+    autoHide: boolean = true;
+    collection: string[] = [];
+    config: IPaginationInstance = {
+        id: 'test',
+        itemsPerPage: 10,
+        currentPage: 1
+    };
+    pageChanged() {}
+
+    constructor() {
+        this.collection = createCollection();
+    }
+}
+
+/**
+ * Test Component using custom template
+ */
+@Component({
+    template: `
+    <ul>
+        <li *ngFor="#item of collection | paginate: config" class="list-item">{{ item }}</li>
+    </ul>
+   <template paginationControls #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event">
+           <div class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="p.directionLinks">
+               <span *ngIf="!p.isFirstPage()" (click)="p.previous()">back</span>
+           </div>
+
+           <div class="page-link" [class.current]="p.getCurrent() === page.value" *ngFor="#page of p.pages">
+               <span (click)="p.setCurrent(page.value)">{{ page.label }}</span>
+           </div>
+
+           <div class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
+               <span *ngIf="!p.isLastPage()" (click)="p.next()">forward</span>
+           </div>
+   </template>`,
+    directives: [PAGINATION_DIRECTIVES],
+    pipes: [PaginatePipe],
+    providers: [PaginationService]
+})
+export class TestCustomTemplateCmp {
     maxSize: number = 9;
     directionLinks: boolean = true;
     autoHide: boolean = true;
