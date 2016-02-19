@@ -246,4 +246,19 @@ describe('PaginatePipe:', () => {
             }));
     });
 
+            let result1 = pipe.transform(collection, ['10']);
+            expect(result1.length).toBe(3);
+
+            collection.push('4');
+
+            let result2 = pipe.transform(collection, ['10']);
+            expect(result2.length).toBe(4);
+
+            collection.splice(3, 1); // remove 4th
+
+            let result3 = pipe.transform(collection, ['10']);
+            expect(result3.length).toBe(3);
+        });
+    });
+
 });

@@ -79,6 +79,7 @@ var PaginatePipe = (function () {
      */
     PaginatePipe.prototype.saveState = function (id, collection, slice, start, end) {
         this.state[id] = {
+            size: collection.length,
             collection: collection,
             size: collection.length,
             slice: slice,

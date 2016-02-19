@@ -96,6 +96,7 @@ export class PaginatePipe {
      */
     private saveState(id: string, collection: any[], slice: any[], start: number, end: number) {
         this.state[id] = {
+            size: collection.length,
             collection,
             size: collection.length,
             slice,
@@ -115,6 +116,7 @@ export class PaginatePipe {
         return state.collection === collection &&
             state.size === collection.length &&
             state.start === start &&
+            state.end === end;
             state.end === end;
     }
 }
