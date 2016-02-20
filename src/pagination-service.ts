@@ -33,11 +33,6 @@ export class PaginationService {
     private DEFAULT_ID = 'DEFAULT_PAGINATION_ID';
     get defaultId() { return this.DEFAULT_ID }
 
-
-    // static template config
-    static templateUrl: string;
-    static template: string;
-
     public register(instance: IPaginationInstance) {
         if (!instance.id) {
             instance.id = this.DEFAULT_ID;
@@ -48,9 +43,10 @@ export class PaginationService {
             this.change.emit(instance.id);
         } else {
             let changed = this.updateInstance(instance);
-            if (changed) {
+           /* if (changed) {
+                console.log('service: 2nd register()', instance.id);
                 this.change.emit(instance.id);
-            }
+            }*/
         }
     }
 

@@ -1,7 +1,9 @@
-import {Component, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewContainerRef} from 'angular2/core'
+import {Component, Directive, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewContainerRef, EmbeddedViewRef, Query, QueryList, ElementRef, ChangeDetectorRef} from 'angular2/core'
 import {CORE_DIRECTIVES} from 'angular2/common'
+import {CONST_EXPR} from 'angular2/src/facade/lang';
 import {Subscription} from 'rxjs';
 import {PaginationService} from "./pagination-service";
+import {IPaginationInstance} from './pagination-service';
 
 export interface IPage {
     label: string;
@@ -9,62 +11,60 @@ export interface IPage {
 }
 
 const DEFAULT_TEMPLATE = `
-    <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="displayDefaultTemplate()">
+    <ul class="pagination" role="navigation" aria-label="Pagination">
 
-        <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
-            <a *ngIf="1 < getCurrent()" (click)="setCurrent(getCurrent() - 1)" aria-label="Next page">
+        <li class="pagination-previous" [class.disabled]="api.isFirstPage()" *ngIf="api.directionLinks">
+            <a *ngIf="1 < api.getCurrent()" (click)="api.previous()" aria-label="Next page">
                 Previous <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="isFirstPage()">Previous <span class="show-for-sr">page</span></span>
+            <span *ngIf="api.isFirstPage()">Previous <span class="show-for-sr">page</span></span>
         </li>
 
-        <li [class.current]="getCurrent() === page.value" *ngFor="#page of pages">
-            <a (click)="setCurrent(page.value)" *ngIf="getCurrent() !== page.value">
+        <li [class.current]="api.getCurrent() === page.value" *ngFor="#page of api.pages">
+            <a (click)="api.setCurrent(page.value)" *ngIf="api.getCurrent() !== page.value">
                 <span class="show-for-sr">Page</span>
                 <span>{{ page.label }}</span>
             </a>
-            <div *ngIf="getCurrent() === page.value">
+            <div *ngIf="api.getCurrent() === page.value">
                 <span class="show-for-sr">You're on page</span>
                 <span>{{ page.label }}</span>
             </div>
         </li>
 
-        <li class="pagination-next" [class.disabled]="isLastPage()" *ngIf="directionLinks">
-            <a *ngIf="!isLastPage()" (click)="setCurrent(getCurrent() + 1)" aria-label="Next page">
+        <li class="pagination-next" [class.disabled]="api.isLastPage()" *ngIf="api.directionLinks">
+            <a *ngIf="!api.isLastPage()" (click)="api.next()" aria-label="Next page">
                 Next <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="isLastPage()">Next <span class="show-for-sr">page</span></span>
+            <span *ngIf="api.isLastPage()">Next <span class="show-for-sr">page</span></span>
         </li>
 
     </ul>
     `;
 
-function getTemplate(): string {
-    return PaginationService.template || DEFAULT_TEMPLATE;
-}
+class PaginationControlsBase {
 
-@Component({
-    selector: 'pagination-controls',
-    template: getTemplate(),
-    directives: [CORE_DIRECTIVES]
-})
-export class PaginationControlsCmp {
-
-    @Input() id: string;
-    @Input() maxSize: number = 7;
-    @Input() directionLinks: boolean = true;
-    @Input() autoHide: boolean = false;
-
-    @Output() pageChange: EventEmitter<number> = new EventEmitter();
-
-    @ContentChild(TemplateRef) customTemplate;
-
-
+    id: string;
+    pageChange: EventEmitter<number> = new EventEmitter();
+    /**
+     * The api object provides data and methods to be used in the template.
+     * The reason it is done this way, rather than just using instance members, is so that we can
+     * unify the way the component and directive templates access them.
+     */
+    api = {
+        pages: [],
+        directionLinks: true,
+        autoHide: false,
+        maxSize: 7,
+        getCurrent: () => this.getCurrent(),
+        setCurrent: (val) => this.setCurrent(val),
+        previous: () => this.setCurrent(this.getCurrent() - 1),
+        next: () => this.setCurrent(this.getCurrent() + 1),
+        isFirstPage: () => this.getCurrent() === 1,
+        isLastPage: () => this.getLastPage() === this.getCurrent()
+    };
     private changeSub: Subscription<string>;
-    public pages: IPage[] = [];
 
-    constructor(private service: PaginationService,
-                private viewContainer: ViewContainerRef) {
+    constructor(private service: PaginationService) {
         this.changeSub = this.service.change
             .subscribe(id => {
                 if (this.id === id) {
@@ -73,64 +73,65 @@ export class PaginationControlsCmp {
             });
     }
 
-    private updatePages() {
+    updatePages() {
         let inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
-    }
+        this.api.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.api.maxSize);
 
-    public displayDefaultTemplate(): boolean {
-        if (this.customTemplate !== null) {
-            return false;
+        const correctedCurrentPage = this.outOfBoundCorrection(inst);
+        if (correctedCurrentPage !== inst.currentPage) {
+            this.setCurrent(correctedCurrentPage);
         }
-        return !this.autoHide || 1 < this.pages.length;
     }
 
-    /**
-     * Set up the subscription to the PaginationService.change observable.
-     */
-    private ngOnInit() {
+    ngOnInit() {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
         }
     }
 
-    private ngAfterContentInit () {
-        if (this.customTemplate !== null) {
-            this.viewContainer.createEmbeddedView(this.customTemplate);
-        }
-    }
-
-    private ngOnChanges() {
+    ngOnChanges() {
         this.updatePages();
     }
 
-    private ngOnDestroy() {
-        // TODO: do i need to manually clean these up??? What's the difference between unsubscribe() and remove()
+    ngOnDestroy() {
         this.changeSub.unsubscribe();
     }
 
     /**
      * Set the current page number.
      */
-    public setCurrent(page: number) {
-        this.service.setCurrentPage(this.id, page);
-        this.pageChange.emit(this.service.getCurrentPage(this.id));
+    setCurrent(page: number) {
+        this.pageChange.emit(page);
     }
 
     /**
      * Get the current page number.
      */
-    public getCurrent(): number {
+    getCurrent(): number {
         return this.service.getCurrentPage(this.id);
     }
 
-    public isFirstPage(): boolean {
-        return this.getCurrent() === 1;
+    /**
+     * Returns the last page number
+     */
+    getLastPage(): number {
+        let inst = this.service.getInstance(this.id);
+        return Math.ceil(inst.totalItems / inst.itemsPerPage);
     }
 
-    public isLastPage(): boolean {
-        let inst = this.service.getInstance(this.id);
-        return Math.ceil(inst.totalItems / inst.itemsPerPage) === inst.currentPage;
+    /**
+     * Checks that the instance.currentPage property is within bounds for the current page range.
+     * If not, return a correct value for currentPage, or the current value if OK.
+     */
+    private outOfBoundCorrection(instance: IPaginationInstance): number {
+        const totalPages = Math.ceil(instance.totalItems / instance.itemsPerPage);
+        if (totalPages < instance.currentPage) {
+            return totalPages;
+        } else if (instance.currentPage < 1) {
+            return 1;
+        }
+
+        return instance.currentPage;
     }
 
     /**
@@ -192,3 +193,74 @@ export class PaginationControlsCmp {
         }
     }
 }
+
+@Directive({
+    selector: '[paginationControls]'
+})
+export class PaginationControlsDirective extends PaginationControlsBase{
+    @Input() id: string;
+    @Input() set maxSize(value: number) {
+        this.api.maxSize = value;
+    }
+    @Input() set directionLinks(value: boolean) {
+        this.api.directionLinks = value;
+    }
+    @Input() set autoHide(value: boolean) {
+        this.api.autoHide = value;
+    }
+    @Output() pageChange: EventEmitter<number>;
+
+    @ContentChild(TemplateRef) customTemplate;
+    private templateView: EmbeddedViewRef;
+
+    constructor(service: PaginationService,
+                private viewContainer: ViewContainerRef,
+                private cdr: ChangeDetectorRef) {
+        super(service);
+    }
+
+    ngOnInit() {
+        // we need to detach the change detector initially, to prevent a
+        // "changed after checked" error.
+        this.cdr.detach();
+    }
+
+    ngAfterViewInit() {
+        if (this.customTemplate !== null) {
+            this.templateView = this.viewContainer.createEmbeddedView(this.customTemplate);
+            this.templateView.setLocal('paginationApi', this.api);
+        }
+
+        setTimeout(() => this.cdr.reattach());
+    }
+
+    ngAfterViewChecked() {
+       //  this.api.pages = this.pages;
+    }
+
+}
+
+@Component({
+    selector: 'pagination-controls',
+    template: DEFAULT_TEMPLATE
+})
+export class PaginationControlsCmp extends PaginationControlsBase {
+    @Input() id: string;
+    @Input() set maxSize(value: number) {
+        this.api.maxSize = value;
+    }
+    @Input() set directionLinks(value: boolean) {
+        this.api.directionLinks = value;
+    }
+    @Input() set autoHide(value: boolean) {
+        this.api.autoHide = value;
+    }
+    @Output() pageChange: EventEmitter<number>;
+
+    constructor(service: PaginationService) {
+        super(service);
+    }
+
+}
+
+export const PAGINATION_DIRECTIVES = CONST_EXPR([PaginationControlsDirective, PaginationControlsCmp]);

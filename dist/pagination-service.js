@@ -20,9 +20,6 @@ var PaginationService = (function () {
         }
         else {
             var changed = this.updateInstance(instance);
-            if (changed) {
-                this.change.emit(instance.id);
-            }
         }
     };
     /**

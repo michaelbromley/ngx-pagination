@@ -1,0 +1,32 @@
+<ul class="meal-list">
+    <li *ngFor="#meal of meals | paginate: config">
+        {{ meal }}
+    </li>
+</ul>
+
+<div class="text-center">
+    <template paginationControls #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event">
+        <ul class="pagination" role="navigation" aria-label="Pagination">
+
+            <li class="pagination-previous" [class.disabled]="p.isFirstPage()">
+                <a *ngIf="1 < p.getCurrent()" (click)="p.previous()"> < </a>
+                <span *ngIf="p.isFirstPage()"> < </span>
+            </li>
+
+            <li [class.current]="p.getCurrent() === page.value" *ngFor="#page of p.pages">
+                <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                    <span>{{ page.label }}</span>
+                </a>
+                <div *ngIf="p.getCurrent() === page.value">
+                    <span>{{ page.label }}</span>
+                </div>
+            </li>
+
+            <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
+                <a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
+                <span *ngIf="p.isLastPage()"> > </span>
+            </li>
+
+        </ul>
+    </template>
+</div>

@@ -10,6 +10,7 @@
     "outDir": "./dist"
   },
   "files": [
-    "src/ng2-pagination.ts"
+    "src/ng2-pagination.ts",
+    "typings/main.d.ts"
   ]
 }

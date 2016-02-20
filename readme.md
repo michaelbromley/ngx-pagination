@@ -23,6 +23,7 @@ I am currently working with TypeScript 1.7.3, so these instructions may not work
 npm install ng2-pagination --save
 ```
 
+**Note** that currently this module only supports commonjs, which means it should work with Webpack or Browserify, but not with SystemJS.
 
 ## Example of usage
 
@@ -35,10 +36,10 @@ import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagina
     selector: 'my-component',
     template: `
     <ul>
-      <li *ngFor="#item of collection | paginate: [ITEMS_PER_PAGE or CONFIG_OBJECT] "> ... </li>
+      <li *ngFor="#item of collection | paginate: { itemsPerPage: 10, currentPage: p }"> ... </li>
     <ul>
                
-    <pagination-controls></pagination-controls>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
     `,
     directives: [CORE_DIRECTIVES, PaginationControlsCmp],
     pipes: [PaginatePipe],
@@ -63,11 +64,8 @@ export class MyComponent {
 
 ### PaginatePipe
 
-The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, which should be 
-either a `number` or an object confirming to `IPaginationInstance`. If the argument is a number, the number sets the
-value of `itemsPerPage`. 
-
-Using an object allows some more advanced configuration. The following config options are available:
+The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object confirming 
+to `IPaginationInstance`. The following config options are available:
 
 ```JavaScript
 interface IPaginationInstance {
@@ -101,19 +99,21 @@ interface IPaginationInstance {
 
 ```HTML
 <pagination-controls  id="some_id"
-                      (change)="pageChanged($event)
+                      (pageChange)="pageChanged($event)"
                       maxSize="9"
+                      directionLinks="true"
                       autoHide="true">
 </pagination-controls>
 ```
 
 * **`id`** [string] If you need to support more than one instance of pagination at a time, set the `id` and ensure it
 matches the id set in the PaginatePipe config.
-* **`change`** [function] The function specified will be invoked whenever the page changes via a click on one of the
+* **`pageChange`** [function] The function specified will be invoked whenever the page changes via a click on one of the
 pagination controls. The `$event` argument will be the number of the new page.
-* **maxSize** [number] Defines the maximum number of page links to display. Default is `7`.
+* **`maxSize`** [number] Defines the maximum number of page links to display. Default is `7`.
+* **`directionLinks`** [boolean] If set to `false`, the "previous" and "next" links will not be displayed. Default is `true`.
 * **`autoHide`** [boolean] If set to `true`, the pagination controls will not be displayed when all items in the
-collection fit onto the first page. Default is `false`
+collection fit onto the first page. Default is `false`.
 
 ## To Do
 
@@ -134,6 +134,10 @@ best to test components.
 To build, first run  `npm install` to get all the dev dependencies. Then you can use the `npm run build` script to
 compile the TypeScript and generate the definition files. `npm run test` will fire up Karma with the Webpack
 plugin to run the tests.
+
+## Dart Version
+
+For Dart users, there is a Dart port available here: https://github.com/laagland/ng2-dart-pagination. Note that this version was written and is maintained by a different author.
 
 ## License
 

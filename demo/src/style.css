@@ -1,0 +1,19 @@
+.loading {
+    font-size: 32px;
+    text-align: center;
+    color: gray;
+}
+
+.meal-list {
+    padding-left: 30px;
+}
+
+.code-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.code-container.expanded {
+    max-height: 1500px;
+}
