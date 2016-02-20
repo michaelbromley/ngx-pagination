@@ -5,11 +5,11 @@
 </ul>
 
 <div class="text-center">
-    <template paginationControls #p="paginationApi" [id]="config.id">
+    <template paginationControls #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event">
         <ul class="pagination" role="navigation" aria-label="Pagination">
 
             <li class="pagination-previous" [class.disabled]="p.isFirstPage()">
-                <a *ngIf="1 < p.getCurrent()" (click)="p.setCurrent(p.getCurrent() - 1)"> < </a>
+                <a *ngIf="1 < p.getCurrent()" (click)="p.previous()"> < </a>
                 <span *ngIf="p.isFirstPage()"> < </span>
             </li>
 
@@ -23,12 +23,10 @@
             </li>
 
             <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
-                <a *ngIf="!p.isLastPage()" (click)="p.setCurrent(p.getCurrent() + 1)"> > </a>
+                <a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
                 <span *ngIf="p.isLastPage()"> > </span>
             </li>
 
         </ul>
     </template>
-    <!-- <div template="paginationControls: var p = pages" id="SHIT">[ {{ p | json }} ]</div>-->
-    <!--<div *paginationControls="#p = pages" id="SHIT">[ {{ p | json }} ]</div>-->
 </div>

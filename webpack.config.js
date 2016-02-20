@@ -3,6 +3,10 @@
 var webpack = require('webpack');
 var path = require('path');
 var srcPath = path.join(__dirname, 'demo', 'src');
+var production = -1 < process.argv.indexOf(-p);
+
+var outPath = production ? 'dist' : 'build';
+var devtool = production ? 'source-map' : 'eval-source-map';
 
 var config = {
     target: 'web',
@@ -20,7 +24,7 @@ var config = {
         alias: {}
     },
     output: {
-        path: path.join(__dirname, 'demo', 'build'),
+        path: path.join(__dirname, 'demo', outPath),
         publicPath: '',
         filename: '[name].js',
         pathInfo: true
@@ -46,13 +50,16 @@ var config = {
             filename: 'common.js',
             minChunks: Infinity
         }),
-        new webpack.NoErrorsPlugin(),
-       /* new webpack.optimize.UglifyJsPlugin({
-            mangle: false
-        })*/
+        new webpack.NoErrorsPlugin()
     ],
     debug: true,
-    devtool: 'eval-source-map'
+    devtool: devtool
 };
+
+if (production) {
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        mangle: false
+    }));
+}
 
 module.exports = config;

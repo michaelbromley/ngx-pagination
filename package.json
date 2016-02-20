@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "node node_modules/typescript/bin/tsc",
-    "test": "karma start karma.conf.js --colors",
-    "demo:watch": "webpack --progress --colors --watch"
+    "test": "karma start karma.conf.js",
+    "demo:watch": "webpack --progress --colors --watch",
+    "demo:prod": "webpack --progress --colors -p"
   },
   "files": [
     "dist",
