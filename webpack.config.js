@@ -3,8 +3,8 @@
 var webpack = require('webpack');
 var path = require('path');
 var srcPath = path.join(__dirname, 'demo', 'src');
-var production = -1 < process.argv.indexOf(-p);
-
+var production = -1 < process.argv.indexOf('--dist');
+console.log('production', production);
 var outPath = production ? 'dist' : 'build';
 var devtool = production ? 'source-map' : 'eval-source-map';
 
@@ -55,11 +55,11 @@ var config = {
     debug: true,
     devtool: devtool
 };
-
 if (production) {
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
         mangle: false
     }));
+    config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(true));
 }
 
 module.exports = config;
