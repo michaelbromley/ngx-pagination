@@ -1,48 +1,45 @@
-import {Component, enableProdMode} from "angular2/core";
-import {Http, HTTP_PROVIDERS} from "angular2/http";
-import {CORE_DIRECTIVES} from "angular2/common";
+import {Component} from "angular2/core";
 import {bootstrap} from "angular2/platform/browser";
 import {PaginationService} from "../../src/ng2-pagination";
 import {BasicExampleCmp} from "./basic-example-cmp";
 import {AdvancedExampleCmp} from "./advanced-example-cmp";
 import {CustomTemplateExampleCmp} from "./custom-template-example-cmp";
+import {ServerExampleCmp} from './server-example-cmp';
 
 const hljs = require('highlight.js');
 require('highlight.js/styles/github-gist.css');
+require('bulma/css/bulma.min.css');
+require('./style.css');
 
 
 @Component({
     selector: 'demo-app',
-    templateUrl: 'demo/src/demo-app.html',
-    directives: [BasicExampleCmp, AdvancedExampleCmp, CustomTemplateExampleCmp],
-    providers: [CORE_DIRECTIVES]
+    template: require('./demo-app.html'),
+    directives: [BasicExampleCmp, AdvancedExampleCmp, CustomTemplateExampleCmp, ServerExampleCmp]
 })
 class DemoApp {
 
-    public meals: string[] = [];
-    public basicCode: string = '';
-    public advancedCode: string = '';
-    public customTemplateCode: string = '';
+    meals: string[] = [];
+    basicCodeT: string = require('./basic-example-cmp.html');
+    basicCodeC: string = require('!raw!./basic-example-cmp.ts');
+    advancedCodeT: string = require('./advanced-example-cmp.html');
+    advancedCodeC: string = require('!raw!./advanced-example-cmp.ts');
+    customTemplateCodeT: string = require('./custom-template-example-cmp.html');
+    customTemplateCodeC: string = require('!raw!./custom-template-example-cmp.ts');
+    serverPagingCodeT: string = require('./server-example-cmp.html');
+    serverPagingCodeC: string = require('!raw!./server-example-cmp.ts');
+    selectedTab = 'basic';
+    basicTab = 'html';
+    fullTab = 'html';
+    customTab = 'html';
+    serverTab = 'html';
 
-    constructor(private http: Http) {
+    constructor() {
         this.meals = this.generateMeals();
     }
 
     ngAfterViewInit() {
-        this.loadCodeSnippet('basicCode', 'demo/src/basic-example-cmp.html');
-        this.loadCodeSnippet('advancedCode', 'demo/src/advanced-example-cmp.html');
-        this.loadCodeSnippet('customTemplateCode', 'demo/src/custom-template-example-cmp.html');
-    }
-
-    /**
-     * Load the example component HTML into a string and attach to the controller.
-     */
-    private loadCodeSnippet(name: string, url: string) {
-        this.http.get(url)
-            .subscribe(result => {
-                this[name] = result.text();
-                this.highlight();
-            });
+        this.highlight();
     }
 
     /**
@@ -90,5 +87,4 @@ class DemoApp {
     }
 }
 
-//enableProdMode();
-bootstrap(DemoApp, [HTTP_PROVIDERS, PaginationService]);
+bootstrap(DemoApp, [PaginationService]);

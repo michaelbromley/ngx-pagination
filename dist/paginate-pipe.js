@@ -17,19 +17,25 @@ var PaginatePipe = (function () {
         this.state = {};
     }
     PaginatePipe.prototype.transform = function (collection, args) {
-        // for non-array types, throw an exception
+        // When an observable is passed through the AsyncPipe, it will output
+        // `null` until the subscription resolves. In this case, we want to
+        // use the cached data from the `state` object to prevent the NgFor
+        // from flashing empty until the real values arrive.
         if (!(collection instanceof Array)) {
-            throw new Error("PaginationPipe: Argument error - expected an array, got " + typeof collection);
+            var _id = args[0].id || this.service.defaultId;
+            if (this.state[_id]) {
+                return this.state[_id].slice;
+            }
+            else {
+                return collection;
+            }
         }
         var serverSideMode = args[0].totalItems !== undefined;
         var instance = this.createInstance(collection, args);
         var id = instance.id;
         var start, end;
-        this.service.register(instance);
-        /*if (instance.totalItems !== collection.length) {
-            this.service.setTotalItems(id, collection.length);
-        }*/
         var perPage = instance.itemsPerPage;
+        this.service.register(instance);
         if (!serverSideMode && collection instanceof Array) {
             perPage = perPage || LARGE_NUMBER;
             start = (instance.currentPage - 1) * perPage;
@@ -45,6 +51,9 @@ var PaginatePipe = (function () {
                 return slice;
             }
         }
+        // save the state for server-side collection to avoid null
+        // flash as new data loads.
+        this.saveState(id, collection, collection, start, end);
         return collection;
     };
     /**
@@ -53,13 +62,12 @@ var PaginatePipe = (function () {
     PaginatePipe.prototype.createInstance = function (collection, args) {
         var config = args[0];
         this.checkConfig(config);
-        var instance = {
+        return {
             id: config.id || this.service.defaultId,
             itemsPerPage: config.itemsPerPage || 0,
             currentPage: config.currentPage || 1,
             totalItems: config.totalItems || collection.length
         };
-        return instance;
     };
     /**
      * Ensure the argument passed to the filter contains the required properties.
@@ -79,7 +87,6 @@ var PaginatePipe = (function () {
      */
     PaginatePipe.prototype.saveState = function (id, collection, slice, start, end) {
         this.state[id] = {
-            size: collection.length,
             collection: collection,
             size: collection.length,
             slice: slice,
@@ -99,6 +106,7 @@ var PaginatePipe = (function () {
             state.size === collection.length &&
             state.start === start &&
             state.end === end;
+        state.end === end;
     };
     PaginatePipe = __decorate([
         core_1.Pipe({
