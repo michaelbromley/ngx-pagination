@@ -26,22 +26,27 @@ export class PaginatePipe {
 
     public transform(collection: any[], args: any[]): any {
 
-        // for non-array types, throw an exception
+        // When an observable is passed through the AsyncPipe, it will output
+        // `null` until the subscription resolves. In this case, we want to
+        // use the cached data from the `state` object to prevent the NgFor
+        // from flashing empty until the real values arrive.
         if (!(collection instanceof Array)) {
-            throw new Error(`PaginationPipe: Argument error - expected an array, got ${typeof collection}`);
+            let _id = args[0].id || this.service.defaultId;
+            if (this.state[_id]) {
+                return this.state[_id].slice;
+            } else {
+                return collection;
+            }
         }
 
         let serverSideMode = args[0].totalItems !== undefined;
         let instance = this.createInstance(collection, args);
         let id = instance.id;
         let start, end;
+        let perPage = instance.itemsPerPage;
 
         this.service.register(instance);
 
-        /*if (instance.totalItems !== collection.length) {
-            this.service.setTotalItems(id, collection.length);
-        }*/
-        let perPage = instance.itemsPerPage;
         if (!serverSideMode && collection instanceof Array) {
             perPage = perPage || LARGE_NUMBER;
             start = (instance.currentPage - 1) * perPage;
@@ -57,6 +62,10 @@ export class PaginatePipe {
                 return slice;
             }
         }
+
+        // save the state for server-side collection to avoid null
+        // flash as new data loads.
+        this.saveState(id, collection, collection, start, end);
         return collection;
     }
 
@@ -67,13 +76,12 @@ export class PaginatePipe {
         let config = args[0];
         this.checkConfig(config);
 
-        let instance: IPaginationInstance = {
+        return {
             id: config.id || this.service.defaultId,
             itemsPerPage: config.itemsPerPage || 0,
             currentPage: config.currentPage || 1,
             totalItems: config.totalItems || collection.length
         };
-        return instance;
     }
 
     /**

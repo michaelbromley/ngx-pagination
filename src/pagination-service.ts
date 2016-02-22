@@ -43,10 +43,9 @@ export class PaginationService {
             this.change.emit(instance.id);
         } else {
             let changed = this.updateInstance(instance);
-           /* if (changed) {
-                console.log('service: 2nd register()', instance.id);
+            if (changed) {
                 this.change.emit(instance.id);
-            }*/
+            }
         }
     }
 
@@ -116,6 +115,7 @@ export class PaginationService {
         if (this.instances[id]) {
             return this.clone(this.instances[id]);
         }
+        return <IPaginationInstance>{};
     }
 
     /**
