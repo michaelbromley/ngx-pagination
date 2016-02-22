@@ -4,44 +4,14 @@ import {CONST_EXPR} from 'angular2/src/facade/lang';
 import {Subscription} from 'rxjs';
 import {PaginationService} from "./pagination-service";
 import {IPaginationInstance} from './pagination-service';
+import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
 
 export interface IPage {
     label: string;
     value: any;
 }
 
-const DEFAULT_TEMPLATE = `
-    <ul class="pagination" role="navigation" aria-label="Pagination">
-
-        <li class="pagination-previous" [class.disabled]="api.isFirstPage()" *ngIf="api.directionLinks">
-            <a *ngIf="1 < api.getCurrent()" (click)="api.previous()" aria-label="Next page">
-                Previous <span class="show-for-sr">page</span>
-            </a>
-            <span *ngIf="api.isFirstPage()">Previous <span class="show-for-sr">page</span></span>
-        </li>
-
-        <li [class.current]="api.getCurrent() === page.value" *ngFor="#page of api.pages">
-            <a (click)="api.setCurrent(page.value)" *ngIf="api.getCurrent() !== page.value">
-                <span class="show-for-sr">Page</span>
-                <span>{{ page.label }}</span>
-            </a>
-            <div *ngIf="api.getCurrent() === page.value">
-                <span class="show-for-sr">You're on page</span>
-                <span>{{ page.label }}</span>
-            </div>
-        </li>
-
-        <li class="pagination-next" [class.disabled]="api.isLastPage()" *ngIf="api.directionLinks">
-            <a *ngIf="!api.isLastPage()" (click)="api.next()" aria-label="Next page">
-                Next <span class="show-for-sr">page</span>
-            </a>
-            <span *ngIf="api.isLastPage()">Next <span class="show-for-sr">page</span></span>
-        </li>
-
-    </ul>
-    `;
-
-class PaginationControlsBase {
+export class PaginationControlsBase {
 
     id: string;
     pageChange: EventEmitter<number> = new EventEmitter();
@@ -234,15 +204,12 @@ export class PaginationControlsDirective extends PaginationControlsBase{
         setTimeout(() => this.cdr.reattach());
     }
 
-    ngAfterViewChecked() {
-       //  this.api.pages = this.pages;
-    }
-
 }
 
 @Component({
     selector: 'pagination-controls',
-    template: DEFAULT_TEMPLATE
+    template: DEFAULT_TEMPLATE,
+    styles: [DEFAULT_STYLES]
 })
 export class PaginationControlsCmp extends PaginationControlsBase {
     @Input() id: string;
