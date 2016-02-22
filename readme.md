@@ -1,35 +1,27 @@
 # Angular2 Pagination
 
-This is a **work-in-progress** port of my [angular-utils-pagination](https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination)
-module from Angular 1.x to Angular 2.
-
-It is not yet well production-tested and is currently missing a few features, but I hope to bring it eventually to full 
-feature-parity with the 1.x version.
-
-The API will not quite be the same, but it should be significantly simpler and easier to develop than the 1.x version (I hope).
+This is a port of my [angular-utils-pagination](https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination)
+module from Angular 1.x to Angular 2. Due to fundamental differences in the design of Angular2, the API is different but
+the idea is the same - the most simple possible way to add full-featured pagination to an Angular app.
 
 ## Demo
 
 Check out the live demo here: http://michaelbromley.github.io/ng2-pagination/
 
-To play with the demo, just clone this repo and start editing the files in the `/demo` folder. The index for the demo is
-`index.html` in the root folder.
+## Quick Start
 
-## Installation
-
-I am currently working with TypeScript 1.7.3, so these instructions may not work with earlier versions.
+Requirements: TypeScript 1.6+ (for TS builds), tested with Angular 2.0.0-beta.6+
 
 ```
 npm install ng2-pagination --save
 ```
 
-**Note** that currently this module only supports commonjs, which means it should work with Webpack or Browserify, but not with SystemJS.
+**Note** that currently this module only supports commonjs.
 
-## Example of usage
+## Simple Example
 
 ```TypeScript
 import {Component} from 'angular2/core';
-import {CORE_DIRECTIVES} from 'angular2/common';
 import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagination';
 
 @Component({
@@ -41,21 +33,13 @@ import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagina
                
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
     `,
-    directives: [CORE_DIRECTIVES, PaginationControlsCmp],
+    directives: [PaginationControlsCmp],
     pipes: [PaginatePipe],
     providers: [PaginationService]
 })
 export class MyComponent {
 
-    public collection: any[];  
-
-    constructor(private dataService: DataService) {
-    }
-
-    ngInit() {
-        this.dataService.getCollection()
-          .subscribe(result => this.collection = result);
-    }
+    public collection: any[] = someArrayOfThings;  
 
 }
 ```
@@ -67,33 +51,21 @@ export class MyComponent {
 The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object confirming 
 to `IPaginationInstance`. The following config options are available:
 
-```JavaScript
-interface IPaginationInstance {
-    /**
-     * An optional ID for the pagination instance. Only useful if you wish to
-     * have more than once instance at a time in a given component.
-     */
-    id?: string;
-    /**
-     * The number of items per paginated page.
-     */
-    itemsPerPage: number;
-    /**
-     * The current (active) page.
-     */
-    currentPage: number;
-    /**
-     * The total number of items in the collection. Only useful when
-     * doing server-side paging, where the collection size is limited
-     * to a single page returned by the server API.
-     *
-     * For in-memory paging, this property should not be set, as it
-     * will be automatically set to the value of  collection.length.
-     */
-    totalItems?: number;
-}
+```HTML
+<element *ngFor="#item of collection | paginate: { id: 'foo'
+                                                   itemsPerPage: pageSize
+                                                   currentPage: p
+                                                   totalItems: total }">...</element>
+
 ```
 
+* **`itemsPerPage`** [`number` - **required**] The number of items to display on each page.
+* **`currentPage`** [`number` - **required**] The current (active) page number.
+* **`id`** [`string`] If you need to support more than one instance of pagination at a time, set the `id` and ensure it
+matches the id set in the PaginatePipe config (see below).
+* **`totalItems`** [`number`] The total number of items in the collection. Only useful when doing server-side paging, 
+where the collection size is limited to a single page returned by the server API. For in-memory paging, 
+this property should not be set, as it will be automatically set to the value of  collection.length.
 
 ### PaginationControlsCmp
 
@@ -106,38 +78,113 @@ interface IPaginationInstance {
 </pagination-controls>
 ```
 
-* **`id`** [string] If you need to support more than one instance of pagination at a time, set the `id` and ensure it
+* **`id`** [`string`] If you need to support more than one instance of pagination at a time, set the `id` and ensure it
 matches the id set in the PaginatePipe config.
-* **`pageChange`** [function] The function specified will be invoked whenever the page changes via a click on one of the
-pagination controls. The `$event` argument will be the number of the new page.
-* **`maxSize`** [number] Defines the maximum number of page links to display. Default is `7`.
-* **`directionLinks`** [boolean] If set to `false`, the "previous" and "next" links will not be displayed. Default is `true`.
-* **`autoHide`** [boolean] If set to `true`, the pagination controls will not be displayed when all items in the
+* **`pageChange`** [`event handler`] The expression specified will be invoked whenever the page changes via a click on one of the
+pagination controls. The `$event` argument will be the number of the new page. This should be used to update the value of
+the `currentPage` variable which was passed to the `PaginatePipe`.
+* **`maxSize`** [`number`] Defines the maximum number of page links to display. Default is `7`.
+* **`directionLinks`** [`boolean`] If set to `false`, the "previous" and "next" links will not be displayed. Default is `true`.
+* **`autoHide`** [`boolean`] If set to `true`, the pagination controls will not be displayed when all items in the
 collection fit onto the first page. Default is `false`.
 
-## To Do
+## Server-Side Paging
 
-The following features from the 1.x version have not yet been implemented:
+In many cases - for example when working with very large data-sets - we do not want to work with the full collection 
+in memory, and use some kind of server-side paging, where the server sends just a single page at a time.
 
-- ~~Handling of multiple independent instances within the same component.~~
-- ~~Server-side paging support~~
-- ~~Page-change event support~~
-- Custom template support
-- ~~Various style options for the pagination controls template~~
-- Full test suite
+This scenario is supported by ng2-pagination by using the `totalItems` config option. 
 
-I have written a few tests, but right now I am waiting for the Angular team to publish some guidelines on how
-best to test components.
+Given a server response json object like this:
+
+```
+{
+  "count": 14453,
+  "data": [
+    { /* item 1 */ },
+    { /* item 2 */ },
+    { /* item 3 */ },
+    { /*   ...  */ },
+    { /* item 10 */ }
+  ]
+}
+```
+
+we should pass the value of `count` to the `PaginatePipe` as the `totalItems` argument:
+
+```HTML
+<li *ngFor="#item of collection | paginate: { itemsPerPage: 10, currentPage: p, totalItems: res.count }">...</li>
+```
+
+This will allow the correct number of page links to be calculated. To see a complete example of this (including
+using the `async` pipe), see the [demo](http://michaelbromley.github.io/ng2-pagination/).
+
+## Custom Templates
+
+The `PaginationControlsCmp` component has a built-in default template and styles based on the [Foundation 6 pagination
+component](http://foundation.zurb.com/sites/docs/pagination.html).
+
+To use a custom template, you should instead use the `PaginationControlsDirective`:
+
+```HTML
+<template paginationControls #p="paginationApi" (pageChange)="currentPage = $event">
+
+    <div class="custom-pagination">
+
+        <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+            <a *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </a>
+        </div>
+
+        <div *ngFor="#page of p.pages" [class.current]="p.getCurrent() === page.value">
+            <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                <span>{{ page.label }}</span>
+            </a>
+            <div *ngIf="p.getCurrent() === page.value">
+                <span>{{ page.label }}</span>
+            </div>
+        </div>
+
+        <div class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
+            <a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
+        </div>
+
+    </div>
+    
+</template>
+```
+
+The key thing to note here is `#p="paginationApi` - this provides a local variable, `p`, which can be used in the 
+template to access the `paginationApi` members, which are explained below:
+
+* **`pages`** [`{ label: string, value: any }[]`] Array of page objects containing the page number and label.
+* **`directionLinks`** [`boolean`] Corresponds to the value of `directionLinks` which is passed to the directive.
+* **`autoHide`** [`boolean`] Corresponds to the value of `autoHide` which is passed to the directive.
+* **`maxSize`** [`number`]  Corresponds to the value of `maxSize` which is passed to the directive.
+* **`getCurrent()`** [`() => number`] Returns the current page number.
+* **`setCurrent(val)`** [`(val: number) => void`] Triggers the `pageChange` event with the page number passed as `val`.
+* **`previous()`** [`() -> void`] Sets current page to previous, triggering the `pageChange` event.
+* **`next()`** [`() -> void`] Sets current page to next, triggering the `pageChange` event.
+* **`isFirstPage()`** [`() => boolean`] Returns true if the current page is the first page.
+* **`isLastPage()`** [`() => boolean`] Returns true if the current page is the last page/
 
 ## Build
 
-To build, first run  `npm install` to get all the dev dependencies. Then you can use the `npm run build` script to
-compile the TypeScript and generate the definition files. `npm run test` will fire up Karma with the Webpack
-plugin to run the tests.
+Requires globally-installed node, npm, typings. 
+
+```
+npm install
+typings install
+
+npm run test // Karma unit tests
+npm run demo:watch // Build the demo app and watch
+```
+
+More complete contributing instructions to follow.
 
 ## Dart Version
 
-For Dart users, there is a Dart port available here: https://github.com/laagland/ng2-dart-pagination. Note that this version was written and is maintained by a different author.
+For Dart users, there is a Dart port available here: https://github.com/laagland/ng2-dart-pagination. Note that this 
+version was written and is maintained by a different author and may not be up-to-date with this repo.
 
 ## License
 

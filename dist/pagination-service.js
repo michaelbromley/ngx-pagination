@@ -20,6 +20,9 @@ var PaginationService = (function () {
         }
         else {
             var changed = this.updateInstance(instance);
+            if (changed) {
+                this.change.emit(instance.id);
+            }
         }
     };
     /**
@@ -84,6 +87,7 @@ var PaginationService = (function () {
         if (this.instances[id]) {
             return this.clone(this.instances[id]);
         }
+        return {};
     };
     /**
      * Perform a shallow clone of an object.

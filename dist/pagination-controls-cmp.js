@@ -15,16 +15,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var lang_1 = require('angular2/src/facade/lang');
 var pagination_service_1 = require("./pagination-service");
-var DEFAULT_TEMPLATE = "\n    <ul class=\"pagination\" role=\"navigation\" aria-label=\"Pagination\">\n\n        <li class=\"pagination-previous\" [class.disabled]=\"isFirstPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"1 < getCurrent()\" (click)=\"setCurrent(getCurrent() - 1)\" aria-label=\"Next page\">\n                Previous <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isFirstPage()\">Previous <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n        <li [class.current]=\"getCurrent() === page.value\" *ngFor=\"#page of pages\">\n            <a (click)=\"setCurrent(page.value)\" *ngIf=\"getCurrent() !== page.value\">\n                <span class=\"show-for-sr\">Page</span>\n                <span>{{ page.label }}</span>\n            </a>\n            <div *ngIf=\"getCurrent() === page.value\">\n                <span class=\"show-for-sr\">You're on page</span>\n                <span>{{ page.label }}</span>\n            </div>\n        </li>\n\n        <li class=\"pagination-next\" [class.disabled]=\"isLastPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"!isLastPage()\" (click)=\"setCurrent(getCurrent() + 1)\" aria-label=\"Next page\">\n                Next <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isLastPage()\">Next <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n    </ul>\n    ";
+var template_1 = require('./template');
 var PaginationControlsBase = (function () {
     function PaginationControlsBase(service) {
         var _this = this;
         this.service = service;
-        this.maxSize = 7;
-        this.directionLinks = true;
-        this.autoHide = false;
         this.pageChange = new core_1.EventEmitter();
-        this.pages = [];
+        /**
+         * The api object provides data and methods to be used in the template.
+         * The reason it is done this way, rather than just using instance members, is so that we can
+         * unify the way the component and directive templates access them.
+         */
+        this.api = {
+            pages: [],
+            directionLinks: true,
+            autoHide: false,
+            maxSize: 7,
+            getCurrent: function () { return _this.getCurrent(); },
+            setCurrent: function (val) { return _this.setCurrent(val); },
+            previous: function () { return _this.setCurrent(_this.getCurrent() - 1); },
+            next: function () { return _this.setCurrent(_this.getCurrent() + 1); },
+            isFirstPage: function () { return _this.getCurrent() === 1; },
+            isLastPage: function () { return _this.getLastPage() === _this.getCurrent(); }
+        };
         this.changeSub = this.service.change
             .subscribe(function (id) {
             if (_this.id === id) {
@@ -34,15 +47,12 @@ var PaginationControlsBase = (function () {
     }
     PaginationControlsBase.prototype.updatePages = function () {
         var inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        this.api.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.api.maxSize);
         var correctedCurrentPage = this.outOfBoundCorrection(inst);
         if (correctedCurrentPage !== inst.currentPage) {
             this.setCurrent(correctedCurrentPage);
         }
     };
-    /**
-     * Set up the subscription to the PaginationService.change observable.
-     */
     PaginationControlsBase.prototype.ngOnInit = function () {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
@@ -66,12 +76,12 @@ var PaginationControlsBase = (function () {
     PaginationControlsBase.prototype.getCurrent = function () {
         return this.service.getCurrentPage(this.id);
     };
-    PaginationControlsBase.prototype.isFirstPage = function () {
-        return this.getCurrent() === 1;
-    };
-    PaginationControlsBase.prototype.isLastPage = function () {
+    /**
+     * Returns the last page number
+     */
+    PaginationControlsBase.prototype.getLastPage = function () {
         var inst = this.service.getInstance(this.id);
-        return Math.ceil(inst.totalItems / inst.itemsPerPage) === inst.currentPage;
+        return Math.ceil(inst.totalItems / inst.itemsPerPage);
     };
     /**
      * Checks that the instance.currentPage property is within bounds for the current page range.
@@ -149,40 +159,47 @@ var PaginationControlsBase = (function () {
     };
     return PaginationControlsBase;
 })();
+exports.PaginationControlsBase = PaginationControlsBase;
 var PaginationControlsDirective = (function (_super) {
     __extends(PaginationControlsDirective, _super);
     function PaginationControlsDirective(service, viewContainer, cdr) {
         _super.call(this, service);
         this.viewContainer = viewContainer;
         this.cdr = cdr;
-        this.maxSize = 7;
-        this.directionLinks = true;
-        this.autoHide = false;
-        this.api = {};
     }
+    Object.defineProperty(PaginationControlsDirective.prototype, "maxSize", {
+        set: function (value) {
+            this.api.maxSize = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaginationControlsDirective.prototype, "directionLinks", {
+        set: function (value) {
+            this.api.directionLinks = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaginationControlsDirective.prototype, "autoHide", {
+        set: function (value) {
+            this.api.autoHide = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     PaginationControlsDirective.prototype.ngOnInit = function () {
+        // we need to detach the change detector initially, to prevent a
+        // "changed after checked" error.
         this.cdr.detach();
     };
     PaginationControlsDirective.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.api = {
-            pages: [],
-            directionLinks: this.directionLinks,
-            autoHide: this.autoHide,
-            maxSize: this.maxSize,
-            getCurrent: function () { return _this.getCurrent(); },
-            setCurrent: function (val) { return _this.setCurrent(val); },
-            isFirstPage: function () { return _this.isFirstPage(); },
-            isLastPage: function () { return _this.isLastPage(); }
-        };
         if (this.customTemplate !== null) {
             this.templateView = this.viewContainer.createEmbeddedView(this.customTemplate);
             this.templateView.setLocal('paginationApi', this.api);
         }
         setTimeout(function () { return _this.cdr.reattach(); });
-    };
-    PaginationControlsDirective.prototype.ngAfterViewChecked = function () {
-        this.api.pages = this.pages;
     };
     __decorate([
         core_1.Input(), 
@@ -190,16 +207,23 @@ var PaginationControlsDirective = (function (_super) {
     ], PaginationControlsDirective.prototype, "id", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Number)
-    ], PaginationControlsDirective.prototype, "maxSize", void 0);
+        __metadata('design:type', Number), 
+        __metadata('design:paramtypes', [Number])
+    ], PaginationControlsDirective.prototype, "maxSize", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], PaginationControlsDirective.prototype, "directionLinks", void 0);
+        __metadata('design:type', Boolean), 
+        __metadata('design:paramtypes', [Boolean])
+    ], PaginationControlsDirective.prototype, "directionLinks", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], PaginationControlsDirective.prototype, "autoHide", void 0);
+        __metadata('design:type', Boolean), 
+        __metadata('design:paramtypes', [Boolean])
+    ], PaginationControlsDirective.prototype, "autoHide", null);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], PaginationControlsDirective.prototype, "pageChange", void 0);
     __decorate([
         core_1.ContentChild(core_1.TemplateRef), 
         __metadata('design:type', Object)
@@ -217,27 +241,47 @@ var PaginationControlsCmp = (function (_super) {
     __extends(PaginationControlsCmp, _super);
     function PaginationControlsCmp(service) {
         _super.call(this, service);
-        this.maxSize = 7;
-        this.directionLinks = true;
-        this.autoHide = false;
-        _super.call(this, service);
     }
+    Object.defineProperty(PaginationControlsCmp.prototype, "maxSize", {
+        set: function (value) {
+            this.api.maxSize = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaginationControlsCmp.prototype, "directionLinks", {
+        set: function (value) {
+            this.api.directionLinks = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaginationControlsCmp.prototype, "autoHide", {
+        set: function (value) {
+            this.api.autoHide = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
     ], PaginationControlsCmp.prototype, "id", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Number)
-    ], PaginationControlsCmp.prototype, "maxSize", void 0);
+        __metadata('design:type', Number), 
+        __metadata('design:paramtypes', [Number])
+    ], PaginationControlsCmp.prototype, "maxSize", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], PaginationControlsCmp.prototype, "directionLinks", void 0);
+        __metadata('design:type', Boolean), 
+        __metadata('design:paramtypes', [Boolean])
+    ], PaginationControlsCmp.prototype, "directionLinks", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], PaginationControlsCmp.prototype, "autoHide", void 0);
+        __metadata('design:type', Boolean), 
+        __metadata('design:paramtypes', [Boolean])
+    ], PaginationControlsCmp.prototype, "autoHide", null);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
@@ -245,7 +289,8 @@ var PaginationControlsCmp = (function (_super) {
     PaginationControlsCmp = __decorate([
         core_1.Component({
             selector: 'pagination-controls',
-            template: DEFAULT_TEMPLATE
+            template: template_1.DEFAULT_TEMPLATE,
+            styles: [template_1.DEFAULT_STYLES]
         }), 
         __metadata('design:paramtypes', [pagination_service_1.PaginationService])
     ], PaginationControlsCmp);

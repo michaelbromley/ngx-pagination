@@ -1,50 +1,143 @@
-<div class="row">
-    <div class=" large-offset-2 large-8 columns">
-        <h1>ng2-pagination <small><a href="https://github.com/michaelbromley/ng2-pagination">GitHub Repo</a></small></h1>
-        <h4>
-            Pagination for Angular2, from the creator of
-            <a href="https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination">angular-utils-pagination</a>.
-        </h4>
-        <p>This is a work-in-progress port of my popular Angular 1.x pagination module. Docs can be found
-            <a href="https://github.com/michaelbromley/ng2-pagination">in the GitHub repo</a>. Feedback and contributions welcome.
-            [ <a href="http://www.michaelbromley.co.uk">blog</a> / <a href="https://twitter.com/michlbrmly">twitter</a> ]
-        </p>
+<div class="container">
 
-        <h2>Basic Example</h2>
-        <div class="callout">
-            <basic-example [data]="meals"></basic-example>
-            <button type="button" class="button" (click)="showBasic = !showBasic">
-                View Code
-            </button>
+    <nav class="navbar top-bar">
+        <!-- Left side -->
+        <div class="navbar-left">
+            <div class="navbar-item">
+                <p class="title is-3 main-title">
+                    ng2-pagination
+                </p>
+            </div>
+            <div class="navbar-item">
+                <p class="subtitle is-3">
+                    <a href="https://github.com/michaelbromley/ng2-pagination/blob/master/readme.md">Documentation</a>
+                </p>
+            </div>
         </div>
 
-        <div class="code-container" [class.expanded]="showBasic">
-            <pre><code>{{ basicCode }}</code></pre>
+        <!-- Right side -->
+        <div class="navbar-right">
+            <p class="navbar-item"><strong>
+                <a class="button is-flex gh-btn" href="https://github.com/michaelbromley/ng2-pagination">
+                    <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path clip-rule="evenodd" d="M16.003,0C7.17,0,0.008,7.162,0.008,15.997  c0,7.067,4.582,13.063,10.94,15.179c0.8,0.146,1.052-0.328,1.052-0.752c0-0.38,0.008-1.442,0-2.777  c-4.449,0.967-5.371-2.107-5.371-2.107c-0.727-1.848-1.775-2.34-1.775-2.34c-1.452-0.992,0.109-0.973,0.109-0.973  c1.605,0.113,2.451,1.649,2.451,1.649c1.427,2.443,3.743,1.737,4.654,1.329c0.146-1.034,0.56-1.739,1.017-2.139  c-3.552-0.404-7.286-1.776-7.286-7.906c0-1.747,0.623-3.174,1.646-4.292C7.28,10.464,6.73,8.837,7.602,6.634  c0,0,1.343-0.43,4.398,1.641c1.276-0.355,2.645-0.532,4.005-0.538c1.359,0.006,2.727,0.183,4.005,0.538  c3.055-2.07,4.396-1.641,4.396-1.641c0.872,2.203,0.323,3.83,0.159,4.234c1.023,1.118,1.644,2.545,1.644,4.292  c0,6.146-3.74,7.498-7.304,7.893C19.479,23.548,20,24.508,20,26c0,2,0,3.902,0,4.428c0,0.428,0.258,0.901,1.07,0.746  C27.422,29.055,32,23.062,32,15.997C32,7.162,24.838,0,16.003,0z" fill="#181616" fill-rule="evenodd"/><g/><g/><g/><g/><g/><g/></svg>
+                    <span>GitHub</span>
+                </a>
+            </strong></p>
         </div>
+    </nav>
 
-        <hr>
+    <section class="hero is-primary">
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="title">
+                    Pagination for Angular2
+                </h1>
+                <h2 class="subtitle">
+                    from the creator of
+                    <a href="https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination">angular-utils-pagination</a>
+                </h2>
+            </div>
+        </div>
+    </section>
 
-        <h2>Advanced Example</h2>
-        <div class="callout">
-            <advanced-example [data]="meals"></advanced-example>
-            <button type="button" class="button" (click)="showAdvanced = !showAdvanced">
-                View Code
-            </button>
-        </div>
-        <div class="code-container" [class.expanded]="showAdvanced">
-            <pre><code>{{ advancedCode }}</code></pre>
-        </div>
-
-        <h2>Custom Template Example</h2>
-        <div class="callout">
-            <custom-template-example [data]="meals"></custom-template-example>
-            <button type="button" class="button" (click)="showCustomTemplate = !showCustomTemplate">
-                View Code
-            </button>
-        </div>
-        <div class="code-container" [class.expanded]="showCustomTemplate">
-            <pre><code>{{ customTemplateCode }}</code></pre>
-        </div>
+    <div class="tabs">
+        <ul>
+            <li [class.is-active]="selectedTab === 'basic'" (click)="selectedTab = 'basic'"><a>Basic Example</a></li>
+            <li [class.is-active]="selectedTab === 'full'" (click)="selectedTab = 'full'"><a>Full Example</a></li>
+            <li [class.is-active]="selectedTab === 'custom'" (click)="selectedTab = 'custom'"><a>Custom Template Example</a></li>
+            <li [class.is-active]="selectedTab === 'server'" (click)="selectedTab = 'server'"><a>Server Paging Example</a></li>
+        </ul>
     </div>
 </div>
+
+<section class="section" [class.hidden]="selectedTab !== 'basic'">
+    <div class="container">
+        <h1 class="title">Basic Example</h1>
+        <h2 class="subtitle">
+            This demonstrates the most simple possible usage. As you can see, there is nothing special needed in the
+            component code other than hooking up the providers.
+        </h2>
+        <basic-example [data]="meals"></basic-example>
+        <hr>
+
+        <h4 class="title is-4">Code</h4>
+        <div class="tabs is-boxed">
+            <ul>
+                <li [class.is-active]="basicTab === 'html'" (click)="basicTab = 'html'"><a>HTML</a></li>
+                <li [class.is-active]="basicTab === 'ts'" (click)="basicTab = 'ts'"><a>TypeScript</a></li>
+            </ul>
+        </div>
+        <pre [class.hidden]="basicTab !== 'html'"><code>{{ basicCodeT }}</code></pre>
+        <pre [class.hidden]="basicTab !== 'ts'"><code>{{ basicCodeC }}</code></pre>
+    </div>
+</section>
+
+
+<section class="section" [class.hidden]="selectedTab !== 'full'">
+    <div class="container">
+        <h1 class="title">Full Example</h1>
+        <h2 class="subtitle">
+            Here we can see the effects of data-binding each of the configuration values, which will the update the
+            pagination links automatically.
+        </h2>
+        <advanced-example [data]="meals"></advanced-example>
+        <hr>
+
+        <h4 class="title is-4">Code</h4>
+        <div class="tabs is-boxed">
+            <ul>
+                <li [class.is-active]="fullTab === 'html'" (click)="fullTab = 'html'"><a>HTML</a></li>
+                <li [class.is-active]="fullTab === 'ts'" (click)="fullTab = 'ts'"><a>TypeScript</a></li>
+            </ul>
+        </div>
+        <pre [class.hidden]="fullTab !== 'html'"><code>{{ advancedCodeT }}</code></pre>
+        <pre [class.hidden]="fullTab !== 'ts'"><code>{{ advancedCodeC }}</code></pre>
+
+    </div>
+</section>
+
+<section class="section" [class.hidden]="selectedTab !== 'custom'">
+    <div class="container">
+        <h1 class="title">Custom Template Example</h1>
+        <h2 class="subtitle">
+            This demonstrates how a custom template can be used to customize the structure and style of the
+            pagination links.
+        </h2>
+        <custom-template-example [data]="meals"></custom-template-example>
+        <hr>
+        <h4 class="title is-4">Code</h4>
+        <div class="tabs is-boxed">
+            <ul>
+                <li [class.is-active]="customTab === 'html'" (click)="customTab = 'html'"><a>HTML</a></li>
+                <li [class.is-active]="customTab === 'ts'" (click)="customTab = 'ts'"><a>TypeScript</a></li>
+            </ul>
+        </div>
+        <pre [class.hidden]="customTab !== 'html'"><code>{{ customTemplateCodeT }}</code></pre>
+        <pre [class.hidden]="customTab !== 'ts'"><code>{{ customTemplateCodeC }}</code></pre>
+    </div>
+</section>
+
+<section class="section" [class.hidden]="selectedTab !== 'server'">
+    <div class="container">
+        <h1 class="title">Server Paging Example</h1>
+        <h2 class="subtitle">
+            This demonstrates a server-side pagination scenario, where each new page is requested from a server
+            (simulated with a timeout for this demo). Additionally, we are also piping the observable directly
+            into the template and resolving the values via the Angular2 AsyncPipe before handing it off to the
+            PaginatePipe.
+        </h2>
+        <server-example [data]="meals"></server-example>
+        <hr>
+        <h4 class="title is-4">Code</h4>
+        <div class="tabs is-boxed">
+            <ul>
+                <li [class.is-active]="serverTab === 'html'" (click)="serverTab = 'html'"><a>HTML</a></li>
+                <li [class.is-active]="serverTab === 'ts'" (click)="serverTab = 'ts'"><a>TypeScript</a></li>
+            </ul>
+        </div>
+        <pre [class.hidden]="serverTab !== 'html'"><code>{{ serverPagingCodeT }}</code></pre>
+        <pre [class.hidden]="serverTab !== 'ts'"><code>{{ serverPagingCodeC }}</code></pre>
+    </div>
+</section>
+
 
