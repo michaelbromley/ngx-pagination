@@ -1,5 +1,4 @@
-import {Component, Directive, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewContainerRef, EmbeddedViewRef, Query, QueryList, ElementRef, ChangeDetectorRef} from 'angular2/core'
-import {CORE_DIRECTIVES} from 'angular2/common'
+import {Component, Directive, Input, Output, EventEmitter, TemplateRef, ViewContainerRef, ChangeDetectorRef} from 'angular2/core'
 import {CONST_EXPR} from 'angular2/src/facade/lang';
 import {Subscription} from 'rxjs';
 import {PaginationService} from "./pagination-service";
@@ -180,11 +179,9 @@ export class PaginationControlsDirective extends PaginationControlsBase{
     }
     @Output() pageChange: EventEmitter<number>;
 
-    @ContentChild(TemplateRef) customTemplate;
-    private templateView: EmbeddedViewRef;
-
     constructor(service: PaginationService,
                 private viewContainer: ViewContainerRef,
+                private customTemplate: TemplateRef,
                 private cdr: ChangeDetectorRef) {
         super(service);
     }
@@ -197,8 +194,8 @@ export class PaginationControlsDirective extends PaginationControlsBase{
 
     ngAfterViewInit() {
         if (this.customTemplate !== null) {
-            this.templateView = this.viewContainer.createEmbeddedView(this.customTemplate);
-            this.templateView.setLocal('paginationApi', this.api);
+            let templateView = this.viewContainer.createEmbeddedView(this.customTemplate);
+            templateView.setLocal('paginationApi', this.api);
         }
 
         setTimeout(() => this.cdr.reattach());
