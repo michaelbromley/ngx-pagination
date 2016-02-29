@@ -1,0 +1,91 @@
+@charset "utf-8";
+
+@import "../../node_modules/bulma/bulma/utilities/utilities";
+@import "../../node_modules/bulma/bulma/config/variables";
+
+$primary: #2199E8;
+
+@import "../../node_modules/bulma/bulma/config/generated-variables";
+@import "../../node_modules/bulma/bulma/base/base";
+@import "../../node_modules/bulma/bulma/elements/elements";
+@import "../../node_modules/bulma/bulma/components/components";
+@import "../../node_modules/bulma/bulma/layout/layout";
+
+
+.top-bar {
+    padding: 10px 0;
+}
+
+.gh-btn {
+    display: flex;
+}
+
+.gh-btn {
+    > * {
+        align-self: center;
+        margin: 0 3px;
+    }
+
+    > svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.main-title:after {
+    content: '|';
+    margin: 0 5px;
+    color: #C8CECE;
+}
+.hero-content a {
+    color: #eee;
+}
+
+.section.hidden {
+    display: none;
+}
+
+.meal-list {
+    font-size: 16px;
+    padding-left: 30px;
+    margin-bottom: 30px;
+}
+
+.push-pop button {
+    margin-top: 40px;
+}
+
+.checkboxes label.checkbox:first-child {
+    margin-top: 20px;
+}
+
+pre {
+    code {
+        border: 1px solid #eee;
+    }
+
+    &.hidden {
+        display: none;
+    }
+}
+
+
+.custom-pagination {
+    display: flex;
+    max-width: 300px;
+    margin: auto;
+
+    > div {
+        flex: 1;
+        font-size: 18px;
+        text-align: center;
+        border-bottom: 3px solid transparent;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+
+    > div.current {
+        border-color: #3dffaf;
+    }
+}

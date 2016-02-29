@@ -37,7 +37,8 @@ var config = {
                 test: /\.ts$/,
                 loader: 'ts'
             },
-            { test: /\.css$/, loader: 'style!raw' },
+            { test: /\.css/, loader: 'style!raw' },
+            { test: /\.scss/, loader: 'style!css!sass' },
             { test: /\.html/, loader: 'html?-minimize' }
         ]
     },
