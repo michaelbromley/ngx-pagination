@@ -124,10 +124,11 @@ using the `async` pipe), see the [demo](http://michaelbromley.github.io/ng2-pagi
 The `PaginationControlsCmp` component has a built-in default template and styles based on the [Foundation 6 pagination
 component](http://foundation.zurb.com/sites/docs/pagination.html).
 
-To use a custom template, you should instead use the `PaginationControlsDirective`:
+To use a custom template, just place your markup inside the `<pagination-controls></pagination-controls>` tags,
+and make a template variable reference with `#` to gain access to the API.
 
 ```HTML
-<template paginationControls #p="paginationApi" (pageChange)="currentPage = $event">
+<pagination-controls #p (pageChange)="currentPage = $event">
 
     <div class="custom-pagination">
 
@@ -150,11 +151,11 @@ To use a custom template, you should instead use the `PaginationControlsDirectiv
 
     </div>
     
-</template>
+</pagination-controls>
 ```
 
-The key thing to note here is `#p="paginationApi` - this provides a local variable, `p`, which can be used in the 
-template to access the `paginationApi` members, which are explained below:
+The key thing to note here is `#p` - this provides a local variable, `p`, which can be used in the 
+template to access the class' API methods and properties, which are explained below:
 
 * **`pages`** [`{ label: string, value: any }[]`] Array of page objects containing the page number and label.
 * **`directionLinks`** [`boolean`] Corresponds to the value of `directionLinks` which is passed to the directive.

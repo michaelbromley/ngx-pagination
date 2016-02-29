@@ -1,9 +1,6 @@
-import {Component, Directive, Input, Output, EventEmitter, ContentChild, TemplateRef, ViewContainerRef, EmbeddedViewRef, Query, QueryList, ElementRef, ChangeDetectorRef} from 'angular2/core'
-import {CORE_DIRECTIVES} from 'angular2/common'
-import {CONST_EXPR} from 'angular2/src/facade/lang';
+import {Component, ViewChild, Input, Output, EventEmitter} from 'angular2/core'
 import {Subscription} from 'rxjs';
-import {PaginationService} from "./pagination-service";
-import {IPaginationInstance} from './pagination-service';
+import {PaginationService, IPaginationInstance} from "./pagination-service";
 import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
 
 export interface IPage {
@@ -11,46 +8,30 @@ export interface IPage {
     value: any;
 }
 
-export class PaginationControlsBase {
+@Component({
+    selector: 'pagination-controls',
+    template: DEFAULT_TEMPLATE,
+    styles: [DEFAULT_STYLES]
+})
+export class PaginationControlsCmp {
 
-    id: string;
-    pageChange: EventEmitter<number> = new EventEmitter();
-    /**
-     * The api object provides data and methods to be used in the template.
-     * The reason it is done this way, rather than just using instance members, is so that we can
-     * unify the way the component and directive templates access them.
-     */
-    api = {
-        pages: [],
-        directionLinks: true,
-        autoHide: false,
-        maxSize: 7,
-        getCurrent: () => this.getCurrent(),
-        setCurrent: (val) => this.setCurrent(val),
-        previous: () => this.setCurrent(this.getCurrent() - 1),
-        next: () => this.setCurrent(this.getCurrent() + 1),
-        isFirstPage: () => this.getCurrent() === 1,
-        isLastPage: () => this.getLastPage() === this.getCurrent()
-    };
+    @Input() id: string;
+    @Input() maxSize: number = 7;
+    @Input() directionLinks: boolean = true;
+    @Input() autoHide: boolean = false;
+    @Output() pageChange: EventEmitter<number> = new EventEmitter();
+    @ViewChild('template') template;
+    pages: IPage[] = [];
+    private hasTemplate: boolean = false;
     private changeSub: Subscription<string>;
 
     constructor(private service: PaginationService) {
         this.changeSub = this.service.change
             .subscribe(id => {
                 if (this.id === id) {
-                    this.updatePages();
+                    this.updatePageLinks();
                 }
             });
-    }
-
-    updatePages() {
-        let inst = this.service.getInstance(this.id);
-        this.api.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.api.maxSize);
-
-        const correctedCurrentPage = this.outOfBoundCorrection(inst);
-        if (correctedCurrentPage !== inst.currentPage) {
-            this.setCurrent(correctedCurrentPage);
-        }
     }
 
     ngOnInit() {
@@ -60,11 +41,60 @@ export class PaginationControlsBase {
     }
 
     ngOnChanges() {
-        this.updatePages();
+        this.updatePageLinks();
+    }
+
+    ngAfterViewInit() {
+        if ((this.template) && 0 < this.template.nativeElement.children.length) {
+            setTimeout(() => this.hasTemplate = true);
+        }
     }
 
     ngOnDestroy() {
         this.changeSub.unsubscribe();
+    }
+
+    /**
+     * Updates the page links and checks that the current page is valid. Should run whenever the
+     * PaginationService.change stream emits a value matching the current ID, or when any of the
+     * input values changes.
+     */
+    updatePageLinks() {
+        let inst = this.service.getInstance(this.id);
+        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+
+        const correctedCurrentPage = this.outOfBoundCorrection(inst);
+        if (correctedCurrentPage !== inst.currentPage) {
+            this.setCurrent(correctedCurrentPage);
+        }
+    }
+
+    /**
+     * Go to the previous page
+     */
+    previous() {
+        this.setCurrent(this.getCurrent() - 1);
+    }
+
+    /**
+     * Go to the next page
+     */
+    next() {
+        this.setCurrent(this.getCurrent() + 1);
+    }
+
+    /**
+     * Returns true if current page is first page
+     */
+    isFirstPage(): boolean {
+        return this.getCurrent() === 1;
+    }
+
+    /**
+     * Returns true if current page is last page
+     */
+    isLastPage(): boolean {
+        return this.getLastPage() === this.getCurrent();
     }
 
     /**
@@ -163,71 +193,3 @@ export class PaginationControlsBase {
         }
     }
 }
-
-@Directive({
-    selector: '[paginationControls]'
-})
-export class PaginationControlsDirective extends PaginationControlsBase{
-    @Input() id: string;
-    @Input() set maxSize(value: number) {
-        this.api.maxSize = value;
-    }
-    @Input() set directionLinks(value: boolean) {
-        this.api.directionLinks = value;
-    }
-    @Input() set autoHide(value: boolean) {
-        this.api.autoHide = value;
-    }
-    @Output() pageChange: EventEmitter<number>;
-
-    @ContentChild(TemplateRef) customTemplate;
-    private templateView: EmbeddedViewRef;
-
-    constructor(service: PaginationService,
-                private viewContainer: ViewContainerRef,
-                private cdr: ChangeDetectorRef) {
-        super(service);
-    }
-
-    ngOnInit() {
-        // we need to detach the change detector initially, to prevent a
-        // "changed after checked" error.
-        this.cdr.detach();
-    }
-
-    ngAfterViewInit() {
-        if (this.customTemplate !== null) {
-            this.templateView = this.viewContainer.createEmbeddedView(this.customTemplate);
-            this.templateView.setLocal('paginationApi', this.api);
-        }
-
-        setTimeout(() => this.cdr.reattach());
-    }
-
-}
-
-@Component({
-    selector: 'pagination-controls',
-    template: DEFAULT_TEMPLATE,
-    styles: [DEFAULT_STYLES]
-})
-export class PaginationControlsCmp extends PaginationControlsBase {
-    @Input() id: string;
-    @Input() set maxSize(value: number) {
-        this.api.maxSize = value;
-    }
-    @Input() set directionLinks(value: boolean) {
-        this.api.directionLinks = value;
-    }
-    @Input() set autoHide(value: boolean) {
-        this.api.autoHide = value;
-    }
-    @Output() pageChange: EventEmitter<number>;
-
-    constructor(service: PaginationService) {
-        super(service);
-    }
-
-}
-
-export const PAGINATION_DIRECTIVES = CONST_EXPR([PaginationControlsDirective, PaginationControlsCmp]);

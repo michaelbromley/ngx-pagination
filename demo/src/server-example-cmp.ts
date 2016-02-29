@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter} from "angular2/core";
 import {Observable} from 'rxjs';
-import {PaginatePipe, PAGINATION_DIRECTIVES, IPaginationInstance} from '../../src/ng2-pagination';
+import {PaginatePipe, PaginationControlsCmp, IPaginationInstance} from '../../src/ng2-pagination';
 
 interface IServerResponse {
     items: string[];
@@ -10,7 +10,7 @@ interface IServerResponse {
 @Component({
     selector: 'server-example',
     template: require('./server-example-cmp.html'),
-    directives: [PAGINATION_DIRECTIVES],
+    directives: [PaginationControlsCmp],
     pipes: [PaginatePipe]
 })
 export class ServerExampleCmp {

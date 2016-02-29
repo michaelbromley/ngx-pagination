@@ -3,7 +3,7 @@ import {By} from 'angular2/platform/browser';
 import {
     ComponentFixture
 } from 'angular2/testing';
-import {PAGINATION_DIRECTIVES, PaginatePipe, PaginationService, IPaginationInstance} from './ng2-pagination';
+import {PaginationControlsCmp, PaginatePipe, PaginationService, IPaginationInstance} from './ng2-pagination';
 
 /**
  * Helper Functions and test components for use in unit tests.
@@ -49,7 +49,7 @@ export function getPageLinkItems(fixture: ComponentFixture, selector?: string = 
                          [directionLinks]="directionLinks"
                          [autoHide]="autoHide">
     </pagination-controls>`,
-    directives: [PAGINATION_DIRECTIVES],
+    directives: [PaginationControlsCmp],
     pipes: [PaginatePipe],
     providers: [PaginationService]
 })
@@ -78,20 +78,22 @@ export class TestCmp {
     <ul>
         <li *ngFor="#item of collection | paginate: config" class="list-item">{{ item }}</li>
     </ul>
-   <template paginationControls #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event">
-           <div class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="p.directionLinks">
-               <span *ngIf="!p.isFirstPage()" (click)="p.previous()">back</span>
-           </div>
+   <pagination-controls #p [id]="config.id" (pageChange)="config.currentPage = $event">
+        <div #template>
+            <div class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="p.directionLinks">
+                <span *ngIf="!p.isFirstPage()" (click)="p.previous()">back</span>
+            </div>
 
-           <div class="page-link" [class.current]="p.getCurrent() === page.value" *ngFor="#page of p.pages">
-               <span (click)="p.setCurrent(page.value)">{{ page.label }}</span>
-           </div>
+            <div class="page-link" [class.current]="p.getCurrent() === page.value" *ngFor="#page of p.pages">
+                <span (click)="p.setCurrent(page.value)">{{ page.label }}</span>
+            </div>
 
-           <div class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
-               <span *ngIf="!p.isLastPage()" (click)="p.next()">forward</span>
-           </div>
-   </template>`,
-    directives: [PAGINATION_DIRECTIVES],
+            <div class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
+                <span *ngIf="!p.isLastPage()" (click)="p.next()">forward</span>
+            </div>
+        </div>
+   </pagination-controls>`,
+    directives: [PaginationControlsCmp],
     pipes: [PaginatePipe],
     providers: [PaginationService]
 })

@@ -1,11 +1,11 @@
 import {Component, Input} from "angular2/core"
-import {PaginatePipe, PAGINATION_DIRECTIVES, IPaginationInstance} from '../../src/ng2-pagination';
+import {PaginatePipe, PaginationControlsCmp, IPaginationInstance} from '../../src/ng2-pagination';
 
 
 @Component({
     selector: 'custom-template-example',
     template: require('./custom-template-example-cmp.html'),
-    directives: [PAGINATION_DIRECTIVES],
+    directives: [PaginationControlsCmp],
     pipes: [PaginatePipe]
 })
 export class CustomTemplateExampleCmp {

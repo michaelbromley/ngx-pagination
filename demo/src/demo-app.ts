@@ -8,8 +8,7 @@ import {ServerExampleCmp} from './server-example-cmp';
 
 const hljs = require('highlight.js');
 require('highlight.js/styles/github-gist.css');
-require('bulma/css/bulma.min.css');
-require('./style.css');
+require('./style.scss');
 
 
 @Component({

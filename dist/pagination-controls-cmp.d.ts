@@ -1,36 +1,47 @@
-import { EventEmitter, ViewContainerRef, ChangeDetectorRef } from 'angular2/core';
+import { EventEmitter } from 'angular2/core';
 import { PaginationService } from "./pagination-service";
 export interface IPage {
     label: string;
     value: any;
 }
-export declare class PaginationControlsBase {
+export declare class PaginationControlsCmp {
     private service;
     id: string;
+    maxSize: number;
+    directionLinks: boolean;
+    autoHide: boolean;
     pageChange: EventEmitter<number>;
-    /**
-     * The api object provides data and methods to be used in the template.
-     * The reason it is done this way, rather than just using instance members, is so that we can
-     * unify the way the component and directive templates access them.
-     */
-    api: {
-        pages: any[];
-        directionLinks: boolean;
-        autoHide: boolean;
-        maxSize: number;
-        getCurrent: () => number;
-        setCurrent: (val: any) => void;
-        previous: () => void;
-        next: () => void;
-        isFirstPage: () => boolean;
-        isLastPage: () => boolean;
-    };
+    template: any;
+    pages: IPage[];
+    private hasTemplate;
     private changeSub;
     constructor(service: PaginationService);
-    updatePages(): void;
     ngOnInit(): void;
     ngOnChanges(): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
+    /**
+     * Updates the page links and checks that the current page is valid. Should run whenever the
+     * PaginationService.change stream emits a value matching the current ID, or when any of the
+     * input values changes.
+     */
+    updatePageLinks(): void;
+    /**
+     * Go to the previous page
+     */
+    previous(): void;
+    /**
+     * Go to the next page
+     */
+    next(): void;
+    /**
+     * Returns true if current page is first page
+     */
+    isFirstPage(): boolean;
+    /**
+     * Returns true if current page is last page
+     */
+    isLastPage(): boolean;
     /**
      * Set the current page number.
      */
@@ -58,26 +69,3 @@ export declare class PaginationControlsBase {
      */
     private calculatePageNumber(i, currentPage, paginationRange, totalPages);
 }
-export declare class PaginationControlsDirective extends PaginationControlsBase {
-    private viewContainer;
-    private cdr;
-    id: string;
-    maxSize: number;
-    directionLinks: boolean;
-    autoHide: boolean;
-    pageChange: EventEmitter<number>;
-    customTemplate: any;
-    private templateView;
-    constructor(service: PaginationService, viewContainer: ViewContainerRef, cdr: ChangeDetectorRef);
-    ngOnInit(): void;
-    ngAfterViewInit(): void;
-}
-export declare class PaginationControlsCmp extends PaginationControlsBase {
-    id: string;
-    maxSize: number;
-    directionLinks: boolean;
-    autoHide: boolean;
-    pageChange: EventEmitter<number>;
-    constructor(service: PaginationService);
-}
-export declare const PAGINATION_DIRECTIVES: (typeof PaginationControlsDirective | typeof PaginationControlsCmp)[];

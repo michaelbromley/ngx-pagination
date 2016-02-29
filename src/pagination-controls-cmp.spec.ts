@@ -155,7 +155,7 @@ describe('PaginationControlsCmp:', () => {
             injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
-                        expect(controlsInstance.api.pages instanceof Array).toBe(true);
+                        expect(controlsInstance.pages instanceof Array).toBe(true);
                     });
             }));
 
@@ -163,7 +163,7 @@ describe('PaginationControlsCmp:', () => {
             injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
-                        expect(controlsInstance.api.directionLinks).toBe(true);
+                        expect(controlsInstance.directionLinks).toBe(true);
                     });
             }));
 
@@ -171,7 +171,7 @@ describe('PaginationControlsCmp:', () => {
             injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
-                        expect(controlsInstance.api.directionLinks).toBe(true);
+                        expect(controlsInstance.directionLinks).toBe(true);
                     });
             }));
 
@@ -179,7 +179,7 @@ describe('PaginationControlsCmp:', () => {
             injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
-                        expect(controlsInstance.api.maxSize).toBe(9);
+                        expect(controlsInstance.maxSize).toBe(9);
                     });
             }));
 
@@ -187,7 +187,7 @@ describe('PaginationControlsCmp:', () => {
             injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
-                        expect(controlsInstance.api.maxSize).toBe(9);
+                        expect(controlsInstance.maxSize).toBe(9);
                     });
             }));
 
@@ -195,7 +195,7 @@ describe('PaginationControlsCmp:', () => {
             injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
-                        expect(controlsInstance.api.getCurrent()).toBe(2);
+                        expect(controlsInstance.getCurrent()).toBe(2);
                     });
             }));
 
@@ -204,7 +204,7 @@ describe('PaginationControlsCmp:', () => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         spyOn(testCmpInstance, 'pageChanged');
-                        controlsInstance.api.setCurrent(3);
+                        controlsInstance.setCurrent(3);
                         tick();
 
                         expect(testCmpInstance.pageChanged).toHaveBeenCalledWith(3);
@@ -216,7 +216,7 @@ describe('PaginationControlsCmp:', () => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         spyOn(testCmpInstance, 'pageChanged');
-                        controlsInstance.api.previous();
+                        controlsInstance.previous();
                         tick();
 
                         expect(testCmpInstance.pageChanged).toHaveBeenCalledWith(1);
@@ -228,7 +228,7 @@ describe('PaginationControlsCmp:', () => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         spyOn(testCmpInstance, 'pageChanged');
-                        controlsInstance.api.next();
+                        controlsInstance.next();
                         tick();
 
                         expect(testCmpInstance.pageChanged).toHaveBeenCalledWith(3);
@@ -243,13 +243,13 @@ describe('PaginationControlsCmp:', () => {
                         fixture.detectChanges();
                         tick();
 
-                        expect(controlsInstance.api.isFirstPage()).toBe(true);
+                        expect(controlsInstance.isFirstPage()).toBe(true);
 
                         testCmpInstance.config.currentPage = 2;
                         fixture.detectChanges();
                         tick();
 
-                        expect(controlsInstance.api.isFirstPage()).toBe(false);
+                        expect(controlsInstance.isFirstPage()).toBe(false);
                     });
             })));
 
@@ -261,13 +261,13 @@ describe('PaginationControlsCmp:', () => {
                         fixture.detectChanges();
                         tick();
 
-                        expect(controlsInstance.api.isLastPage()).toBe(false);
+                        expect(controlsInstance.isLastPage()).toBe(false);
 
                         testCmpInstance.config.currentPage = 10;
                         fixture.detectChanges();
                         tick();
 
-                        expect(controlsInstance.api.isLastPage()).toBe(true);
+                        expect(controlsInstance.isLastPage()).toBe(true);
                     });
             })));
 

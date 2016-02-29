@@ -4,11 +4,12 @@
     </li>
 </ul>
 
-<template paginationControls #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event">
+<pagination-controls #p
+                     [id]="config.id"
+                     (pageChange)="config.currentPage = $event">
 
     <div class="custom-pagination">
-
-        <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+        <div class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="p.directionLinks">
             <a *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </a>
         </div>
 
@@ -24,6 +25,6 @@
         <div class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
             <a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
         </div>
-
     </div>
-</template>
+
+</pagination-controls>
