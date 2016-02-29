@@ -38,7 +38,7 @@ var config = {
                 loader: 'ts'
             },
             { test: /\.css$/, loader: 'style!raw' },
-            { test: /\.html/, loader: 'html' }
+            { test: /\.html/, loader: 'html?-minimize' }
         ]
     },
     ts: {
@@ -56,12 +56,10 @@ var config = {
     devtool: devtool
 };
 if (production) {
-    // TODO: enable once I figure out how to stop it from erroring on my
-    // raw TypeScript imports in the demo app.
-    /*config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
         mangle: false
-    }));*/
-    //config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(true));
+    }));
+    config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(true));
 }
 
 module.exports = config;
