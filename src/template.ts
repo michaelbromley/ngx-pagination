@@ -4,31 +4,34 @@
  */
 
 export const DEFAULT_TEMPLATE = `
-    <ul class="pagination" role="navigation" aria-label="Pagination">
+    <div #template>
+        <ng-content></ng-content>
+    </div>
+    <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="!hasTemplate">
 
-        <li class="pagination-previous" [class.disabled]="api.isFirstPage()" *ngIf="api.directionLinks">
-            <a *ngIf="1 < api.getCurrent()" (click)="api.previous()" aria-label="Next page">
+        <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
+            <a *ngIf="1 < getCurrent()" (click)="previous()" aria-label="Next page">
                 Previous <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="api.isFirstPage()">Previous <span class="show-for-sr">page</span></span>
+            <span *ngIf="isFirstPage()">Previous <span class="show-for-sr">page</span></span>
         </li>
 
-        <li [class.current]="api.getCurrent() === page.value" *ngFor="#page of api.pages">
-            <a (click)="api.setCurrent(page.value)" *ngIf="api.getCurrent() !== page.value">
+        <li [class.current]="getCurrent() === page.value" *ngFor="#page of pages">
+            <a (click)="setCurrent(page.value)" *ngIf="getCurrent() !== page.value">
                 <span class="show-for-sr">Page</span>
                 <span>{{ page.label }}</span>
             </a>
-            <div *ngIf="api.getCurrent() === page.value">
+            <div *ngIf="getCurrent() === page.value">
                 <span class="show-for-sr">You're on page</span>
                 <span>{{ page.label }}</span>
             </div>
         </li>
 
-        <li class="pagination-next" [class.disabled]="api.isLastPage()" *ngIf="api.directionLinks">
-            <a *ngIf="!api.isLastPage()" (click)="api.next()" aria-label="Next page">
+        <li class="pagination-next" [class.disabled]="isLastPage()" *ngIf="directionLinks">
+            <a *ngIf="!isLastPage()" (click)="next()" aria-label="Next page">
                 Next <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="api.isLastPage()">Next <span class="show-for-sr">page</span></span>
+            <span *ngIf="isLastPage()">Next <span class="show-for-sr">page</span></span>
         </li>
 
     </ul>
