@@ -14,7 +14,8 @@ var config = {
     entry: {
         app: path.join(srcPath, 'demo-app.ts'),
         common: [
-            'angular2/bundles/angular2-polyfills'
+            'angular2/bundles/angular2-polyfills',
+            'es6-shim/es6-shim'
         ]
     },
     resolve: {
