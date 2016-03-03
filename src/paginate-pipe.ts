@@ -124,6 +124,5 @@ export class PaginatePipe {
             state.size === collection.length &&
             state.start === start &&
             state.end === end;
-            state.end === end;
     }
 }
