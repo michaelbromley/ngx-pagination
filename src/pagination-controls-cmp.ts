@@ -125,7 +125,7 @@ export class PaginationControlsCmp {
      */
     private outOfBoundCorrection(instance: IPaginationInstance): number {
         const totalPages = Math.ceil(instance.totalItems / instance.itemsPerPage);
-        if (totalPages < instance.currentPage) {
+        if (totalPages < instance.currentPage && 0 < totalPages) {
             return totalPages;
         } else if (instance.currentPage < 1) {
             return 1;
