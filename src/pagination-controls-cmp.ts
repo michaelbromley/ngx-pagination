@@ -23,7 +23,7 @@ export class PaginationControlsCmp {
     @ViewChild('template') template;
     pages: IPage[] = [];
     private hasTemplate: boolean = false;
-    private changeSub: Subscription<string>;
+    private changeSub: Subscription;
 
     constructor(private service: PaginationService) {
         this.changeSub = this.service.change
