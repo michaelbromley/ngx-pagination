@@ -8,6 +8,8 @@ the idea is the same - the most simple possible way to add full-featured paginat
 
 Check out the live demo here: http://michaelbromley.github.io/ng2-pagination/
 
+Play with it on Plunker here: http://plnkr.co/edit/JVQMPvV8z2brCIzdG3N4?p=preview
+
 ## Quick Start
 
 Requirements: TypeScript 1.6+ (for TS builds), tested with Angular 2.0.0-beta.12+
@@ -24,7 +26,7 @@ ng2-pagination ships as un-bundled CommonJS modules (located in the `dist` folde
 ### System.register
 
 ng2-pagination also ships with a bundle in the system format (`dist/ng2-pagination-bundle.js`), suitable for use with the [es6-module-loader](https://github.com/ModuleLoader/es6-module-loader) 
-and related loaders such as SystemJS.
+and related loaders such as SystemJS. See the [demo Plunker](http://plnkr.co/edit/JVQMPvV8z2brCIzdG3N4?p=preview) for an example of this.
 
 ## Simple Example
 
