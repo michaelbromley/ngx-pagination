@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "outFile": "./dist/ng2-pagination-bundle.js"
+  },
+  "files": [
+    "src/ng2-pagination.ts",
+    "typings/main.d.ts"
+  ]
+}
