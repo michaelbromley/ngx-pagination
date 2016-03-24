@@ -10,13 +10,21 @@ Check out the live demo here: http://michaelbromley.github.io/ng2-pagination/
 
 ## Quick Start
 
-Requirements: TypeScript 1.6+ (for TS builds), tested with Angular 2.0.0-beta.6+
+Requirements: TypeScript 1.6+ (for TS builds), tested with Angular 2.0.0-beta.12+
 
 ```
 npm install ng2-pagination --save
 ```
 
-**Note** that currently this module only supports commonjs.
+### CommonJS
+
+ng2-pagination ships as un-bundled CommonJS modules (located in the `dist` folder), which can be imported with 
+`require('ng2-pagination');`, or `import` for those environments that support this method (e.g. TypeScript 1.6+).
+
+### System.register
+
+ng2-pagination also ships with a bundle in the system format (`dist/ng2-pagination-bundle.js`), suitable for use with the [es6-module-loader](https://github.com/ModuleLoader/es6-module-loader) 
+and related loaders such as SystemJS.
 
 ## Simple Example
 
@@ -29,7 +37,7 @@ import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagina
     template: `
     <ul>
       <li *ngFor="#item of collection | paginate: { itemsPerPage: 10, currentPage: p }"> ... </li>
-    <ul>
+    </ul>
                
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
     `,
