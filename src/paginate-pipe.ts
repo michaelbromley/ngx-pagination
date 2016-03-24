@@ -1,6 +1,5 @@
 import {Pipe} from "angular2/core";
-import {PaginationService} from "./pagination-service";
-import {IPaginationInstance} from "../dist/pagination-service";
+import {PaginationService, IPaginationInstance} from "./pagination-service";
 
 const LARGE_NUMBER = 999999999;
 
@@ -123,7 +122,6 @@ export class PaginatePipe {
         return state.collection === collection &&
             state.size === collection.length &&
             state.start === start &&
-            state.end === end;
             state.end === end;
     }
 }

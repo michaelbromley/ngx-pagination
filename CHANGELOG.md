@@ -1,3 +1,9 @@
+# 0.0.1-beta.3 (2016-03-24)
+
+* Fixed PaginationControlsCmp.outOfBoundCorrection() to prevent it returning `0` when the collection is empty ([f7f9bd9](https://github.com/michaelbromley/ng2-pagination/commit/f7f9bd98544a29cfad02d4a368ac32327d62c6c5)).
+* Added System.register bundle build (`dist/ng2-pagination-bundle.js`)
+
+
 # 0.0.1-beta.2 (2016-02-29)
 
 * Fixed minificaton of demo app

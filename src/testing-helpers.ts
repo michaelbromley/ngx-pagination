@@ -71,6 +71,33 @@ export class TestCmp {
 }
 
 /**
+ * Test Component - controls first.
+ * TODO: would be better to re-use TestCmp with .overrideTemplate(), but I get an error that `paginate` pipe
+ * is not found when I do so.
+ */
+@Component({
+    template: `
+        <pagination-controls [id]="config.id"></pagination-controls>
+        <ul>
+            <li *ngFor="#item of collection | paginate: config" class="list-item">{{ item }}</li>
+        </ul> `,
+    directives: [PaginationControlsCmp],
+    pipes: [PaginatePipe],
+    providers: [PaginationService]
+})
+export class TestControlsFirstCmp {
+    collection: string[] = [];
+    config: IPaginationInstance = {
+        id: 'test-controls-first',
+        itemsPerPage: 10,
+        currentPage: 1
+    };
+    constructor() {
+        this.collection = createCollection();
+    }
+}
+
+/**
  * Test Component using custom template
  */
 @Component({
@@ -103,7 +130,7 @@ export class TestCustomTemplateCmp {
     autoHide: boolean = true;
     collection: string[] = [];
     config: IPaginationInstance = {
-        id: 'test',
+        id: 'test-custom-template',
         itemsPerPage: 10,
         currentPage: 1
     };

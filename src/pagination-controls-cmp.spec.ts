@@ -11,8 +11,15 @@ import {
     TestComponentBuilder
 } from 'angular2/testing';
 import {PaginatePipe, PaginationService} from './ng2-pagination';
-import {PaginationControlsCmp, PaginationControlsDirective} from './pagination-controls-cmp';
-import {getListItems, getListItemsText, getPageLinkItems, TestCmp, TestCustomTemplateCmp} from './testing-helpers';
+import {PaginationControlsCmp} from './pagination-controls-cmp';
+import {
+    getListItems,
+    getListItemsText,
+    getPageLinkItems,
+    TestCmp,
+    TestCustomTemplateCmp,
+    TestControlsFirstCmp
+} from './testing-helpers';
 
 
 describe('PaginationControlsCmp:', () => {
@@ -132,6 +139,26 @@ describe('PaginationControlsCmp:', () => {
                     expect(instance.pageChanged).toHaveBeenCalledWith(10);
                 });
         })));
+
+    it('should allow the pagination-controls to come before the PaginatePipe',
+        injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            return tcb
+                .createAsync(TestControlsFirstCmp)
+                .then((fixture: ComponentFixture) => {
+                    let instance: TestControlsFirstCmp = fixture.componentInstance;
+                    let controlsInstance: PaginationControlsCmp = fixture
+                        .debugElement.query(By.css('pagination-controls')).componentInstance;
+                    fixture.detectChanges();
+
+                    expect(controlsInstance.getCurrent()).toBe(1);
+
+                    instance.config.currentPage = 2;
+                    fixture.detectChanges();
+
+                    expect(controlsInstance.getCurrent()).toBe(2);
+                });
+        }));
+
 
     describe('template api:', () => {
 
@@ -275,7 +302,7 @@ describe('PaginationControlsCmp:', () => {
 
 });
 
-describe('PaginationControlsDirective', () => {
+describe('Custom Templates:', () => {
 
     it('should display the correct page links (simple)',
         injectAsync([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {

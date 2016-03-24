@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -106,7 +107,6 @@ var PaginatePipe = (function () {
             state.size === collection.length &&
             state.start === start &&
             state.end === end;
-        state.end === end;
     };
     PaginatePipe = __decorate([
         core_1.Pipe({
@@ -116,5 +116,5 @@ var PaginatePipe = (function () {
         __metadata('design:paramtypes', [pagination_service_1.PaginationService])
     ], PaginatePipe);
     return PaginatePipe;
-})();
+}());
 exports.PaginatePipe = PaginatePipe;

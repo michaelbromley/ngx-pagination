@@ -23,7 +23,7 @@ export class PaginationControlsCmp {
     @ViewChild('template') template;
     pages: IPage[] = [];
     private hasTemplate: boolean = false;
-    private changeSub: Subscription<string>;
+    private changeSub: Subscription;
 
     constructor(private service: PaginationService) {
         this.changeSub = this.service.change
@@ -125,7 +125,7 @@ export class PaginationControlsCmp {
      */
     private outOfBoundCorrection(instance: IPaginationInstance): number {
         const totalPages = Math.ceil(instance.totalItems / instance.itemsPerPage);
-        if (totalPages < instance.currentPage) {
+        if (totalPages < instance.currentPage && 0 < totalPages) {
             return totalPages;
         } else if (instance.currentPage < 1) {
             return 1;

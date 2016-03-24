@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -106,7 +107,7 @@ var PaginationControlsCmp = (function () {
      */
     PaginationControlsCmp.prototype.outOfBoundCorrection = function (instance) {
         var totalPages = Math.ceil(instance.totalItems / instance.itemsPerPage);
-        if (totalPages < instance.currentPage) {
+        if (totalPages < instance.currentPage && 0 < totalPages) {
             return totalPages;
         }
         else if (instance.currentPage < 1) {
@@ -207,5 +208,5 @@ var PaginationControlsCmp = (function () {
         __metadata('design:paramtypes', [pagination_service_1.PaginationService])
     ], PaginationControlsCmp);
     return PaginationControlsCmp;
-})();
+}());
 exports.PaginationControlsCmp = PaginationControlsCmp;

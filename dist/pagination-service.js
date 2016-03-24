@@ -1,3 +1,4 @@
+"use strict";
 var core_1 = require('angular2/core');
 var PaginationService = (function () {
     function PaginationService() {
@@ -102,5 +103,5 @@ var PaginationService = (function () {
         return target;
     };
     return PaginationService;
-})();
+}());
 exports.PaginationService = PaginationService;
