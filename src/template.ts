@@ -7,7 +7,7 @@ export const DEFAULT_TEMPLATE = `
     <div #template>
         <ng-content></ng-content>
     </div>
-    <ul class="pagination" role="navigation" aria-label="Pagination" *ngIf="!hasTemplate">
+    <ul class="ng2-pagination" role="navigation" aria-label="Pagination" *ngIf="!hasTemplate">
 
         <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
             <a *ngIf="1 < getCurrent()" (click)="previous()" aria-label="Next page">
@@ -38,15 +38,15 @@ export const DEFAULT_TEMPLATE = `
     `;
 
 export const DEFAULT_STYLES = `
-.pagination {
+.ng2-pagination {
   margin-left: 0;
   margin-bottom: 1rem; }
-  .pagination::before, .pagination::after {
+  .ng2-pagination::before, .ng2-pagination::after {
     content: ' ';
     display: table; }
-  .pagination::after {
+  .ng2-pagination::after {
     clear: both; }
-  .pagination li {
+  .ng2-pagination li {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -54,51 +54,52 @@ export const DEFAULT_STYLES = `
     margin-right: 0.0625rem;
     border-radius: 0;
     display: none; }
-    .pagination li:last-child, .pagination li:first-child {
+    .ng2-pagination li:last-child, .ng2-pagination li:first-child {
       display: inline-block; }
     @media screen and (min-width: 40em) {
-      .pagination li {
+      .ng2-pagination li {
         display: inline-block; } }
-  .pagination a,
-  .pagination button {
+  .ng2-pagination a,
+  .ng2-pagination button {
     color: #0a0a0a;
     display: block;
     padding: 0.1875rem 0.625rem;
     border-radius: 0; }
-    .pagination a:hover,
-    .pagination button:hover {
+    .ng2-pagination a:hover,
+    .ng2-pagination button:hover {
       background: #e6e6e6; }
-  .pagination .current {
+  .ng2-pagination .current {
     padding: 0.1875rem 0.625rem;
     background: #2199e8;
     color: #fefefe;
     cursor: default; }
-  .pagination .disabled {
+  .ng2-pagination .disabled {
     padding: 0.1875rem 0.625rem;
     color: #cacaca;
     cursor: default; }
-    .pagination .disabled:hover {
+    .ng2-pagination .disabled:hover {
       background: transparent; }
-  .pagination .ellipsis::after {
+  .ng2-pagination .ellipsis::after {
     content: '…';
     padding: 0.1875rem 0.625rem;
     color: #0a0a0a; }
 
-.pagination-previous a::before,
-.pagination-previous.disabled::before {
+.ng2-pagination-previous a::before,
+.ng2-pagination-previous.disabled::before {
   content: '«';
   display: inline-block;
   margin-right: 0.5rem; }
 
-.pagination-next a::after,
-.pagination-next.disabled::after {
+.ng2-pagination-next a::after,
+.ng2-pagination-next.disabled::after {
   content: '»';
   display: inline-block;
   margin-left: 0.5rem; }
 
-.pagination .show-for-sr {
+.ng2-pagination .show-for-sr {
   position: absolute !important;
   width: 1px;
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0); }`;
+ 
