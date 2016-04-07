@@ -173,8 +173,8 @@ template to access the class' API methods and properties, which are explained be
 * **`maxSize`** [`number`]  Corresponds to the value of `maxSize` which is passed to the directive.
 * **`getCurrent()`** [`() => number`] Returns the current page number.
 * **`setCurrent(val)`** [`(val: number) => void`] Triggers the `pageChange` event with the page number passed as `val`.
-* **`previous()`** [`() -> void`] Sets current page to previous, triggering the `pageChange` event.
-* **`next()`** [`() -> void`] Sets current page to next, triggering the `pageChange` event.
+* **`previous()`** [`() => void`] Sets current page to previous, triggering the `pageChange` event.
+* **`next()`** [`() => void`] Sets current page to next, triggering the `pageChange` event.
 * **`isFirstPage()`** [`() => boolean`] Returns true if the current page is the first page.
 * **`isLastPage()`** [`() => boolean`] Returns true if the current page is the last page/
 
