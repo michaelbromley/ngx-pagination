@@ -23,14 +23,18 @@ export class PaginatePipe {
     constructor(private service: PaginationService) {
     }
 
-    public transform(collection: any[], args: any[]): any {
+    public transform(collection: any[], args: any): any {
 
         // When an observable is passed through the AsyncPipe, it will output
         // `null` until the subscription resolves. In this case, we want to
         // use the cached data from the `state` object to prevent the NgFor
         // from flashing empty until the real values arrive.
+        if (args instanceof Array) {
+          // compatible with angular2 before beta16
+          args = args[0];
+        }
         if (!(collection instanceof Array)) {
-            let _id = args[0].id || this.service.defaultId;
+            let _id = args.id || this.service.defaultId;
             if (this.state[_id]) {
                 return this.state[_id].slice;
             } else {
@@ -38,7 +42,7 @@ export class PaginatePipe {
             }
         }
 
-        let serverSideMode = args[0].totalItems !== undefined;
+        let serverSideMode = args.totalItems !== undefined;
         let instance = this.createInstance(collection, args);
         let id = instance.id;
         let start, end;
@@ -72,7 +76,7 @@ export class PaginatePipe {
      * Create an IPaginationInstance object, using defaults for any optional properties not supplied.
      */
     private createInstance(collection: any[], args: any): IPaginationInstance {
-        let config = args[0];
+        let config = args;
         this.checkConfig(config);
 
         return {
