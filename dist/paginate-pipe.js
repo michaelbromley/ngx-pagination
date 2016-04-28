@@ -14,7 +14,7 @@ var LARGE_NUMBER = 999999999;
 var PaginatePipe = (function () {
     function PaginatePipe(service) {
         this.service = service;
-        // store the values from the last time the pipe
+        // store the values from the last time the pipe was invoked
         this.state = {};
     }
     PaginatePipe.prototype.transform = function (collection, args) {

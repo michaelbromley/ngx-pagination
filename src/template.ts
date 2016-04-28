@@ -7,9 +7,12 @@ export const DEFAULT_TEMPLATE = `
     <div #template>
         <ng-content></ng-content>
     </div>
-    <ul class="ng2-pagination" role="navigation" aria-label="Pagination" *ngIf="!hasTemplate">
+    <ul class="ng2-pagination" 
+        role="navigation" 
+        aria-label="Pagination" 
+        *ngIf="!hasTemplate && !(autoHide && pages.length === 1)">
 
-        <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
+        <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks"> 
             <a *ngIf="1 < getCurrent()" (click)="previous()" aria-label="Next page">
                 Previous <span class="show-for-sr">page</span>
             </a>
@@ -52,16 +55,12 @@ export const DEFAULT_STYLES = `
     -ms-user-select: none;
     font-size: 0.875rem;
     margin-right: 0.0625rem;
-    border-radius: 0;
-    display: none; }
-    .ng2-pagination li:last-child, .ng2-pagination li:first-child {
-      display: inline-block; }
-    @media screen and (min-width: 40em) {
-      .ng2-pagination li {
-        display: inline-block; } }
+    border-radius: 0; }
+  .ng2-pagination li {
+    display: inline-block; }
   .ng2-pagination a,
   .ng2-pagination button {
-    color: #0a0a0a;
+    color: #0a0a0a; 
     display: block;
     padding: 0.1875rem 0.625rem;
     border-radius: 0; }
@@ -76,7 +75,7 @@ export const DEFAULT_STYLES = `
   .ng2-pagination .disabled {
     padding: 0.1875rem 0.625rem;
     color: #cacaca;
-    cursor: default; }
+    cursor: default; } 
     .ng2-pagination .disabled:hover {
       background: transparent; }
   .ng2-pagination .ellipsis::after {
@@ -84,14 +83,14 @@ export const DEFAULT_STYLES = `
     padding: 0.1875rem 0.625rem;
     color: #0a0a0a; }
 
-.ng2-pagination-previous a::before,
-.ng2-pagination-previous.disabled::before {
+.ng2-pagination .pagination-previous a::before,
+.ng2-pagination .pagination-previous.disabled::before { 
   content: '«';
   display: inline-block;
   margin-right: 0.5rem; }
 
-.ng2-pagination-next a::after,
-.ng2-pagination-next.disabled::after {
+.ng2-pagination .pagination-next a::after,
+.ng2-pagination .pagination-next.disabled::after {
   content: '»';
   display: inline-block;
   margin-left: 0.5rem; }

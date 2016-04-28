@@ -194,11 +194,77 @@ describe('PaginationControlsCmp:', () => {
                     });
             }));
 
+        it('"directionLinks" state should be reflected in default template',
+            injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                return tcb.createAsync(TestCmp)
+                    .then((fixture: ComponentFixture) => {
+                        fixture.detectChanges();
+                        let instance: TestCmp = fixture.componentInstance;
+                        let items;
+                        items = getPageLinkItems(fixture, 'pagination-controls li', true);
+                        expect(items[0]).toContain('Previous');
+                        expect(items[items.length - 1]).toContain('Next');
+
+                        instance.directionLinks = false;
+                        fixture.detectChanges();
+                        items = getPageLinkItems(fixture, 'pagination-controls li', true);
+                        expect(items[0]).toContain('1');
+                        expect(items[items.length - 1]).toContain('10');
+                    });
+            }));
+
+        // TODO: enable this test once this issue is resolved: https://github.com/angular/angular/issues/8306
+        xit('"directionLinks" should work with non-data-bound values',
+            injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                return tcb.overrideTemplate(TestCmp, `
+                    <ul>
+                        <li *ngFor="#item of collection | paginate: config" class="list-item">{{ item }}</li>
+                    </ul>
+                    <pagination-controls directionLinks="false"></pagination-controls>`)
+                    .createAsync(TestCmp)
+                    .then((fixture: ComponentFixture) => {
+                        fixture.detectChanges();
+                        expect(fixture.componentInstance.directionLinks).toBe(false);
+                    });
+            }));
+
         it('"autoHide" should be boolean',
             injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 return getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         expect(controlsInstance.directionLinks).toBe(true);
+                    });
+            }));
+
+        it('"autoHide" state should be reflected in default template',
+            injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                return tcb.createAsync(TestCmp)
+                    .then((fixture: ComponentFixture) => {
+                        let instance: TestCmp = fixture.componentInstance;
+                        instance.config.itemsPerPage = 100;
+                        fixture.detectChanges();
+                        
+                        expect(getPageLinkItems(fixture).length).toBe(0);
+
+                        instance.autoHide = false;
+                        fixture.detectChanges();
+
+                        expect(getPageLinkItems(fixture).length).toBe(1);
+                    });
+            }));
+
+        // TODO: enable this test once this issue is resolved: https://github.com/angular/angular/issues/8306
+        xit('"autoHide" should work with non-data-bound values',
+            injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                return tcb.overrideTemplate(TestCmp, `
+                    <ul>
+                        <li *ngFor="#item of collection | paginate: config" class="list-item">{{ item }}</li>
+                    </ul>
+                    <pagination-controls autoHide="false"></pagination-controls>`)
+                    .createAsync(TestCmp)
+                    .then((fixture: ComponentFixture) => {
+                        fixture.detectChanges();
+                        expect(fixture.componentInstance.directionLinks).toBe(false);
                     });
             }));
 

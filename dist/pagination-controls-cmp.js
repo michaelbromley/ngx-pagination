@@ -16,11 +16,11 @@ var PaginationControlsCmp = (function () {
         var _this = this;
         this.service = service;
         this.maxSize = 7;
-        this.directionLinks = true;
-        this.autoHide = false;
         this.pageChange = new core_1.EventEmitter();
         this.pages = [];
         this.hasTemplate = false;
+        this._directionLinks = true;
+        this._autoHide = false;
         this.changeSub = this.service.change
             .subscribe(function (id) {
             if (_this.id === id) {
@@ -28,6 +28,26 @@ var PaginationControlsCmp = (function () {
             }
         });
     }
+    Object.defineProperty(PaginationControlsCmp.prototype, "directionLinks", {
+        get: function () {
+            return this._directionLinks;
+        },
+        set: function (value) {
+            this._directionLinks = !!value && value !== 'false';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaginationControlsCmp.prototype, "autoHide", {
+        get: function () {
+            return this._autoHide;
+        },
+        set: function (value) {
+            this._autoHide = !!value && value !== 'false';
+        },
+        enumerable: true,
+        configurable: true
+    });
     PaginationControlsCmp.prototype.ngOnInit = function () {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
@@ -44,19 +64,6 @@ var PaginationControlsCmp = (function () {
     };
     PaginationControlsCmp.prototype.ngOnDestroy = function () {
         this.changeSub.unsubscribe();
-    };
-    /**
-     * Updates the page links and checks that the current page is valid. Should run whenever the
-     * PaginationService.change stream emits a value matching the current ID, or when any of the
-     * input values changes.
-     */
-    PaginationControlsCmp.prototype.updatePageLinks = function () {
-        var inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
-        var correctedCurrentPage = this.outOfBoundCorrection(inst);
-        if (correctedCurrentPage !== inst.currentPage) {
-            this.setCurrent(correctedCurrentPage);
-        }
     };
     /**
      * Go to the previous page
@@ -100,6 +107,19 @@ var PaginationControlsCmp = (function () {
     PaginationControlsCmp.prototype.getLastPage = function () {
         var inst = this.service.getInstance(this.id);
         return Math.ceil(inst.totalItems / inst.itemsPerPage);
+    };
+    /**
+     * Updates the page links and checks that the current page is valid. Should run whenever the
+     * PaginationService.change stream emits a value matching the current ID, or when any of the
+     * input values changes.
+     */
+    PaginationControlsCmp.prototype.updatePageLinks = function () {
+        var inst = this.service.getInstance(this.id);
+        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        var correctedCurrentPage = this.outOfBoundCorrection(inst);
+        if (correctedCurrentPage !== inst.currentPage) {
+            this.setCurrent(correctedCurrentPage);
+        }
     };
     /**
      * Checks that the instance.currentPage property is within bounds for the current page range.
@@ -186,11 +206,11 @@ var PaginationControlsCmp = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean)
-    ], PaginationControlsCmp.prototype, "directionLinks", void 0);
+    ], PaginationControlsCmp.prototype, "directionLinks", null);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean)
-    ], PaginationControlsCmp.prototype, "autoHide", void 0);
+    ], PaginationControlsCmp.prototype, "autoHide", null);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
