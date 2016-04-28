@@ -24,15 +24,27 @@ export function getListItems(fixture: ComponentFixture): HTMLLIElement[] {
         .map((el: DebugElement) => el.nativeElement);
 }
 
+
+
 /**
  * Return the list items making up the pagination links, e.g.
  * ['1', '2', '3', '...', '10']
+ *
+ * If includeAll is set to true, the boundary links will also be included.
  */
-export function getPageLinkItems(fixture: ComponentFixture, selector?: string = 'pagination-controls li'): string[] {
-    return fixture.debugElement.queryAll(By.css(selector))
-        .map((el: DebugElement) => el.nativeElement.innerText)
-        .filter(str => str.match(/\d+|\.\.\./))
-        .map(str => str.match(/\d+|\.\.\./)[0]);
+export function getPageLinkItems(fixture: ComponentFixture,
+                                 selector: string = 'pagination-controls li',
+                                 includeAll: boolean = false): string[] {
+    let all = fixture.debugElement.queryAll(By.css(selector))
+        .map((el: DebugElement) => el.nativeElement.innerText);
+
+    if (includeAll) {
+        return all;
+    } else {
+        return all.filter(str => str.match(/\d+|\.\.\./))
+            .map(str => str.match(/\d+|\.\.\./)[0]);
+    }
+
 }
 
 /**

@@ -7,9 +7,9 @@ export const DEFAULT_TEMPLATE = `
     <div #template>
         <ng-content></ng-content>
     </div>
-    <ul class="ng2-pagination" role="navigation" aria-label="Pagination" *ngIf="!hasTemplate">
+    <ul class="ng2-pagination" role="navigation" aria-label="Pagination" *ngIf="!hasTemplate && !(autoHide && pages.length === 1)">
 
-        <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks">
+        <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks"> 
             <a *ngIf="1 < getCurrent()" (click)="previous()" aria-label="Next page">
                 Previous <span class="show-for-sr">page</span>
             </a>
