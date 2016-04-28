@@ -1,3 +1,7 @@
+# 0.1.0 (2016-04-28)
+* Fix bindings of the `directionLinks` and `autoHide` attributes when used with literal values. (fixes [#20](https://github.com/michaelbromley/ng2-pagination/issues/20))
+* Remove the styles which cause the links to truncate on small screens.
+
 #  0.0.1 (2016-04-07)
 * Change the default ul class name from `.pagination` to `.ng2-pagination` to avoid conflicts with existing CSS frameworks. (fixes [#18](https://github.com/michaelbromley/ng2-pagination/issues/18))
 

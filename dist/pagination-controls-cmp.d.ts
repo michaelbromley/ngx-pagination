@@ -15,17 +15,13 @@ export declare class PaginationControlsCmp {
     pages: IPage[];
     private hasTemplate;
     private changeSub;
+    private _directionLinks;
+    private _autoHide;
     constructor(service: PaginationService);
     ngOnInit(): void;
     ngOnChanges(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    /**
-     * Updates the page links and checks that the current page is valid. Should run whenever the
-     * PaginationService.change stream emits a value matching the current ID, or when any of the
-     * input values changes.
-     */
-    updatePageLinks(): void;
     /**
      * Go to the previous page
      */
@@ -54,6 +50,12 @@ export declare class PaginationControlsCmp {
      * Returns the last page number
      */
     getLastPage(): number;
+    /**
+     * Updates the page links and checks that the current page is valid. Should run whenever the
+     * PaginationService.change stream emits a value matching the current ID, or when any of the
+     * input values changes.
+     */
+    private updatePageLinks();
     /**
      * Checks that the instance.currentPage property is within bounds for the current page range.
      * If not, return a correct value for currentPage, or the current value if OK.

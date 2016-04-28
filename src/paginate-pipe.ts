@@ -17,7 +17,7 @@ interface IPipeState {
 })
 export class PaginatePipe {
 
-    // store the values from the last time the pipe
+    // store the values from the last time the pipe was invoked
     private state: { [id: string]: IPipeState } = {};
 
     constructor(private service: PaginationService) {

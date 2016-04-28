@@ -9,7 +9,7 @@ import {StringFilterPipe} from "./string-filter-pipe";
     pipes: [PaginatePipe, StringFilterPipe]
 })
 export class AdvancedExampleCmp {
-
+ 
     @Input('data') meals: string[] = [];
 
     public filter: string = '';

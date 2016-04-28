@@ -33,7 +33,7 @@ export class PaginationControlsCmp {
     }
     @Output() pageChange: EventEmitter<number> = new EventEmitter();
     @ViewChild('template') template;
-    pages: IPage[] = []; 
+    pages: IPage[] = [];
     private hasTemplate: boolean = false;
     private changeSub: Subscription;
     private _directionLinks: boolean = true;
@@ -66,21 +66,6 @@ export class PaginationControlsCmp {
 
     ngOnDestroy() {
         this.changeSub.unsubscribe();
-    }
-
-    /**
-     * Updates the page links and checks that the current page is valid. Should run whenever the
-     * PaginationService.change stream emits a value matching the current ID, or when any of the
-     * input values changes.
-     */
-    updatePageLinks() {
-        let inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
-
-        const correctedCurrentPage = this.outOfBoundCorrection(inst);
-        if (correctedCurrentPage !== inst.currentPage) {
-            this.setCurrent(correctedCurrentPage);
-        }
     }
 
     /**
@@ -131,6 +116,21 @@ export class PaginationControlsCmp {
     getLastPage(): number {
         let inst = this.service.getInstance(this.id);
         return Math.ceil(inst.totalItems / inst.itemsPerPage);
+    }
+
+    /**
+     * Updates the page links and checks that the current page is valid. Should run whenever the
+     * PaginationService.change stream emits a value matching the current ID, or when any of the
+     * input values changes.
+     */
+    private updatePageLinks() {
+        let inst = this.service.getInstance(this.id);
+        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+
+        const correctedCurrentPage = this.outOfBoundCorrection(inst);
+        if (correctedCurrentPage !== inst.currentPage) {
+            this.setCurrent(correctedCurrentPage);
+        }
     }
 
     /**
