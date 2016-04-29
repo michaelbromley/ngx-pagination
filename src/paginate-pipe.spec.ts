@@ -1,14 +1,15 @@
 import {
+    async,
+    beforeEach,
     ComponentFixture,
     describe,
     expect,
-    beforeEach,
-    injectAsync,
+    inject,
     it,
     TestComponentBuilder
 } from 'angular2/testing';
 import {PaginatePipe, PaginationService, IPaginationInstance} from "./ng2-pagination";
-import {getListItems, getListItemsText, getPageLinkItems, TestCmp} from './testing-helpers';
+import {getListItems, getListItemsText, TestCmp} from './testing-helpers';
 
 describe('PaginatePipe:', () => {
     let pipe: PaginatePipe;
@@ -60,7 +61,7 @@ describe('PaginatePipe:', () => {
             currentPage: 1
         };
 
-        expect(paginationService.getInstance()).toEqual({}); 
+        expect(paginationService.getInstance()).toEqual({});
         pipe.transform(collection, [config]);
         expect(paginationService.getInstance()).toBeDefined();
     });
@@ -164,40 +165,40 @@ describe('PaginatePipe:', () => {
     describe('unexpected input:', () => {
 
         /*it('should throw exception on non-array inputs', () => {
-            let input;
+         let input;
 
-            input = '';
-            expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
+         input = '';
+         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
 
-            input = 1;
-            expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
+         input = 1;
+         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
 
-            input = {};
-            expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
+         input = {};
+         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
 
-            input = null;
-            expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
+         input = null;
+         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
 
-            input = undefined;
-            expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
-        });*/
+         input = undefined;
+         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
+         });*/
     });
 
     describe('DOM tests:', () => {
 
         it('should display the correct number of items per page (10)',
-            injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-                return tcb.createAsync(TestCmp)
+            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture) => {
                         fixture.detectChanges();
 
                         expect(getListItems(fixture).length).toBe(10);
                     });
-            }));
+            })));
 
         it('should display the correct number of items per page (50)',
-            injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-                return tcb.createAsync(TestCmp)
+            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture) => {
                         let instance: TestCmp = fixture.componentInstance;
                         instance.config.itemsPerPage = 50;
@@ -205,11 +206,11 @@ describe('PaginatePipe:', () => {
 
                         expect(getListItems(fixture).length).toBe(50);
                     });
-            }));
+            })));
 
         it('should display the correct items on init',
-            injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-                return tcb.createAsync(TestCmp)
+            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture) => {
                         let instance: TestCmp = fixture.componentInstance;
                         instance.config.itemsPerPage = 3;
@@ -218,11 +219,11 @@ describe('PaginatePipe:', () => {
 
                         expect(getListItemsText(fixture)).toEqual(expected);
                     });
-            }));
+            })));
 
         it('should not mutate the collection',
-            injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-                return tcb.createAsync(TestCmp)
+            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture) => {
                         let instance: TestCmp = fixture.componentInstance;
 
@@ -238,11 +239,11 @@ describe('PaginatePipe:', () => {
 
                         expect(instance.collection.length).toBe(100);
                     });
-            }));
+            })));
 
         it('should default to page 1 if currentPage not set',
-            injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-                return tcb.createAsync(TestCmp)
+            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture) => {
                         let instance: TestCmp = fixture.componentInstance;
                         instance.config.itemsPerPage = 3;
@@ -252,7 +253,7 @@ describe('PaginatePipe:', () => {
 
                         expect(getListItemsText(fixture)).toEqual(expected);
                     });
-            }));
+            })));
     });
 
 });

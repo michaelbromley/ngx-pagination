@@ -14,6 +14,8 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             'node_modules/angular2/bundles/angular2-polyfills.js',
+            'node_modules/zone.js/dist/fake-async-test.js',
+            'node_modules/zone.js/dist/async-test.js',
             './testing-bootstrap.js',
             { pattern: './src/*.ts', watched: true, served: false, included: false }
         ],
