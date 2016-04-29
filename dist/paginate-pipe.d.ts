@@ -3,7 +3,7 @@ export declare class PaginatePipe {
     private service;
     private state;
     constructor(service: PaginationService);
-    transform(collection: any[], args: any[]): any;
+    transform(collection: any[], args: any): any;
     /**
      * Create an IPaginationInstance object, using defaults for any optional properties not supplied.
      */

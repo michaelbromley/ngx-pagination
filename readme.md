@@ -12,11 +12,14 @@ Play with it on Plunker here: http://plnkr.co/edit/JVQMPvV8z2brCIzdG3N4?p=previe
 
 ## Quick Start
 
-Requirements: TypeScript 1.6+ (for TS builds), tested with Angular 2.0.0-beta.12+
-
 ```
 npm install ng2-pagination --save
 ```
+
+### Angular 2 Version
+
+Angular 2 is currently in beta, and API changes are ongoing. Therefore, if encountering errors using this
+lib, ensure your version of Angular is compatible. The current version used to develop this lib is angular2 **2.0.0-beta.17 +**.
 
 ### CommonJS
 
@@ -189,8 +192,6 @@ typings install
 npm run test // Karma unit tests
 npm run demo:watch // Build the demo app and watch
 ```
-
-More complete contributing instructions to follow.
 
 ## Dart Version
 

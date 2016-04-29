@@ -22,8 +22,12 @@ var PaginatePipe = (function () {
         // `null` until the subscription resolves. In this case, we want to
         // use the cached data from the `state` object to prevent the NgFor
         // from flashing empty until the real values arrive.
+        if (args instanceof Array) {
+            // compatible with angular2 before beta16
+            args = args[0];
+        }
         if (!(collection instanceof Array)) {
-            var _id = args[0].id || this.service.defaultId;
+            var _id = args.id || this.service.defaultId;
             if (this.state[_id]) {
                 return this.state[_id].slice;
             }
@@ -31,7 +35,7 @@ var PaginatePipe = (function () {
                 return collection;
             }
         }
-        var serverSideMode = args[0].totalItems !== undefined;
+        var serverSideMode = args.totalItems !== undefined;
         var instance = this.createInstance(collection, args);
         var id = instance.id;
         var start, end;
@@ -61,7 +65,7 @@ var PaginatePipe = (function () {
      * Create an IPaginationInstance object, using defaults for any optional properties not supplied.
      */
     PaginatePipe.prototype.createInstance = function (collection, args) {
-        var config = args[0];
+        var config = args;
         this.checkConfig(config);
         return {
             id: config.id || this.service.defaultId,
