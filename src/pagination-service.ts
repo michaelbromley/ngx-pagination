@@ -27,7 +27,7 @@ export interface IPaginationInstance {
 
 export class PaginationService {
 
-    public change: EventEmitter<string> = new EventEmitter();
+    public change: EventEmitter<string> = new EventEmitter<string>();
 
     private instances: { [id: string]: IPaginationInstance } = {};
     private DEFAULT_ID = 'DEFAULT_PAGINATION_ID';

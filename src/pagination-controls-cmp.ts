@@ -31,7 +31,7 @@ export class PaginationControlsCmp {
     set autoHide(value: boolean) {
         this._autoHide = !!value && <any>value !== 'false';
     }
-    @Output() pageChange: EventEmitter<number> = new EventEmitter();
+    @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
     @ViewChild('template') template;
     pages: IPage[] = [];
     private hasTemplate: boolean = false;
