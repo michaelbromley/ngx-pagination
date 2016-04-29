@@ -38,7 +38,7 @@ import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagina
     selector: 'my-component',
     template: `
     <ul>
-      <li *ngFor="#item of collection | paginate: { itemsPerPage: 10, currentPage: p }"> ... </li>
+      <li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p }"> ... </li>
     </ul>
                
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
@@ -62,7 +62,7 @@ The PaginatePipe should be placed at the end of an NgFor expression. It accepts 
 to `IPaginationInstance`. The following config options are available:
 
 ```HTML
-<element *ngFor="#item of collection | paginate: { id: 'foo'
+<element *ngFor="let item of collection | paginate: { id: 'foo'
                                                    itemsPerPage: pageSize
                                                    currentPage: p
                                                    totalItems: total }">...</element>
@@ -123,7 +123,7 @@ Given a server response json object like this:
 we should pass the value of `count` to the `PaginatePipe` as the `totalItems` argument:
 
 ```HTML
-<li *ngFor="#item of collection | paginate: { itemsPerPage: 10, currentPage: p, totalItems: res.count }">...</li>
+<li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p, totalItems: res.count }">...</li>
 ```
 
 This will allow the correct number of page links to be calculated. To see a complete example of this (including
@@ -146,7 +146,7 @@ and make a template variable reference with `#` to gain access to the API.
             <a *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </a>
         </div>
 
-        <div *ngFor="#page of p.pages" [class.current]="p.getCurrent() === page.value">
+        <div *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
             <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                 <span>{{ page.label }}</span>
             </a>

@@ -1,5 +1,5 @@
 <ul class="meal-list">
-    <li *ngFor="#meal of asyncMeals | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: p, totalItems: total }">
+    <li *ngFor="let meal of asyncMeals | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: p, totalItems: total }">
         {{ meal }}
     </li>
 </ul>

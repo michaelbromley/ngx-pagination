@@ -40,7 +40,7 @@
 
 <!-- here is the actual pagination code -->
 <ul class="meal-list">
-    <li *ngFor="#meal of meals | stringFilter: filter | paginate: config">
+    <li *ngFor="let meal of meals | stringFilter: filter | paginate: config">
         {{ meal }}
     </li>
 </ul>

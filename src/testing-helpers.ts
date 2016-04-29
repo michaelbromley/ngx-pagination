@@ -53,7 +53,7 @@ export function getPageLinkItems(fixture: ComponentFixture,
 @Component({
     template: `
     <ul>
-        <li *ngFor="#item of collection | paginate: config" class="list-item">{{ item }}</li>
+        <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
     </ul>
     <pagination-controls [id]="config.id"
                          (pageChange)="pageChanged($event)"
@@ -91,7 +91,7 @@ export class TestCmp {
     template: `
         <pagination-controls [id]="config.id"></pagination-controls>
         <ul>
-            <li *ngFor="#item of collection | paginate: config" class="list-item">{{ item }}</li>
+            <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
         </ul> `,
     directives: [PaginationControlsCmp],
     pipes: [PaginatePipe],
@@ -115,7 +115,7 @@ export class TestControlsFirstCmp {
 @Component({
     template: `
     <ul>
-        <li *ngFor="#item of collection | paginate: config" class="list-item">{{ item }}</li>
+        <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
     </ul>
    <pagination-controls #p [id]="config.id" (pageChange)="config.currentPage = $event">
         <div #template>
@@ -123,7 +123,7 @@ export class TestControlsFirstCmp {
                 <span *ngIf="!p.isFirstPage()" (click)="p.previous()">back</span>
             </div>
 
-            <div class="page-link" [class.current]="p.getCurrent() === page.value" *ngFor="#page of p.pages">
+            <div class="page-link" [class.current]="p.getCurrent() === page.value" *ngFor="let page of p.pages">
                 <span (click)="p.setCurrent(page.value)">{{ page.label }}</span>
             </div>
 
@@ -133,7 +133,7 @@ export class TestControlsFirstCmp {
         </div>
    </pagination-controls>`,
     directives: [PaginationControlsCmp],
-    pipes: [PaginatePipe],
+    pipes: [PaginatePipe], 
     providers: [PaginationService]
 })
 export class TestCustomTemplateCmp {

@@ -1,5 +1,5 @@
 <ul class="meal-list">
-    <li *ngFor="#meal of meals | paginate: { itemsPerPage: 10, currentPage: page }">
+    <li *ngFor="let meal of meals | paginate: { itemsPerPage: 10, currentPage: page }">
         {{ meal }}
     </li>
 </ul>

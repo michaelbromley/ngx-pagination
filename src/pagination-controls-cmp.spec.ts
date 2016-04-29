@@ -254,7 +254,7 @@ describe('PaginationControlsCmp:', () => {
             async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.overrideTemplate(TestCmp, `
                     <ul>
-                        <li *ngFor="#item of collection | paginate: config" class="list-item">{{ item }}</li>
+                        <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
                     </ul>
                     <pagination-controls autoHide="false"></pagination-controls>`)
                     .createAsync(TestCmp)

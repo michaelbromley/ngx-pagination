@@ -19,14 +19,14 @@ export const DEFAULT_TEMPLATE = `
             <span *ngIf="isFirstPage()">Previous <span class="show-for-sr">page</span></span>
         </li>
 
-        <li [class.current]="getCurrent() === page.value" *ngFor="#page of pages">
+        <li [class.current]="getCurrent() === page.value" *ngFor="let page of pages">
             <a (click)="setCurrent(page.value)" *ngIf="getCurrent() !== page.value">
                 <span class="show-for-sr">Page</span>
                 <span>{{ page.label }}</span>
             </a>
             <div *ngIf="getCurrent() === page.value">
                 <span class="show-for-sr">You're on page</span>
-                <span>{{ page.label }}</span>
+                <span>{{ page.label }}</span> 
             </div>
         </li>
 
