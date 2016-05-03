@@ -1,13 +1,15 @@
 import {
     async,
     beforeEach,
-    ComponentFixture,
     describe,
     expect,
     inject,
     it,
-    TestComponentBuilder
-} from 'angular2/testing';
+} from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestComponentBuilder
+} from '@angular/compiler/testing';
 import {PaginatePipe, PaginationService, IPaginationInstance} from "./ng2-pagination";
 import {getListItems, getListItemsText, TestCmp} from './testing-helpers';
 

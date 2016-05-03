@@ -1,15 +1,17 @@
-import {By} from 'angular2/platform/browser';
+import {By} from '@angular/platform-browser';
 import {
     async,
-    ComponentFixture,
     describe,
     expect,
     fakeAsync,
     inject,
     it,
     tick,
-    TestComponentBuilder
-} from 'angular2/testing';
+} from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestComponentBuilder
+} from '@angular/compiler/testing';
 import {PaginationControlsCmp} from './pagination-controls-cmp';
 import {
     getPageLinkItems,

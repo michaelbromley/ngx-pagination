@@ -1,4 +1,4 @@
-import {Pipe} from "angular2/core";
+import {Pipe} from "@angular/core";
 import {PaginationService, IPaginationInstance} from "./pagination-service";
 
 const LARGE_NUMBER = 999999999;

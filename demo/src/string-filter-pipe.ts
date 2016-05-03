@@ -1,4 +1,4 @@
-import {Pipe} from "angular2/core";
+import {Pipe} from "@angular/core";
 
 /**
  * A simple string filter, since ng2 does not yet have a filter pipe built in.
