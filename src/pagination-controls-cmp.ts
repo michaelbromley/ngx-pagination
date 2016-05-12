@@ -1,4 +1,4 @@
-import {Component, ViewChild, Input, Output, EventEmitter} from 'angular2/core'
+import {Component, ViewChild, Input, Output, EventEmitter} from '@angular/core'
 import {Subscription} from 'rxjs';
 import {PaginationService, IPaginationInstance} from "./pagination-service";
 import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
