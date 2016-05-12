@@ -11,6 +11,7 @@ $primary: #2199E8;
 @import "../../node_modules/bulma/bulma/components/components";
 @import "../../node_modules/bulma/bulma/layout/layout";
 
+@import "spinner";
 
 .top-bar {
     padding: 10px 0;
@@ -87,5 +88,13 @@ pre {
 
     > div.current {
         border-color: #3dffaf;
+    }
+}
+
+.spinner {
+    margin: 10px;
+    transition: opacity 0.5s;
+    &.hidden {
+        opacity: 0;
     }
 }

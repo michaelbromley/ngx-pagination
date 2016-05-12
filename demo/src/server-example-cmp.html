@@ -3,6 +3,8 @@
         {{ meal }}
     </li>
 </ul>
-<div class="is-text-centered">
+
+<div class="is-text-centered ">
+    <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
     <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
