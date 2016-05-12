@@ -5,6 +5,7 @@ import {
     expect,
     fakeAsync,
     inject,
+    xit,
     it,
     tick,
 } from '@angular/core/testing';
@@ -26,7 +27,7 @@ describe('PaginationControlsCmp:', () => {
     it('should display the correct page links (simple)',
         async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
                     instance.config.itemsPerPage = 30;
                     fixture.detectChanges();
@@ -39,7 +40,7 @@ describe('PaginationControlsCmp:', () => {
     it('should display the correct page links (end ellipsis)',
         async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
                     instance.config.itemsPerPage = 10;
                     fixture.detectChanges();
@@ -52,7 +53,7 @@ describe('PaginationControlsCmp:', () => {
     it('should display the correct page links (start ellipsis)',
         async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
                     instance.config.itemsPerPage = 10;
                     instance.config.currentPage = 10;
@@ -66,7 +67,7 @@ describe('PaginationControlsCmp:', () => {
     it('should display the correct page links (double ellipsis)',
         async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
                     instance.config.itemsPerPage = 1;
                     instance.config.currentPage = 50;
@@ -80,7 +81,7 @@ describe('PaginationControlsCmp:', () => {
     it('should update links when collection size changes',
         async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
                     let expected = ['1', '2', '3', '4', '5', '6', '7', '...', '10'];
                     fixture.detectChanges();
@@ -99,7 +100,7 @@ describe('PaginationControlsCmp:', () => {
     it('should update the currently-active page when currentPage changes',
         async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
                     let controlsInstance: PaginationControlsCmp = fixture
                         .debugElement.query(By.css('pagination-controls')).componentInstance;
@@ -117,7 +118,7 @@ describe('PaginationControlsCmp:', () => {
     it('should update the currently-active page when currentPage becomes invalid (too high)',
         async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
                     let controlsInstance: PaginationControlsCmp = fixture
                         .debugElement.query(By.css('pagination-controls')).componentInstance;
@@ -142,7 +143,7 @@ describe('PaginationControlsCmp:', () => {
     it('should allow the pagination-controls to come before the PaginatePipe',
         async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestControlsFirstCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestControlsFirstCmp = fixture.componentInstance;
                     let controlsInstance: PaginationControlsCmp = fixture
                         .debugElement.query(By.css('pagination-controls')).componentInstance;
@@ -161,11 +162,11 @@ describe('PaginationControlsCmp:', () => {
     describe('template api:', () => {
 
         let testCmpInstance: TestCmp;
-        let fixture: ComponentFixture;
+        let fixture: ComponentFixture<TestCmp>;
 
         function getControlsInstance(tcb: TestComponentBuilder): Promise<PaginationControlsCmp> {
             return tcb.createAsync(TestCmp)
-                .then((_fixture: ComponentFixture) => {
+                .then((_fixture: ComponentFixture<TestCmp>) => {
                     fixture = _fixture;
                     testCmpInstance = _fixture.componentInstance;
                     testCmpInstance.config.currentPage = 2;
@@ -195,7 +196,7 @@ describe('PaginationControlsCmp:', () => {
         it('"directionLinks" state should be reflected in default template',
             async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)
-                    .then((fixture: ComponentFixture) => {
+                    .then((fixture: ComponentFixture<TestCmp>) => {
                         fixture.detectChanges();
                         let instance: TestCmp = fixture.componentInstance;
                         let items;
@@ -213,18 +214,18 @@ describe('PaginationControlsCmp:', () => {
 
         // TODO: enable this test once this issue is resolved: https://github.com/angular/angular/issues/8306
         xit('"directionLinks" should work with non-data-bound values',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.overrideTemplate(TestCmp, `
                     <ul>
                         <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
                     </ul>
                     <pagination-controls directionLinks="false"></pagination-controls>`)
                     .createAsync(TestCmp)
-                    .then((fixture: ComponentFixture) => {
+                    .then((fixture: ComponentFixture<TestCmp>) => {
                         fixture.detectChanges();
                         expect(fixture.componentInstance.directionLinks).toBe(false);
                     });
-            })));
+            }));
 
         it('"autoHide" should be boolean',
             async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
@@ -237,7 +238,7 @@ describe('PaginationControlsCmp:', () => {
         it('"autoHide" state should be reflected in default template',
             async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)
-                    .then((fixture: ComponentFixture) => {
+                    .then((fixture: ComponentFixture<TestCmp>) => {
                         let instance: TestCmp = fixture.componentInstance;
                         instance.config.itemsPerPage = 100;
                         fixture.detectChanges();
@@ -253,18 +254,18 @@ describe('PaginationControlsCmp:', () => {
 
         // TODO: enable this test once this issue is resolved: https://github.com/angular/angular/issues/8306
         xit('"autoHide" should work with non-data-bound values',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.overrideTemplate(TestCmp, `
                     <ul>
                         <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
                     </ul>
                     <pagination-controls autoHide="false"></pagination-controls>`)
                     .createAsync(TestCmp)
-                    .then((fixture: ComponentFixture) => {
+                    .then((fixture: ComponentFixture<TestCmp>) => {
                         fixture.detectChanges();
                         expect(fixture.componentInstance.directionLinks).toBe(false);
                     });
-            })));
+            }));
 
         it('"maxSize" should be a number',
             async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
@@ -371,7 +372,7 @@ describe('Custom Templates:', () => {
     it('should display the correct page links (simple)',
         async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCustomTemplateCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCustomTemplateCmp = fixture.componentInstance;
                     instance.config.itemsPerPage = 30;
                     let expected = ['1', '2', '3', '4'];
@@ -387,7 +388,7 @@ describe('Custom Templates:', () => {
     it('should display the correct page links (end ellipsis)',
         async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCustomTemplateCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCustomTemplateCmp = fixture.componentInstance;
                     instance.config.itemsPerPage = 10;
                     let expected = ['1', '2', '3', '4', '5', '...', '10'];
@@ -403,7 +404,7 @@ describe('Custom Templates:', () => {
     it('should display the correct page links (start ellipsis)',
         async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCustomTemplateCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCustomTemplateCmp = fixture.componentInstance;
                     instance.config.itemsPerPage = 10;
                     instance.config.currentPage = 10;
@@ -420,7 +421,7 @@ describe('Custom Templates:', () => {
     it('should display the correct page links (double ellipsis)',
         async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCustomTemplateCmp)
-                .then((fixture: ComponentFixture) => {
+                .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCustomTemplateCmp = fixture.componentInstance;
                     instance.config.itemsPerPage = 1;
                     instance.config.currentPage = 50;

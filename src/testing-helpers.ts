@@ -12,14 +12,14 @@ import {PaginationControlsCmp, PaginatePipe, PaginationService, IPaginationInsta
 /**
  * Get an array of the inner items text, e.g. ['item 1', 'item 2', 'item 3' ... ]
  */
-export function getListItemsText(fixture: ComponentFixture): string[] {
+export function getListItemsText(fixture: ComponentFixture<any>): string[] {
     return getListItems(fixture).map(el => el.innerText);
 }
 
 /**
  * Return all the items in the component's list
  */
-export function getListItems(fixture: ComponentFixture): HTMLLIElement[] {
+export function getListItems(fixture: ComponentFixture<any>): HTMLLIElement[] {
     return fixture.debugElement.queryAll(By.css('.list-item'))
         .map((el: DebugElement) => el.nativeElement);
 }
@@ -32,7 +32,7 @@ export function getListItems(fixture: ComponentFixture): HTMLLIElement[] {
  *
  * If includeAll is set to true, the boundary links will also be included.
  */
-export function getPageLinkItems(fixture: ComponentFixture,
+export function getPageLinkItems(fixture: ComponentFixture<any>,
                                  selector: string = 'pagination-controls li',
                                  includeAll: boolean = false): string[] {
     let all = fixture.debugElement.queryAll(By.css(selector))
