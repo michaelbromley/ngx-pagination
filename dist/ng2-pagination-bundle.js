@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-System.register("pagination-service", ['angular2/core'], function(exports_1, context_1) {
+System.register("pagination-service", ['@angular/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var core_1;
@@ -126,7 +126,7 @@ System.register("pagination-service", ['angular2/core'], function(exports_1, con
         }
     }
 });
-System.register("paginate-pipe", ["angular2/core", "pagination-service"], function(exports_2, context_2) {
+System.register("paginate-pipe", ["@angular/core", "pagination-service"], function(exports_2, context_2) {
     "use strict";
     var __moduleName = context_2 && context_2.id;
     var core_2, pagination_service_1;
@@ -271,7 +271,7 @@ System.register("template", [], function(exports_3, context_3) {
         }
     }
 });
-System.register("pagination-controls-cmp", ['angular2/core', "pagination-service", "template"], function(exports_4, context_4) {
+System.register("pagination-controls-cmp", ['@angular/core', "pagination-service", "template"], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
     var core_3, pagination_service_2, template_1;

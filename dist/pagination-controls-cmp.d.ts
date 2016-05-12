@@ -1,4 +1,4 @@
-import { EventEmitter } from 'angular2/core';
+import { EventEmitter } from '@angular/core';
 import { PaginationService } from "./pagination-service";
 export interface IPage {
     label: string;

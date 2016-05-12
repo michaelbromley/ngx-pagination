@@ -14,8 +14,9 @@ var config = {
     entry: {
         app: path.join(srcPath, 'demo-app.ts'),
         common: [
-            'angular2/bundles/angular2-polyfills',
-            'es6-shim/es6-shim'
+            'reflect-metadata/Reflect.js',
+            'es6-shim/es6-shim',
+            'zone.js/dist/zone.js'
         ]
     },
     resolve: {

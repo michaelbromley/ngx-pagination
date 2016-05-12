@@ -1,5 +1,5 @@
 "use strict";
-var core_1 = require('angular2/core');
+var core_1 = require('@angular/core');
 var PaginationService = (function () {
     function PaginationService() {
         this.change = new core_1.EventEmitter();

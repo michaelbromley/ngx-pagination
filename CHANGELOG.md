@@ -1,11 +1,15 @@
+# 0.3.0 (2016-05-12)
+* Update to **Angular 2 rc.1**
+
 # 0.2.0 (2016-04-29)
-* **Note:** This version is only compatible with Angular 2 **2.0.0-beta.17** and above!
+* **Note:** This version is only compatible with Angular 2 **beta.17** and above!
 * Update `*ngFor` syntax to align with beta.17.
 * Update PaginatePipe to use new pipe API from beta.16 ([PR #24](https://github.com/michaelbromley/ng2-pagination/pull/24)).
 * Update tests to reflect changes to async / inject API in beta.16 
 * Add missing devDependiencies to package.json
 
 # 0.1.0 (2016-04-28)
+* Compatible with Angular 2 **beta.15** and below.
 * Fix bindings of the `directionLinks` and `autoHide` attributes when used with literal values. (fixes [#20](https://github.com/michaelbromley/ng2-pagination/issues/20))
 * Remove the styles which cause the links to truncate on small screens.
 

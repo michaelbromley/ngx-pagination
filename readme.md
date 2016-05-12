@@ -18,8 +18,9 @@ npm install ng2-pagination --save
 
 ### Angular 2 Version
 
-Angular 2 is currently in beta, and API changes are ongoing. Therefore, if encountering errors using this
-lib, ensure your version of Angular is compatible. The current version used to develop this lib is angular2 **2.0.0-beta.17 +**.
+Angular 2 is not yet stable, and API changes are ongoing. Therefore, if encountering errors using this
+lib, ensure your version of Angular is compatible. The current version used to develop this lib is angular2 **2.0.0-rc.1 +**.
+If you need to support a previous version of Angular 2 for now, please see the changelog for advice on which version to use.
 
 ### CommonJS
 
@@ -34,7 +35,7 @@ and related loaders such as SystemJS. See the [demo Plunker](http://plnkr.co/edi
 ## Simple Example
 
 ```TypeScript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagination';
 
 @Component({

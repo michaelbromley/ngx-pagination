@@ -1,4 +1,4 @@
-import { EventEmitter } from 'angular2/core';
+import { EventEmitter } from '@angular/core';
 export interface IPaginationInstance {
     /**
      * An optional ID for the pagination instance. Only useful if you wish to
