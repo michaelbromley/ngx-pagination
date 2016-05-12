@@ -1,5 +1,4 @@
 import {
-    async,
     beforeEach,
     describe,
     expect,
@@ -189,17 +188,17 @@ describe('PaginatePipe:', () => {
     describe('DOM tests:', () => {
 
         it('should display the correct number of items per page (10)',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture<TestCmp>) => {
                         fixture.detectChanges();
 
                         expect(getListItems(fixture).length).toBe(10);
                     });
-            })));
+            }));
 
         it('should display the correct number of items per page (50)',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture<TestCmp>) => {
                         let instance: TestCmp = fixture.componentInstance;
@@ -208,10 +207,10 @@ describe('PaginatePipe:', () => {
 
                         expect(getListItems(fixture).length).toBe(50);
                     });
-            })));
+            }));
 
         it('should display the correct items on init',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture<TestCmp>) => {
                         let instance: TestCmp = fixture.componentInstance;
@@ -221,10 +220,10 @@ describe('PaginatePipe:', () => {
 
                         expect(getListItemsText(fixture)).toEqual(expected);
                     });
-            })));
+            }));
 
         it('should not mutate the collection',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture<TestCmp>) => {
                         let instance: TestCmp = fixture.componentInstance;
@@ -241,10 +240,10 @@ describe('PaginatePipe:', () => {
 
                         expect(instance.collection.length).toBe(100);
                     });
-            })));
+            }));
 
         it('should default to page 1 if currentPage not set',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture<TestCmp>) => {
                         let instance: TestCmp = fixture.componentInstance;
@@ -255,7 +254,7 @@ describe('PaginatePipe:', () => {
 
                         expect(getListItemsText(fixture)).toEqual(expected);
                     });
-            })));
+            }));
     });
 
 });

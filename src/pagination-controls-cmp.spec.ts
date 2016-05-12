@@ -1,6 +1,5 @@
 import {By} from '@angular/platform-browser';
 import {
-    async,
     describe,
     expect,
     fakeAsync,
@@ -25,7 +24,7 @@ import {
 describe('PaginationControlsCmp:', () => {
 
     it('should display the correct page links (simple)',
-        async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
@@ -35,10 +34,10 @@ describe('PaginationControlsCmp:', () => {
 
                     expect(getPageLinkItems(fixture)).toEqual(expected);
                 });
-        })));
+        }));
 
     it('should display the correct page links (end ellipsis)',
-        async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
@@ -48,10 +47,10 @@ describe('PaginationControlsCmp:', () => {
 
                     expect(getPageLinkItems(fixture)).toEqual(expected);
                 });
-        })));
+        }));
 
     it('should display the correct page links (start ellipsis)',
-        async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
@@ -62,10 +61,10 @@ describe('PaginationControlsCmp:', () => {
 
                     expect(getPageLinkItems(fixture)).toEqual(expected);
                 });
-        })));
+        }));
 
     it('should display the correct page links (double ellipsis)',
-        async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
@@ -76,10 +75,10 @@ describe('PaginationControlsCmp:', () => {
 
                     expect(getPageLinkItems(fixture)).toEqual(expected);
                 });
-        })));
+        }));
 
     it('should update links when collection size changes',
-        async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
@@ -95,10 +94,10 @@ describe('PaginationControlsCmp:', () => {
                     expected = ['1', '2', '3', '4', '5', '6', '7', '...', '11'];
                     expect(getPageLinkItems(fixture)).toEqual(expected);
                 });
-        }))));
+        })));
 
     it('should update the currently-active page when currentPage changes',
-        async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
@@ -113,10 +112,10 @@ describe('PaginationControlsCmp:', () => {
 
                     expect(controlsInstance.getCurrent()).toBe(2);
                 });
-        })));
+        }));
 
     it('should update the currently-active page when currentPage becomes invalid (too high)',
-        async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCmp = fixture.componentInstance;
@@ -138,10 +137,10 @@ describe('PaginationControlsCmp:', () => {
 
                     expect(instance.pageChanged).toHaveBeenCalledWith(10);
                 });
-        }))));
+        })));
 
     it('should allow the pagination-controls to come before the PaginatePipe',
-        async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
             tcb.createAsync(TestControlsFirstCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestControlsFirstCmp = fixture.componentInstance;
@@ -156,7 +155,7 @@ describe('PaginationControlsCmp:', () => {
 
                     expect(controlsInstance.getCurrent()).toBe(2);
                 });
-        })));
+        }));
 
 
     describe('template api:', () => {
@@ -178,23 +177,23 @@ describe('PaginationControlsCmp:', () => {
         }
 
         it('"pages" should be an array of page objects',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         expect(controlsInstance.pages instanceof Array).toBe(true);
                     });
-            })));
+            }));
 
         it('"directionLinks" should be boolean',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         expect(controlsInstance.directionLinks).toBe(true);
                     });
-            })));
+            }));
 
         it('"directionLinks" state should be reflected in default template',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture<TestCmp>) => {
                         fixture.detectChanges();
@@ -210,7 +209,7 @@ describe('PaginationControlsCmp:', () => {
                         expect(items[0]).toContain('1');
                         expect(items[items.length - 1]).toContain('10');
                     });
-            })));
+            }));
 
         // TODO: enable this test once this issue is resolved: https://github.com/angular/angular/issues/8306
         xit('"directionLinks" should work with non-data-bound values',
@@ -228,15 +227,15 @@ describe('PaginationControlsCmp:', () => {
             }));
 
         it('"autoHide" should be boolean',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         expect(controlsInstance.directionLinks).toBe(true);
                     });
-            })));
+            }));
 
         it('"autoHide" state should be reflected in default template',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)
                     .then((fixture: ComponentFixture<TestCmp>) => {
                         let instance: TestCmp = fixture.componentInstance;
@@ -250,7 +249,7 @@ describe('PaginationControlsCmp:', () => {
 
                         expect(getPageLinkItems(fixture).length).toBe(1);
                     });
-            })));
+            }));
 
         // TODO: enable this test once this issue is resolved: https://github.com/angular/angular/issues/8306
         xit('"autoHide" should work with non-data-bound values',
@@ -268,31 +267,31 @@ describe('PaginationControlsCmp:', () => {
             }));
 
         it('"maxSize" should be a number',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         expect(controlsInstance.maxSize).toBe(9);
                     });
-            })));
+            }));
 
         it('"maxSize" should be a number',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         expect(controlsInstance.maxSize).toBe(9);
                     });
-            })));
+            }));
 
         it('"getCurrent()" should return current page',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         expect(controlsInstance.getCurrent()).toBe(2);
                     });
-            })));
+            }));
 
         it('"setCurrent()" should emit pageChange event with correct value',
-            async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         spyOn(testCmpInstance, 'pageChanged');
@@ -301,10 +300,10 @@ describe('PaginationControlsCmp:', () => {
 
                         expect(testCmpInstance.pageChanged).toHaveBeenCalledWith(3);
                     });
-            }))));
+            })));
 
         it('"previous()" should emit pageChange event with correct value',
-            async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         spyOn(testCmpInstance, 'pageChanged');
@@ -313,10 +312,10 @@ describe('PaginationControlsCmp:', () => {
 
                         expect(testCmpInstance.pageChanged).toHaveBeenCalledWith(1);
                     });
-            }))));
+            })));
 
         it('"next()" should emit pageChange event with correct value',
-            async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         spyOn(testCmpInstance, 'pageChanged');
@@ -325,10 +324,10 @@ describe('PaginationControlsCmp:', () => {
 
                         expect(testCmpInstance.pageChanged).toHaveBeenCalledWith(3);
                     });
-            }))));
+            })));
 
         it('"isFirstPage()" should return the correct value',
-            async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         testCmpInstance.config.currentPage = 1;
@@ -343,10 +342,10 @@ describe('PaginationControlsCmp:', () => {
 
                         expect(controlsInstance.isFirstPage()).toBe(false);
                     });
-            }))));
+            })));
 
         it('"isLastPage()" should return the correct value',
-            async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+            inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
                 getControlsInstance(tcb)
                     .then((controlsInstance: PaginationControlsCmp) => {
                         testCmpInstance.config.currentPage = 1;
@@ -361,7 +360,7 @@ describe('PaginationControlsCmp:', () => {
 
                         expect(controlsInstance.isLastPage()).toBe(true);
                     });
-            }))));
+            })));
 
     });
 
@@ -370,7 +369,7 @@ describe('PaginationControlsCmp:', () => {
 describe('Custom Templates:', () => {
 
     it('should display the correct page links (simple)',
-        async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCustomTemplateCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCustomTemplateCmp = fixture.componentInstance;
@@ -383,10 +382,10 @@ describe('Custom Templates:', () => {
 
                     expect(getPageLinkItems(fixture, 'div.page-link')).toEqual(expected);
                 });
-        }))));
+        })));
 
     it('should display the correct page links (end ellipsis)',
-        async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCustomTemplateCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCustomTemplateCmp = fixture.componentInstance;
@@ -399,10 +398,10 @@ describe('Custom Templates:', () => {
 
                     expect(getPageLinkItems(fixture, 'div.page-link')).toEqual(expected);
                 });
-        }))));
+        })));
 
     it('should display the correct page links (start ellipsis)',
-        async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCustomTemplateCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCustomTemplateCmp = fixture.componentInstance;
@@ -416,10 +415,10 @@ describe('Custom Templates:', () => {
 
                     expect(getPageLinkItems(fixture, 'div.page-link')).toEqual(expected);
                 });
-        }))));
+        })));
 
     it('should display the correct page links (double ellipsis)',
-        async(inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+        inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCustomTemplateCmp)
                 .then((fixture: ComponentFixture<TestCmp>) => {
                     let instance: TestCustomTemplateCmp = fixture.componentInstance;
@@ -433,5 +432,5 @@ describe('Custom Templates:', () => {
 
                     expect(getPageLinkItems(fixture, 'div.page-link')).toEqual(expected);
                 });
-        }))));
+        })));
 });
