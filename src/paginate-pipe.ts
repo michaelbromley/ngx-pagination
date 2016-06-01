@@ -123,9 +123,15 @@ export class PaginatePipe {
         if (!state) {
             return false;
         }
-        return state.collection === collection &&
+        let isMetaDataIdentical = state.collection === collection &&
             state.size === collection.length &&
             state.start === start &&
             state.end === end;
+
+        if(!isMetaDataIdentical) {
+            return false;
+        }
+
+        return state.slice.every((element, index) => element === collection[start + index]);
     }
 }
