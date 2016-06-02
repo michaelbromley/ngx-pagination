@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var pagination_service_1 = require("./pagination-service");
-var LARGE_NUMBER = 999999999;
+var LARGE_NUMBER = Number.MAX_SAFE_INTEGER;
 var PaginatePipe = (function () {
     function PaginatePipe(service) {
         this.service = service;
@@ -107,10 +107,14 @@ var PaginatePipe = (function () {
         if (!state) {
             return false;
         }
-        return state.collection === collection &&
+        var isMetaDataIdentical = state.collection === collection &&
             state.size === collection.length &&
             state.start === start &&
             state.end === end;
+        if (!isMetaDataIdentical) {
+            return false;
+        }
+        return state.slice.every(function (element, index) { return element === collection[start + index]; });
     };
     PaginatePipe = __decorate([
         core_1.Pipe({

@@ -1,3 +1,7 @@
+# 0.3.1 (2016-05-12)
+* Fix broken change detechtion when replacing collection items with new values ([PR #36](https://github.com/michaelbromley/ng2-pagination/pull/36)).
+* Various small fixes and added a test ([PR #33](https://github.com/michaelbromley/ng2-pagination/pull/33)).
+
 # 0.3.0 (2016-05-12)
 * Update to **Angular 2 rc.1**
 

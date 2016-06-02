@@ -140,7 +140,7 @@ System.register("paginate-pipe", ["@angular/core", "pagination-service"], functi
                 pagination_service_1 = pagination_service_1_1;
             }],
         execute: function() {
-            LARGE_NUMBER = 999999999;
+            LARGE_NUMBER = Number.MAX_SAFE_INTEGER;
             PaginatePipe = (function () {
                 function PaginatePipe(service) {
                     this.service = service;
@@ -237,10 +237,14 @@ System.register("paginate-pipe", ["@angular/core", "pagination-service"], functi
                     if (!state) {
                         return false;
                     }
-                    return state.collection === collection &&
+                    var isMetaDataIdentical = state.collection === collection &&
                         state.size === collection.length &&
                         state.start === start &&
                         state.end === end;
+                    if (!isMetaDataIdentical) {
+                        return false;
+                    }
+                    return state.slice.every(function (element, index) { return element === collection[start + index]; });
                 };
                 PaginatePipe = __decorate([
                     core_2.Pipe({

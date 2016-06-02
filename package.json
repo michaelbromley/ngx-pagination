@@ -1,6 +1,6 @@
 {
   "name": "ng2-pagination",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Pagination for Angular2",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,7 @@
     "test": "karma start karma.conf.js",
     "demo:watch": "webpack --progress --colors --watch",
     "demo:dist": "webpack --progress --colors --dist",
-    "publish": "npm run build && npm run demo:dist",
-    "postinstall": "typings install"
+    "publish-lib": "npm run build && npm run demo:dist"
   },
   "files": [
     "dist",
@@ -32,11 +31,11 @@
   "author": "Michael Bromley <michael@michaelbromley.co.uk>",
   "license": "MIT",
   "devDependencies": {
-    "@angular/common": "^2.0.0-rc.1",
-    "@angular/compiler": "^2.0.0-rc.1",
-    "@angular/core": "^2.0.0-rc.1",
-    "@angular/platform-browser": "^2.0.0-rc.1",
-    "@angular/platform-browser-dynamic": "^2.0.0-rc.1",
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
+    "@angular/core": "2.0.0-rc.1",
+    "@angular/platform-browser": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
     "bulma": "^0.0.14",
     "css-loader": "^0.23.1",
     "es6-promise": "^3.0.2",
@@ -50,14 +49,14 @@
     "karma-webpack": "^1.7.0",
     "node-sass": "^3.6.0",
     "raw-loader": "^0.5.1",
-    "reflect-metadata": "^0.1.2",
+    "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.6",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.7.2",
     "typescript": "^1.8.0",
     "webpack": "^1.12.9",
-    "zone.js": "^0.6.12"
+    "zone.js": "0.6.12"
   },
   "dependencies": {}
 }
