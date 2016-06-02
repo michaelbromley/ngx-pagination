@@ -95,23 +95,18 @@ describe('PaginatePipe:', () => {
         });
 
         it('should detect value changes in collection', () => {
-
             let config = {
                 itemsPerPage: 10,
                 currentPage: 1
             };
-
             collection = ['not changed', '2', '3'];
-
             pipe.transform(collection, [config]);
 
             let changed = 'changed';
-
             collection[0] = changed;
+            let result = pipe.transform(collection, [config]);
 
-            let result2 = pipe.transform(collection, [config]);
-
-            expect(result2[0]).toBe(changed)
+            expect(result[0]).toBe(changed)
 
         });
     });

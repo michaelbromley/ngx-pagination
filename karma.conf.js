@@ -18,8 +18,8 @@ module.exports = function(config) {
             'node_modules/zone.js/dist/fake-async-test.js',
             'node_modules/zone.js/dist/async-test.js',
             './testing-bootstrap.js',
-            { pattern: './src/*.ts', watched: true, served: false, included: false }
-        ],
+            { pattern: './src/*.ts', watched: false, served: false, included: false }
+        ], 
 
         // list of files to exclude
         exclude: [
