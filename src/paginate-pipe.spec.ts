@@ -230,6 +230,26 @@ describe('PaginatePipe:', () => {
                     });
             }));
 
+        it('should display the correct number of items, after itemsPerPage & currentPage change',
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                tcb.createAsync(TestCmp)
+                    .then((fixture: ComponentFixture<TestCmp>) => {
+                        let instance: TestCmp = fixture.componentInstance;
+                        instance.config.itemsPerPage = 10;
+                        fixture.detectChanges();
+
+                        expect(getListItems(fixture).length).toBe(10);
+
+                        let expected = ['item 4', 'item 5', 'item 6'];
+                        instance.config.itemsPerPage = 3;
+                        instance.config.currentPage = 2;
+                        fixture.detectChanges();
+
+                        expect(getListItemsText(fixture)).toEqual(expected);
+                        expect(getListItems(fixture).length).toBe(3);
+                    });
+            }));
+
         it('should display the correct items on init',
             inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
                 tcb.createAsync(TestCmp)

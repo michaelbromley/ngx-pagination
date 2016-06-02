@@ -10,7 +10,8 @@
     "test": "karma start karma.conf.js",
     "demo:watch": "webpack --progress --colors --watch",
     "demo:dist": "webpack --progress --colors --dist",
-    "publish": "npm run build && npm run demo:dist"
+    "publish": "npm run build && npm run demo:dist",
+    "postinstall": "typings install"
   },
   "files": [
     "dist",
@@ -50,7 +51,7 @@
     "node-sass": "^3.6.0",
     "raw-loader": "^0.5.1",
     "reflect-metadata": "^0.1.2",
-    "rxjs": "^5.0.0-beta.6",
+    "rxjs": "5.0.0-beta.6",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.7.2",
