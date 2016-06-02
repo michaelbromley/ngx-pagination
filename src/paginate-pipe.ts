@@ -1,7 +1,7 @@
 import {Pipe} from "@angular/core";
 import {PaginationService, IPaginationInstance} from "./pagination-service";
 
-const LARGE_NUMBER = 999999999;
+const LARGE_NUMBER = Number.MAX_SAFE_INTEGER;
 
 interface IPipeState {
     collection: any[];
