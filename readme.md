@@ -62,8 +62,8 @@ export class MyComponent {
 
 ### PaginatePipe
 
-The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object confirming 
-to `IPaginationInstance`. The following config options are available:
+The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object conforming 
+to the `IPaginationInstance` interface. The following config options are available:
 
 ```HTML
 <element *ngFor="let item of collection | paginate: { id: 'foo'
@@ -73,8 +73,8 @@ to `IPaginationInstance`. The following config options are available:
 
 ```
 
-* **`itemsPerPage`** [`number` - **required**] The number of items to display on each page.
-* **`currentPage`** [`number` - **required**] The current (active) page number.
+* **`itemsPerPage`** [`number`] - **required** The number of items to display on each page.
+* **`currentPage`** [`number`] - **required** The current (active) page number.
 * **`id`** [`string`] If you need to support more than one instance of pagination at a time, set the `id` and ensure it
 matches the id set in the PaginatePipe config (see below).
 * **`totalItems`** [`number`] The total number of items in the collection. Only useful when doing server-side paging, 
