@@ -1,4 +1,4 @@
-import {Component, ViewChild, Input, Output, EventEmitter} from '@angular/core'
+import {Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core'
 import {Subscription} from 'rxjs';
 import {PaginationService, IPaginationInstance} from "./pagination-service";
 import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
@@ -11,7 +11,8 @@ export interface IPage {
 @Component({
     selector: 'pagination-controls',
     template: DEFAULT_TEMPLATE,
-    styles: [DEFAULT_STYLES]
+    styles: [DEFAULT_STYLES],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationControlsCmp {
 
@@ -39,11 +40,15 @@ export class PaginationControlsCmp {
     private _directionLinks: boolean = true;
     private _autoHide: boolean = false;
 
-    constructor(private service: PaginationService) {
+    constructor(
+      private service: PaginationService,
+      private changeDetectorRef: ChangeDetectorRef
+    ) {
         this.changeSub = this.service.change
             .subscribe(id => {
                 if (this.id === id) {
                     this.updatePageLinks();
+                    this.changeDetectorRef.markForCheck();
                 }
             });
     }
