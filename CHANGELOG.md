@@ -1,3 +1,8 @@
+# 0.3.2 (2016-06-09)
+* Use OnPush change detection strategy for big efficiency gains ([PR #40](https://github.com/michaelbromley/ng2-pagination/pull/40))
+* Occasional flickering of active page link when changing pages also handled by the above.
+* (build) Update Typings to 1.x
+
 # 0.3.1 (2016-06-02)
 * Fix broken change detechtion when replacing collection items with new values ([PR #36](https://github.com/michaelbromley/ng2-pagination/pull/36)).
 * Various small fixes and added a test ([PR #33](https://github.com/michaelbromley/ng2-pagination/pull/33)).

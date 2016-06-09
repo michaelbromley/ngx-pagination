@@ -12,9 +12,10 @@ var core_1 = require('@angular/core');
 var pagination_service_1 = require("./pagination-service");
 var template_1 = require('./template');
 var PaginationControlsCmp = (function () {
-    function PaginationControlsCmp(service) {
+    function PaginationControlsCmp(service, changeDetectorRef) {
         var _this = this;
         this.service = service;
+        this.changeDetectorRef = changeDetectorRef;
         this.maxSize = 7;
         this.pageChange = new core_1.EventEmitter();
         this.pages = [];
@@ -25,6 +26,7 @@ var PaginationControlsCmp = (function () {
             .subscribe(function (id) {
             if (_this.id === id) {
                 _this.updatePageLinks();
+                _this.changeDetectorRef.markForCheck();
             }
         });
     }
@@ -223,9 +225,10 @@ var PaginationControlsCmp = (function () {
         core_1.Component({
             selector: 'pagination-controls',
             template: template_1.DEFAULT_TEMPLATE,
-            styles: [template_1.DEFAULT_STYLES]
+            styles: [template_1.DEFAULT_STYLES],
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
-        __metadata('design:paramtypes', [pagination_service_1.PaginationService])
+        __metadata('design:paramtypes', [pagination_service_1.PaginationService, core_1.ChangeDetectorRef])
     ], PaginationControlsCmp);
     return PaginationControlsCmp;
 }());

@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { PaginationService } from "./pagination-service";
 export interface IPage {
     label: string;
@@ -6,6 +6,7 @@ export interface IPage {
 }
 export declare class PaginationControlsCmp {
     private service;
+    private changeDetectorRef;
     id: string;
     maxSize: number;
     directionLinks: boolean;
@@ -17,7 +18,7 @@ export declare class PaginationControlsCmp {
     private changeSub;
     private _directionLinks;
     private _autoHide;
-    constructor(service: PaginationService);
+    constructor(service: PaginationService, changeDetectorRef: ChangeDetectorRef);
     ngOnInit(): void;
     ngOnChanges(): void;
     ngAfterViewInit(): void;

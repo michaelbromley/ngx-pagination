@@ -293,9 +293,10 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
             }],
         execute: function() {
             PaginationControlsCmp = (function () {
-                function PaginationControlsCmp(service) {
+                function PaginationControlsCmp(service, changeDetectorRef) {
                     var _this = this;
                     this.service = service;
+                    this.changeDetectorRef = changeDetectorRef;
                     this.maxSize = 7;
                     this.pageChange = new core_3.EventEmitter();
                     this.pages = [];
@@ -306,6 +307,7 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                         .subscribe(function (id) {
                         if (_this.id === id) {
                             _this.updatePageLinks();
+                            _this.changeDetectorRef.markForCheck();
                         }
                     });
                 }
@@ -504,9 +506,10 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                     core_3.Component({
                         selector: 'pagination-controls',
                         template: template_1.DEFAULT_TEMPLATE,
-                        styles: [template_1.DEFAULT_STYLES]
+                        styles: [template_1.DEFAULT_STYLES],
+                        changeDetection: core_3.ChangeDetectionStrategy.OnPush
                     }), 
-                    __metadata('design:paramtypes', [pagination_service_2.PaginationService])
+                    __metadata('design:paramtypes', [pagination_service_2.PaginationService, core_3.ChangeDetectorRef])
                 ], PaginationControlsCmp);
                 return PaginationControlsCmp;
             }());
