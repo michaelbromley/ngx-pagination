@@ -12,14 +12,7 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
 
         // list of files / patterns to load in the browser
-        files: [
-            'node_modules/reflect-metadata/Reflect.js',
-            'node_modules/zone.js/dist/zone.js',
-            'node_modules/zone.js/dist/fake-async-test.js',
-            'node_modules/zone.js/dist/async-test.js',
-            './testing-bootstrap.js',
-            { pattern: './src/*.ts', watched: false, served: false, included: false }
-        ], 
+        files: [ { pattern: './testing-bootstrap.js', watched: false } ],
 
         // list of files to exclude
         exclude: [
@@ -27,9 +20,7 @@ module.exports = function(config) {
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {
-            'testing-bootstrap.js': ['webpack']
-        },
+        preprocessors: { './testing-bootstrap.js': ['coverage', 'webpack', 'sourcemap'] },
 
         webpack: {
             // karma watches the test entry points
@@ -52,7 +43,8 @@ module.exports = function(config) {
         plugins: [
             require("karma-webpack"),
             'karma-jasmine',
-            'karma-chrome-launcher'
+            'karma-chrome-launcher',
+            'karma-phantomjs-launcher'
         ],
 
         // test results reporter to use
@@ -73,17 +65,17 @@ module.exports = function(config) {
 
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
+        autoWatch: false,
 
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
 
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false,
+        singleRun: true,
 
         // Concurrency level
         // how many browser should be started simultanous
