@@ -10,6 +10,6 @@
   },
   "files": [
     "src/ng2-pagination.ts",
-    "typings/main.d.ts"
+    "typings/index.d.ts"
   ]
 }

@@ -4,6 +4,7 @@
   "description": "Pagination for Angular2",
   "main": "index.js",
   "scripts": {
+    "typings:install": "node node_modules/typings/dist/bin install",
     "build:system": "node node_modules/typescript/bin/tsc -p tsconfig.system.json",
     "build:cjs": "node node_modules/typescript/bin/tsc",
     "build": "npm run build:cjs && npm run build:system",
@@ -55,6 +56,7 @@
     "style-loader": "^0.13.1",
     "ts-loader": "^0.7.2",
     "typescript": "^1.8.0",
+    "typings": "^1.0.4",
     "webpack": "^1.12.9",
     "zone.js": "0.6.12"
   },

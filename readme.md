@@ -184,11 +184,11 @@ template to access the class' API methods and properties, which are explained be
 
 ## Build
 
-Requires globally-installed node, npm, typings. 
+Requires globally-installed node (tested with v5.x) & npm. 
 
 ```
 npm install
-typings install
+npm run typings:install
 
 npm run test // Karma unit tests
 npm run demo:watch // Build the demo app and watch
