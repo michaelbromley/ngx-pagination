@@ -9,9 +9,11 @@
     "build:cjs": "node node_modules/typescript/bin/tsc",
     "build": "npm run build:cjs && npm run build:system",
     "test": "karma start karma.conf.js",
+    "watch:test": "npm run test -- --auto-watch --no-single-run",
     "demo:watch": "webpack --progress --colors --watch",
     "demo:dist": "webpack --progress --colors --dist",
-    "publish-lib": "npm run build && npm run demo:dist"
+    "publish-lib": "npm run build && npm run demo:dist",
+    "postinstall": "npm run typings:install"
   },
   "files": [
     "dist",
@@ -38,6 +40,7 @@
     "@angular/platform-browser": "2.0.0-rc.1",
     "@angular/platform-browser-dynamic": "2.0.0-rc.1",
     "bulma": "^0.0.14",
+    "core-js": "^2.4.0",
     "css-loader": "^0.23.1",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
@@ -47,8 +50,10 @@
     "karma": "^0.13.15",
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^1.0.0",
     "karma-webpack": "^1.7.0",
     "node-sass": "^3.6.0",
+    "phantomjs-prebuilt": "^2.1.7",
     "raw-loader": "^0.5.1",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.6",
