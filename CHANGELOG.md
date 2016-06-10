@@ -1,3 +1,6 @@
+# 0.3.3 (2016-06-10)
+* Fix issue with custom templates still showing default template initially.
+
 # 0.3.2 (2016-06-09)
 * Use OnPush change detection strategy for big efficiency gains ([PR #40](https://github.com/michaelbromley/ng2-pagination/pull/40))
 * Occasional flickering of active page link when changing pages also handled by the above.

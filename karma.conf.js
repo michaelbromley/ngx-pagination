@@ -20,7 +20,7 @@ module.exports = function(config) {
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: { './testing-bootstrap.js': ['coverage', 'webpack', 'sourcemap'] },
+        preprocessors: { './testing-bootstrap.js': ['webpack'] },
 
         webpack: {
             // karma watches the test entry points

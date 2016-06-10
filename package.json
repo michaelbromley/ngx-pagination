@@ -1,6 +1,6 @@
 {
   "name": "ng2-pagination",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Pagination for Angular2",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "build:cjs": "node node_modules/typescript/bin/tsc",
     "build": "npm run build:cjs && npm run build:system",
     "test": "karma start karma.conf.js",
-    "watch:test": "npm run test -- --auto-watch --no-single-run",
+    "test:watch": "npm run test -- --auto-watch --no-single-run",
     "demo:watch": "webpack --progress --colors --watch",
     "demo:dist": "webpack --progress --colors --dist",
     "publish-lib": "npm run build && npm run demo:dist",
