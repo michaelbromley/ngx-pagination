@@ -368,6 +368,19 @@ describe('PaginationControlsCmp:', () => {
 
 describe('Custom Templates:', () => {
 
+    it('should not display the default template',
+        inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
+            tcb.createAsync(TestCustomTemplateCmp)
+                .then((fixture: ComponentFixture<TestCmp>) => {
+                    fixture.detectChanges();
+                    tick();
+                    fixture.detectChanges();
+                    let defaultTemplate = fixture.debugElement.query(By.css('.ng2-pagination'));
+
+                    expect(defaultTemplate).toBeNull();
+                });
+        })));
+
     it('should display the correct page links (simple)',
         inject([TestComponentBuilder], fakeAsync((tcb: TestComponentBuilder) => {
             tcb.createAsync(TestCustomTemplateCmp)

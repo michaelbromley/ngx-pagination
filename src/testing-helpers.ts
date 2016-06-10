@@ -118,7 +118,7 @@ export class TestControlsFirstCmp {
         <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
     </ul>
    <pagination-controls #p [id]="config.id" (pageChange)="config.currentPage = $event">
-        <div #template>
+        <div #template class="custom-template">
             <div class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="p.directionLinks">
                 <span *ngIf="!p.isFirstPage()" (click)="p.previous()">back</span>
             </div>

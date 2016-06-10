@@ -64,8 +64,8 @@ export class PaginationControlsCmp {
     }
 
     ngAfterViewInit() {
-        if ((this.template) && 0 < this.template.nativeElement.children.length) {
-            setTimeout(() => this.hasTemplate = true);
+        if (this.template && 0 < this.template.nativeElement.children.length) {
+            this.hasTemplate = true;
         }
     }
 
