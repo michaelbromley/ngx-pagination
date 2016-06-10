@@ -1,4 +1,4 @@
-# Angular2 Pagination
+# Angular2 Pagination [![Build Status](https://travis-ci.org/michaelbromley/ng2-pagination.svg?branch=master)](https://travis-ci.org/michaelbromley/ng2-pagination)
 
 This is a port of my [angular-utils-pagination](https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination)
 module from Angular 1.x to Angular 2. Due to fundamental differences in the design of Angular2, the API is different but
