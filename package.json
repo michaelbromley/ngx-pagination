@@ -12,8 +12,7 @@
     "test:watch": "npm run test -- --auto-watch --no-single-run",
     "demo:watch": "webpack --progress --colors --watch",
     "demo:dist": "webpack --progress --colors --dist",
-    "publish-lib": "npm run build && npm run demo:dist",
-    "postinstall": "npm run typings:install"
+    "publish-lib": "npm run build && npm run demo:dist"
   },
   "files": [
     "dist",
