@@ -237,8 +237,7 @@ System.register("paginate-pipe", ["@angular/core", "pagination-service"], functi
                     if (!state) {
                         return false;
                     }
-                    var isMetaDataIdentical = state.collection === collection &&
-                        state.size === collection.length &&
+                    var isMetaDataIdentical = state.size === collection.length &&
                         state.start === start &&
                         state.end === end;
                     if (!isMetaDataIdentical) {

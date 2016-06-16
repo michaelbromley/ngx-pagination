@@ -1,3 +1,7 @@
+# 0.3.4 (2016-06-16)
+* Fix infinite loop in PaginatePipe when used with other impure pipes.
+* (build) Remove postinstall script which caused errors when using npm install. (moved to Travis file)
+
 # 0.3.3 (2016-06-10)
 * Fix issue with custom templates still showing default template initially.
 
