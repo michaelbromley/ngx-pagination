@@ -291,23 +291,6 @@ describe('PaginatePipe:', () => {
                         expect(getListItemsText(fixture)).toEqual(expected);
                     });
             }));
-
-        it('should not allow the collection to be sliced if currentPage is above the maximum legal value',
-            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-                tcb.createAsync(TestCmp)
-                    .then((fixture: ComponentFixture<TestCmp>) => {
-                        let instance: TestCmp = fixture.componentInstance;
-                        instance.config.itemsPerPage = 5;
-                        instance.config.currentPage = 20;
-                        fixture.detectChanges();
-
-                        instance.config.currentPage = 21;
-                        fixture.detectChanges();
-                        let expected = ['item 96', 'item 97', 'item 98','item 99', 'item 100'];
-
-                        expect(getListItemsText(fixture)).toEqual(expected);
-                    });
-            }));
     });
 
 });
