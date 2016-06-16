@@ -181,24 +181,24 @@ describe('PaginatePipe:', () => {
 
     describe('unexpected input:', () => {
 
-        /*it('should throw exception on non-array inputs', () => {
+        it('should pass through non-array inputs', () => {
          let input;
 
          input = '';
-         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
+         expect(pipe.transform(<any>input, { itemsPerPage: 10 })).toBe(input, 'string');
 
          input = 1;
-         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
+         expect(pipe.transform(<any>input, { itemsPerPage: 10 })).toBe(input, 'number');
 
          input = {};
-         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
+         expect(pipe.transform(<any>input, { itemsPerPage: 10 })).toBe(input, 'object');
 
          input = null;
-         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
+         expect(pipe.transform(<any>input, { itemsPerPage: 10 })).toBe(input, 'null');
 
          input = undefined;
-         expect(() => pipe.transform(<any>input, [{ itemsPerPage: 10 }])).toThrow();
-         });*/
+         expect(pipe.transform(<any>input, { itemsPerPage: 10 })).toBe(input, 'undefined');
+         });
     });
 
     describe('DOM tests:', () => {
@@ -287,6 +287,23 @@ describe('PaginatePipe:', () => {
                         instance.config.currentPage = undefined;
                         fixture.detectChanges();
                         let expected = ['item 1', 'item 2', 'item 3'];
+
+                        expect(getListItemsText(fixture)).toEqual(expected);
+                    });
+            }));
+
+        it('should not allow the collection to be sliced if currentPage is above the maximum legal value',
+            inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+                tcb.createAsync(TestCmp)
+                    .then((fixture: ComponentFixture<TestCmp>) => {
+                        let instance: TestCmp = fixture.componentInstance;
+                        instance.config.itemsPerPage = 5;
+                        instance.config.currentPage = 20;
+                        fixture.detectChanges();
+
+                        instance.config.currentPage = 21;
+                        fixture.detectChanges();
+                        let expected = ['item 96', 'item 97', 'item 98','item 99', 'item 100'];
 
                         expect(getListItemsText(fixture)).toEqual(expected);
                     });

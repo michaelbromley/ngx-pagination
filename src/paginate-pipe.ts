@@ -56,7 +56,8 @@ export class PaginatePipe {
             end = start + perPage;
 
             let isIdentical = this.stateIsIdentical(id, collection, start, end);
-            if (isIdentical) {
+            let isOutOfRange = this.currentPageIsOutOfRange(instance);
+            if (isIdentical || isOutOfRange) {
                 return this.state[id].slice;
             } else {
                 let slice = collection.slice(start, end);
@@ -132,5 +133,15 @@ export class PaginatePipe {
         }
 
         return state.slice.every((element, index) => element === collection[start + index]);
+    }
+
+    /**
+     * Returns true if the currentPage is not a valid page number based on the collection size and
+     * itemsPerPage value.
+     */
+    private currentPageIsOutOfRange(instance: IPaginationInstance): boolean {
+        let max = Math.ceil(instance.totalItems / instance.itemsPerPage);
+        let min = 0;
+        return instance.currentPage < 0 ||  max < instance.currentPage;
     }
 }
