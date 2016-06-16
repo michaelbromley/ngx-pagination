@@ -123,10 +123,9 @@ export class PaginatePipe {
         if (!state) {
             return false;
         }
-        let isMetaDataIdentical = state.collection === collection &&
-            state.size === collection.length &&
-            state.start === start &&
-            state.end === end;
+        let isMetaDataIdentical = state.size === collection.length &&
+                                  state.start === start &&
+                                  state.end === end;
 
         if(!isMetaDataIdentical) {
             return false;
