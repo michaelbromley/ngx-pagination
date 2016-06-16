@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core"
+import {ChangeDetectionStrategy, Component, Input} from "@angular/core"
 import {PaginatePipe, PaginationControlsCmp, IPaginationInstance} from '../../src/ng2-pagination';
 
 
@@ -6,7 +6,8 @@ import {PaginatePipe, PaginationControlsCmp, IPaginationInstance} from '../../sr
     selector: 'custom-template-example',
     template: require('./custom-template-example-cmp.html'),
     directives: [PaginationControlsCmp],
-    pipes: [PaginatePipe]
+    pipes: [PaginatePipe],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomTemplateExampleCmp {
 

@@ -1,6 +1,6 @@
-import {Component, Input, EventEmitter} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
 import {Observable} from 'rxjs';
-import {PaginatePipe, PaginationControlsCmp, IPaginationInstance} from '../../src/ng2-pagination';
+import {PaginatePipe, PaginationControlsCmp} from '../../src/ng2-pagination';
 
 interface IServerResponse {
     items: string[];
@@ -11,7 +11,8 @@ interface IServerResponse {
     selector: 'server-example',
     template: require('./server-example-cmp.html'),
     directives: [PaginationControlsCmp],
-    pipes: [PaginatePipe]
+    pipes: [PaginatePipe],
+        changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ServerExampleCmp {
 

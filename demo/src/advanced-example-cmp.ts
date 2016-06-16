@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
 import {PaginatePipe, PaginationControlsCmp, IPaginationInstance} from '../../src/ng2-pagination';
 import {StringFilterPipe} from "./string-filter-pipe";
 
@@ -6,7 +6,8 @@ import {StringFilterPipe} from "./string-filter-pipe";
     selector: 'advanced-example',
     template: require('./advanced-example-cmp.html'),
     directives: [PaginationControlsCmp],
-    pipes: [PaginatePipe, StringFilterPipe]
+    pipes: [PaginatePipe, StringFilterPipe],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdvancedExampleCmp {
  
