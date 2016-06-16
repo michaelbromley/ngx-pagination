@@ -8,8 +8,7 @@ import {Pipe} from "@angular/core";
 })
 export class StringFilterPipe {
 
-    transform(value: string[], args: string[]) {
-        let q = args[0];
+    transform(value: string[], q: string) {
         if (!q || q === '') {
             return value;
         }
