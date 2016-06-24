@@ -130,8 +130,11 @@ export class PaginationControlsCmp {
      */
     private updatePageLinks() {
         let inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
-
+        this.pages.length = 0;
+        let newPages: IPage[] = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        for (var i = 0; i < newPages.length; i++) {
+          this.pages.push(newPages[i]);
+        }
         const correctedCurrentPage = this.outOfBoundCorrection(inst);
         if (correctedCurrentPage !== inst.currentPage) {
             this.setCurrent(correctedCurrentPage);
