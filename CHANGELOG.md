@@ -1,5 +1,6 @@
 # 0.3.5 (2016-06-24)
 * Fix 'EXCEPTION: Expression has changed after it was checked.'- message when using custom template.
+* Remove 'Next page'-link flicker when using custom template.
 
 # 0.3.4 (2016-06-16)
 * Fix infinite loop in PaginatePipe when used with other impure pipes.
