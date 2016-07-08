@@ -9,8 +9,8 @@
     "declaration": true,
     "outDir": "./dist"
   },
-  "files": [
-    "src/ng2-pagination.ts",
-    "typings/index.d.ts"
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }

@@ -40,10 +40,8 @@ export class PaginationControlsCmp {
     private _directionLinks: boolean = true;
     private _autoHide: boolean = false;
 
-    constructor(
-      private service: PaginationService,
-      private changeDetectorRef: ChangeDetectorRef
-    ) {
+    constructor(private service: PaginationService,
+                private changeDetectorRef: ChangeDetectorRef) {
         this.changeSub = this.service.change
             .subscribe(id => {
                 if (this.id === id) {
@@ -66,6 +64,7 @@ export class PaginationControlsCmp {
     ngAfterViewInit() {
         if (this.template && 0 < this.template.nativeElement.children.length) {
             this.hasTemplate = true;
+            setTimeout(() => this.changeDetectorRef.markForCheck());
         }
     }
 

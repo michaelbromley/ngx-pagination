@@ -1,4 +1,3 @@
-import {describe, expect, it} from '@angular/core/testing';
 import {PaginationService, IPaginationInstance} from "./pagination-service";
 
 describe('PaginationService:', () => {
@@ -61,6 +60,5 @@ describe('PaginationService:', () => {
         service.setTotalItems(ID, -10);
         expect(service.getInstance(ID).totalItems).toBe(100);
     });
-
 
 });

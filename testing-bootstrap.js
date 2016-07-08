@@ -39,6 +39,11 @@ testing.setBaseTestProviders(
 
 Object.assign(global, testing);
 
+// Jasmine gets into infinite loops on some of Angular's
+// circular data structures. This stops a browser hang.
+// See https://github.com/jasmine/jasmine/issues/424
+jasmine.MAX_PRETTY_PRINT_DEPTH = 3;
+
 /*
   Ok, this is kinda crazy. We can use the the context method on
   require that webpack created in order to tell webpack
