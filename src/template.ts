@@ -31,10 +31,10 @@ export const DEFAULT_TEMPLATE = `
         </li>
 
         <li class="pagination-next" [class.disabled]="isLastPage()" *ngIf="directionLinks">
-            <a *ngIf="!isLastPage()" (click)="next()" aria-label="Next page">
+            <a *ngIf="pages.length > 1 && !isLastPage()" (click)="next()" aria-label="Next page">
                 Next <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="isLastPage()">Next <span class="show-for-sr">page</span></span>
+            <span *ngIf="pages.length > 1 && isLastPage()">Next <span class="show-for-sr">page</span></span>
         </li>
 
     </ul>

@@ -116,7 +116,11 @@ var PaginationControlsCmp = (function () {
      */
     PaginationControlsCmp.prototype.updatePageLinks = function () {
         var inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        this.pages.length = 0;
+        var newPages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
+        for (var i = 0; i < newPages.length; i++) {
+            this.pages.push(newPages[i]);
+        }
         var correctedCurrentPage = this.outOfBoundCorrection(inst);
         if (correctedCurrentPage !== inst.currentPage) {
             this.setCurrent(correctedCurrentPage);
