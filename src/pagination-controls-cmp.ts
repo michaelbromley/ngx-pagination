@@ -55,6 +55,7 @@ export class PaginationControlsCmp {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
         }
+        this.updatePageLinks();
     }
 
     ngOnChanges() {
@@ -119,6 +120,11 @@ export class PaginationControlsCmp {
      */
     getLastPage(): number {
         let inst = this.service.getInstance(this.id);
+        if (inst.totalItems < 1) {
+            // when there are 0 or fewer (an error case) items, there are no "pages" as such,
+            // but it makes sense to consider a single, empty page as the last page.
+            return 1;
+        }
         return Math.ceil(inst.totalItems / inst.itemsPerPage);
     }
 

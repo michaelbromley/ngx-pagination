@@ -10,7 +10,7 @@ export const DEFAULT_TEMPLATE = `
     <ul class="ng2-pagination" 
         role="navigation" 
         aria-label="Pagination" 
-        *ngIf="!hasTemplate && !(autoHide && pages.length === 1)">
+        *ngIf="!hasTemplate && !(autoHide && pages.length <= 1)">
 
         <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks"> 
             <a *ngIf="1 < getCurrent()" (click)="previous()" aria-label="Next page">
