@@ -19,7 +19,7 @@ npm install ng2-pagination --save
 ### Angular 2 Version
 
 Angular 2 is not yet stable, and API changes are ongoing. Therefore, if encountering errors using this
-lib, ensure your version of Angular is compatible. The current version used to develop this lib is angular2 **2.0.0-rc.1 +**.
+lib, ensure your version of Angular is compatible. The current version used to develop this lib is angular2 **2.0.0-rc.4 +**.
 If you need to support a previous version of Angular 2 for now, please see the changelog for advice on which version to use.
 
 ### CommonJS
@@ -142,25 +142,25 @@ To use a custom template, just place your markup inside the `<pagination-control
 and make a template variable reference with `#` to gain access to the API.
 
 ```HTML
-<pagination-controls #p (pageChange)="currentPage = $event">
+<pagination-controls #pagination (pageChange)="currentPage = $event">
 
     <div class="custom-pagination">
 
-        <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
-            <a *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </a>
+        <div class="pagination-previous" [class.disabled]="pagination.isFirstPage()">
+            <a *ngIf="!pagination.isFirstPage()" (click)="pagination.previous()"> < </a>
         </div>
 
-        <div *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
-            <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+        <div *ngFor="let page of pagination.pages" [class.current]="pagination.getCurrent() === page.value">
+            <a (click)="pagination.setCurrent(page.value)" *ngIf="pagination.getCurrent() !== page.value">
                 <span>{{ page.label }}</span>
             </a>
-            <div *ngIf="p.getCurrent() === page.value">
+            <div *ngIf="pagination.getCurrent() === page.value">
                 <span>{{ page.label }}</span>
             </div>
         </div>
 
-        <div class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
-            <a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
+        <div class="pagination-next" [class.disabled]="pagination.isLastPage()" *ngIf="pagination.directionLinks">
+            <a *ngIf="!pagination.isLastPage()" (click)="pagination.next()"> > </a>
         </div>
 
     </div>
