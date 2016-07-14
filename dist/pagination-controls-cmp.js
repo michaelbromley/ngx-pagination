@@ -54,13 +54,16 @@ var PaginationControlsCmp = (function () {
         if (this.id === undefined) {
             this.id = this.service.defaultId;
         }
+        this.updatePageLinks();
     };
     PaginationControlsCmp.prototype.ngOnChanges = function () {
         this.updatePageLinks();
     };
     PaginationControlsCmp.prototype.ngAfterViewInit = function () {
+        var _this = this;
         if (this.template && 0 < this.template.nativeElement.children.length) {
             this.hasTemplate = true;
+            setTimeout(function () { return _this.changeDetectorRef.markForCheck(); });
         }
     };
     PaginationControlsCmp.prototype.ngOnDestroy = function () {
@@ -107,6 +110,11 @@ var PaginationControlsCmp = (function () {
      */
     PaginationControlsCmp.prototype.getLastPage = function () {
         var inst = this.service.getInstance(this.id);
+        if (inst.totalItems < 1) {
+            // when there are 0 or fewer (an error case) items, there are no "pages" as such,
+            // but it makes sense to consider a single, empty page as the last page.
+            return 1;
+        }
         return Math.ceil(inst.totalItems / inst.itemsPerPage);
     };
     /**

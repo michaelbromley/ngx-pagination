@@ -1,3 +1,8 @@
+# 0.3.5 (2016-07-14)
+* Update codebase to **Angular 2 rc.4**.
+* Fix default template showing up when using custom templates (#45)
+* Fix buggy autoHide behaviour (#57)
+
 # 0.3.4 (2016-06-16)
 * Fix infinite loop in PaginatePipe when used with other impure pipes.
 * (build) Remove postinstall script which caused errors when using npm install. (moved to Travis file)

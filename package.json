@@ -1,7 +1,7 @@
 {
   "name": "ng2-pagination",
-  "version": "0.3.4",
-  "description": "Pagination for Angular2",
+  "version": "0.3.5",
+  "description": "Pagination for Angular 2",
   "main": "index.js",
   "scripts": {
     "typings:install": "node node_modules/typings/dist/bin install",
