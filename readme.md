@@ -168,7 +168,7 @@ and make a template variable reference with `#` to gain access to the API.
 </pagination-controls>
 ```
 
-The key thing to note here is `#p` - this provides a local variable, `p`, which can be used in the 
+The key thing to note here is `#pagination` - this provides a local variable, `pagination`, which can be used in the 
 template to access the class' API methods and properties, which are explained below:
 
 * **`pages`** [`{ label: string, value: any }[]`] Array of page objects containing the page number and label.
