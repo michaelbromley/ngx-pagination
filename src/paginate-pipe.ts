@@ -52,6 +52,7 @@ export class PaginatePipe {
 
         if (!serverSideMode && collection instanceof Array) {
             perPage = perPage || LARGE_NUMBER;
+            perPage = +perPage; // convert to number; avoid concatenation when calculating 'end'
             start = (instance.currentPage - 1) * perPage;
             end = start + perPage;
 
