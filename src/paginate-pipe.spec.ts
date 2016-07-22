@@ -189,6 +189,21 @@ describe('PaginatePipe:', () => {
             input = undefined;
             expect(pipe.transform(<any>input, { itemsPerPage: 10 })).toBe(input, 'undefined');
         });
+
+        it('should work with a string as itemsPerPage arg', function() {
+            let result = pipe.transform(collection, { itemsPerPage: '10', currentPage: 2});
+            expect(result.length).toBe(10);
+            expect(result[0]).toBe('item 11');
+            expect(result[9]).toBe('item 20');
+        });
+
+        it('should work with a string as currentPage arg', function() {
+            let result = pipe.transform(collection, { itemsPerPage: 10, currentPage: '2'});
+            expect(result.length).toBe(10);
+            expect(result[0]).toBe('item 11');
+            expect(result[9]).toBe('item 20');
+        });
+
     });
 
     describe('DOM tests:', () => {
