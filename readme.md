@@ -180,7 +180,8 @@ template to access the class' API methods and properties, which are explained be
 * **`previous()`** [`() => void`] Sets current page to previous, triggering the `pageChange` event.
 * **`next()`** [`() => void`] Sets current page to next, triggering the `pageChange` event.
 * **`isFirstPage()`** [`() => boolean`] Returns true if the current page is the first page.
-* **`isLastPage()`** [`() => boolean`] Returns true if the current page is the last page/
+* **`isLastPage()`** [`() => boolean`] Returns true if the current page is the last page
+* **`getLastPage()`** [`() => number`] Returns the page number of the last page.
 
 ## Build
 
