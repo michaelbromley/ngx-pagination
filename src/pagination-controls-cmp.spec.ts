@@ -130,7 +130,7 @@ describe('PaginationControlsCmp:', () => {
     it('should allow the pagination-controls to come before the PaginatePipe',
         async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
             tcb.createAsync(TestControlsFirstCmp)
-                .then((fixture: ComponentFixture<TestCmp>) => {
+                .then((fixture: ComponentFixture<TestControlsFirstCmp>) => {
                     let instance: TestControlsFirstCmp = fixture.componentInstance;
                     let controlsInstance: PaginationControlsCmp = fixture
                         .debugElement.query(By.css('pagination-controls')).componentInstance;
@@ -142,6 +142,41 @@ describe('PaginationControlsCmp:', () => {
                     fixture.detectChanges();
 
                     expect(controlsInstance.getCurrent()).toBe(2);
+                })
+        )));
+
+    it('should allow multiple independent instances',
+        async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
+            tcb.overrideTemplate(TestCmp, `
+                     <ul class="list1">
+                        <li *ngFor="let item of collection | paginate: {id: 'test1', itemsPerPage: 10, currentPage: p1 }" 
+                            class="list-item">{{ item }}</li>
+                     </ul>
+                     <pagination-controls id="test1"></pagination-controls>
+                     <ul class="list2">
+                        <li *ngFor="let item of collection | paginate: {id: 'test2', itemsPerPage: 10, currentPage: p2 }"
+                            class="list-item">{{ item }}</li>
+                     </ul>
+                     <pagination-controls id="test2"></pagination-controls>
+                `).createAsync(TestCmp)
+                .then((fixture: ComponentFixture<TestCmp>) => {
+                    let instance: TestCmp = fixture.componentInstance;
+                    (instance as any).p1 = 1;
+                    (instance as any).p2 = 1;
+
+                    fixture.detectChanges();
+                    let controls: PaginationControlsCmp[] = fixture
+                        .debugElement.queryAll(By.css('pagination-controls'))
+                        .map(el => el.componentInstance);
+
+                    expect(controls[0].getCurrent()).toBe(1);
+                    expect(controls[1].getCurrent()).toBe(1);
+
+                    (instance as any).p1 = 2;
+                    fixture.detectChanges();
+
+                    expect(controls[0].getCurrent()).toBe(2);
+                    expect(controls[1].getCurrent()).toBe(1);
                 })
         )));
 
@@ -199,7 +234,6 @@ describe('PaginationControlsCmp:', () => {
                     })
             )));
 
-        // TODO: enable this test once this issue is resolved: https://github.com/angular/angular/issues/8306
         it('"directionLinks" should work with non-data-bound values',
             async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
                 tcb.overrideTemplate(TestCmp, `
@@ -242,7 +276,6 @@ describe('PaginationControlsCmp:', () => {
                     })
             )));
 
-        // TODO: enable this test once this issue is resolved: https://github.com/angular/angular/issues/8306
         it('"autoHide" should work with non-data-bound values',
             async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
                 tcb.overrideTemplate(TestCmp, `
