@@ -40,6 +40,12 @@ module.exports = function(config) {
             }
         },
 
+        webpackMiddleware: {
+            stats: {
+                chunks: false
+            }
+        },
+
         plugins: [
             require("karma-webpack"),
             'karma-jasmine',
