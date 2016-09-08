@@ -42,7 +42,7 @@ var PaginatePipe = (function () {
         var perPage = instance.itemsPerPage;
         this.service.register(instance);
         if (!serverSideMode && collection instanceof Array) {
-            perPage = perPage || LARGE_NUMBER;
+            perPage = +perPage || LARGE_NUMBER;
             start = (instance.currentPage - 1) * perPage;
             end = start + perPage;
             var isIdentical = this.stateIsIdentical(id, collection, start, end);

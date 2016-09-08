@@ -1,5 +1,6 @@
 # 0.3.6 (awaiting release)
 * Fix PaginatePipe bug when itemsPerPage is passed as a string ([#61](https://github.com/michaelbromley/ng2-pagination/pull/61))
+* (build) Update karma-webpack, prune test output.
 
 # 0.3.5 (2016-07-14)
 * Update codebase to **Angular 2 rc.4**.
