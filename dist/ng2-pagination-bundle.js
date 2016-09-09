@@ -544,12 +544,22 @@ System.register("ng2-pagination", ['@angular/core', '@angular/common', "paginate
             },
             function (paginate_pipe_1_1) {
                 paginate_pipe_1 = paginate_pipe_1_1;
+                exports_5({
+                    "PaginatePipe": paginate_pipe_1_1["PaginatePipe"]
+                });
             },
             function (pagination_service_3_1) {
                 pagination_service_3 = pagination_service_3_1;
+                exports_5({
+                    "PaginationService": pagination_service_3_1["PaginationService"],
+                    "IPaginationInstance": pagination_service_3_1["IPaginationInstance"]
+                });
             },
             function (pagination_controls_cmp_1_1) {
                 pagination_controls_cmp_1 = pagination_controls_cmp_1_1;
+                exports_5({
+                    "PaginationControlsCmp": pagination_controls_cmp_1_1["PaginationControlsCmp"]
+                });
             }],
         execute: function() {
             Ng2PaginationModule = (function () {

@@ -3,7 +3,10 @@ import {CommonModule} from '@angular/common';
 import {PaginatePipe} from './paginate-pipe';
 import {PaginationService} from './pagination-service';
 import {PaginationControlsCmp} from './pagination-controls-cmp';
-export {IPaginationInstance} from './pagination-service';
+
+export {PaginationService, IPaginationInstance} from './pagination-service';
+export {PaginationControlsCmp} from './pagination-controls-cmp';
+export {PaginatePipe} from './paginate-pipe';
 
 @NgModule({
     imports: [CommonModule],

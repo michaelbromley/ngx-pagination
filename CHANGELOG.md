@@ -1,3 +1,6 @@
+### 0.4.1 (2016-09-09)
+* Fix missing exports & typo.
+
 # 0.4.0 (2016-09-09)
 * Update codebase to **Angular 2 rc.6**. Breaking change: now using NgModules, see readme for new usage guide.
 * Fix PaginatePipe bug when itemsPerPage is passed as a string ([#61](https://github.com/michaelbromley/ng2-pagination/pull/61))
