@@ -123,11 +123,17 @@ var PaginationControlsCmp = (function () {
      * input values changes.
      */
     PaginationControlsCmp.prototype.updatePageLinks = function () {
+        var _this = this;
         var inst = this.service.getInstance(this.id);
-        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
         var correctedCurrentPage = this.outOfBoundCorrection(inst);
         if (correctedCurrentPage !== inst.currentPage) {
-            this.setCurrent(correctedCurrentPage);
+            setTimeout(function () {
+                _this.setCurrent(correctedCurrentPage);
+                _this.pages = _this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, _this.maxSize);
+            });
+        }
+        else {
+            this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
         }
     };
     /**

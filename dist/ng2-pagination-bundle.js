@@ -403,11 +403,17 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                  * input values changes.
                  */
                 PaginationControlsCmp.prototype.updatePageLinks = function () {
+                    var _this = this;
                     var inst = this.service.getInstance(this.id);
-                    this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
                     var correctedCurrentPage = this.outOfBoundCorrection(inst);
                     if (correctedCurrentPage !== inst.currentPage) {
-                        this.setCurrent(correctedCurrentPage);
+                        setTimeout(function () {
+                            _this.setCurrent(correctedCurrentPage);
+                            _this.pages = _this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, _this.maxSize);
+                        });
+                    }
+                    else {
+                        this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
                     }
                 };
                 /**
@@ -523,28 +529,47 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
         }
     }
 });
-System.register("ng2-pagination", ["paginate-pipe", "pagination-service", "pagination-controls-cmp"], function(exports_5, context_5) {
+System.register("ng2-pagination", ['@angular/core', '@angular/common', "paginate-pipe", "pagination-service", "pagination-controls-cmp"], function(exports_5, context_5) {
     "use strict";
     var __moduleName = context_5 && context_5.id;
+    var core_4, common_1, paginate_pipe_1, pagination_service_3, pagination_controls_cmp_1;
+    var Ng2PaginationModule;
     return {
         setters:[
+            function (core_4_1) {
+                core_4 = core_4_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
             function (paginate_pipe_1_1) {
-                exports_5({
-                    "PaginatePipe": paginate_pipe_1_1["PaginatePipe"]
-                });
+                paginate_pipe_1 = paginate_pipe_1_1;
             },
             function (pagination_service_3_1) {
-                exports_5({
-                    "PaginationService": pagination_service_3_1["PaginationService"],
-                    "IPaginationInstance": pagination_service_3_1["IPaginationInstance"]
-                });
+                pagination_service_3 = pagination_service_3_1;
             },
             function (pagination_controls_cmp_1_1) {
-                exports_5({
-                    "PaginationControlsCmp": pagination_controls_cmp_1_1["PaginationControlsCmp"]
-                });
+                pagination_controls_cmp_1 = pagination_controls_cmp_1_1;
             }],
         execute: function() {
+            Ng2PaginationModule = (function () {
+                function Ng2PaginationModule() {
+                }
+                Ng2PaginationModule = __decorate([
+                    core_4.NgModule({
+                        imports: [common_1.CommonModule],
+                        declarations: [
+                            paginate_pipe_1.PaginatePipe,
+                            pagination_controls_cmp_1.PaginationControlsCmp
+                        ],
+                        providers: [pagination_service_3.PaginationService],
+                        exports: [paginate_pipe_1.PaginatePipe, pagination_controls_cmp_1.PaginationControlsCmp]
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], Ng2PaginationModule);
+                return Ng2PaginationModule;
+            }());
+            exports_5("Ng2PaginationModule", Ng2PaginationModule);
         }
     }
 });
