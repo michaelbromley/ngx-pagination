@@ -1,5 +1,5 @@
 import {By} from '@angular/platform-browser';
-import {async, ComponenFixture, TestBed, fakeAsync, tick} from '@angular/core/testing';
+import {async, TestBed, fakeAsync, tick} from '@angular/core/testing';
 import {PaginationControlsCmp} from './pagination-controls-cmp';
 import {getPageLinkItems, TestCmp} from './testing-helpers';
 import {PaginationService} from './pagination-service';
