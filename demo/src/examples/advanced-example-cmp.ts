@@ -5,7 +5,7 @@ import {IPaginationInstance} from '../../../src/ng2-pagination';
 @Component({
     selector: 'advanced-example',
     template: require('./advanced-example-cmp.html'),
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class AdvancedExampleCmp {
  
