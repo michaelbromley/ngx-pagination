@@ -1,5 +1,5 @@
 import {By} from '@angular/platform-browser';
-import {async, TestBed, fakeAsync, tick} from '@angular/core/testing';
+import {async, ComponenFixture, TestBed, fakeAsync, tick} from '@angular/core/testing';
 import {PaginationControlsCmp} from './pagination-controls-cmp';
 import {getPageLinkItems, TestCmp} from './testing-helpers';
 import {PaginationService} from './pagination-service';
@@ -122,8 +122,7 @@ describe('PaginationControlsCmp:', () => {
             TestBed.compileComponents();
         }));
 
-        function getControlsInstance(): PaginationControlsCmp {
-            let fixture = TestBed.createComponent(TestCmp);
+        function getControlsInstance(fixture: ComponenFixture<TestCmp>): PaginationControlsCmp {
             let testCmpInstance = fixture.componentInstance;
             testCmpInstance.config.currentPage = 2;
             let controlsInstance: PaginationControlsCmp = fixture
@@ -133,12 +132,14 @@ describe('PaginationControlsCmp:', () => {
         }
 
         it('"pages" should be an array of page objects', async(() => {
-            let controlsInstance = getControlsInstance();
+            let fixture = TestBed.createComponent(TestCmp);
+            let controlsInstance = getControlsInstance(fixture);
             expect(controlsInstance.pages instanceof Array).toBe(true);
         }));
 
         it('"directionLinks" should be boolean', async(() => {
-            let controlsInstance = getControlsInstance();
+            let fixture = TestBed.createComponent(TestCmp);
+            let controlsInstance = getControlsInstance(fixture);
             expect(controlsInstance.directionLinks).toBe(true);
         }));
 
@@ -159,7 +160,8 @@ describe('PaginationControlsCmp:', () => {
         }));
 
         it('"autoHide" should be boolean', async(() => {
-            let controlsInstance = getControlsInstance();
+            let fixture = TestBed.createComponent(TestCmp);
+            let controlsInstance = getControlsInstance(fixture);
             expect(controlsInstance.directionLinks).toBe(true);
         }));
 
@@ -178,23 +180,27 @@ describe('PaginationControlsCmp:', () => {
         }));
 
         it('"maxSize" should be a number', async(() => {
-            let controlsInstance = getControlsInstance();
+            let fixture = TestBed.createComponent(TestCmp);
+            let controlsInstance = getControlsInstance(fixture);
             expect(controlsInstance.maxSize).toBe(9);
         }));
 
         it('"maxSize" should be a number', async(() => {
-            let controlsInstance = getControlsInstance();
+            let fixture = TestBed.createComponent(TestCmp);
+            let controlsInstance = getControlsInstance(fixture);
             expect(controlsInstance.maxSize).toBe(9);
         }));
 
         it('"getCurrent()" should return current page', async(() => {
-            let controlsInstance = getControlsInstance();
+            let fixture = TestBed.createComponent(TestCmp);
+            let controlsInstance = getControlsInstance(fixture);
             expect(controlsInstance.getCurrent()).toBe(2);
         }));
 
         it('"setCurrent()" should emit pageChange event with correct value', fakeAsync(() => {
-            let testCmpInstance = TestBed.createComponent(TestCmp).componentInstance;
-            let controlsInstance = getControlsInstance();
+            let fixture = TestBed.createComponent(TestCmp);
+            let testCmpInstance = fixture.componentInstance;
+            let controlsInstance = getControlsInstance(fixture);
             spyOn(testCmpInstance, 'pageChanged');
             controlsInstance.setCurrent(3);
             tick();
@@ -203,8 +209,9 @@ describe('PaginationControlsCmp:', () => {
         }));
 
         it('"previous()" should emit pageChange event with correct value', fakeAsync(() => {
-            let testCmpInstance = TestBed.createComponent(TestCmp).componentInstance;
-            let controlsInstance = getControlsInstance();
+            let fixture = TestBed.createComponent(TestCmp);
+            let testCmpInstance = fixture.componentInstance;
+            let controlsInstance = getControlsInstance(fixture);
             spyOn(testCmpInstance, 'pageChanged');
             controlsInstance.previous();
             tick();
@@ -213,8 +220,9 @@ describe('PaginationControlsCmp:', () => {
         }));
 
         it('"next()" should emit pageChange event with correct value', fakeAsync(() => {
-            let testCmpInstance = TestBed.createComponent(TestCmp).componentInstance;
-            let controlsInstance = getControlsInstance();
+            let fixture = TestBed.createComponent(TestCmp);
+            let testCmpInstance = fixture.componentInstance;
+            let controlsInstance = getControlsInstance(fixture);
             spyOn(testCmpInstance, 'pageChanged');
             controlsInstance.next();
             tick();
@@ -225,7 +233,7 @@ describe('PaginationControlsCmp:', () => {
         it('"isFirstPage()" should return the correct value', fakeAsync(() => {
             let fixture = TestBed.createComponent(TestCmp);
             let testCmpInstance = fixture.componentInstance;
-            let controlsInstance = getControlsInstance();
+            let controlsInstance = getControlsInstance(fixture);
             testCmpInstance.config.currentPage = 1;
             fixture.detectChanges();
             tick();
@@ -242,7 +250,7 @@ describe('PaginationControlsCmp:', () => {
         it('"isLastPage()" should return the correct value', fakeAsync(() => {
             let fixture = TestBed.createComponent(TestCmp);
             let testCmpInstance = fixture.componentInstance;
-            let controlsInstance = getControlsInstance();
+            let controlsInstance = getControlsInstance(fixture);
             testCmpInstance.config.currentPage = 1;
             fixture.detectChanges();
             tick();
