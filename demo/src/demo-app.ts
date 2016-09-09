@@ -1,48 +1,24 @@
-import {Component} from "@angular/core";
-import {bootstrap} from "@angular/platform-browser-dynamic";
-import {PaginationService} from "../../src/ng2-pagination";
-import {BasicExampleCmp} from "./basic-example-cmp";
-import {AdvancedExampleCmp} from "./advanced-example-cmp";
-import {CustomTemplateExampleCmp} from "./custom-template-example-cmp";
-import {ServerExampleCmp} from './server-example-cmp';
+import {Component, ViewEncapsulation} from "@angular/core";
 
 const hljs = require('highlight.js');
-require('highlight.js/styles/github-gist.css');
-require('./style.scss');
-
-// Shim to make ng2 work with IE. See https://github.com/angular/angular/issues/6501#issuecomment-179502363
-// TODO: remove once the framework itself handles this.
-// function.name (all IE)
-/*! @source http://stackoverflow.com/questions/6903762/function-name-not-supported-in-ie*/
-if (!Object.hasOwnProperty('name')) {
-  Object.defineProperty(Function.prototype, 'name', {
-    get: function() {
-      var matches = this.toString().match(/^\s*function\s*(\S[^\(]*)\s*\(/);
-      var name = matches && matches.length > 1 ? matches[1] : "";
-      // For better performance only parse once, and then cache the
-      // result through a new accessor for repeated access.
-      Object.defineProperty(this, 'name', {value: name});
-      return name;
-    }
-  });
-}
 
 @Component({
     selector: 'demo-app',
     template: require('./demo-app.html'),
-    directives: [BasicExampleCmp, AdvancedExampleCmp, CustomTemplateExampleCmp, ServerExampleCmp]
+    styles: [require('./style.scss'), require('highlight.js/styles/github-gist.css')],
+    encapsulation: ViewEncapsulation.None
 })
-class DemoApp {
+export class DemoApp {
 
     meals: string[] = [];
-    basicCodeT: string = require('./basic-example-cmp.html');
-    basicCodeC: string = require('!raw!./basic-example-cmp.ts');
-    advancedCodeT: string = require('./advanced-example-cmp.html');
-    advancedCodeC: string = require('!raw!./advanced-example-cmp.ts');
-    customTemplateCodeT: string = require('./custom-template-example-cmp.html');
-    customTemplateCodeC: string = require('!raw!./custom-template-example-cmp.ts');
-    serverPagingCodeT: string = require('./server-example-cmp.html');
-    serverPagingCodeC: string = require('!raw!./server-example-cmp.ts');
+    basicCodeT: string = require('./examples/basic-example-cmp.html');
+    basicCodeC: string = require('!raw!./examples/basic-example-cmp.ts');
+    advancedCodeT: string = require('./examples/advanced-example-cmp.html');
+    advancedCodeC: string = require('!raw!./examples/advanced-example-cmp.ts');
+    customTemplateCodeT: string = require('./examples/custom-template-example-cmp.html');
+    customTemplateCodeC: string = require('!raw!./examples/custom-template-example-cmp.ts');
+    serverPagingCodeT: string = require('./examples/server-example-cmp.html');
+    serverPagingCodeC: string = require('!raw!./examples/server-example-cmp.ts');
     selectedTab = 'basic';
     basicTab = 'html';
     fullTab = 'html';
@@ -101,5 +77,3 @@ class DemoApp {
         return meals;
     }
 }
-
-bootstrap(DemoApp, [PaginationService]);

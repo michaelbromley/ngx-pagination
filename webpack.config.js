@@ -12,10 +12,10 @@ var config = {
     target: 'web',
     cache: true,
     entry: {
-        app: path.join(srcPath, 'demo-app.ts'),
+        app: path.join(srcPath, 'bootstrap.ts'),
         common: [
-            'reflect-metadata/Reflect.js',
             'es6-shim/es6-shim',
+            'reflect-metadata/Reflect.js',
             'zone.js/dist/zone.js'
         ]
     },
@@ -39,8 +39,8 @@ var config = {
                 test: /\.ts$/,
                 loader: 'ts'
             },
-            { test: /\.css/, loader: 'style!raw' },
-            { test: /\.scss/, loader: 'style!css!sass' },
+            { test: /\.css/, loader: 'raw' },
+            { test: /\.scss/, loader: 'raw!sass' },
             { test: /\.html/, loader: 'html?-minimize' }
         ]
     },

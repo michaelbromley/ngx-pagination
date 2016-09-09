@@ -1,7 +1,8 @@
-import {async, ComponentFixture, TestBed, inject} from '@angular/core/testing';
-import {PaginatePipe, PaginationService, IPaginationInstance} from "./ng2-pagination";
+import {async, TestBed} from '@angular/core/testing';
 import {getListItems, getListItemsText, TestCmp} from './testing-helpers';
 import {PaginationControlsCmp} from './pagination-controls-cmp';
+import {PaginationService, IPaginationInstance} from './pagination-service';
+import {PaginatePipe} from './paginate-pipe';
 
 describe('PaginatePipe:', () => {
     let pipe: PaginatePipe;
