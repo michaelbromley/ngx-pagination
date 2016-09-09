@@ -18,8 +18,7 @@ npm install ng2-pagination --save
 
 ### Angular 2 Version
 
-Angular 2 is not yet stable, and API changes are ongoing. Therefore, if encountering errors using this
-lib, ensure your version of Angular is compatible. The current version used to develop this lib is angular2 **2.0.0-rc.4 +**.
+This library is built to work with **Angular 2 rc.6**.
 If you need to support a previous version of Angular 2 for now, please see the changelog for advice on which version to use.
 
 ### CommonJS
@@ -35,8 +34,23 @@ and related loaders such as SystemJS. See the [demo Plunker](http://plnkr.co/edi
 ## Simple Example
 
 ```TypeScript
+// app.module.ts
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {Ng2PaginationModule} from 'ng2-pagination'; // <-- import the module
+imort {MyComponent} from './my.component';
+
+@NgModule({
+    imports: [BrowserModule, Ng2PaginationModule], // <-- include it in your app module
+    declarations: [MyComponent],
+    bootstrap: [MyComponent]
+})
+export class MyAppModule {}
+```
+
+```TypeScript
+// my.component.ts
 import {Component} from '@angular/core';
-import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagination';
 
 @Component({
     selector: 'my-component',
@@ -46,15 +60,10 @@ import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagina
     </ul>
                
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
-    `,
-    directives: [PaginationControlsCmp],
-    pipes: [PaginatePipe],
-    providers: [PaginationService]
+    `
 })
 export class MyComponent {
-
     public collection: any[] = someArrayOfThings;  
-
 }
 ```
 
@@ -194,11 +203,6 @@ npm run typings:install
 npm run test // Karma unit tests
 npm run demo:watch // Build the demo app and watch
 ```
-
-## Dart Version
-
-For Dart users, there is a Dart port available here: https://github.com/laagland/ng2-dart-pagination. Note that this 
-version was written and is maintained by a different author and may not be up-to-date with this repo.
 
 ## License
 

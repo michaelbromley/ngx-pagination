@@ -1,11 +1,13 @@
-# 0.3.6 (awaiting release)
+# 0.4.0 (2016-09-09)
+* Update codebase to **Angular 2 rc.6**. Breaking change: now using NgModules, see readme for new usage guide.
 * Fix PaginatePipe bug when itemsPerPage is passed as a string ([#61](https://github.com/michaelbromley/ng2-pagination/pull/61))
+* Fix change detection issue when correcting out-of-bounds currentPage value ([#48](https://github.com/michaelbromley/ng2-pagination/issues/48)), [#69](https://github.com/michaelbromley/ng2-pagination/issues/69)
 * (build) Update karma-webpack, prune test output.
 
 # 0.3.5 (2016-07-14)
 * Update codebase to **Angular 2 rc.4**.
-* Fix default template showing up when using custom templates (#45)
-* Fix buggy autoHide behaviour (#57)
+* Fix default template showing up when using custom templates ([#45](https://github.com/michaelbromley/ng2-pagination/issues/45))
+* Fix buggy autoHide behaviour ([#57](https://github.com/michaelbromley/ng2-pagination/issues/57))
 
 # 0.3.4 (2016-06-16)
 * Fix infinite loop in PaginatePipe when used with other impure pipes.
