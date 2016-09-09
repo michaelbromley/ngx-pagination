@@ -1,6 +1,7 @@
-import {async, ComponentFixture, TestComponentBuilder, inject} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, inject} from '@angular/core/testing';
 import {PaginatePipe, PaginationService, IPaginationInstance} from "./ng2-pagination";
 import {getListItems, getListItemsText, TestCmp} from './testing-helpers';
+import {PaginationControlsCmp} from './pagination-controls-cmp';
 
 describe('PaginatePipe:', () => {
     let pipe: PaginatePipe;
@@ -208,94 +209,87 @@ describe('PaginatePipe:', () => {
 
     describe('DOM tests:', () => {
 
-        it('should display the correct number of items per page (10)',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
-                tcb.createAsync(TestCmp)
-                    .then((fixture: ComponentFixture<TestCmp>) => {
-                        fixture.detectChanges();
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [PaginationControlsCmp, TestCmp, PaginatePipe],
+                providers: [PaginationService],
+            });
+        });
 
-                        expect(getListItems(fixture).length).toBe(10);
-                    })
-            )));
+        beforeEach(async(() => {
+            TestBed.compileComponents();
+        }));
 
-        it('should display the correct number of items per page (50)',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
-                tcb.createAsync(TestCmp)
-                    .then((fixture: ComponentFixture<TestCmp>) => {
-                        let instance: TestCmp = fixture.componentInstance;
-                        instance.config.itemsPerPage = 50;
-                        fixture.detectChanges();
+        it('should display the correct number of items per page (10)', async(() => {
+            let fixture = TestBed.createComponent(TestCmp);
+            fixture.detectChanges();
 
-                        expect(getListItems(fixture).length).toBe(50);
-                    })
-            )));
+            expect(getListItems(fixture).length).toBe(10);
+        }));
 
-        it('should display the correct number of items, after itemsPerPage & currentPage change',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
-                tcb.createAsync(TestCmp)
-                    .then((fixture: ComponentFixture<TestCmp>) => {
-                        let instance: TestCmp = fixture.componentInstance;
-                        instance.config.itemsPerPage = 10;
-                        fixture.detectChanges();
+        it('should display the correct number of items per page (50)', async(() => {
+            let fixture = TestBed.createComponent(TestCmp);
+            let instance: TestCmp = fixture.componentInstance;
+            instance.config.itemsPerPage = 50;
+            fixture.detectChanges();
 
-                        expect(getListItems(fixture).length).toBe(10);
+            expect(getListItems(fixture).length).toBe(50);
+        }));
 
-                        let expected = ['item 4', 'item 5', 'item 6'];
-                        instance.config.itemsPerPage = 3;
-                        instance.config.currentPage = 2;
-                        fixture.detectChanges();
+        it('should display the correct number of items, after itemsPerPage & currentPage change', async(() => {
+            let fixture = TestBed.createComponent(TestCmp);
+            let instance: TestCmp = fixture.componentInstance;
+            instance.config.itemsPerPage = 10;
+            fixture.detectChanges();
 
-                        expect(getListItemsText(fixture)).toEqual(expected);
-                        expect(getListItems(fixture).length).toBe(3);
-                    })
-            )));
+            expect(getListItems(fixture).length).toBe(10);
 
-        it('should display the correct items on init',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
-                tcb.createAsync(TestCmp)
-                    .then((fixture: ComponentFixture<TestCmp>) => {
-                        let instance: TestCmp = fixture.componentInstance;
-                        instance.config.itemsPerPage = 3;
-                        fixture.detectChanges();
-                        let expected = ['item 1', 'item 2', 'item 3'];
+            let expected = ['item 4', 'item 5', 'item 6'];
+            instance.config.itemsPerPage = 3;
+            instance.config.currentPage = 2;
+            fixture.detectChanges();
 
-                        expect(getListItemsText(fixture)).toEqual(expected);
-                    })
-            )));
+            expect(getListItemsText(fixture)).toEqual(expected);
+            expect(getListItems(fixture).length).toBe(3);
+        }));
 
-        it('should not mutate the collection',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
-                tcb.createAsync(TestCmp)
-                    .then((fixture: ComponentFixture<TestCmp>) => {
-                        let instance: TestCmp = fixture.componentInstance;
+        it('should display the correct items on init', async(() => {
+            let fixture = TestBed.createComponent(TestCmp);
+            let instance: TestCmp = fixture.componentInstance;
+            instance.config.itemsPerPage = 3;
+            fixture.detectChanges();
+            let expected = ['item 1', 'item 2', 'item 3'];
 
-                        expect(instance.collection.length).toBe(100);
+            expect(getListItemsText(fixture)).toEqual(expected);
+        }));
 
-                        instance.config.itemsPerPage = 50;
-                        fixture.detectChanges();
+        it('should not mutate the collection', async(() => {
+            let fixture = TestBed.createComponent(TestCmp);
+            let instance: TestCmp = fixture.componentInstance;
 
-                        expect(instance.collection.length).toBe(100);
+            expect(instance.collection.length).toBe(100);
 
-                        instance.config.itemsPerPage = 75;
-                        fixture.detectChanges();
+            instance.config.itemsPerPage = 50;
+            fixture.detectChanges();
 
-                        expect(instance.collection.length).toBe(100);
-                    })
-            )));
+            expect(instance.collection.length).toBe(100);
 
-        it('should default to page 1 if currentPage not set',
-            async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) =>
-                tcb.createAsync(TestCmp)
-                    .then((fixture: ComponentFixture<TestCmp>) => {
-                        let instance: TestCmp = fixture.componentInstance;
-                        instance.config.itemsPerPage = 3;
-                        instance.config.currentPage = undefined;
-                        fixture.detectChanges();
-                        let expected = ['item 1', 'item 2', 'item 3'];
+            instance.config.itemsPerPage = 75;
+            fixture.detectChanges();
 
-                        expect(getListItemsText(fixture)).toEqual(expected);
-                    })
-            )));
+            expect(instance.collection.length).toBe(100);
+        }));
+
+        it('should default to page 1 if currentPage not set', async(() => {
+            let fixture = TestBed.createComponent(TestCmp);
+            let instance: TestCmp = fixture.componentInstance;
+            instance.config.itemsPerPage = 3;
+            instance.config.currentPage = undefined;
+            fixture.detectChanges();
+            let expected = ['item 1', 'item 2', 'item 3'];
+
+            expect(getListItemsText(fixture)).toEqual(expected);
+        }));
     });
 
 });

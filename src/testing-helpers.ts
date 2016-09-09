@@ -1,9 +1,7 @@
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {
-    ComponentFixture
-} from '@angular/compiler/testing';
-import {PaginationControlsCmp, PaginatePipe, PaginationService, IPaginationInstance} from './ng2-pagination';
+import {ComponentFixture} from '@angular/core/testing';
+import {IPaginationInstance} from './ng2-pagination';
 
 /**
  * Helper Functions and test components for use in unit tests.
@@ -23,8 +21,6 @@ export function getListItems(fixture: ComponentFixture<any>): HTMLLIElement[] {
     return fixture.debugElement.queryAll(By.css('.list-item'))
         .map((el: DebugElement) => el.nativeElement);
 }
-
-
 
 /**
  * Return the list items making up the pagination links, e.g.
@@ -60,10 +56,7 @@ export function getPageLinkItems(fixture: ComponentFixture<any>,
                          [maxSize]="maxSize"
                          [directionLinks]="directionLinks"
                          [autoHide]="autoHide">
-    </pagination-controls>`,
-    directives: [PaginationControlsCmp],
-    pipes: [PaginatePipe],
-    providers: [PaginationService]
+    </pagination-controls>`
 })
 export class TestCmp {
     maxSize: number = 9;
@@ -78,81 +71,6 @@ export class TestCmp {
     pageChanged() {}
 
     constructor() {
-        this.collection = createCollection();
+        this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);
     }
-}
-
-/**
- * Test Component - controls first.
- * TODO: would be better to re-use TestCmp with .overrideTemplate(), but I get an error that `paginate` pipe
- * is not found when I do so.
- */
-@Component({
-    template: `
-        <pagination-controls [id]="config.id"></pagination-controls>
-        <ul>
-            <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
-        </ul> `,
-    directives: [PaginationControlsCmp],
-    pipes: [PaginatePipe],
-    providers: [PaginationService]
-})
-export class TestControlsFirstCmp {
-    collection: string[] = [];
-    config: IPaginationInstance = {
-        id: 'test-controls-first',
-        itemsPerPage: 10,
-        currentPage: 1
-    };
-    constructor() {
-        this.collection = createCollection();
-    }
-}
-
-/**
- * Test Component using custom template
- */
-@Component({
-    template: `
-    <ul>
-        <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
-    </ul>
-   <pagination-controls #p [id]="config.id" (pageChange)="config.currentPage = $event">
-        <div #template class="custom-template">
-            <div class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="p.directionLinks">
-                <span *ngIf="!p.isFirstPage()" (click)="p.previous()">back</span>
-            </div>
-
-            <div class="page-link" [class.current]="p.getCurrent() === page.value" *ngFor="let page of p.pages">
-                <span (click)="p.setCurrent(page.value)">{{ page.label }}</span>
-            </div>
-
-            <div class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
-                <span *ngIf="!p.isLastPage()" (click)="p.next()">forward</span>
-            </div>
-        </div>
-   </pagination-controls>`,
-    directives: [PaginationControlsCmp],
-    pipes: [PaginatePipe], 
-    providers: [PaginationService]
-})
-export class TestCustomTemplateCmp {
-    maxSize: number = 9;
-    directionLinks: boolean = true;
-    autoHide: boolean = true;
-    collection: string[] = [];
-    config: IPaginationInstance = {
-        id: 'test-custom-template',
-        itemsPerPage: 10,
-        currentPage: 1
-    };
-    pageChanged() {}
-
-    constructor() {
-        this.collection = createCollection();
-    }
-}
-
-function createCollection(): string[] {
-    return Array.from(new Array(100), (x, i) => `item ${i + 1}`);
 }
