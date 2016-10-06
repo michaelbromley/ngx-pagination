@@ -59,7 +59,7 @@ export class PaginationControlsCmp {
         this.updatePageLinks();
     }
 
-    ngOnChanges() {
+    ngOnChanges(changes: any) {
         this.updatePageLinks();
     }
 
