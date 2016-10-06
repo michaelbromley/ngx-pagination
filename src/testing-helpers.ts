@@ -44,6 +44,17 @@ export function getPageLinkItems(fixture: ComponentFixture<any>,
 }
 
 /**
+ * Shortcut function for setting a custom template on a component under test.
+ */
+export function overrideTemplate<T>(component: Type<T>, templateString: string): void {
+    TestBed.overrideComponent(component, {
+        set: {
+            template: templateString
+        }
+    });
+}
+
+/**
  * Test Component
  */
 @Component({
