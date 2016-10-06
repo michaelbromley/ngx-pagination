@@ -1,12 +1,12 @@
 {
   "name": "ng2-pagination",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Pagination for Angular 2",
   "main": "index.js",
   "scripts": {
     "typings:install": "node node_modules/typings/dist/bin install",
     "build:system": "node node_modules/typescript/bin/tsc -p tsconfig.system.json",
-    "build:cjs": "node node_modules/typescript/bin/tsc",
+    "build:cjs": "ngc",
     "build": "npm run build:cjs && npm run build:system",
     "test": "karma start karma.conf.js",
     "test:watch": "npm run test -- --auto-watch --no-single-run",
@@ -35,10 +35,12 @@
   "devDependencies": {
     "@angular/common": "^2.0.2",
     "@angular/compiler": "^2.0.2",
+    "@angular/compiler-cli": "^0.6.4",
     "@angular/core": "^2.0.2",
     "@angular/forms": "^2.0.2",
     "@angular/platform-browser": "^2.0.2",
     "@angular/platform-browser-dynamic": "^2.0.2",
+    "@angular/platform-server": "^2.0.2",
     "bulma": "^0.0.14",
     "core-js": "^2.4.0",
     "css-loader": "^0.23.1",
@@ -60,7 +62,7 @@
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.7.2",
-    "typescript": "^1.8.0",
+    "typescript": "2.0.3",
     "typings": "^1.0.4",
     "webpack": "^1.12.9",
     "zone.js": "0.6.25"

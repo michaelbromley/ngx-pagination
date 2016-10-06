@@ -14,7 +14,7 @@ export declare class PaginationControlsCmp {
     pageChange: EventEmitter<number>;
     template: any;
     pages: IPage[];
-    private hasTemplate;
+    hasTemplate: boolean;
     private changeSub;
     private _directionLinks;
     private _autoHide;

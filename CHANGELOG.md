@@ -1,3 +1,7 @@
+# 0.5.0 (2016-10-06)
+* Update codebase to **Angular 2.0.2**
+* Use the ngc compiler and include *.metadata.json files in dist package.
+
 ### 0.4.1 (2016-09-09)
 * Fix missing exports & typo.
 

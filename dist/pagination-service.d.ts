@@ -27,7 +27,7 @@ export declare class PaginationService {
     change: EventEmitter<string>;
     private instances;
     private DEFAULT_ID;
-    defaultId: string;
+    readonly defaultId: string;
     register(instance: IPaginationInstance): void;
     /**
      * Check each property of the instance and update any that have changed. Return

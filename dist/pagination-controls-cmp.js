@@ -1,13 +1,4 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var core_1 = require('@angular/core');
 var pagination_service_1 = require("./pagination-service");
 var template_1 = require('./template');
@@ -210,39 +201,27 @@ var PaginationControlsCmp = (function () {
             return i;
         }
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], PaginationControlsCmp.prototype, "id", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Number)
-    ], PaginationControlsCmp.prototype, "maxSize", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], PaginationControlsCmp.prototype, "directionLinks", null);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], PaginationControlsCmp.prototype, "autoHide", null);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', core_1.EventEmitter)
-    ], PaginationControlsCmp.prototype, "pageChange", void 0);
-    __decorate([
-        core_1.ViewChild('template'), 
-        __metadata('design:type', Object)
-    ], PaginationControlsCmp.prototype, "template", void 0);
-    PaginationControlsCmp = __decorate([
-        core_1.Component({
-            selector: 'pagination-controls',
-            template: template_1.DEFAULT_TEMPLATE,
-            styles: [template_1.DEFAULT_STYLES],
-            changeDetection: core_1.ChangeDetectionStrategy.OnPush
-        }), 
-        __metadata('design:paramtypes', [pagination_service_1.PaginationService, core_1.ChangeDetectorRef])
-    ], PaginationControlsCmp);
+    PaginationControlsCmp.decorators = [
+        { type: core_1.Component, args: [{
+                    selector: 'pagination-controls',
+                    template: template_1.DEFAULT_TEMPLATE,
+                    styles: [template_1.DEFAULT_STYLES],
+                    changeDetection: core_1.ChangeDetectionStrategy.OnPush
+                },] },
+    ];
+    /** @nocollapse */
+    PaginationControlsCmp.ctorParameters = [
+        { type: pagination_service_1.PaginationService, },
+        { type: core_1.ChangeDetectorRef, },
+    ];
+    PaginationControlsCmp.propDecorators = {
+        'id': [{ type: core_1.Input },],
+        'maxSize': [{ type: core_1.Input },],
+        'directionLinks': [{ type: core_1.Input },],
+        'autoHide': [{ type: core_1.Input },],
+        'pageChange': [{ type: core_1.Output },],
+        'template': [{ type: core_1.ViewChild, args: ['template',] },],
+    };
     return PaginationControlsCmp;
 }());
 exports.PaginationControlsCmp = PaginationControlsCmp;

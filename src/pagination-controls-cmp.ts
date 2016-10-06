@@ -35,7 +35,8 @@ export class PaginationControlsCmp {
     @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
     @ViewChild('template') template;
     pages: IPage[] = [];
-    private hasTemplate: boolean = false;
+    hasTemplate: boolean = false;
+
     private changeSub: Subscription;
     private _directionLinks: boolean = true;
     private _autoHide: boolean = false;

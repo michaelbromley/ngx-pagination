@@ -12,5 +12,9 @@
   "files": [
     "src/ng2-pagination.ts",
     "typings/index.d.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "genDir": "./aot",
+    "skipMetadataEmit": false
+  }
 }
