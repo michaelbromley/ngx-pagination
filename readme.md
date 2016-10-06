@@ -18,7 +18,7 @@ npm install ng2-pagination --save
 
 ### Angular 2 Version
 
-This library is built to work with **Angular 2 rc.6**.
+This library is built to work with **Angular 2.0.0+**.
 If you need to support a previous version of Angular 2 for now, please see the changelog for advice on which version to use.
 
 ### CommonJS
