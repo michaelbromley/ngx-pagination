@@ -18,7 +18,7 @@ npm install ng2-pagination --save
 
 ### Angular 2 Version
 
-This library is built to work with **Angular 2.0.0+**.
+This library is built to work with **Angular 2.0.0+**, and support ahead-of-time compilation.
 If you need to support a previous version of Angular 2 for now, please see the changelog for advice on which version to use.
 
 ### CommonJS
@@ -38,7 +38,7 @@ and related loaders such as SystemJS. See the [demo Plunker](http://plnkr.co/edi
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {Ng2PaginationModule} from 'ng2-pagination'; // <-- import the module
-imort {MyComponent} from './my.component';
+import {MyComponent} from './my.component';
 
 @NgModule({
     imports: [BrowserModule, Ng2PaginationModule], // <-- include it in your app module

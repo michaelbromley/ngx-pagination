@@ -1,5 +1,5 @@
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {DemoModule} from './demo-module';
+import {DemoModule} from './demo.module';
 
 // Shim to make ng2 work with IE. See https://github.com/angular/angular/issues/6501#issuecomment-179502363
 // TODO: remove once the framework itself handles this.

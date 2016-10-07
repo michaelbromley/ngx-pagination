@@ -1,12 +1,12 @@
-import {Component, ViewEncapsulation} from "@angular/core";
+import {Component} from "@angular/core";
 
 const hljs = require('highlight.js');
+require('!!style!raw!highlight.js/styles/github-gist.css');
+require('!!style!raw!sass!./style.scss');
 
 @Component({
     selector: 'demo-app',
-    template: require('./demo-app.html'),
-    styles: [require('./style.scss'), require('highlight.js/styles/github-gist.css')],
-    encapsulation: ViewEncapsulation.None
+    templateUrl: './demo-app.html'
 })
 export class DemoApp {
 

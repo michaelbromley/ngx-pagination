@@ -1,14 +1,27 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
+    "moduleResolution": "node",
     "target": "es5",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "mapRoot": "",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "moduleResolution": "node"
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "outDir": "lib",
+    "skipLibCheck": true,
+    "rootDir": "."
   },
   "files": [
-    "demo/src/demo-app.ts",
+    "demo/src/bootstrap.aot.ts",
     "typings/index.d.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "genDir": "./demo/ngfactory",
+    "entryModule": "./demo/src/demo.module#DemoModule"
+  }
 }

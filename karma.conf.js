@@ -29,13 +29,13 @@ module.exports = function(config) {
 
             // webpack configuration
             resolve: {
-                root: './src',
-                extensions: ['', '.ts', '.js'],
-                modulesDirectories: ['node_modules']
+                extensions: ['.ts', '.js'],
+                modules: ['node_modules']
             },
             module: {
                 loaders: [
-                    {test: /\.ts$/, loader: 'ts?configFileName=tsconfig.tests.json'}
+                    {test: /\.ts$/, loader: 'ts?configFileName=tsconfig.tests.json'},
+                    {test: /\.json$/, loader: 'json'}
                 ]
             }
         },
@@ -50,13 +50,14 @@ module.exports = function(config) {
             require("karma-webpack"),
             'karma-jasmine',
             'karma-chrome-launcher',
-            'karma-phantomjs-launcher'
+            'karma-phantomjs-launcher',
+            'karma-mocha-reporter'
         ],
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ['mocha'],
 
         // web server port
         port: 9876,
@@ -85,6 +86,10 @@ module.exports = function(config) {
 
         // Concurrency level
         // how many browser should be started simultanous
-        concurrency: Infinity
+        concurrency: Infinity,
+
+        // PhantomJS can be super slow and cause the tests to fail due to timeout.
+        // Extend default from 10s to 50s to prevent this.
+        browserNoActivityTimeout: 50000
     })
 };

@@ -3,7 +3,7 @@ import {IPaginationInstance} from '../../../src/ng2-pagination';
 
 @Component({
     selector: 'custom-template-example',
-    template: require('./custom-template-example-cmp.html'),
+    templateUrl: './custom-template-example-cmp.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomTemplateExampleCmp {

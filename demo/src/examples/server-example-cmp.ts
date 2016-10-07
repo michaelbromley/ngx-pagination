@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/observable';
 
 interface IServerResponse {
     items: string[];
@@ -8,7 +8,7 @@ interface IServerResponse {
 
 @Component({
     selector: 'server-example',
-    template: require('./server-example-cmp.html'),
+    templateUrl: './server-example-cmp.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ServerExampleCmp {
@@ -47,5 +47,5 @@ function serverCall(meals: string[], page: number): Observable<IServerResponse> 
         .of({
             items: meals.slice(start, end),
             total: 100
-        }).delay(1000); 
+        }).delay(1000);
 }

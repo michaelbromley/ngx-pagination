@@ -5,3 +5,4 @@ npm-debug.log
 /typings
 *.map
 /demo/build
+ngfactory

@@ -336,7 +336,7 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                     }
                     this.updatePageLinks();
                 };
-                PaginationControlsCmp.prototype.ngOnChanges = function () {
+                PaginationControlsCmp.prototype.ngOnChanges = function (changes) {
                     this.updatePageLinks();
                 };
                 PaginationControlsCmp.prototype.ngAfterViewInit = function () {

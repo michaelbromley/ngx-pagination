@@ -20,7 +20,7 @@ export declare class PaginationControlsCmp {
     private _autoHide;
     constructor(service: PaginationService, changeDetectorRef: ChangeDetectorRef);
     ngOnInit(): void;
-    ngOnChanges(): void;
+    ngOnChanges(changes: any): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**

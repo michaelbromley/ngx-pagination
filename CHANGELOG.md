@@ -1,3 +1,9 @@
+## 0.5.1
+* Fix type def issue which was breaking AoT builds ([#80](https://github.com/michaelbromley/ng2-pagination/pull/80))
+* (demo) Use AoT compilation for demo app
+* (build) Upgrade to Webpack 2, TypeScript 2
+* (build) Use mocha reporter for better unit test output.
+
 # 0.5.0 (2016-10-06)
 * Update codebase to **Angular 2.0.2**
 * Use the ngc compiler and include *.metadata.json files in dist package.
@@ -11,24 +17,24 @@
 * Fix change detection issue when correcting out-of-bounds currentPage value ([#48](https://github.com/michaelbromley/ng2-pagination/issues/48)), [#69](https://github.com/michaelbromley/ng2-pagination/issues/69)
 * (build) Update karma-webpack, prune test output.
 
-# 0.3.5 (2016-07-14)
+## 0.3.5 (2016-07-14)
 * Update codebase to **Angular 2 rc.4**.
 * Fix default template showing up when using custom templates ([#45](https://github.com/michaelbromley/ng2-pagination/issues/45))
 * Fix buggy autoHide behaviour ([#57](https://github.com/michaelbromley/ng2-pagination/issues/57))
 
-# 0.3.4 (2016-06-16)
+## 0.3.4 (2016-06-16)
 * Fix infinite loop in PaginatePipe when used with other impure pipes.
 * (build) Remove postinstall script which caused errors when using npm install. (moved to Travis file)
 
-# 0.3.3 (2016-06-10)
+## 0.3.3 (2016-06-10)
 * Fix issue with custom templates still showing default template initially.
 
-# 0.3.2 (2016-06-09)
+## 0.3.2 (2016-06-09)
 * Use OnPush change detection strategy for big efficiency gains ([PR #40](https://github.com/michaelbromley/ng2-pagination/pull/40))
 * Occasional flickering of active page link when changing pages also handled by the above.
 * (build) Update Typings to 1.x
 
-# 0.3.1 (2016-06-02)
+## 0.3.1 (2016-06-02)
 * Fix broken change detechtion when replacing collection items with new values ([PR #36](https://github.com/michaelbromley/ng2-pagination/pull/36)).
 * Various small fixes and added a test ([PR #33](https://github.com/michaelbromley/ng2-pagination/pull/33)).
 
@@ -47,16 +53,16 @@
 * Fix bindings of the `directionLinks` and `autoHide` attributes when used with literal values. (fixes [#20](https://github.com/michaelbromley/ng2-pagination/issues/20))
 * Remove the styles which cause the links to truncate on small screens.
 
-#  0.0.1 (2016-04-07)
+##  0.0.1 (2016-04-07)
 * Change the default ul class name from `.pagination` to `.ng2-pagination` to avoid conflicts with existing CSS frameworks. (fixes [#18](https://github.com/michaelbromley/ng2-pagination/issues/18))
 
-# 0.0.1-beta.3 (2016-03-24)
+## 0.0.1-beta.3 (2016-03-24)
 
 * Fixed PaginationControlsCmp.outOfBoundCorrection() to prevent it returning `0` when the collection is empty ([f7f9bd9](https://github.com/michaelbromley/ng2-pagination/commit/f7f9bd98544a29cfad02d4a368ac32327d62c6c5)).
 * Added System.register bundle build (`dist/ng2-pagination-bundle.js`)
 
 
-# 0.0.1-beta.2 (2016-02-29)
+## 0.0.1-beta.2 (2016-02-29)
 
 * Fixed minificaton of demo app
 * Use Sass for demo styles
