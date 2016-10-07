@@ -1,4 +1,4 @@
-## 0.5.1
+## 0.5.1 (2016-10-07)
 * Fix type def issue which was breaking AoT builds ([#80](https://github.com/michaelbromley/ng2-pagination/pull/80))
 * (demo) Use AoT compilation for demo app
 * (build) Upgrade to Webpack 2, TypeScript 2
