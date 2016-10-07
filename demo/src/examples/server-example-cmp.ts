@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
-import {Observable} from 'rxjs/observable';
+import {Observable} from 'rxjs';
 
 interface IServerResponse {
     items: string[];
