@@ -1,5 +1,6 @@
 import {By} from '@angular/platform-browser';
-import {async, TestBed, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
+import {TestBed, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
+import {DebugElement} from '@angular/core';
 import {PaginationControlsCmp} from './pagination-controls-cmp';
 import {getPageLinkItems, TestCmp, overrideTemplate} from './testing-helpers';
 import {PaginationService} from './pagination-service';
@@ -143,7 +144,7 @@ describe('PaginationControlsCmp:', () => {
         expect(controlsInstance.getCurrent()).toBe(2);
     });
 
-    it('should allow multiple independent instances', () => {
+    it('should allow multiple independent instances (controller test)', () => {
         overrideTemplate(TestCmp, ` 
             <ul class="list1">
                <li *ngFor="let item of collection | paginate: {id: 'test1', itemsPerPage: 10, currentPage: p1 }" 
@@ -176,6 +177,42 @@ describe('PaginationControlsCmp:', () => {
         expect(controls[0].getCurrent()).toBe(2);
         expect(controls[1].getCurrent()).toBe(1);
     });
+
+    it('should allow multiple independent instances (template test)', fakeAsync(() => {
+        overrideTemplate(TestCmp, ` 
+            <ul class="list1">
+               <li *ngFor="let item of collection | paginate: {id: 'test1', itemsPerPage: 10, currentPage: p1 }" 
+                   class="list-item">{{ item }}</li>
+            </ul>
+            <pagination-controls id="test1" (pageChange)="p1 = $event"></pagination-controls>
+            <ul class="list2">
+               <li *ngFor="let item of collection | paginate: {id: 'test2', itemsPerPage: 10, currentPage: p2 }"
+                   class="list-item">{{ item }}</li>
+            </ul>
+            <pagination-controls id="test2" (pageChange)="p2 = $event"></pagination-controls>`);
+
+        let fixture = TestBed.createComponent(TestCmp);
+        let instance = fixture.componentInstance;
+        (instance as any).p1 = 1;
+        (instance as any).p2 = 1;
+
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        let controls: DebugElement[] = fixture.debugElement.queryAll(By.css('pagination-controls'));
+        let controlsInstances: PaginationControlsCmp[] = controls.map(el => el.componentInstance);
+
+        expect(controlsInstances[0].getCurrent()).toBe(1);
+        expect(controlsInstances[1].getCurrent()).toBe(1);
+
+        controls[0].nativeElement.querySelector('.pagination-next a').click();
+        tick();
+        fixture.detectChanges();
+
+        expect(controlsInstances[0].getCurrent()).toBe(2);
+        expect(controlsInstances[1].getCurrent()).toBe(1);
+    }));
 
     it('"autoHide" should work with non-data-bound values', () => {
         overrideTemplate(TestCmp, `

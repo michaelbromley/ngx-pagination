@@ -75,10 +75,10 @@ The PaginatePipe should be placed at the end of an NgFor expression. It accepts 
 to the `IPaginationInstance` interface. The following config options are available:
 
 ```HTML
-<element *ngFor="let item of collection | paginate: { id: 'foo'
-                                                   itemsPerPage: pageSize
-                                                   currentPage: p
-                                                   totalItems: total }">...</element>
+<element *ngFor="let item of collection | paginate: { id: 'foo',
+                                                      itemsPerPage: pageSize,
+                                                      currentPage: p,
+                                                      totalItems: total }">...</element>
 
 ```
 
