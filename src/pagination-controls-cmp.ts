@@ -35,7 +35,7 @@ export class PaginationControlsCmp {
     @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
     @ViewChild('template') template;
     pages: IPage[] = [];
-    hasTemplate: boolean = false;
+    hasTemplate: boolean = true;
 
     private changeSub: Subscription;
     private _directionLinks: boolean = true;
@@ -64,10 +64,8 @@ export class PaginationControlsCmp {
     }
 
     ngAfterViewInit() {
-        if (this.template && 0 < this.template.nativeElement.children.length) {
-            this.hasTemplate = true;
-            setTimeout(() => this.changeDetectorRef.markForCheck());
-        }
+        this.hasTemplate = !!(this.template && 0 < this.template.nativeElement.children.length);
+        setTimeout(() => this.changeDetectorRef.markForCheck());
     }
 
     ngOnDestroy() {

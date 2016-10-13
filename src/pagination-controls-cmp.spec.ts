@@ -15,52 +15,62 @@ describe('PaginationControlsCmp:', () => {
     });
 
 
-    it('should display the correct page links (simple)', () => {
+    it('should display the correct page links (simple)', fakeAsync(() => {
         let fixture = TestBed.createComponent(TestCmp);
         let instance = fixture.componentInstance;
         instance.config.itemsPerPage = 30;
         fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
         let expected = ['1', '2', '3', '4'];
 
         expect(getPageLinkItems(fixture)).toEqual(expected);
-    });
+    }));
 
-    it('should display the correct page links (end ellipsis)', () => {
+    it('should display the correct page links (end ellipsis)', fakeAsync(() => {
         let fixture = TestBed.createComponent(TestCmp);
         let instance = fixture.componentInstance;
         instance.config.itemsPerPage = 10;
         fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
         let expected = ['1', '2', '3', '4', '5', '6', '7', '...', '10'];
 
         expect(getPageLinkItems(fixture)).toEqual(expected);
-    });
+    }));
 
-    it('should display the correct page links (start ellipsis)', () => {
+    it('should display the correct page links (start ellipsis)', fakeAsync(() => {
         let fixture = TestBed.createComponent(TestCmp);
         let instance: TestCmp = fixture.componentInstance;
         instance.config.itemsPerPage = 10;
         instance.config.currentPage = 10;
         fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
         let expected = ['1', '...', '4', '5', '6', '7', '8', '9', '10'];
 
         expect(getPageLinkItems(fixture)).toEqual(expected);
-    });
+    }));
 
-    it('should display the correct page links (double ellipsis)', () => {
+    it('should display the correct page links (double ellipsis)', fakeAsync(() => {
         let fixture = TestBed.createComponent(TestCmp);
         let instance: TestCmp = fixture.componentInstance;
         instance.config.itemsPerPage = 1;
         instance.config.currentPage = 50;
         fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
         let expected = ['1', '...', '48', '49', '50', '51', '52', '...', '100'];
 
         expect(getPageLinkItems(fixture)).toEqual(expected);
-    });
+    }));
 
     it('should update links when collection size changes', fakeAsync(() => {
         let fixture = TestBed.createComponent(TestCmp);
         let instance: TestCmp = fixture.componentInstance;
         let expected = ['1', '2', '3', '4', '5', '6', '7', '...', '10'];
+        fixture.detectChanges();
+        tick();
         fixture.detectChanges();
 
         expect(getPageLinkItems(fixture)).toEqual(expected);
@@ -73,11 +83,13 @@ describe('PaginationControlsCmp:', () => {
         expect(getPageLinkItems(fixture)).toEqual(expected);
     }));
 
-    it('should update the currently-active page when currentPage changes', () => {
+    it('should update the currently-active page when currentPage changes', fakeAsync(() => {
         let fixture = TestBed.createComponent(TestCmp);
         let instance: TestCmp = fixture.componentInstance;
         let controlsInstance: PaginationControlsCmp = fixture
             .debugElement.query(By.css('pagination-controls')).componentInstance;
+        fixture.detectChanges();
+        tick();
         fixture.detectChanges();
 
         expect(controlsInstance.getCurrent()).toBe(1);
@@ -86,7 +98,7 @@ describe('PaginationControlsCmp:', () => {
         fixture.detectChanges();
 
         expect(controlsInstance.getCurrent()).toBe(2);
-    });
+    }));
 
     it('should update the currently-active page when currentPage becomes invalid (too high)', fakeAsync(() => {
         let fixture = TestBed.createComponent(TestCmp);
@@ -98,6 +110,7 @@ describe('PaginationControlsCmp:', () => {
         instance.collection.push('item 101');
         instance.config.currentPage = 11;
         fixture.detectChanges();
+        tick();
 
         expect(controlsInstance.getCurrent()).toBe(11);
 
@@ -215,9 +228,12 @@ describe('PaginationControlsCmp:', () => {
             expect(controlsInstance.directionLinks).toBe(true);
         });
 
-        it('"directionLinks" state should be reflected in default template', () => {
+        it('"directionLinks" state should be reflected in default template', fakeAsync(() => {
             let fixture = TestBed.createComponent(TestCmp);
             fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+
             let instance: TestCmp = fixture.componentInstance;
             let items;
             items = getPageLinkItems(fixture, 'pagination-controls li', true);
@@ -229,7 +245,7 @@ describe('PaginationControlsCmp:', () => {
             items = getPageLinkItems(fixture, 'pagination-controls li', true);
             expect(items[0]).toContain('1');
             expect(items[items.length - 1]).toContain('10');
-        });
+        }));
 
         it('"autoHide" should be boolean', () => {
             let fixture = TestBed.createComponent(TestCmp);
@@ -360,6 +376,14 @@ describe('PaginationControlsCmp:', () => {
                          </div>
                      </div>
                 </pagination-controls>`);
+        });
+
+        it('should not flash the default template before the first tick', () => {
+            let fixture = TestBed.createComponent(TestCmp);
+            fixture.detectChanges();
+            let defaultTemplate = fixture.debugElement.query(By.css('.ng2-pagination'));
+
+            expect(defaultTemplate).toBeNull();
         });
 
         it('should not display the default template', fakeAsync(() => {
