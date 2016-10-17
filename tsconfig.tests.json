@@ -6,8 +6,5 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "moduleResolution": "node"
-  },
-  "files": [
-    "typings/index.d.ts"
-  ]
+  }
 }

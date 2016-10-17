@@ -9,7 +9,6 @@
     "outFile": "./dist/ng2-pagination-bundle.js"
   },
   "files": [
-    "src/ng2-pagination.ts",
-    "typings/index.d.ts"
+    "src/ng2-pagination.ts"
   ]
 }
