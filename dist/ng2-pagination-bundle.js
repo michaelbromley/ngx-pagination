@@ -299,7 +299,7 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                     this.maxSize = 7;
                     this.pageChange = new core_3.EventEmitter();
                     this.pages = [];
-                    this.hasTemplate = false;
+                    this.hasTemplate = true;
                     this._directionLinks = true;
                     this._autoHide = false;
                     this.changeSub = this.service.change
@@ -341,10 +341,8 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                 };
                 PaginationControlsCmp.prototype.ngAfterViewInit = function () {
                     var _this = this;
-                    if (this.template && 0 < this.template.nativeElement.children.length) {
-                        this.hasTemplate = true;
-                        setTimeout(function () { return _this.changeDetectorRef.markForCheck(); });
-                    }
+                    this.hasTemplate = !!(this.template && 0 < this.template.nativeElement.children.length);
+                    setTimeout(function () { return _this.changeDetectorRef.markForCheck(); });
                 };
                 PaginationControlsCmp.prototype.ngOnDestroy = function () {
                     this.changeSub.unsubscribe();
