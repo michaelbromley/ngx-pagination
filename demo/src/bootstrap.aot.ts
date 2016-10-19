@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import {enableProdMode} from '@angular/core';
-import {platformBrowser} from '@angular/platform-browser';
-import {DemoModuleNgFactory} from '../ngfactory/demo/src/demo.module.ngfactory';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {DemoModule} from './demo.module';
 
 enableProdMode();
-platformBrowser().bootstrapModuleFactory(DemoModuleNgFactory);
+platformBrowserDynamic().bootstrapModule(DemoModule);
