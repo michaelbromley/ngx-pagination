@@ -17,8 +17,7 @@
     "rootDir": "."
   },
   "files": [
-    "demo/src/bootstrap.aot.ts",
-    "typings/index.d.ts"
+    "demo/src/bootstrap.aot.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "./demo/ngfactory",

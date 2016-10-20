@@ -10,8 +10,7 @@
     "outDir": "./dist"
   },
   "files": [
-    "src/ng2-pagination.ts",
-    "typings/index.d.ts"
+    "src/ng2-pagination.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "./aot",
