@@ -3,10 +3,10 @@ import {IPaginationInstance} from '../../../src/ng2-pagination';
 
 @Component({
     selector: 'advanced-example',
-    templateUrl: './advanced-example-cmp.html',
+    templateUrl: './advanced-example.component.html',
     changeDetection: ChangeDetectionStrategy.Default
 })
-export class AdvancedExampleCmp {
+export class AdvancedExampleComponent {
  
     @Input('data') meals: string[] = [];
 

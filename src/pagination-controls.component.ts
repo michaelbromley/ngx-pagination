@@ -1,6 +1,6 @@
 import {Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core'
 import {Subscription} from 'rxjs';
-import {PaginationService, IPaginationInstance} from "./pagination-service";
+import {PaginationService, IPaginationInstance} from "./pagination.service";
 import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
 
 export interface IPage {
@@ -14,7 +14,7 @@ export interface IPage {
     styles: [DEFAULT_STYLES],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaginationControlsCmp {
+export class PaginationControlsComponent {
 
     @Input() id: string;
     @Input() maxSize: number = 7;

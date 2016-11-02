@@ -1,20 +1,20 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PaginatePipe} from './paginate-pipe';
-import {PaginationService} from './pagination-service';
-import {PaginationControlsCmp} from './pagination-controls-cmp';
+import {PaginatePipe} from './paginate.pipe';
+import {PaginationService} from './pagination.service';
+import {PaginationControlsComponent} from './pagination-controls.component';
 
-export {PaginationService, IPaginationInstance} from './pagination-service';
-export {PaginationControlsCmp} from './pagination-controls-cmp';
-export {PaginatePipe} from './paginate-pipe';
+export {PaginationService, IPaginationInstance} from './pagination.service';
+export {PaginationControlsComponent} from './pagination-controls.component';
+export {PaginatePipe} from './paginate.pipe';
 
 @NgModule({
     imports: [CommonModule],
     declarations: [
         PaginatePipe,
-        PaginationControlsCmp
+        PaginationControlsComponent
     ],
     providers: [PaginationService],
-    exports: [PaginatePipe, PaginationControlsCmp]
+    exports: [PaginatePipe, PaginationControlsComponent]
 })
 export class Ng2PaginationModule { }

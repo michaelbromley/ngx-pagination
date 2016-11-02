@@ -6,19 +6,19 @@ require('!!style!raw!sass!./style.scss');
 
 @Component({
     selector: 'demo-app',
-    templateUrl: './demo-app.html'
+    templateUrl: './demo-app.component.html'
 })
-export class DemoApp {
+export class DemoAppComponent {
 
     meals: string[] = [];
-    basicCodeT: string = require('./examples/basic-example-cmp.html');
-    basicCodeC: string = require('!raw!./examples/basic-example-cmp.ts');
-    advancedCodeT: string = require('./examples/advanced-example-cmp.html');
-    advancedCodeC: string = require('!raw!./examples/advanced-example-cmp.ts');
-    customTemplateCodeT: string = require('./examples/custom-template-example-cmp.html');
-    customTemplateCodeC: string = require('!raw!./examples/custom-template-example-cmp.ts');
-    serverPagingCodeT: string = require('./examples/server-example-cmp.html');
-    serverPagingCodeC: string = require('!raw!./examples/server-example-cmp.ts');
+    basicCodeT: string = require('./examples/basic-example.component.html');
+    basicCodeC: string = require('!raw!./examples/basic-example.component.ts');
+    advancedCodeT: string = require('./examples/advanced-example.component.html');
+    advancedCodeC: string = require('!raw!./examples/advanced-example.component.ts');
+    customTemplateCodeT: string = require('./examples/custom-template-example.component.html');
+    customTemplateCodeC: string = require('!raw!./examples/custom-template-example.component.ts');
+    serverPagingCodeT: string = require('./examples/server-example.component.html');
+    serverPagingCodeC: string = require('!raw!./examples/server-example.component.ts');
     selectedTab = 'basic';
     basicTab = 'html';
     fullTab = 'html';

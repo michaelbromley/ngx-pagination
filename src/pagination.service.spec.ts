@@ -1,4 +1,4 @@
-import {PaginationService, IPaginationInstance} from "./pagination-service";
+import {PaginationService, IPaginationInstance} from "./pagination.service";
 
 describe('PaginationService:', () => {
     let service: PaginationService;

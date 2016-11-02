@@ -12,7 +12,7 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
 
         // list of files / patterns to load in the browser
-        files: [ { pattern: './testing-bootstrap.js', watched: false } ],
+        files: [ { pattern: '../src/testing/testing-bootstrap.js', watched: false } ],
 
         // list of files to exclude
         exclude: [
@@ -20,7 +20,7 @@ module.exports = function(config) {
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: { './testing-bootstrap.js': ['webpack'] },
+        preprocessors: { '../src/testing/testing-bootstrap.js': ['webpack'] },
 
         webpack: {
             // karma watches the test entry points
@@ -34,7 +34,7 @@ module.exports = function(config) {
             },
             module: {
                 loaders: [
-                    {test: /\.ts$/, loader: 'awesome-typescript-loader?configFileName=tsconfig.tests.json'},
+                    {test: /\.ts$/, loader: 'ts-loader?configFileName=config/tsconfig.tests.json'},
                     {test: /\.json$/, loader: 'json'}
                 ]
             }

@@ -1,24 +1,24 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
-import {DemoApp} from './demo-app';
-import {BasicExampleCmp} from './examples/basic-example-cmp';
-import {AdvancedExampleCmp} from './examples/advanced-example-cmp';
-import {CustomTemplateExampleCmp} from './examples/custom-template-example-cmp';
-import {ServerExampleCmp} from './examples/server-example-cmp';
-import {StringFilterPipe} from './string-filter-pipe';
+import {DemoAppComponent} from './demo-app.component';
+import {BasicExampleComponent} from './examples/basic-example.component';
+import {AdvancedExampleComponent} from './examples/advanced-example.component';
+import {CustomTemplateExampleComponent} from './examples/custom-template-example.component';
+import {ServerExampleComponent} from './examples/server-example.component';
+import {StringFilterPipe} from './string-filter.pipe';
 import {Ng2PaginationModule} from '../../src/ng2-pagination';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, Ng2PaginationModule],
     declarations: [
-        DemoApp,
-        BasicExampleCmp,
-        AdvancedExampleCmp,
-        CustomTemplateExampleCmp,
-        ServerExampleCmp,
+        DemoAppComponent,
+        BasicExampleComponent,
+        AdvancedExampleComponent,
+        CustomTemplateExampleComponent,
+        ServerExampleComponent,
         StringFilterPipe
     ],
-    bootstrap: [DemoApp]
+    bootstrap: [DemoAppComponent]
 })
 export class DemoModule {}

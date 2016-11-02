@@ -8,10 +8,10 @@ interface IServerResponse {
 
 @Component({
     selector: 'server-example',
-    templateUrl: './server-example-cmp.html',
+    templateUrl: './server-example.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ServerExampleCmp {
+export class ServerExampleComponent {
 
     @Input('data') meals: string[] = [];
     asyncMeals: Observable<string[]>;

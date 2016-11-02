@@ -1,7 +1,7 @@
 import {Component, DebugElement, Type} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {TestBed, ComponentFixture} from '@angular/core/testing';
-import {IPaginationInstance} from './ng2-pagination';
+import {IPaginationInstance} from '../ng2-pagination';
 
 /**
  * Helper Functions and test components for use in unit tests.
@@ -69,7 +69,7 @@ export function overrideTemplate<T>(component: Type<T>, templateString: string):
                          [autoHide]="autoHide">
     </pagination-controls>`
 })
-export class TestCmp {
+export class TestComponent {
     maxSize: number = 9;
     directionLinks: boolean = true;
     autoHide: boolean = true;

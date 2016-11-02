@@ -9,7 +9,7 @@ module.exports = function (env) {
     const entryFile = aotMode ? 'bootstrap.aot.ts' : 'bootstrap.ts';
     const outPath = aotMode ? 'dist' : 'build';
     const devtool = aotMode ? 'source-map' : 'eval-source-map';
-    const srcPath = path.join(__dirname, 'demo', 'src');
+    const srcPath = path.join(__dirname, '..', 'demo', 'src');
 
     let config = {
         target: 'web',
@@ -28,7 +28,7 @@ module.exports = function (env) {
             alias: {}
         },
         output: {
-            path: path.join(__dirname, 'demo', outPath),
+            path: path.join(__dirname, '..', 'demo', outPath),
             publicPath: '',
             filename: '[name].js',
             pathinfo: true
@@ -38,12 +38,12 @@ module.exports = function (env) {
             loaders: [
                 {
                     test: /\.ts$/,
-                    loaders: aotMode ? ['@ngtools/webpack'] : ['awesome-typescript-loader?configFileName=tsconfig.demo.json', 'angular2-template-loader']
+                    loaders: aotMode ? ['@ngtools/webpack'] : ['ts-loader?configFileName=config/tsconfig.demo.json', 'angular2-template-loader']
                 },
                 {test: /\.css/, loader: 'raw'},
                 {test: /\.json/, loader: 'json'},
                 {test: /\.scss/, loader: 'raw!sass'},
-                {test: /\.html/, loader: 'html?-minimize'}
+                {test: /\.html/, loader: 'raw'}
             ]
         },
         plugins: [
@@ -64,8 +64,8 @@ module.exports = function (env) {
     };
     if (aotMode) {
         config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(true));
-        config.plugins.push(new ngtools.NgcWebpackPlugin({
-            project: './tsconfig.demo.json',
+        config.plugins.push(new ngtools.AotPlugin({
+            tsConfigPath: './tsconfig.demo.json',
             baseDir: path.resolve(__dirname, ''),
             genDir: path.resolve(__dirname, './demo/ngfactory')
         }));

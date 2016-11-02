@@ -7,13 +7,13 @@
     "sourceMap": false,
     "moduleResolution": "node",
     "declaration": true,
-    "outDir": "./dist"
+    "outDir": "../dist"
   },
   "files": [
-    "src/ng2-pagination.ts"
+    "../src/ng2-pagination.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "./aot",
+    "genDir": "../aot",
     "skipMetadataEmit": false
   }
 }
