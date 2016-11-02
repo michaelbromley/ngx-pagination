@@ -54,7 +54,7 @@ export class PaginationControlsCmp {
 
     ngOnInit() {
         if (this.id === undefined) {
-            this.id = this.service.defaultId;
+            this.id = this.service.defaultId();
         }
         this.updatePageLinks();
     }

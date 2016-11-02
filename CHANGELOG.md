@@ -1,3 +1,6 @@
+# 1.0.0 (in progress)
+* Fix errors when using TypeScript < 2.0
+
 ## 0.5.2 (2016-10-13)
 * Fix flash of default template when creating component with custom template ([#82](https://github.com/michaelbromley/ng2-pagination/issues/82))
 
