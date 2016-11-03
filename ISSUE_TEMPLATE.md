@@ -5,6 +5,8 @@ possible, please provide as much of the following information as you can.
 
 -- Michael 
 
+[^ delete this message]
+
 =======
 
 **Angular 2 version**:

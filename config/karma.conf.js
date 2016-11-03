@@ -1,6 +1,9 @@
 // Karma configuration
 // Generated on Thu Dec 03 2015 13:23:31 GMT+0100 (W. Europe Standard Time)
 
+let isCI = !!process.env.CI;
+let browsers = isCI ? ['PhantomJS'] : ['Chrome'];
+
 module.exports = function(config) {
     config.set({
 
@@ -77,7 +80,7 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS'],
+        browsers: browsers,
 
 
         // Continuous Integration mode

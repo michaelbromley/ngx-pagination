@@ -72,7 +72,7 @@ export class MyComponent {
 ### PaginatePipe
 
 The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object conforming 
-to the `PaginationInstance` interface. The following config options are available:
+to the [`PaginationInstance` interface](/src/pagination-instance.ts). The following config options are available:
 
 ```HTML
 <element *ngFor="let item of collection | paginate: { id: 'foo',
@@ -85,12 +85,16 @@ to the `PaginationInstance` interface. The following config options are availabl
 * **`itemsPerPage`** [`number`] - **required** The number of items to display on each page.
 * **`currentPage`** [`number`] - **required** The current (active) page number.
 * **`id`** [`string`] If you need to support more than one instance of pagination at a time, set the `id` and ensure it
-matches the id set in the PaginatePipe config (see below).
+matches the id attribute of the `PaginationControlsComponent` / `PaginationControlsDirective` (see below).
 * **`totalItems`** [`number`] The total number of items in the collection. Only useful when doing server-side paging, 
 where the collection size is limited to a single page returned by the server API. For in-memory paging, 
-this property should not be set, as it will be automatically set to the value of  collection.length.
+this property should not be set, as it will be automatically set to the value of `collection.length`.
 
-### PaginationControlsCmp
+### PaginationControlsComponent
+
+This a default component for displaying pagination controls. It is implemented on top of the `PaginationControlsDirective`, and has a pre-set
+template and styles based on the [Foundation 6 pagination component](http://foundation.zurb.com/sites/docs/pagination.html). If you require a more 
+customised set of controls, you will need to use the `PaginationControlsDirective` and implement your own component.
 
 ```HTML
 <pagination-controls  id="some_id"
@@ -110,6 +114,60 @@ the `currentPage` variable which was passed to the `PaginatePipe`.
 * **`directionLinks`** [`boolean`] If set to `false`, the "previous" and "next" links will not be displayed. Default is `true`.
 * **`autoHide`** [`boolean`] If set to `true`, the pagination controls will not be displayed when all items in the
 collection fit onto the first page. Default is `false`.
+
+### PaginationControlsDirective
+
+The `PaginationControlsDirective` is used to build components for controlling your pagination instances. The directive selector is `pagination-template`, either as an element or an attribute. 
+It exports an API named "paginationApi", which can then be used to build the controls component.
+
+It has the following inputs and outputs:
+
+```TypeScript
+@Input() id: string;
+@Input() maxSize: number;
+@Output() pageChange: EventEmitter<number>;
+```
+
+Here is an example of how it would be used to build a custom component:
+
+```HTML
+<pagination-template #p="paginationApi"
+                     (pageChange)="pageChange.emit($event)">
+
+        <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+            <a *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </a>
+        </div>
+
+        <div *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+            <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                <span>{{ page.label }}</span>
+            </a>
+            <div *ngIf="p.getCurrent() === page.value">
+                <span>{{ page.label }}</span>
+            </div>
+        </div>
+
+        <div class="pagination-next" [class.disabled]="p.isLastPage()">
+            <a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
+        </div>
+    
+</pagination-template>
+```
+
+The key thing to note here is `#p="paginationApi"` - this provides a local variable, `p` (name it however you like), which can be used in the 
+template to access the directive's API methods and properties, which are explained below:
+
+* **`pages`** [`{ label: string, value: any }[]`] Array of page objects containing the page number and label.
+* **`maxSize`** [`number`]  Corresponds to the value of `maxSize` which is passed to the directive.
+* **`getCurrent()`** [`() => number`] Returns the current page number.
+* **`setCurrent(val)`** [`(val: number) => void`] Triggers the `pageChange` event with the page number passed as `val`.
+* **`previous()`** [`() => void`] Sets current page to previous, triggering the `pageChange` event.
+* **`next()`** [`() => void`] Sets current page to next, triggering the `pageChange` event.
+* **`isFirstPage()`** [`() => boolean`] Returns true if the current page is the first page.
+* **`isLastPage()`** [`() => boolean`] Returns true if the current page is the last page
+* **`getLastPage()`** [`() => number`] Returns the page number of the last page.
+
+For a real-world implementation of a custom component, take a look at [the source for the PaginationControlsComponent](/src/pagination-controls.component.ts).
 
 ## Server-Side Paging
 
@@ -141,56 +199,6 @@ we should pass the value of `count` to the `PaginatePipe` as the `totalItems` ar
 
 This will allow the correct number of page links to be calculated. To see a complete example of this (including
 using the `async` pipe), see the [demo](http://michaelbromley.github.io/ng2-pagination/).
-
-## Custom Templates
-
-The `PaginationControlsCmp` component has a built-in default template and styles based on the [Foundation 6 pagination
-component](http://foundation.zurb.com/sites/docs/pagination.html).
-
-To use a custom template, just place your markup inside the `<pagination-controls></pagination-controls>` tags,
-and make a template variable reference with `#` to gain access to the API.
-
-```HTML
-<pagination-controls #pagination (pageChange)="currentPage = $event">
-
-    <div class="custom-pagination">
-
-        <div class="pagination-previous" [class.disabled]="pagination.isFirstPage()">
-            <a *ngIf="!pagination.isFirstPage()" (click)="pagination.previous()"> < </a>
-        </div>
-
-        <div *ngFor="let page of pagination.pages" [class.current]="pagination.getCurrent() === page.value">
-            <a (click)="pagination.setCurrent(page.value)" *ngIf="pagination.getCurrent() !== page.value">
-                <span>{{ page.label }}</span>
-            </a>
-            <div *ngIf="pagination.getCurrent() === page.value">
-                <span>{{ page.label }}</span>
-            </div>
-        </div>
-
-        <div class="pagination-next" [class.disabled]="pagination.isLastPage()" *ngIf="pagination.directionLinks">
-            <a *ngIf="!pagination.isLastPage()" (click)="pagination.next()"> > </a>
-        </div>
-
-    </div>
-    
-</pagination-controls>
-```
-
-The key thing to note here is `#pagination` - this provides a local variable, `pagination`, which can be used in the 
-template to access the class' API methods and properties, which are explained below:
-
-* **`pages`** [`{ label: string, value: any }[]`] Array of page objects containing the page number and label.
-* **`directionLinks`** [`boolean`] Corresponds to the value of `directionLinks` which is passed to the directive.
-* **`autoHide`** [`boolean`] Corresponds to the value of `autoHide` which is passed to the directive.
-* **`maxSize`** [`number`]  Corresponds to the value of `maxSize` which is passed to the directive.
-* **`getCurrent()`** [`() => number`] Returns the current page number.
-* **`setCurrent(val)`** [`(val: number) => void`] Triggers the `pageChange` event with the page number passed as `val`.
-* **`previous()`** [`() => void`] Sets current page to previous, triggering the `pageChange` event.
-* **`next()`** [`() => void`] Sets current page to next, triggering the `pageChange` event.
-* **`isFirstPage()`** [`() => boolean`] Returns true if the current page is the first page.
-* **`isLastPage()`** [`() => boolean`] Returns true if the current page is the last page
-* **`getLastPage()`** [`() => number`] Returns the page number of the last page.
 
 ## Build
 
