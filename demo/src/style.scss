@@ -38,12 +38,21 @@ $primary: #2199E8;
     margin: 0 5px;
     color: #C8CECE;
 }
+
+.hero.is-primary {
+    background: linear-gradient(to bottom, #2181e0 0%, #62b2dd 100%);
+}
 .hero-content a {
     color: #eee;
 }
 
-.section.hidden {
-    display: none;
+section.page-content {
+    margin: 20px 0 150px 0;
+}
+
+p.page-lead {
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
 .meal-list {

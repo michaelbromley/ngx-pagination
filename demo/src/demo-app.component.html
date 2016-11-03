@@ -42,101 +42,24 @@
 
     <div class="tabs">
         <ul>
-            <li [class.is-active]="selectedTab === 'basic'" (click)="selectedTab = 'basic'"><a>Basic Example</a></li>
-            <li [class.is-active]="selectedTab === 'full'" (click)="selectedTab = 'full'"><a>Full Example</a></li>
-            <li [class.is-active]="selectedTab === 'custom'" (click)="selectedTab = 'custom'"><a>Custom Template Example</a></li>
-            <li [class.is-active]="selectedTab === 'server'" (click)="selectedTab = 'server'"><a>Server Paging Example</a></li>
+            <li routerLinkActive="is-active">
+                <a [routerLink]="['basic']">Basic Example</a>
+            </li>
+            <li routerLinkActive="is-active">
+                <a [routerLink]="['advanced']">Full Example</a>
+            </li>
+            <li routerLinkActive="is-active">
+                <a [routerLink]="['custom-template']">Custom Template Example</a>
+            </li>
+            <li routerLinkActive="is-active">
+                <a [routerLink]="['server-paging']">Server Paging Example</a>
+            </li>
         </ul>
     </div>
 </div>
 
-<section class="section" [class.hidden]="selectedTab !== 'basic'">
+<section class="page-content">
     <div class="container">
-        <h1 class="title">Basic Example</h1>
-        <h2 class="subtitle">
-            This demonstrates the most simple possible usage.
-        </h2>
-        <basic-example [data]="meals"></basic-example>
-        <hr>
-
-        <h4 class="title is-4">Code</h4>
-        <div class="tabs is-boxed">
-            <ul>
-                <li [class.is-active]="basicTab === 'html'" (click)="basicTab = 'html'"><a>HTML</a></li>
-                <li [class.is-active]="basicTab === 'ts'" (click)="basicTab = 'ts'"><a>TypeScript</a></li>
-            </ul>
-        </div>
-        <pre [class.hidden]="basicTab !== 'html'"><code>{{ basicCodeT }}</code></pre>
-        <pre [class.hidden]="basicTab !== 'ts'"><code>{{ basicCodeC }}</code></pre>
+        <router-outlet></router-outlet>
     </div>
 </section>
-
-
-<section class="section" [class.hidden]="selectedTab !== 'full'">
-    <div class="container">
-        <h1 class="title">Full Example</h1>
-        <h2 class="subtitle">
-            Here we can see the effects of data-binding each of the configuration values, which will the update the
-            pagination links automatically.
-        </h2>
-        <advanced-example [data]="meals"></advanced-example>
-        <hr>
-
-        <h4 class="title is-4">Code</h4>
-        <div class="tabs is-boxed">
-            <ul>
-                <li [class.is-active]="fullTab === 'html'" (click)="fullTab = 'html'"><a>HTML</a></li>
-                <li [class.is-active]="fullTab === 'ts'" (click)="fullTab = 'ts'"><a>TypeScript</a></li>
-            </ul>
-        </div>
-        <pre [class.hidden]="fullTab !== 'html'"><code>{{ advancedCodeT }}</code></pre>
-        <pre [class.hidden]="fullTab !== 'ts'"><code>{{ advancedCodeC }}</code></pre>
-
-    </div>
-</section>
-
-<section class="section" [class.hidden]="selectedTab !== 'custom'">
-    <div class="container">
-        <h1 class="title">Custom Template Example</h1>
-        <h2 class="subtitle">
-            This demonstrates how a custom template can be used to customize the structure and style of the
-            pagination links.
-        </h2>
-        <custom-template-example [data]="meals"></custom-template-example>
-        <hr>
-        <h4 class="title is-4">Code</h4>
-        <div class="tabs is-boxed">
-            <ul>
-                <li [class.is-active]="customTab === 'html'" (click)="customTab = 'html'"><a>HTML</a></li>
-                <li [class.is-active]="customTab === 'ts'" (click)="customTab = 'ts'"><a>TypeScript</a></li>
-            </ul>
-        </div>
-        <pre [class.hidden]="customTab !== 'html'"><code>{{ customTemplateCodeT }}</code></pre>
-        <pre [class.hidden]="customTab !== 'ts'"><code>{{ customTemplateCodeC }}</code></pre>
-    </div>
-</section>
-
-<section class="section" [class.hidden]="selectedTab !== 'server'">
-    <div class="container">
-        <h1 class="title">Server Paging Example</h1>
-        <h2 class="subtitle">
-            This demonstrates a server-side pagination scenario, where each new page is requested from a server
-            (simulated with a timeout for this demo). Additionally, we are also piping the observable directly
-            into the template and resolving the values via the Angular2 AsyncPipe before handing it off to the
-            PaginatePipe.
-        </h2>
-        <server-example [data]="meals"></server-example>
-        <hr>
-        <h4 class="title is-4">Code</h4>
-        <div class="tabs is-boxed">
-            <ul>
-                <li [class.is-active]="serverTab === 'html'" (click)="serverTab = 'html'"><a>HTML</a></li>
-                <li [class.is-active]="serverTab === 'ts'" (click)="serverTab = 'ts'"><a>TypeScript</a></li>
-            </ul>
-        </div>
-        <pre [class.hidden]="serverTab !== 'html'"><code>{{ serverPagingCodeT }}</code></pre>
-        <pre [class.hidden]="serverTab !== 'ts'"><code>{{ serverPagingCodeC }}</code></pre>
-    </div>
-</section>
-
-
