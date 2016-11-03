@@ -9,7 +9,7 @@ module.exports = function (env) {
     const entryFile = aotMode ? 'bootstrap.aot.ts' : 'bootstrap.ts';
     const outPath = aotMode ? 'dist' : 'build';
     const devtool = aotMode ? 'source-map' : 'eval-source-map';
-    const srcPath = path.join(__dirname, '..', 'demo', 'src');
+    const srcPath = path.join(__dirname, '..', 'docs', 'src');
 
     let config = {
         target: 'web',
@@ -28,7 +28,7 @@ module.exports = function (env) {
             alias: {}
         },
         output: {
-            path: path.join(__dirname, '..', 'demo', outPath),
+            path: path.join(__dirname, '..', 'docs', outPath),
             publicPath: '',
             filename: '[name].js',
             pathinfo: true
@@ -67,7 +67,7 @@ module.exports = function (env) {
         config.plugins.push(new ngtools.AotPlugin({
             tsConfigPath: './tsconfig.demo.json',
             baseDir: path.resolve(__dirname, ''),
-            genDir: path.resolve(__dirname, './demo/ngfactory')
+            genDir: path.resolve(__dirname, './docs/ngfactory')
         }));
     }
 

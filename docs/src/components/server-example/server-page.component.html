@@ -1,0 +1,18 @@
+<h1 class="title">Server Paging Example</h1>
+<p class="page-lead">
+    This demonstrates a server-side pagination scenario, where each new page is requested from a server
+    (simulated with a timeout for this demo). Additionally, we are also piping the observable directly
+    into the template and resolving the values via the Angular2 AsyncPipe before handing it off to the
+    PaginatePipe.
+</p>
+<server-example [data]="meals"></server-example>
+<hr>
+<h4 class="title is-4">Code</h4>
+<div class="tabs is-boxed">
+    <ul>
+        <li [class.is-active]="tab === 'html'" (click)="tab = 'html'"><a>HTML</a></li>
+        <li [class.is-active]="tab === 'ts'" (click)="tab = 'ts'"><a>TypeScript</a></li>
+    </ul>
+</div>
+<pre [class.hidden]="tab !== 'html'"><code>{{ templateSource }}</code></pre>
+<pre [class.hidden]="tab !== 'ts'"><code>{{ typescriptSource }}</code></pre>

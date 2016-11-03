@@ -4,5 +4,5 @@ node_modules
 npm-debug.log
 /typings
 *.map
-/demo/build
+/docs/build
 ngfactory

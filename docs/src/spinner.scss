@@ -1,0 +1,141 @@
+// Credit: http://codepen.io/jjeaton/pen/JvlEh
+
+/**
+ * A simple, semantic, usable-anywhere spinner. It takes its coloring from its
+ * parent element, meaning it can be dropped anywhere without modification.
+ *
+ * 1. Positioning context.
+ * 2. Define dimensions in ems so that we can…
+ * 3. …adjust spinner size by just changing its `font-size`.
+ * 4. Do not explicitly define a color (allow border to inherit current text
+ *    color). This makes the spinner usable on any color background. We’re also
+ *    only defining a bottom border here; this is what actually gives the
+ *    illusion of something spinning.
+ * 5. Kellum method hidden text:
+ *    zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement
+ */
+.spinner {
+    position: relative; /* [1] */
+    display: inline-block;
+    width:  1em; /* [2] */
+    height: 1em; /* [2] */
+    font-size: 32px; /* [3] */
+    border-bottom: 1px solid; /* [4] */
+    vertical-align: middle;
+    overflow: hidden;  /* [5] */
+    text-indent: 100%; /* [5] */
+    -webkit-animation: 0.5s spinner linear infinite;
+       -moz-animation: 0.5s spinner linear infinite;
+            animation: 0.5s spinner linear infinite;
+
+    /**
+     * 1. Make the spinner a circle.
+     */
+    &,
+    &:after {
+        border-radius: 100%; /* [1] */
+    }
+
+    /**
+     * The (optically) non-spinning part of the spinner.
+     *
+     * 1. Border around entire element fills in the rest of the ring.
+     * 2. Paler than the part that appears to spin.
+     */
+    &:after {
+        content: "";
+        position: absolute;
+        top:    0;
+        right:  0;
+        bottom: 0;
+        left:   0;
+        border: 1px solid; /* [1] */
+        opacity: 0.5; /* [2] */
+    }
+
+}
+
+
+/**
+ * Size variants (built by adjusting `font-size`).
+ */
+.spinner--small { font-size: 16px; }
+.spinner--large { font-size: 64px; }
+
+/**
+ * Color overrides.
+ */
+.spinner--light { color: #fff; }
+.spinner--dark  { color: #333; }
+
+
+@-webkit-keyframes spinner {
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+
+}
+
+@-moz-keyframes spinner {
+
+    to {
+        -moz-transform: rotate(360deg);
+    }
+
+}
+
+@keyframes spinner {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Demo elements.
+ */
+.box {
+    margin:  1em 0;
+    padding: 2em;
+    color: darken(#BADA55, 30%);
+    background-color: #BADA55;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.box--foo {
+    background-color: #212121;
+    color: yellow;
+}
+
+.btn {
+    font: inherit;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    background-color: #f43059;
+    color: #fff;
+    border: none;
+    padding: 1em 2em;
+    border-radius: 3px;
+
+    .spinner {
+        margin-right: 3px;
+    }
+
+}

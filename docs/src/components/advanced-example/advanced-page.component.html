@@ -1,0 +1,17 @@
+<h1 class="title">Full Example</h1>
+<p class="page-lead">
+    Here we can see the effects of data-binding each of the configuration values, which will the update the
+    pagination links automatically.
+</p>
+<advanced-example [data]="meals"></advanced-example>
+<hr>
+
+<h4 class="title is-4">Code</h4>
+<div class="tabs is-boxed">
+    <ul>
+        <li [class.is-active]="tab === 'html'" (click)="tab = 'html'"><a>HTML</a></li>
+        <li [class.is-active]="tab === 'ts'" (click)="tab = 'ts'"><a>TypeScript</a></li>
+    </ul>
+</div>
+<pre [class.hidden]="tab !== 'html'"><code>{{ templateSource }}</code></pre>
+<pre [class.hidden]="tab !== 'ts'"><code>{{ typescriptSource }}</code></pre>
