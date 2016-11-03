@@ -1,15 +1,11 @@
-<ul class="meal-list">
-    <li *ngFor="let meal of meals | paginate: config">
-        {{ meal }}
-    </li>
-</ul>
 
-<pagination-controls #p
+<pagination-template #p="paginationApi"
                      [id]="config.id"
                      (pageChange)="config.currentPage = $event">
 
+
     <div class="custom-pagination">
-        <div class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="p.directionLinks">
+        <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
             <a *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </a>
         </div>
 
@@ -22,9 +18,15 @@
             </div>
         </div>
 
-        <div class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
+        <div class="pagination-next" [class.disabled]="p.isLastPage()">
             <a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
         </div>
     </div>
 
-</pagination-controls>
+</pagination-template>
+
+<ul class="meal-list">
+    <li *ngFor="let meal of meals | paginate: config">
+        {{ meal }}
+    </li>
+</ul>

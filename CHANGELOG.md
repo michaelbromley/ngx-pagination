@@ -1,7 +1,10 @@
 # 1.0.0 (in progress)
-* Fix errors when using TypeScript < 2.0
+* Fix errors when using TypeScript < 2.0 ([#81](https://github.com/michaelbromley/ng2-pagination/issues/81))
+* Fix change detection errors when controls are declared before the pipe in the DOM ([#91](https://github.com/michaelbromley/ng2-pagination/issues/91)).
+* Create the PaginationControlsDirective, which is the basis for all controls components, including the default component and any custom components.
 
 #### Breaking Changes
+* Custom templates are now implemented with the new PaginationControlsDirective, rather than by putting elements inside the PaginationControlsComponent.
 * Naming of files and classes has been brought into line with the official [style guide recommendations](https://angular.io/docs/ts/latest/guide/style-guide.html#!#naming)
 This should not have a big impact if you are just consuming the NgModule, but the main change is that `PaginationControlsCmp` is now `PaginationControlsComponent`.
 

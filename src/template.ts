@@ -4,40 +4,42 @@
  */
 
 export const DEFAULT_TEMPLATE = `
-    <div #template>
-        <ng-content></ng-content>
-    </div>
+    <pagination-template  #p="paginationApi"
+                         [id]="id"
+                         [maxSize]="maxSize"
+                         (pageChange)="pageChange.emit($event)">
     <ul class="ng2-pagination" 
         role="navigation" 
         aria-label="Pagination" 
-        *ngIf="!hasTemplate && !(autoHide && pages.length <= 1)">
+        *ngIf="!(autoHide && p.pages.length <= 1)">
 
-        <li class="pagination-previous" [class.disabled]="isFirstPage()" *ngIf="directionLinks"> 
-            <a *ngIf="1 < getCurrent()" (click)="previous()" aria-label="Next page">
+        <li class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="directionLinks"> 
+            <a *ngIf="1 < p.getCurrent()" (click)="p.previous()" aria-label="Next page">
                 Previous <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="isFirstPage()">Previous <span class="show-for-sr">page</span></span>
+            <span *ngIf="p.isFirstPage()">Previous <span class="show-for-sr">page</span></span>
         </li>
 
-        <li [class.current]="getCurrent() === page.value" *ngFor="let page of pages">
-            <a (click)="setCurrent(page.value)" *ngIf="getCurrent() !== page.value">
+        <li [class.current]="p.getCurrent() === page.value" *ngFor="let page of p.pages">
+            <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                 <span class="show-for-sr">Page</span>
                 <span>{{ page.label }}</span>
             </a>
-            <div *ngIf="getCurrent() === page.value">
+            <div *ngIf="p.getCurrent() === page.value">
                 <span class="show-for-sr">You're on page</span>
                 <span>{{ page.label }}</span> 
             </div>
         </li>
 
-        <li class="pagination-next" [class.disabled]="isLastPage()" *ngIf="directionLinks">
-            <a *ngIf="!isLastPage()" (click)="next()" aria-label="Next page">
+        <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="directionLinks">
+            <a *ngIf="!p.isLastPage()" (click)="p.next()" aria-label="Next page">
                 Next <span class="show-for-sr">page</span>
             </a>
-            <span *ngIf="isLastPage()">Next <span class="show-for-sr">page</span></span>
+            <span *ngIf="p.isLastPage()">Next <span class="show-for-sr">page</span></span>
         </li>
 
     </ul>
+    </pagination-template>
     `;
 
 export const DEFAULT_STYLES = `

@@ -2,6 +2,7 @@ import {Component, DebugElement, Type} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {TestBed, ComponentFixture} from '@angular/core/testing';
 import {IPaginationInstance} from '../ng2-pagination';
+import {PaginationControlsDirective} from '../pagination-controls.directive';
 
 /**
  * Helper Functions and test components for use in unit tests.
@@ -20,6 +21,13 @@ export function getListItemsText(fixture: ComponentFixture<any>): string[] {
 export function getListItems(fixture: ComponentFixture<any>): HTMLLIElement[] {
     return fixture.debugElement.queryAll(By.css('.list-item'))
         .map((el: DebugElement) => el.nativeElement);
+}
+
+/**
+ * Returns the PaginationControlsDirective from the template of the ComponentTestComponent.
+ */
+export function getControlsDirective(fixture: ComponentFixture<ComponentTestComponent>): PaginationControlsDirective {
+    return fixture.debugElement.query(By.css('pagination-template')).references['p'];
 }
 
 /**
@@ -55,7 +63,7 @@ export function overrideTemplate<T>(component: Type<T>, templateString: string):
 }
 
 /**
- * Test Component
+ * Test Component for testing the default controls component
  */
 @Component({
     template: `
@@ -69,7 +77,7 @@ export function overrideTemplate<T>(component: Type<T>, templateString: string):
                          [autoHide]="autoHide">
     </pagination-controls>`
 })
-export class TestComponent {
+export class ComponentTestComponent {
     maxSize: number = 9;
     directionLinks: boolean = true;
     autoHide: boolean = true;
