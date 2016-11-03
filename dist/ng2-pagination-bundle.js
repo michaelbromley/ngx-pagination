@@ -7,9 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-System.register("pagination-service", ['@angular/core'], function(exports_1, context_1) {
+System.register("pagination-instance", [], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
+    return {
+        setters:[],
+        execute: function() {
+        }
+    }
+});
+System.register("pagination.service", ['@angular/core'], function(exports_2, context_2) {
+    "use strict";
+    var __moduleName = context_2 && context_2.id;
     var core_1;
     var PaginationService;
     return {
@@ -24,11 +33,7 @@ System.register("pagination-service", ['@angular/core'], function(exports_1, con
                     this.instances = {};
                     this.DEFAULT_ID = 'DEFAULT_PAGINATION_ID';
                 }
-                Object.defineProperty(PaginationService.prototype, "defaultId", {
-                    get: function () { return this.DEFAULT_ID; },
-                    enumerable: true,
-                    configurable: true
-                });
+                PaginationService.prototype.defaultId = function () { return this.DEFAULT_ID; };
                 PaginationService.prototype.register = function (instance) {
                     if (!instance.id) {
                         instance.id = this.DEFAULT_ID;
@@ -122,13 +127,13 @@ System.register("pagination-service", ['@angular/core'], function(exports_1, con
                 };
                 return PaginationService;
             }());
-            exports_1("PaginationService", PaginationService);
+            exports_2("PaginationService", PaginationService);
         }
     }
 });
-System.register("paginate-pipe", ["@angular/core", "pagination-service"], function(exports_2, context_2) {
+System.register("paginate.pipe", ["@angular/core", "pagination.service"], function(exports_3, context_3) {
     "use strict";
-    var __moduleName = context_2 && context_2.id;
+    var __moduleName = context_3 && context_3.id;
     var core_2, pagination_service_1;
     var LARGE_NUMBER, PaginatePipe;
     return {
@@ -192,13 +197,13 @@ System.register("paginate-pipe", ["@angular/core", "pagination-service"], functi
                     return collection;
                 };
                 /**
-                 * Create an IPaginationInstance object, using defaults for any optional properties not supplied.
+                 * Create an PaginationInstance object, using defaults for any optional properties not supplied.
                  */
                 PaginatePipe.prototype.createInstance = function (collection, args) {
                     var config = args;
                     this.checkConfig(config);
                     return {
-                        id: config.id || this.service.defaultId,
+                        id: config.id || this.service.defaultId(),
                         itemsPerPage: config.itemsPerPage || 0,
                         currentPage: config.currentPage || 1,
                         totalItems: config.totalItems || collection.length
@@ -254,7 +259,7 @@ System.register("paginate-pipe", ["@angular/core", "pagination-service"], functi
                 ], PaginatePipe);
                 return PaginatePipe;
             }());
-            exports_2("PaginatePipe", PaginatePipe);
+            exports_3("PaginatePipe", PaginatePipe);
         }
     }
 });
@@ -262,55 +267,43 @@ System.register("paginate-pipe", ["@angular/core", "pagination-service"], functi
  * The default template and styles for the pagination links are borrowed directly
  * from Zurb Foundation 6: http://foundation.zurb.com/sites/docs/pagination.html
  */
-System.register("template", [], function(exports_3, context_3) {
+System.register("template", [], function(exports_4, context_4) {
     "use strict";
-    var __moduleName = context_3 && context_3.id;
+    var __moduleName = context_4 && context_4.id;
     var DEFAULT_TEMPLATE, DEFAULT_STYLES;
     return {
         setters:[],
         execute: function() {
-            exports_3("DEFAULT_TEMPLATE", DEFAULT_TEMPLATE = "\n    <div #template>\n        <ng-content></ng-content>\n    </div>\n    <ul class=\"ng2-pagination\" \n        role=\"navigation\" \n        aria-label=\"Pagination\" \n        *ngIf=\"!hasTemplate && !(autoHide && pages.length <= 1)\">\n\n        <li class=\"pagination-previous\" [class.disabled]=\"isFirstPage()\" *ngIf=\"directionLinks\"> \n            <a *ngIf=\"1 < getCurrent()\" (click)=\"previous()\" aria-label=\"Next page\">\n                Previous <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isFirstPage()\">Previous <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n        <li [class.current]=\"getCurrent() === page.value\" *ngFor=\"let page of pages\">\n            <a (click)=\"setCurrent(page.value)\" *ngIf=\"getCurrent() !== page.value\">\n                <span class=\"show-for-sr\">Page</span>\n                <span>{{ page.label }}</span>\n            </a>\n            <div *ngIf=\"getCurrent() === page.value\">\n                <span class=\"show-for-sr\">You're on page</span>\n                <span>{{ page.label }}</span> \n            </div>\n        </li>\n\n        <li class=\"pagination-next\" [class.disabled]=\"isLastPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"!isLastPage()\" (click)=\"next()\" aria-label=\"Next page\">\n                Next <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"isLastPage()\">Next <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n    </ul>\n    ");
-            exports_3("DEFAULT_STYLES", DEFAULT_STYLES = "\n.ng2-pagination {\n  margin-left: 0;\n  margin-bottom: 1rem; }\n  .ng2-pagination::before, .ng2-pagination::after {\n    content: ' ';\n    display: table; }\n  .ng2-pagination::after {\n    clear: both; }\n  .ng2-pagination li {\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    -ms-user-select: none;\n    font-size: 0.875rem;\n    margin-right: 0.0625rem;\n    border-radius: 0; }\n  .ng2-pagination li {\n    display: inline-block; }\n  .ng2-pagination a,\n  .ng2-pagination button {\n    color: #0a0a0a; \n    display: block;\n    padding: 0.1875rem 0.625rem;\n    border-radius: 0; }\n    .ng2-pagination a:hover,\n    .ng2-pagination button:hover {\n      background: #e6e6e6; }\n  .ng2-pagination .current {\n    padding: 0.1875rem 0.625rem;\n    background: #2199e8;\n    color: #fefefe;\n    cursor: default; }\n  .ng2-pagination .disabled {\n    padding: 0.1875rem 0.625rem;\n    color: #cacaca;\n    cursor: default; } \n    .ng2-pagination .disabled:hover {\n      background: transparent; }\n  .ng2-pagination .ellipsis::after {\n    content: '\u2026';\n    padding: 0.1875rem 0.625rem;\n    color: #0a0a0a; }\n\n.ng2-pagination .pagination-previous a::before,\n.ng2-pagination .pagination-previous.disabled::before { \n  content: '\u00AB';\n  display: inline-block;\n  margin-right: 0.5rem; }\n\n.ng2-pagination .pagination-next a::after,\n.ng2-pagination .pagination-next.disabled::after {\n  content: '\u00BB';\n  display: inline-block;\n  margin-left: 0.5rem; }\n\n.ng2-pagination .show-for-sr {\n  position: absolute !important;\n  width: 1px;\n  height: 1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0); }");
+            exports_4("DEFAULT_TEMPLATE", DEFAULT_TEMPLATE = "\n    <pagination-template  #p=\"paginationApi\"\n                         [id]=\"id\"\n                         [maxSize]=\"maxSize\"\n                         (pageChange)=\"pageChange.emit($event)\">\n    <ul class=\"ng2-pagination\" \n        role=\"navigation\" \n        aria-label=\"Pagination\" \n        *ngIf=\"!(autoHide && p.pages.length <= 1)\">\n\n        <li class=\"pagination-previous\" [class.disabled]=\"p.isFirstPage()\" *ngIf=\"directionLinks\"> \n            <a *ngIf=\"1 < p.getCurrent()\" (click)=\"p.previous()\" aria-label=\"Next page\">\n                Previous <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"p.isFirstPage()\">Previous <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n        <li [class.current]=\"p.getCurrent() === page.value\" *ngFor=\"let page of p.pages\">\n            <a (click)=\"p.setCurrent(page.value)\" *ngIf=\"p.getCurrent() !== page.value\">\n                <span class=\"show-for-sr\">Page</span>\n                <span>{{ page.label }}</span>\n            </a>\n            <div *ngIf=\"p.getCurrent() === page.value\">\n                <span class=\"show-for-sr\">You're on page</span>\n                <span>{{ page.label }}</span> \n            </div>\n        </li>\n\n        <li class=\"pagination-next\" [class.disabled]=\"p.isLastPage()\" *ngIf=\"directionLinks\">\n            <a *ngIf=\"!p.isLastPage()\" (click)=\"p.next()\" aria-label=\"Next page\">\n                Next <span class=\"show-for-sr\">page</span>\n            </a>\n            <span *ngIf=\"p.isLastPage()\">Next <span class=\"show-for-sr\">page</span></span>\n        </li>\n\n    </ul>\n    </pagination-template>\n    ");
+            exports_4("DEFAULT_STYLES", DEFAULT_STYLES = "\n.ng2-pagination {\n  margin-left: 0;\n  margin-bottom: 1rem; }\n  .ng2-pagination::before, .ng2-pagination::after {\n    content: ' ';\n    display: table; }\n  .ng2-pagination::after {\n    clear: both; }\n  .ng2-pagination li {\n    -moz-user-select: none;\n    -webkit-user-select: none;\n    -ms-user-select: none;\n    font-size: 0.875rem;\n    margin-right: 0.0625rem;\n    border-radius: 0; }\n  .ng2-pagination li {\n    display: inline-block; }\n  .ng2-pagination a,\n  .ng2-pagination button {\n    color: #0a0a0a; \n    display: block;\n    padding: 0.1875rem 0.625rem;\n    border-radius: 0; }\n    .ng2-pagination a:hover,\n    .ng2-pagination button:hover {\n      background: #e6e6e6; }\n  .ng2-pagination .current {\n    padding: 0.1875rem 0.625rem;\n    background: #2199e8;\n    color: #fefefe;\n    cursor: default; }\n  .ng2-pagination .disabled {\n    padding: 0.1875rem 0.625rem;\n    color: #cacaca;\n    cursor: default; } \n    .ng2-pagination .disabled:hover {\n      background: transparent; }\n  .ng2-pagination .ellipsis::after {\n    content: '\u2026';\n    padding: 0.1875rem 0.625rem;\n    color: #0a0a0a; }\n\n.ng2-pagination .pagination-previous a::before,\n.ng2-pagination .pagination-previous.disabled::before { \n  content: '\u00AB';\n  display: inline-block;\n  margin-right: 0.5rem; }\n\n.ng2-pagination .pagination-next a::after,\n.ng2-pagination .pagination-next.disabled::after {\n  content: '\u00BB';\n  display: inline-block;\n  margin-left: 0.5rem; }\n\n.ng2-pagination .show-for-sr {\n  position: absolute !important;\n  width: 1px;\n  height: 1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0); }");
         }
     }
 });
-System.register("pagination-controls-cmp", ['@angular/core', "pagination-service", "template"], function(exports_4, context_4) {
+System.register("pagination-controls.component", ['@angular/core', "template"], function(exports_5, context_5) {
     "use strict";
-    var __moduleName = context_4 && context_4.id;
-    var core_3, pagination_service_2, template_1;
-    var PaginationControlsCmp;
+    var __moduleName = context_5 && context_5.id;
+    var core_3, template_1;
+    var PaginationControlsComponent;
     return {
         setters:[
             function (core_3_1) {
                 core_3 = core_3_1;
             },
-            function (pagination_service_2_1) {
-                pagination_service_2 = pagination_service_2_1;
-            },
             function (template_1_1) {
                 template_1 = template_1_1;
             }],
         execute: function() {
-            PaginationControlsCmp = (function () {
-                function PaginationControlsCmp(service, changeDetectorRef) {
-                    var _this = this;
-                    this.service = service;
-                    this.changeDetectorRef = changeDetectorRef;
+            /**
+             * The default pagination controls component. Actually just a default implementation of a custom template.
+             */
+            PaginationControlsComponent = (function () {
+                function PaginationControlsComponent() {
                     this.maxSize = 7;
                     this.pageChange = new core_3.EventEmitter();
-                    this.pages = [];
-                    this.hasTemplate = true;
                     this._directionLinks = true;
                     this._autoHide = false;
-                    this.changeSub = this.service.change
-                        .subscribe(function (id) {
-                        if (_this.id === id) {
-                            _this.updatePageLinks();
-                            _this.changeDetectorRef.markForCheck();
-                        }
-                    });
                 }
-                Object.defineProperty(PaginationControlsCmp.prototype, "directionLinks", {
+                Object.defineProperty(PaginationControlsComponent.prototype, "directionLinks", {
                     get: function () {
                         return this._directionLinks;
                     },
@@ -320,7 +313,7 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                     enumerable: true,
                     configurable: true
                 });
-                Object.defineProperty(PaginationControlsCmp.prototype, "autoHide", {
+                Object.defineProperty(PaginationControlsComponent.prototype, "autoHide", {
                     get: function () {
                         return this._autoHide;
                     },
@@ -330,63 +323,129 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                     enumerable: true,
                     configurable: true
                 });
-                PaginationControlsCmp.prototype.ngOnInit = function () {
+                __decorate([
+                    core_3.Input(), 
+                    __metadata('design:type', String)
+                ], PaginationControlsComponent.prototype, "id", void 0);
+                __decorate([
+                    core_3.Input(), 
+                    __metadata('design:type', Number)
+                ], PaginationControlsComponent.prototype, "maxSize", void 0);
+                __decorate([
+                    core_3.Input(), 
+                    __metadata('design:type', Boolean)
+                ], PaginationControlsComponent.prototype, "directionLinks", null);
+                __decorate([
+                    core_3.Input(), 
+                    __metadata('design:type', Boolean)
+                ], PaginationControlsComponent.prototype, "autoHide", null);
+                __decorate([
+                    core_3.Output(), 
+                    __metadata('design:type', core_3.EventEmitter)
+                ], PaginationControlsComponent.prototype, "pageChange", void 0);
+                PaginationControlsComponent = __decorate([
+                    core_3.Component({
+                        selector: 'pagination-controls',
+                        template: template_1.DEFAULT_TEMPLATE,
+                        styles: [template_1.DEFAULT_STYLES],
+                        changeDetection: core_3.ChangeDetectionStrategy.OnPush
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], PaginationControlsComponent);
+                return PaginationControlsComponent;
+            }());
+            exports_5("PaginationControlsComponent", PaginationControlsComponent);
+        }
+    }
+});
+System.register("pagination-controls.directive", ['@angular/core', "pagination.service"], function(exports_6, context_6) {
+    "use strict";
+    var __moduleName = context_6 && context_6.id;
+    var core_4, pagination_service_2;
+    var PaginationControlsDirective;
+    return {
+        setters:[
+            function (core_4_1) {
+                core_4 = core_4_1;
+            },
+            function (pagination_service_2_1) {
+                pagination_service_2 = pagination_service_2_1;
+            }],
+        execute: function() {
+            /**
+             * This directive is what powers all pagination controls components, including the default one.
+             * It exposes an API which is hooked up to the PaginationService to keep the PaginatePipe in sync
+             * with the pagination controls.
+             */
+            PaginationControlsDirective = (function () {
+                function PaginationControlsDirective(service, changeDetectorRef) {
+                    var _this = this;
+                    this.service = service;
+                    this.changeDetectorRef = changeDetectorRef;
+                    this.maxSize = 7;
+                    this.pageChange = new core_4.EventEmitter();
+                    this.pages = [];
+                    this.changeSub = this.service.change
+                        .subscribe(function (id) {
+                        if (_this.id === id) {
+                            _this.updatePageLinks();
+                            _this.changeDetectorRef.markForCheck();
+                            _this.changeDetectorRef.detectChanges();
+                        }
+                    });
+                }
+                PaginationControlsDirective.prototype.ngOnInit = function () {
                     if (this.id === undefined) {
-                        this.id = this.service.defaultId;
+                        this.id = this.service.defaultId();
                     }
                     this.updatePageLinks();
                 };
-                PaginationControlsCmp.prototype.ngOnChanges = function (changes) {
+                PaginationControlsDirective.prototype.ngOnChanges = function (changes) {
                     this.updatePageLinks();
                 };
-                PaginationControlsCmp.prototype.ngAfterViewInit = function () {
-                    var _this = this;
-                    this.hasTemplate = !!(this.template && 0 < this.template.nativeElement.children.length);
-                    setTimeout(function () { return _this.changeDetectorRef.markForCheck(); });
-                };
-                PaginationControlsCmp.prototype.ngOnDestroy = function () {
+                PaginationControlsDirective.prototype.ngOnDestroy = function () {
                     this.changeSub.unsubscribe();
                 };
                 /**
                  * Go to the previous page
                  */
-                PaginationControlsCmp.prototype.previous = function () {
+                PaginationControlsDirective.prototype.previous = function () {
                     this.setCurrent(this.getCurrent() - 1);
                 };
                 /**
                  * Go to the next page
                  */
-                PaginationControlsCmp.prototype.next = function () {
+                PaginationControlsDirective.prototype.next = function () {
                     this.setCurrent(this.getCurrent() + 1);
                 };
                 /**
                  * Returns true if current page is first page
                  */
-                PaginationControlsCmp.prototype.isFirstPage = function () {
+                PaginationControlsDirective.prototype.isFirstPage = function () {
                     return this.getCurrent() === 1;
                 };
                 /**
                  * Returns true if current page is last page
                  */
-                PaginationControlsCmp.prototype.isLastPage = function () {
+                PaginationControlsDirective.prototype.isLastPage = function () {
                     return this.getLastPage() === this.getCurrent();
                 };
                 /**
                  * Set the current page number.
                  */
-                PaginationControlsCmp.prototype.setCurrent = function (page) {
+                PaginationControlsDirective.prototype.setCurrent = function (page) {
                     this.pageChange.emit(page);
                 };
                 /**
                  * Get the current page number.
                  */
-                PaginationControlsCmp.prototype.getCurrent = function () {
+                PaginationControlsDirective.prototype.getCurrent = function () {
                     return this.service.getCurrentPage(this.id);
                 };
                 /**
                  * Returns the last page number
                  */
-                PaginationControlsCmp.prototype.getLastPage = function () {
+                PaginationControlsDirective.prototype.getLastPage = function () {
                     var inst = this.service.getInstance(this.id);
                     if (inst.totalItems < 1) {
                         // when there are 0 or fewer (an error case) items, there are no "pages" as such,
@@ -400,7 +459,7 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                  * PaginationService.change stream emits a value matching the current ID, or when any of the
                  * input values changes.
                  */
-                PaginationControlsCmp.prototype.updatePageLinks = function () {
+                PaginationControlsDirective.prototype.updatePageLinks = function () {
                     var _this = this;
                     var inst = this.service.getInstance(this.id);
                     var correctedCurrentPage = this.outOfBoundCorrection(inst);
@@ -418,7 +477,7 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                  * Checks that the instance.currentPage property is within bounds for the current page range.
                  * If not, return a correct value for currentPage, or the current value if OK.
                  */
-                PaginationControlsCmp.prototype.outOfBoundCorrection = function (instance) {
+                PaginationControlsDirective.prototype.outOfBoundCorrection = function (instance) {
                     var totalPages = Math.ceil(instance.totalItems / instance.itemsPerPage);
                     if (totalPages < instance.currentPage && 0 < totalPages) {
                         return totalPages;
@@ -429,9 +488,9 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                     return instance.currentPage;
                 };
                 /**
-                 * Returns an array of IPage objects to use in the pagination controls.
+                 * Returns an array of Page objects to use in the pagination controls.
                  */
-                PaginationControlsCmp.prototype.createPageArray = function (currentPage, itemsPerPage, totalItems, paginationRange) {
+                PaginationControlsDirective.prototype.createPageArray = function (currentPage, itemsPerPage, totalItems, paginationRange) {
                     // paginationRange could be a string if passed from attribute, so cast to number.
                     paginationRange = +paginationRange;
                     var pages = [];
@@ -465,7 +524,7 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                  * Given the position in the sequence of pagination links [i],
                  * figure out what page number corresponds to that position.
                  */
-                PaginationControlsCmp.prototype.calculatePageNumber = function (i, currentPage, paginationRange, totalPages) {
+                PaginationControlsDirective.prototype.calculatePageNumber = function (i, currentPage, paginationRange, totalPages) {
                     var halfWay = Math.ceil(paginationRange / 2);
                     if (i === paginationRange) {
                         return totalPages;
@@ -489,95 +548,84 @@ System.register("pagination-controls-cmp", ['@angular/core', "pagination-service
                     }
                 };
                 __decorate([
-                    core_3.Input(), 
+                    core_4.Input(), 
                     __metadata('design:type', String)
-                ], PaginationControlsCmp.prototype, "id", void 0);
+                ], PaginationControlsDirective.prototype, "id", void 0);
                 __decorate([
-                    core_3.Input(), 
+                    core_4.Input(), 
                     __metadata('design:type', Number)
-                ], PaginationControlsCmp.prototype, "maxSize", void 0);
+                ], PaginationControlsDirective.prototype, "maxSize", void 0);
                 __decorate([
-                    core_3.Input(), 
-                    __metadata('design:type', Boolean)
-                ], PaginationControlsCmp.prototype, "directionLinks", null);
-                __decorate([
-                    core_3.Input(), 
-                    __metadata('design:type', Boolean)
-                ], PaginationControlsCmp.prototype, "autoHide", null);
-                __decorate([
-                    core_3.Output(), 
-                    __metadata('design:type', core_3.EventEmitter)
-                ], PaginationControlsCmp.prototype, "pageChange", void 0);
-                __decorate([
-                    core_3.ViewChild('template'), 
-                    __metadata('design:type', Object)
-                ], PaginationControlsCmp.prototype, "template", void 0);
-                PaginationControlsCmp = __decorate([
-                    core_3.Component({
-                        selector: 'pagination-controls',
-                        template: template_1.DEFAULT_TEMPLATE,
-                        styles: [template_1.DEFAULT_STYLES],
-                        changeDetection: core_3.ChangeDetectionStrategy.OnPush
+                    core_4.Output(), 
+                    __metadata('design:type', core_4.EventEmitter)
+                ], PaginationControlsDirective.prototype, "pageChange", void 0);
+                PaginationControlsDirective = __decorate([
+                    core_4.Directive({
+                        selector: 'pagination-template,[pagination-template]',
+                        exportAs: 'paginationApi'
                     }), 
-                    __metadata('design:paramtypes', [pagination_service_2.PaginationService, core_3.ChangeDetectorRef])
-                ], PaginationControlsCmp);
-                return PaginationControlsCmp;
+                    __metadata('design:paramtypes', [pagination_service_2.PaginationService, core_4.ChangeDetectorRef])
+                ], PaginationControlsDirective);
+                return PaginationControlsDirective;
             }());
-            exports_4("PaginationControlsCmp", PaginationControlsCmp);
+            exports_6("PaginationControlsDirective", PaginationControlsDirective);
         }
     }
 });
-System.register("ng2-pagination", ['@angular/core', '@angular/common', "paginate-pipe", "pagination-service", "pagination-controls-cmp"], function(exports_5, context_5) {
+System.register("ng2-pagination", ['@angular/core', '@angular/common', "paginate.pipe", "pagination.service", "pagination-controls.component", "pagination-controls.directive"], function(exports_7, context_7) {
     "use strict";
-    var __moduleName = context_5 && context_5.id;
-    var core_4, common_1, paginate_pipe_1, pagination_service_3, pagination_controls_cmp_1;
+    var __moduleName = context_7 && context_7.id;
+    var core_5, common_1, paginate_pipe_1, pagination_service_3, pagination_controls_component_1, pagination_controls_directive_1;
     var Ng2PaginationModule;
     return {
         setters:[
-            function (core_4_1) {
-                core_4 = core_4_1;
+            function (core_5_1) {
+                core_5 = core_5_1;
             },
             function (common_1_1) {
                 common_1 = common_1_1;
             },
             function (paginate_pipe_1_1) {
                 paginate_pipe_1 = paginate_pipe_1_1;
-                exports_5({
+                exports_7({
                     "PaginatePipe": paginate_pipe_1_1["PaginatePipe"]
                 });
             },
             function (pagination_service_3_1) {
                 pagination_service_3 = pagination_service_3_1;
-                exports_5({
-                    "PaginationService": pagination_service_3_1["PaginationService"],
-                    "IPaginationInstance": pagination_service_3_1["IPaginationInstance"]
+                exports_7({
+                    "PaginationService": pagination_service_3_1["PaginationService"]
                 });
             },
-            function (pagination_controls_cmp_1_1) {
-                pagination_controls_cmp_1 = pagination_controls_cmp_1_1;
-                exports_5({
-                    "PaginationControlsCmp": pagination_controls_cmp_1_1["PaginationControlsCmp"]
+            function (pagination_controls_component_1_1) {
+                pagination_controls_component_1 = pagination_controls_component_1_1;
+                exports_7({
+                    "PaginationControlsComponent": pagination_controls_component_1_1["PaginationControlsComponent"]
                 });
+            },
+            function (pagination_controls_directive_1_1) {
+                pagination_controls_directive_1 = pagination_controls_directive_1_1;
             }],
         execute: function() {
             Ng2PaginationModule = (function () {
                 function Ng2PaginationModule() {
                 }
                 Ng2PaginationModule = __decorate([
-                    core_4.NgModule({
+                    core_5.NgModule({
                         imports: [common_1.CommonModule],
                         declarations: [
                             paginate_pipe_1.PaginatePipe,
-                            pagination_controls_cmp_1.PaginationControlsCmp
+                            pagination_controls_component_1.PaginationControlsComponent,
+                            pagination_controls_directive_1.PaginationControlsDirective
                         ],
                         providers: [pagination_service_3.PaginationService],
-                        exports: [paginate_pipe_1.PaginatePipe, pagination_controls_cmp_1.PaginationControlsCmp]
+                        exports: [paginate_pipe_1.PaginatePipe, pagination_controls_component_1.PaginationControlsComponent, pagination_controls_directive_1.PaginationControlsDirective]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], Ng2PaginationModule);
                 return Ng2PaginationModule;
             }());
-            exports_5("Ng2PaginationModule", Ng2PaginationModule);
+            exports_7("Ng2PaginationModule", Ng2PaginationModule);
         }
     }
 });

@@ -1,5 +1,9 @@
+import {enableProdMode} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {DemoModule} from './demo.module';
+
+// defined in webpack config
+declare var PRODUCTION: any;
 
 // Shim to make ng2 work with IE. See https://github.com/angular/angular/issues/6501#issuecomment-179502363
 // TODO: remove once the framework itself handles this.
@@ -16,6 +20,10 @@ if (!Object.hasOwnProperty('name')) {
       return name;
     }
   });
+}
+
+if (PRODUCTION) {
+  enableProdMode();
 }
 
 platformBrowserDynamic().bootstrapModule(DemoModule);

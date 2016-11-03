@@ -6,9 +6,10 @@ const ngtools = require('@ngtools/webpack');
 
 module.exports = function (env) {
     const aotMode = env && env.aot !== undefined;
+    const prodMode = aotMode || env && env.prod !== undefined;
     const entryFile = aotMode ? 'bootstrap.aot.ts' : 'bootstrap.ts';
-    const outPath = aotMode ? 'dist' : 'build';
-    const devtool = aotMode ? 'source-map' : 'eval-source-map';
+    const outPath = prodMode ? 'dist' : 'build';
+    const devtool = prodMode ? 'source-map' : 'eval-source-map';
     const srcPath = path.join(__dirname, '..', 'docs', 'src');
 
     let config = {
@@ -53,6 +54,9 @@ module.exports = function (env) {
                     resolve: {}
                 }
             }),
+            new webpack.DefinePlugin({
+                PRODUCTION: prodMode
+            }),
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'common',
                 filename: 'common.js',
@@ -65,9 +69,10 @@ module.exports = function (env) {
     if (aotMode) {
         config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(true));
         config.plugins.push(new ngtools.AotPlugin({
-            tsConfigPath: './tsconfig.demo.json',
-            baseDir: path.resolve(__dirname, ''),
-            genDir: path.resolve(__dirname, './docs/ngfactory')
+            tsConfigPath: './config/tsconfig.demo.aot.json',
+            entryModule: path.resolve(__dirname, '..', 'docs/src/demo.module#DemoModule'),
+            baseDir: path.resolve(__dirname, '..'),
+            genDir: path.resolve(__dirname, '..', './docs/ngfactory')
         }));
     }
 

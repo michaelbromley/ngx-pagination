@@ -1,6 +1,6 @@
 {
   "name": "ng2-pagination",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "description": "Pagination for Angular 2",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "test": "karma start config/karma.conf.js",
     "test:watch": "npm run test -- --auto-watch --no-single-run",
     "demo:watch": "webpack --config config/webpack.config.js --progress --colors --watch",
-    "demo:dist": "webpack --config config/webpack.config.js --progress --colors -p --env.aot",
+    "demo:dist": "webpack --config config/webpack.config.js --progress --colors -p --env.prod",
     "publish-lib": "npm run test && npm run build && npm run demo:dist"
   },
   "files": [
