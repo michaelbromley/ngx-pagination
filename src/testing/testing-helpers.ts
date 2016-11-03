@@ -1,7 +1,7 @@
 import {Component, DebugElement, Type} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {TestBed, ComponentFixture} from '@angular/core/testing';
-import {IPaginationInstance} from '../ng2-pagination';
+import {PaginationInstance} from '../ng2-pagination';
 import {PaginationControlsDirective} from '../pagination-controls.directive';
 
 /**
@@ -82,7 +82,7 @@ export class ComponentTestComponent {
     directionLinks: boolean = true;
     autoHide: boolean = true;
     collection: string[] = [];
-    config: IPaginationInstance = {
+    config: PaginationInstance = {
         id: 'test',
         itemsPerPage: 10,
         currentPage: 1

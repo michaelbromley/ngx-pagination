@@ -1,9 +1,10 @@
 import {Pipe} from "@angular/core";
-import {PaginationService, IPaginationInstance} from "./pagination.service";
+import {PaginationService} from "./pagination.service";
+import {PaginationInstance} from './pagination-instance';
 
 const LARGE_NUMBER = Number.MAX_SAFE_INTEGER;
 
-interface IPipeState {
+interface PipeState {
     collection: any[];
     size: number;
     start: number;
@@ -18,7 +19,7 @@ interface IPipeState {
 export class PaginatePipe {
 
     // store the values from the last time the pipe was invoked
-    private state: { [id: string]: IPipeState } = {};
+    private state: { [id: string]: PipeState } = {};
 
     constructor(private service: PaginationService) {
     }
@@ -73,9 +74,9 @@ export class PaginatePipe {
     }
 
     /**
-     * Create an IPaginationInstance object, using defaults for any optional properties not supplied.
+     * Create an PaginationInstance object, using defaults for any optional properties not supplied.
      */
-    private createInstance(collection: any[], args: any): IPaginationInstance {
+    private createInstance(collection: any[], args: any): PaginationInstance {
         let config = args;
         this.checkConfig(config);
 

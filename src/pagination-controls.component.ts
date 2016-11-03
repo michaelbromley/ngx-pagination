@@ -1,11 +1,6 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core'
 import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
 
-export interface IPage {
-    label: string;
-    value: any;
-}
-
 /**
  * The default pagination controls component. Actually just a default implementation of a custom template.
  */

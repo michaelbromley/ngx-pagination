@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core"
-import {IPaginationInstance} from '../../../src/ng2-pagination';
+import {PaginationInstance} from '../../../src/ng2-pagination';
 
 @Component({
     selector: 'custom-template-example',
@@ -10,7 +10,7 @@ export class CustomTemplateExampleComponent {
 
     @Input('data') meals: string[] = [];
 
-    public config: IPaginationInstance = {
+    public config: PaginationInstance = {
         id: 'custom',
         itemsPerPage: 10,
         currentPage: 1

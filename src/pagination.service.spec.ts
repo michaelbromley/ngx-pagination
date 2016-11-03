@@ -1,8 +1,9 @@
-import {PaginationService, IPaginationInstance} from "./pagination.service";
+import {PaginationService} from "./pagination.service";
+import {PaginationInstance} from './pagination-instance';
 
 describe('PaginationService:', () => {
     let service: PaginationService;
-    let instance: IPaginationInstance;
+    let instance: PaginationInstance;
     const ID = 'test';
 
     beforeEach(() => {

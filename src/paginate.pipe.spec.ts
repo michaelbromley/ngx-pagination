@@ -1,9 +1,10 @@
 import {async, TestBed} from '@angular/core/testing';
 import {getListItems, getListItemsText, ComponentTestComponent} from './testing/testing-helpers';
 import {PaginationControlsComponent} from './pagination-controls.component';
-import {PaginationService, IPaginationInstance} from './pagination.service';
+import {PaginationService} from './pagination.service';
 import {PaginatePipe} from './paginate.pipe';
 import {PaginationControlsDirective} from './pagination-controls.directive';
+import {PaginationInstance} from './pagination-instance';
 
 describe('PaginatePipe:', () => {
     let pipe: PaginatePipe;
@@ -128,7 +129,7 @@ describe('PaginatePipe:', () => {
 
 
         describe('server-side pagination', () => {
-            let config: IPaginationInstance;
+            let config: PaginationInstance;
 
             beforeEach(() => {
                 config = {

@@ -3,9 +3,10 @@ import {By} from '@angular/platform-browser';
 import {TestBed, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
 
 import {getPageLinkItems} from './testing/testing-helpers';
-import {PaginationService, IPaginationInstance} from './pagination.service';
+import {PaginationService} from './pagination.service';
 import {PaginatePipe} from './paginate.pipe';
 import {PaginationControlsDirective} from './pagination-controls.directive';
+import {PaginationInstance} from './pagination-instance';
 
 describe('PaginationControlsDirective:', () => {
 
@@ -200,7 +201,7 @@ export class DirectiveTestComponent {
     directionLinks: boolean = true;
     autoHide: boolean = true;
     collection: string[] = [];
-    config: IPaginationInstance = {
+    config: PaginationInstance = {
         id: 'test',
         itemsPerPage: 10,
         currentPage: 1

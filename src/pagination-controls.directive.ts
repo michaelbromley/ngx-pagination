@@ -1,8 +1,13 @@
 import {ChangeDetectorRef, Directive, EventEmitter, Input, Output} from '@angular/core';
 import {Subscription} from 'rxjs';
 
-import {IPage} from './pagination-controls.component';
-import {PaginationService, IPaginationInstance} from './pagination.service';
+import {PaginationService} from './pagination.service';
+import {PaginationInstance} from './pagination-instance';
+
+export interface Page {
+    label: string;
+    value: any;
+}
 
 /**
  * This directive is what powers all pagination controls components, including the default one.
@@ -17,7 +22,7 @@ export class PaginationControlsDirective {
     @Input() id: string;
     @Input() maxSize: number = 7;
     @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
-    pages: IPage[] = [];
+    pages: Page[] = [];
 
     private changeSub: Subscription;
 
@@ -126,7 +131,7 @@ export class PaginationControlsDirective {
      * Checks that the instance.currentPage property is within bounds for the current page range.
      * If not, return a correct value for currentPage, or the current value if OK.
      */
-    private outOfBoundCorrection(instance: IPaginationInstance): number {
+    private outOfBoundCorrection(instance: PaginationInstance): number {
         const totalPages = Math.ceil(instance.totalItems / instance.itemsPerPage);
         if (totalPages < instance.currentPage && 0 < totalPages) {
             return totalPages;
@@ -138,9 +143,9 @@ export class PaginationControlsDirective {
     }
 
     /**
-     * Returns an array of IPage objects to use in the pagination controls.
+     * Returns an array of Page objects to use in the pagination controls.
      */
-    private createPageArray(currentPage: number, itemsPerPage: number, totalItems: number, paginationRange: number): IPage[] {
+    private createPageArray(currentPage: number, itemsPerPage: number, totalItems: number, paginationRange: number): Page[] {
         // paginationRange could be a string if passed from attribute, so cast to number.
         paginationRange = +paginationRange;
         let pages = [];

@@ -29,7 +29,7 @@ ng2-pagination ships as un-bundled CommonJS modules (located in the `dist` folde
 ### System.register
 
 ng2-pagination also ships with a bundle in the system format (`dist/ng2-pagination-bundle.js`), suitable for use with the [es6-module-loader](https://github.com/ModuleLoader/es6-module-loader) 
-and related loaders such as SystemJS. See the [demo Plunker](http://plnkr.co/edit/JVQMPvV8z2brCIzdG3N4?p=preview) for an example of this.
+and related loaders such as SystemJS.
 
 ## Simple Example
 
@@ -72,7 +72,7 @@ export class MyComponent {
 ### PaginatePipe
 
 The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object conforming 
-to the `IPaginationInstance` interface. The following config options are available:
+to the `PaginationInstance` interface. The following config options are available:
 
 ```HTML
 <element *ngFor="let item of collection | paginate: { id: 'foo',

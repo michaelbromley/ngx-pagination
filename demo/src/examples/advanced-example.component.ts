@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
-import {IPaginationInstance} from '../../../src/ng2-pagination';
+import {PaginationInstance} from '../../../src/ng2-pagination';
 
 @Component({
     selector: 'advanced-example',
@@ -14,7 +14,7 @@ export class AdvancedExampleComponent {
     public maxSize: number = 7;
     public directionLinks: boolean = true;
     public autoHide: boolean = false;
-    public config: IPaginationInstance = {
+    public config: PaginationInstance = {
         id: 'advanced',
         itemsPerPage: 10,
         currentPage: 1

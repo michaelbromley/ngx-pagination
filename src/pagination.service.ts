@@ -1,40 +1,16 @@
 import {EventEmitter} from '@angular/core'
-
-export interface IPaginationInstance {
-    /**
-     * An optional ID for the pagination instance. Only useful if you wish to
-     * have more than once instance at a time in a given component.
-     */
-    id?: string;
-    /**
-     * The number of items per paginated page.
-     */
-    itemsPerPage: number;
-    /**
-     * The current (active) page.
-     */
-    currentPage: number;
-    /**
-     * The total number of items in the collection. Only useful when
-     * doing server-side paging, where the collection size is limited
-     * to a single page returned by the server API.
-     *
-     * For in-memory paging, this property should not be set, as it
-     * will be automatically set to the value of  collection.length.
-     */
-    totalItems?: number;
-}
+import {PaginationInstance} from './pagination-instance';
 
 export class PaginationService {
 
     public change: EventEmitter<string> = new EventEmitter<string>();
 
-    private instances: { [id: string]: IPaginationInstance } = {};
+    private instances: { [id: string]: PaginationInstance } = {};
     private DEFAULT_ID = 'DEFAULT_PAGINATION_ID';
 
     public defaultId(): string { return this.DEFAULT_ID }
 
-    public register(instance: IPaginationInstance) {
+    public register(instance: PaginationInstance) {
         if (!instance.id) {
             instance.id = this.DEFAULT_ID;
         }
@@ -54,7 +30,7 @@ export class PaginationService {
      * Check each property of the instance and update any that have changed. Return
      * true if any changes were made, else return false.
      */
-    private updateInstance(instance: IPaginationInstance): boolean {
+    private updateInstance(instance: PaginationInstance): boolean {
         let changed = false;
         for (let prop in this.instances[instance.id]) {
             if (instance[prop] !== this.instances[instance.id][prop]) {
@@ -112,11 +88,11 @@ export class PaginationService {
      * Returns a clone of the pagination instance object matching the id. If no
      * id specified, returns the instance corresponding to the default id.
      */
-    public getInstance(id: string = this.DEFAULT_ID): IPaginationInstance {
+    public getInstance(id: string = this.DEFAULT_ID): PaginationInstance {
         if (this.instances[id]) {
             return this.clone(this.instances[id]);
         }
-        return <IPaginationInstance>{};
+        return <PaginationInstance>{};
     }
 
     /**
