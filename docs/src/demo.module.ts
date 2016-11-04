@@ -15,24 +15,23 @@ import {CustomPageComponent} from './components/custom-template-example/custom-p
 import {ServerPageComponent} from './components/server-example/server-page.component';
 import {Highlighter} from './providers/highlighter.service';
 import {MealsService} from './providers/meals.service';
+import {DocumentationPageComponent} from './components/documentation/documentation-page.component';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
         RouterModule.forRoot([
+            { path: '', pathMatch: 'full', component: DocumentationPageComponent },
             { path: 'basic', component: BasicPageComponent },
             { path: 'advanced', component: AdvancedPageComponent },
             { path: 'custom-template', component: CustomPageComponent },
-            { path: 'server-paging', component: ServerPageComponent },
-            {
-              path: '',
-              redirectTo: '/basic',
-              pathMatch: 'full'
-            }
+            { path: 'server-paging', component: ServerPageComponent }
         ], { useHash: true }),
-        Ng2PaginationModule],
+        Ng2PaginationModule
+    ],
     declarations: [
+        DocumentationPageComponent,
         DemoAppComponent,
         BasicExampleComponent,
         BasicPageComponent,

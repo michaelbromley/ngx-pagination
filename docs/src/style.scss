@@ -1,27 +1,32 @@
 @charset "utf-8";
 
-@import "../../node_modules/bulma/bulma/utilities/utilities";
-@import "../../node_modules/bulma/bulma/config/variables";
+$primary: #2d7fe8;
 
-$primary: #2199E8;
+@import "../../node_modules/bulma/sass/utilities/all";
 
-@import "../../node_modules/bulma/bulma/config/generated-variables";
-@import "../../node_modules/bulma/bulma/base/base";
-@import "../../node_modules/bulma/bulma/elements/elements";
-@import "../../node_modules/bulma/bulma/components/components";
-@import "../../node_modules/bulma/bulma/layout/layout";
+
+@import "../../node_modules/bulma/sass/base/all";
+@import "../../node_modules/bulma/sass/elements/all";
+@import "../../node_modules/bulma/sass/components/all";
+@import "../../node_modules/bulma/sass/layout/all";
+@import "../../node_modules/bulma/sass/grid/all";
 
 @import "spinner";
 
-.top-bar {
-    padding: 10px 0;
+.hero.is-primary {
+    background: linear-gradient(to bottom, #2181e0 0%, #62b2dd 100%);
 }
-
-.gh-btn {
-    display: flex;
+.hero-content a {
+    color: #eee;
 }
+.twitter-link {
+    margin: -10px 0 30px 0;
+    a {
 
-.gh-btn {
+    }
+}
+a.gh-btn {
+    display: inline-flex;
     > * {
         align-self: center;
         margin: 0 3px;
@@ -31,20 +36,21 @@ $primary: #2199E8;
         width: 24px;
         height: 24px;
     }
+    span {
+        color: #333;
+    }
 }
 
-.main-title:after {
-    content: '|';
-    margin: 0 5px;
-    color: #C8CECE;
+.install-command {
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    code {
+        padding: 8px;
+        border-radius: 2px;
+    }
 }
 
-.hero.is-primary {
-    background: linear-gradient(to bottom, #2181e0 0%, #62b2dd 100%);
-}
-.hero-content a {
-    color: #eee;
-}
 
 section.page-content {
     margin: 20px 0 150px 0;
@@ -105,5 +111,49 @@ pre {
     transition: opacity 0.5s;
     &.hidden {
         opacity: 0;
+    }
+}
+
+.readme {
+    h1 {
+        padding-bottom: 0.3em;
+        font-size: 2em;
+        border-bottom: 1px solid #eee;
+    }
+    h2 {
+        margin-top: 44px;
+        margin-bottom: 16px;
+        font-weight: 600;
+        line-height: 1.25;
+        padding-bottom: 0.3em;
+        font-size: 1.8em;
+        border-bottom: 1px solid #eee;
+    }
+    h3 {
+        font-size: 1.25em;
+        margin-top: 24px;
+        margin-bottom: 16px;
+        font-weight: 600;
+        line-height: 1.25;
+    }
+    p {
+        margin-top: 0;
+        margin-bottom: 16px;
+    }
+    pre {
+        margin-bottom: 16px;
+    }
+    strong > code {
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+    }
+
+    > ul {
+        list-style-type: initial;
+        > li {
+            margin-left: 30px;
+        }
+        margin-bottom: 16px;
     }
 }
