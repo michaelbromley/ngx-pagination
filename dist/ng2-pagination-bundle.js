@@ -605,6 +605,9 @@ System.register("ng2-pagination", ['@angular/core', '@angular/common', "paginate
             },
             function (pagination_controls_directive_1_1) {
                 pagination_controls_directive_1 = pagination_controls_directive_1_1;
+                exports_7({
+                    "PaginationControlsDirective": pagination_controls_directive_1_1["PaginationControlsDirective"]
+                });
             }],
         execute: function() {
             Ng2PaginationModule = (function () {

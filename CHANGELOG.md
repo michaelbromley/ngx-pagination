@@ -1,3 +1,6 @@
+## 1.0.1 (2016-11-16)
+* Fix missing export of PaginationControlsDirective
+
 # 1.0.0 (2016-11-04)
 * Fix errors when using TypeScript < 2.0 ([#81](https://github.com/michaelbromley/ng2-pagination/issues/81))
 * Fix change detection errors when controls are declared before the pipe in the DOM ([#91](https://github.com/michaelbromley/ng2-pagination/issues/91)).
