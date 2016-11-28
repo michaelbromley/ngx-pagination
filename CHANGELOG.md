@@ -9,7 +9,7 @@
 #### Breaking Changes
 * Custom templates are now implemented with the new [PaginationControlsDirective](https://github.com/michaelbromley/ng2-pagination#paginationcontrolsdirective), rather than by putting elements inside the PaginationControlsComponent.
 * Naming of files and classes has been brought into line with the official [style guide recommendations](https://angular.io/docs/ts/latest/guide/style-guide.html#!#naming)
-This should not have a big impact if you are just consuming the NgModule, but the main change is that `PaginationControlsCmp` is now `PaginationControlsComponent`.
+This should not have a big impact if you are just consuming the NgModule, but the main change is that `PaginationControlsCmp` is now `PaginationControlsComponent`, and the `IPaginationInstance` is now just `PaginationInstance`.
 
 ## 0.5.2 (2016-10-13)
 * Fix flash of default template when creating component with custom template ([#82](https://github.com/michaelbromley/ng2-pagination/issues/82))
