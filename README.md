@@ -1,7 +1,7 @@
-# Angular2 Pagination [![Build Status](https://travis-ci.org/michaelbromley/ng2-pagination.svg?branch=master)](https://travis-ci.org/michaelbromley/ng2-pagination)
+# Pagination for Angular 2+[![Build Status](https://travis-ci.org/michaelbromley/ng2-pagination.svg?branch=master)](https://travis-ci.org/michaelbromley/ng2-pagination)
 
 This is a port of my [angular-utils-pagination](https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination)
-module from Angular 1.x to Angular 2. Due to fundamental differences in the design of Angular2, the API is different but
+module from Angular 1.x to Angular 2. Due to fundamental differences in the design of Angular from version 2 onwards, the API is different but
 the idea is the same - the most simple possible way to add full-featured pagination to an Angular app.
 
 ## Demo
@@ -16,10 +16,10 @@ Play with it on Plunker here: http://plnkr.co/edit/JVQMPvV8z2brCIzdG3N4?p=previe
 npm install ng2-pagination --save
 ```
 
-### Angular 2 Version
+### Angular Version
 
 This library is built to work with **Angular 2.0.0+**, and support ahead-of-time compilation.
-If you need to support a previous version of Angular 2 for now, please see the changelog for advice on which version to use.
+If you need to support a pre-release version of Angular for now, please see the changelog for advice on which version to use.
 
 ### CommonJS
 
