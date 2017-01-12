@@ -75,6 +75,12 @@ module.exports = function (env) {
             genDir: path.resolve(__dirname, '..', './docs/ngfactory')
         }));
     }
+    if (prodMode) {
+        config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+            sourceMap: devtool && (devtool.indexOf("sourcemap") >= 0 || devtool.indexOf("source-map") >= 0),
+            comments: false
+        }));
+    }
 
     return config;
 };
