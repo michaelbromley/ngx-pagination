@@ -19,6 +19,13 @@ export class AdvancedExampleComponent {
         itemsPerPage: 10,
         currentPage: 1
     };
+    public labels: any = {
+        previousLabel: 'Previous',
+        nextLabel: 'Next',
+        screenReaderPaginationLabel: 'Pagination',
+        screenReaderPageLabel: 'page',
+        screenReaderCurrentLabel: `You're on page`
+    };
 
     private popped = [];
 

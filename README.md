@@ -101,7 +101,12 @@ customised set of controls, you will need to use the `PaginationControlsDirectiv
                       (pageChange)="pageChanged($event)"
                       maxSize="9"
                       directionLinks="true"
-                      autoHide="true">
+                      autoHide="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
 </pagination-controls>
 ```
 
@@ -114,6 +119,11 @@ the `currentPage` variable which was passed to the `PaginatePipe`.
 * **`directionLinks`** [`boolean`] If set to `false`, the "previous" and "next" links will not be displayed. Default is `true`.
 * **`autoHide`** [`boolean`] If set to `true`, the pagination controls will not be displayed when all items in the
 collection fit onto the first page. Default is `false`.
+* **`previousLabel`** [`string`] The label displayed on the "previous" link.
+* **`nextLabel`** [`string`] The label displayed on the "next" link.
+* **`screenReaderPaginationLabel`** [`string`] The word for "Pagination" used to label the controls for screen readers.
+* **`screenReaderPageLabel`** [`string`] The word for "page" used in certain strings generated for screen readers, e.g. "Next page".
+* **`screenReaderCurrentLabel`** [`string`] The phrase indicating the current page for screen readers, e.g. "You're on page <x>".
 
 ### PaginationControlsDirective
 
@@ -169,6 +179,24 @@ template to access the directive's API methods and properties, which are explain
 
 For a real-world implementation of a custom component, take a look at [the source for the PaginationControlsComponent](/src/pagination-controls.component.ts).
 
+## Styling
+
+The `PaginationControlsComponent` can be styled by simply overriding the default styles. The component does not use view encapsulation, which means you do not need to use operators such as `/deep/` to target it.
+
+To avoid specificity issues, just add your own custom class name to the element, which will allow your styles to override the defaults:
+
+```HTML
+// head
+<style>
+  .my-pagination .ng2-pagination .current {
+    background: red;
+  }
+</style>
+
+// body
+<pagination-controls class="my-pagination"><pagination-controls>
+```
+
 ## Server-Side Paging
 
 In many cases - for example when working with very large data-sets - we do not want to work with the full collection 
@@ -209,7 +237,7 @@ npm install
 npm run typings:install
 
 npm run test // Karma unit tests
-npm run demo:watch // Build the demo app and watch
+npm run docs:watch // Build the demo/docs app and watch
 ```
 
 ## License
