@@ -7,6 +7,11 @@ export declare class PaginationControlsComponent {
     maxSize: number;
     directionLinks: boolean;
     autoHide: boolean;
+    previousLabel: string;
+    nextLabel: string;
+    screenReaderPaginationLabel: string;
+    screenReaderPageLabel: string;
+    screenReaderCurrentLabel: string;
     pageChange: EventEmitter<number>;
     private _directionLinks;
     private _autoHide;

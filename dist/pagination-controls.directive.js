@@ -183,10 +183,10 @@ var PaginationControlsDirective = (function () {
                 },] },
     ];
     /** @nocollapse */
-    PaginationControlsDirective.ctorParameters = [
+    PaginationControlsDirective.ctorParameters = function () { return [
         { type: pagination_service_1.PaginationService, },
         { type: core_1.ChangeDetectorRef, },
-    ];
+    ]; };
     PaginationControlsDirective.propDecorators = {
         'id': [{ type: core_1.Input },],
         'maxSize': [{ type: core_1.Input },],

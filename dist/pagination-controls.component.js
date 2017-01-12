@@ -7,6 +7,11 @@ var template_1 = require('./template');
 var PaginationControlsComponent = (function () {
     function PaginationControlsComponent() {
         this.maxSize = 7;
+        this.previousLabel = 'Previous';
+        this.nextLabel = 'Next';
+        this.screenReaderPaginationLabel = 'Pagination';
+        this.screenReaderPageLabel = 'page';
+        this.screenReaderCurrentLabel = "You're on page";
         this.pageChange = new core_1.EventEmitter();
         this._directionLinks = true;
         this._autoHide = false;
@@ -36,16 +41,22 @@ var PaginationControlsComponent = (function () {
                     selector: 'pagination-controls',
                     template: template_1.DEFAULT_TEMPLATE,
                     styles: [template_1.DEFAULT_STYLES],
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush
+                    changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core_1.ViewEncapsulation.None
                 },] },
     ];
     /** @nocollapse */
-    PaginationControlsComponent.ctorParameters = [];
+    PaginationControlsComponent.ctorParameters = function () { return []; };
     PaginationControlsComponent.propDecorators = {
         'id': [{ type: core_1.Input },],
         'maxSize': [{ type: core_1.Input },],
         'directionLinks': [{ type: core_1.Input },],
         'autoHide': [{ type: core_1.Input },],
+        'previousLabel': [{ type: core_1.Input },],
+        'nextLabel': [{ type: core_1.Input },],
+        'screenReaderPaginationLabel': [{ type: core_1.Input },],
+        'screenReaderPageLabel': [{ type: core_1.Input },],
+        'screenReaderCurrentLabel': [{ type: core_1.Input },],
         'pageChange': [{ type: core_1.Output },],
     };
     return PaginationControlsComponent;

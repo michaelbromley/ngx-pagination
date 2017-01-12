@@ -113,9 +113,9 @@ var PaginatePipe = (function () {
                 },] },
     ];
     /** @nocollapse */
-    PaginatePipe.ctorParameters = [
+    PaginatePipe.ctorParameters = function () { return [
         { type: pagination_service_1.PaginationService, },
-    ];
+    ]; };
     return PaginatePipe;
 }());
 exports.PaginatePipe = PaginatePipe;

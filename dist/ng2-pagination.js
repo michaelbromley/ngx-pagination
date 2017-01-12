@@ -29,7 +29,7 @@ var Ng2PaginationModule = (function () {
                 },] },
     ];
     /** @nocollapse */
-    Ng2PaginationModule.ctorParameters = [];
+    Ng2PaginationModule.ctorParameters = function () { return []; };
     return Ng2PaginationModule;
 }());
 exports.Ng2PaginationModule = Ng2PaginationModule;

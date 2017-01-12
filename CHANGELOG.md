@@ -1,3 +1,13 @@
+# 2.0.0 (2016-01-12)
+
+#### Breaking Changes
+* The module is being built with **Angular 2.4.3**. Therefore the metadata output is not compatible with Angular < 2.3.0. Attempting to use this version
+in an app running Angular < 2.3.0 will result in a "ctorParameters.map is not a function" error. See [this StackOverflow answer for further information](http://stackoverflow.com/a/41444599/772859).
+* `PaginationControlsComponent` no longer uses view encapsulation, making it very easy to style without the need for the `/deep/` operator.
+
+#### Features
+* Add inputs to `PaginationControlsComponent` to allow custom labels for "Previous", "Next" and screen reader labels.
+
 ## 1.0.1 (2016-11-16)
 * Fix missing export of PaginationControlsDirective
 
