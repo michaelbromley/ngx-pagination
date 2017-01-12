@@ -262,4 +262,105 @@ describe('PaginationControlsComponent:', () => {
         expect(items[0]).toContain('1');
         expect(items[items.length - 1]).toContain('10');
     }));
+
+    describe('custom labels', () => {
+
+        const TEST_LABEL = 'pqowieur';
+
+        it('previousLabel should bind in correct locations', fakeAsync(() => {
+            overrideTemplate(ComponentTestComponent, `
+                   <ul>
+                       <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
+                   </ul>
+                   <pagination-controls previousLabel="${TEST_LABEL}" id="test"></pagination-controls>`);
+            let fixture = TestBed.createComponent(ComponentTestComponent);
+            let instance = fixture.componentInstance;
+            const expected = `${TEST_LABEL} page`;
+            fixture.detectChanges();
+
+            let prevSpan = fixture.debugElement.query(By.css('.pagination-previous > span')).nativeElement;
+            expect(prevSpan.innerText).toContain(expected);
+
+            instance.config.currentPage = 2;
+            fixture.detectChanges();
+
+            let prevA = fixture.debugElement.query(By.css('.pagination-previous > a')).nativeElement;
+            expect(prevA.innerText).toContain(expected);
+            expect(prevA.getAttribute('aria-label')).toBe(expected);
+        }));
+
+        it('nextLabel should bind in correct locations', fakeAsync(() => {
+            overrideTemplate(ComponentTestComponent, `
+                   <ul>
+                       <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
+                   </ul>
+                   <pagination-controls nextLabel="${TEST_LABEL}" id="test"></pagination-controls>`);
+            let fixture = TestBed.createComponent(ComponentTestComponent);
+            let instance = fixture.componentInstance;
+            const expected = `${TEST_LABEL} page`;
+            fixture.detectChanges();
+
+            let nextA = fixture.debugElement.query(By.css('.pagination-next > a')).nativeElement;
+            expect(nextA.innerText).toContain(expected);
+            expect(nextA.getAttribute('aria-label')).toBe(expected);
+
+            instance.config.currentPage = 10;
+            fixture.detectChanges();
+
+            let nextSpan = fixture.debugElement.query(By.css('.pagination-next > span')).nativeElement;
+            expect(nextSpan.innerText).toContain(expected);
+        }));
+
+        it('screenReaderPaginationLabel should bind in correct locations', fakeAsync(() => {
+            overrideTemplate(ComponentTestComponent, `
+                           <ul>
+                               <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
+                           </ul>
+                           <pagination-controls screenReaderPaginationLabel="${TEST_LABEL}" id="test"></pagination-controls>`);
+            let fixture = TestBed.createComponent(ComponentTestComponent);
+            fixture.detectChanges();
+
+            let paginationUl = fixture.debugElement.query(By.css('ul.ng2-pagination')).nativeElement;
+            expect(paginationUl.getAttribute('aria-label')).toBe(TEST_LABEL);
+        }));
+
+        it('screenReaderPageLabel should bind in correct locations', fakeAsync(() => {
+            overrideTemplate(ComponentTestComponent, `
+                   <ul>
+                       <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
+                   </ul>
+                   <pagination-controls screenReaderPageLabel="${TEST_LABEL}" id="test"></pagination-controls>`);
+            let fixture = TestBed.createComponent(ComponentTestComponent);
+            let instance = fixture.componentInstance;
+            instance.config.currentPage = 5;
+
+            fixture.detectChanges();
+
+            let prevA = fixture.debugElement.query(By.css('.pagination-previous > a')).nativeElement;
+            expect(prevA.innerText).toContain(`Previous ${TEST_LABEL}`);
+            expect(prevA.getAttribute('aria-label')).toBe(`Previous ${TEST_LABEL}`);
+
+            let nextA = fixture.debugElement.query(By.css('.pagination-next > a')).nativeElement;
+            expect(nextA.innerText).toContain(`Next ${TEST_LABEL}`);
+            expect(nextA.getAttribute('aria-label')).toBe(`Next ${TEST_LABEL}`);
+
+            let pageA = fixture.debugElement.queryAll(By.css('.ng2-pagination li > a'))[1].nativeElement;
+            expect(pageA.innerText).toContain(`${TEST_LABEL} 1`);
+        }));
+
+        it('screenReaderCurrentLabel should bind in correct locations', fakeAsync(() => {
+            overrideTemplate(ComponentTestComponent, `
+                   <ul>
+                       <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
+                   </ul>
+                   <pagination-controls screenReaderCurrentLabel="${TEST_LABEL}" id="test"></pagination-controls>`);
+            let fixture = TestBed.createComponent(ComponentTestComponent);
+
+            fixture.detectChanges();
+
+            let currentPage = fixture.debugElement.query(By.css('.ng2-pagination li.current > div')).nativeElement;
+            expect(currentPage.innerText).toContain(`${TEST_LABEL} 1`);
+        }));
+
+    });
 });

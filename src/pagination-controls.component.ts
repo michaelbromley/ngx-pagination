@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core'
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core'
 import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
 
 /**
@@ -8,7 +8,8 @@ import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
     selector: 'pagination-controls',
     template: DEFAULT_TEMPLATE,
     styles: [DEFAULT_STYLES],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class PaginationControlsComponent {
 
@@ -28,6 +29,11 @@ export class PaginationControlsComponent {
     set autoHide(value: boolean) {
         this._autoHide = !!value && <any>value !== 'false';
     }
+    @Input() previousLabel: string = 'Previous';
+    @Input() nextLabel: string = 'Next';
+    @Input() screenReaderPaginationLabel: string = 'Pagination';
+    @Input() screenReaderPageLabel: string = 'page';
+    @Input() screenReaderCurrentLabel: string = `You're on page`;
     @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
 
     private _directionLinks: boolean = true;

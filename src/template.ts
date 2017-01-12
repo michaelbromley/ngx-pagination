@@ -10,32 +10,36 @@ export const DEFAULT_TEMPLATE = `
                          (pageChange)="pageChange.emit($event)">
     <ul class="ng2-pagination" 
         role="navigation" 
-        aria-label="Pagination" 
+        [attr.aria-label]="screenReaderPaginationLabel" 
         *ngIf="!(autoHide && p.pages.length <= 1)">
 
         <li class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="directionLinks"> 
-            <a *ngIf="1 < p.getCurrent()" (click)="p.previous()" aria-label="Next page">
-                Previous <span class="show-for-sr">page</span>
+            <a *ngIf="1 < p.getCurrent()" (click)="p.previous()" [attr.aria-label]="previousLabel + ' ' + screenReaderPageLabel">
+                {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </a>
-            <span *ngIf="p.isFirstPage()">Previous <span class="show-for-sr">page</span></span>
+            <span *ngIf="p.isFirstPage()">
+                {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
+            </span>
         </li>
 
         <li [class.current]="p.getCurrent() === page.value" *ngFor="let page of p.pages">
             <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
-                <span class="show-for-sr">Page</span>
+                <span class="show-for-sr">{{ screenReaderPageLabel }} </span>
                 <span>{{ page.label }}</span>
             </a>
             <div *ngIf="p.getCurrent() === page.value">
-                <span class="show-for-sr">You're on page</span>
+                <span class="show-for-sr">{{ screenReaderCurrentLabel }} </span>
                 <span>{{ page.label }}</span> 
             </div>
         </li>
 
         <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="directionLinks">
-            <a *ngIf="!p.isLastPage()" (click)="p.next()" aria-label="Next page">
-                Next <span class="show-for-sr">page</span>
+            <a *ngIf="!p.isLastPage()" (click)="p.next()" [attr.aria-label]="nextLabel + ' ' + screenReaderPageLabel">
+                 {{ nextLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </a>
-            <span *ngIf="p.isLastPage()">Next <span class="show-for-sr">page</span></span>
+            <span *ngIf="p.isLastPage()">
+                 {{ nextLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
+            </span>
         </li>
 
     </ul>
@@ -55,7 +59,6 @@ export const DEFAULT_STYLES = `
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    font-size: 0.875rem;
     margin-right: 0.0625rem;
     border-radius: 0; }
   .ng2-pagination li {
@@ -103,4 +106,3 @@ export const DEFAULT_STYLES = `
   height: 1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0); }`;
- 
