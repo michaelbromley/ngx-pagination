@@ -1,4 +1,4 @@
-# 2.0.0 (2016-01-12)
+# 2.0.0 (2017-01-12)
 
 #### Breaking Changes
 * The module is being built with **Angular 2.4.3**. Therefore the metadata output is not compatible with Angular < 2.3.0. Attempting to use this version
