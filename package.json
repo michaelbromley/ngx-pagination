@@ -44,7 +44,7 @@
     "@angular/router": "3.4.3",
     "@ngtools/webpack": "1.1.4",
     "@types/es6-shim": "^0.31.32",
-    "@types/jasmine": "^2.5.35",
+    "@types/jasmine": "2.5.41",
     "@types/node": "^6.0.45",
     "angular2-template-loader": "0.6.0",
     "bulma": "0.2.3",
