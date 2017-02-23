@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {TestBed, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
 
-import {getPageLinkItems} from './testing/testing-helpers';
+import {getPageLinkItems, overrideTemplate} from './testing/testing-helpers';
 import {PaginationService} from './pagination.service';
 import {PaginatePipe} from './paginate.pipe';
 import {PaginationControlsDirective} from './pagination-controls.directive';
@@ -16,6 +16,30 @@ describe('PaginationControlsDirective:', () => {
             providers: [PaginationService],
         });
     });
+
+    it('should warn on interaction when an unknown id is used', fakeAsync(() => {
+        overrideTemplate(DirectiveTestComponent, `
+                   <ul>
+                        <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
+                   </ul>
+                   <pagination-template id="unknown_id" #p="paginationApi">
+                     <a class="prev" (click)="p.previous()">prev</a>
+                     <a class="next" (click)="p.next()">next</a>
+                   </pagination-template>`);
+        let warnSpy = spyOn(console, 'warn');
+        let fixture = TestBed.createComponent(DirectiveTestComponent);
+        fixture.detectChanges();
+
+        const nextLink = fixture.debugElement.query(By.css('.next'));
+        nextLink.triggerEventHandler('click', nextLink.nativeElement);
+        expect(warnSpy).toHaveBeenCalledWith('PaginationControlsDirective: the specified id "unknown_id" does not match any registered PaginationInstance');
+        expect(warnSpy).toHaveBeenCalledTimes(1);
+
+        const prevLink = fixture.debugElement.query(By.css('.prev'));
+        prevLink.triggerEventHandler('click', prevLink.nativeElement);
+
+        expect(warnSpy).toHaveBeenCalledTimes(2);
+    }));
 
     describe('template api', () => {
 

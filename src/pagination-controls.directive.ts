@@ -57,6 +57,7 @@ export class PaginationControlsDirective {
      * Go to the previous page
      */
     previous() {
+        this.checkValidId();
         this.setCurrent(this.getCurrent() - 1);
     }
 
@@ -64,6 +65,7 @@ export class PaginationControlsDirective {
      * Go to the next page
      */
     next() {
+        this.checkValidId();
         this.setCurrent(this.getCurrent() + 1);
     }
 
@@ -106,6 +108,12 @@ export class PaginationControlsDirective {
             return 1;
         }
         return Math.ceil(inst.totalItems / inst.itemsPerPage);
+    }
+
+    private checkValidId() {
+        if (!this.service.getInstance(this.id).id) {
+            console.warn(`PaginationControlsDirective: the specified id "${this.id}" does not match any registered PaginationInstance`);
+        }
     }
 
     /**

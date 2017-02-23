@@ -209,7 +209,7 @@ describe('PaginationControlsComponent:', () => {
             <ul>
                 <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
             </ul>
-            <pagination-controls autoHide="false"></pagination-controls>`);
+            <pagination-controls autoHide="false" [id]="config.id"></pagination-controls>`);
         let fixture = TestBed.createComponent(ComponentTestComponent);
         fixture.detectChanges();
         const controlsCmp: PaginationControlsComponent = fixture.debugElement
@@ -237,7 +237,7 @@ describe('PaginationControlsComponent:', () => {
             <ul>
                 <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
             </ul>
-            <pagination-controls directionLinks="false"></pagination-controls>`);
+            <pagination-controls directionLinks="false" [id]="config.id"></pagination-controls>`);
         let fixture = TestBed.createComponent(ComponentTestComponent);
         fixture.detectChanges();
         const controlsCmp: PaginationControlsComponent = fixture.debugElement

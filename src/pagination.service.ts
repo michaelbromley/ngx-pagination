@@ -92,7 +92,7 @@ export class PaginationService {
         if (this.instances[id]) {
             return this.clone(this.instances[id]);
         }
-        return <PaginationInstance>{};
+        return {} as PaginationInstance;
     }
 
     /**

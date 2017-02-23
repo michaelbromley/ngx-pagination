@@ -1,8 +1,9 @@
 # Changelog
 
-## 2.0.1 (in progress)
+## 2.0.1 (2017-02-23)
 * Fix exception when config object uses accessors for itemsPerPage and currentPage ([#128])[https://github.com/michaelbromley/ng2-pagination/issues/128])
 * In-memory paging works even when `totalItems` is specified, fixes [#115](https://github.com/michaelbromley/ng2-pagination/issues/115)
+* Warn when using an `id` which does not match any registered with a PaginatePipe, fixes [#116](https://github.com/michaelbromley/ng2-pagination/issues/116)
 
 # 2.0.0 (2017-01-12)
 
