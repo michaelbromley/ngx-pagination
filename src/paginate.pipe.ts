@@ -43,7 +43,7 @@ export class PaginatePipe {
             }
         }
 
-        let serverSideMode = args.totalItems !== undefined;
+        let serverSideMode = args.totalItems && args.totalItems !== collection.length;
         let instance = this.createInstance(collection, args);
         let id = instance.id;
         let start, end;
