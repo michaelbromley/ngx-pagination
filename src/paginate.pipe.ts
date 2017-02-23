@@ -94,7 +94,7 @@ export class PaginatePipe {
     private checkConfig(config: any): void {
         const required: string[] = ['itemsPerPage', 'currentPage'];
 
-        const missing = required.filter((prop: string) => !prop in config);
+        const missing = required.filter((prop: string) => !(prop in config));
         if (0 < missing.length) {
             throw new Error(`PaginatePipe: Argument is missing the following required properties: ${missing.join(', ')}`);
         }
