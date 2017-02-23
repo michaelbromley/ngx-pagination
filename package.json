@@ -1,6 +1,6 @@
 {
   "name": "ng2-pagination",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Pagination for Angular",
   "main": "index.js",
   "scripts": {

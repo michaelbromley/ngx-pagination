@@ -170,7 +170,7 @@ System.register("paginate.pipe", ["@angular/core", "pagination.service"], functi
                             return collection;
                         }
                     }
-                    var serverSideMode = args.totalItems !== undefined;
+                    var serverSideMode = args.totalItems && args.totalItems !== collection.length;
                     var instance = this.createInstance(collection, args);
                     var id = instance.id;
                     var start, end;
@@ -214,7 +214,7 @@ System.register("paginate.pipe", ["@angular/core", "pagination.service"], functi
                  */
                 PaginatePipe.prototype.checkConfig = function (config) {
                     var required = ['itemsPerPage', 'currentPage'];
-                    var missing = required.filter(function (prop) { return !config.hasOwnProperty(prop); });
+                    var missing = required.filter(function (prop) { return !(prop in config); });
                     if (0 < missing.length) {
                         throw new Error("PaginatePipe: Argument is missing the following required properties: " + missing.join(', '));
                     }
@@ -436,12 +436,14 @@ System.register("pagination-controls.directive", ['@angular/core', "pagination.s
                  * Go to the previous page
                  */
                 PaginationControlsDirective.prototype.previous = function () {
+                    this.checkValidId();
                     this.setCurrent(this.getCurrent() - 1);
                 };
                 /**
                  * Go to the next page
                  */
                 PaginationControlsDirective.prototype.next = function () {
+                    this.checkValidId();
                     this.setCurrent(this.getCurrent() + 1);
                 };
                 /**
@@ -479,6 +481,11 @@ System.register("pagination-controls.directive", ['@angular/core', "pagination.s
                         return 1;
                     }
                     return Math.ceil(inst.totalItems / inst.itemsPerPage);
+                };
+                PaginationControlsDirective.prototype.checkValidId = function () {
+                    if (!this.service.getInstance(this.id).id) {
+                        console.warn("PaginationControlsDirective: the specified id \"" + this.id + "\" does not match any registered PaginationInstance");
+                    }
                 };
                 /**
                  * Updates the page links and checks that the current page is valid. Should run whenever the

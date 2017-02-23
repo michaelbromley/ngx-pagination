@@ -49,6 +49,7 @@ export declare class PaginationControlsDirective {
      * Returns the last page number
      */
     getLastPage(): number;
+    private checkValidId();
     /**
      * Updates the page links and checks that the current page is valid. Should run whenever the
      * PaginationService.change stream emits a value matching the current ID, or when any of the

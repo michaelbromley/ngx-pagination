@@ -26,7 +26,7 @@ var PaginatePipe = (function () {
                 return collection;
             }
         }
-        var serverSideMode = args.totalItems !== undefined;
+        var serverSideMode = args.totalItems && args.totalItems !== collection.length;
         var instance = this.createInstance(collection, args);
         var id = instance.id;
         var start, end;
@@ -70,7 +70,7 @@ var PaginatePipe = (function () {
      */
     PaginatePipe.prototype.checkConfig = function (config) {
         var required = ['itemsPerPage', 'currentPage'];
-        var missing = required.filter(function (prop) { return !config.hasOwnProperty(prop); });
+        var missing = required.filter(function (prop) { return !(prop in config); });
         if (0 < missing.length) {
             throw new Error("PaginatePipe: Argument is missing the following required properties: " + missing.join(', '));
         }
