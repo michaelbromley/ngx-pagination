@@ -208,6 +208,18 @@ describe('PaginatePipe:', () => {
             expect(result[9]).toBe('item 20');
         });
 
+        it('should work with itemsPerPage and currentPage as accessors', () => {
+            class Config {
+                get itemsPerPage(): number { return 1; }
+                set itemsPerPage(val: number) {}
+                get currentPage(): number { return 1; }
+                set currentPage(val: number) { }
+            }
+            const config = new Config();
+
+            expect(() => pipe.transform(collection, config)).not.toThrow();
+        });
+
     });
 
     describe('DOM tests:', () => {
