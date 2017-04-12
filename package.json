@@ -2,11 +2,14 @@
   "name": "ng2-pagination",
   "version": "2.0.1",
   "description": "Pagination for Angular",
-  "main": "index.js",
+  "module": "dist/ng2-pagination.js",
+  "typings": "dist/ng2-pagination.d.ts",
   "scripts": {
     "clean": "rm -rf build && rm -rf dist",
-    "build:ngc": "ngc -p config/tsconfig.build.json",
-    "build:rollup": "npm run clean && npm run build:ngc && rollup build/ng2-pagination.js -o dist/ng2-pagination.js",
+    "ngc": "ngc -p config/tsconfig.build.json",
+    "rollup": "rollup build/ng2-pagination.js -o dist/ng2-pagination.js",
+    "copy-metadata": "find build/* -not -name '*.js' -exec cp -t dist {} +",
+    "build": "npm run clean && npm run ngc && npm run rollup && npm run copy-metadata",
     "test": "karma start config/karma.conf.js",
     "test:watch": "npm run test -- --auto-watch --no-single-run",
     "publish-lib": "npm run test && npm run build"
@@ -35,8 +38,8 @@
     "@angular/compiler": "4.0.2",
     "@angular/compiler-cli": "4.0.2",
     "@angular/core": "4.0.2",
-    "@angular/platform-browser": "^4.0.2",
-    "@angular/platform-browser-dynamic": "^4.0.2",
+    "@angular/platform-browser": "4.0.2",
+    "@angular/platform-browser-dynamic": "4.0.2",
     "@types/jasmine": "2.5.41",
     "@types/node": "^6.0.45",
     "jasmine-core": "^2.4.1",
@@ -57,5 +60,8 @@
     "webpack": "2.3.3",
     "zone.js": "^0.8.5"
   },
-  "dependencies": {}
+  "peerDependencies": {
+    "@angular/core": ">=2.3.1",
+    "@angular/common": ">=2.3.1"
+  }
 }

@@ -1,4 +1,4 @@
-# Pagination for Angular 2+[![Build Status](https://travis-ci.org/michaelbromley/ng2-pagination.svg?branch=master)](https://travis-ci.org/michaelbromley/ng2-pagination)
+# Pagination for Angular (v2+)[![Build Status](https://travis-ci.org/michaelbromley/ng2-pagination.svg?branch=master)](https://travis-ci.org/michaelbromley/ng2-pagination)
 
 This is a port of my [angular-utils-pagination](https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination)
 module from Angular 1.x to Angular 2. Due to fundamental differences in the design of Angular from version 2 onwards, the API is different but
@@ -21,15 +21,11 @@ npm install ng2-pagination --save
 This library is built to work with **Angular 2.3.0+**, and support ahead-of-time compilation.
 If you need to support an earlier or pre-release version of Angular for now, please see the changelog for advice on which version to use.
 
-### CommonJS
+### Module Format
 
-ng2-pagination ships as un-bundled CommonJS modules (located in the `dist` folder), which can be imported with 
-`require('ng2-pagination');`, or `import` for those environments that support this method (e.g. TypeScript 1.6+).
+This library ships as a "flat ES module" (FESM). This means that all the JavaScript code is located in a single ES5-compatible file, but makes use of ES2015 `import` and `export` statements.
 
-### System.register
-
-ng2-pagination also ships with a bundle in the system format (`dist/ng2-pagination-bundle.js`), suitable for use with the [es6-module-loader](https://github.com/ModuleLoader/es6-module-loader) 
-and related loaders such as SystemJS.
+Webpack, Systemjs and Rollup all support this format and should work without problems.
 
 ## Simple Example
 
