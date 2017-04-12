@@ -2,14 +2,14 @@
 
 $primary: #2d7fe8;
 
-@import "../../node_modules/bulma/sass/utilities/all";
+@import "../node_modules/bulma/sass/utilities/all";
 
 
-@import "../../node_modules/bulma/sass/base/all";
-@import "../../node_modules/bulma/sass/elements/all";
-@import "../../node_modules/bulma/sass/components/all";
-@import "../../node_modules/bulma/sass/layout/all";
-@import "../../node_modules/bulma/sass/grid/all";
+@import "../node_modules/bulma/sass/base/all";
+@import "../node_modules/bulma/sass/elements/all";
+@import "../node_modules/bulma/sass/components/all";
+@import "../node_modules/bulma/sass/layout/all";
+@import "../node_modules/bulma/sass/grid/all";
 
 @import "spinner";
 

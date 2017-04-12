@@ -3,7 +3,7 @@ import {SafeHtml, DomSanitizer} from '@angular/platform-browser';
 import {Highlighter} from '../../providers/highlighter.service';
 
 const marked = require('marked');
-const readme = require('!!raw!../../../../README.md');
+const readme = require('!!raw-loader!../../../../README.md');
 const parsedReadme = marked(readme);
 
 @Component({

@@ -8,7 +8,7 @@ import {AdvancedExampleComponent} from './components/advanced-example/advanced-e
 import {CustomTemplateExampleComponent} from './components/custom-template-example/custom-template-example.component';
 import {ServerExampleComponent} from './components/server-example/server-example.component';
 import {StringFilterPipe} from './string-filter.pipe';
-import {Ng2PaginationModule} from '../../src/ng2-pagination';
+import {Ng2PaginationModule} from '../../src/ng2-pagination.module';
 import {BasicPageComponent} from './components/basic-example/basic-page.component';
 import {AdvancedPageComponent} from './components/advanced-example/advanced-page.component';
 import {CustomPageComponent} from './components/custom-template-example/custom-page.component';

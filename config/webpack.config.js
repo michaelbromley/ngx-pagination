@@ -2,7 +2,6 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const ngtools = require('@ngtools/webpack');
 
 module.exports = function (env) {
     const aotMode = env && env.aot !== undefined;
@@ -18,15 +17,14 @@ module.exports = function (env) {
         entry: {
             app: path.join(srcPath, entryFile),
             common: [
-                'es6-shim/es6-shim',
+                'core-js/index.js',
                 'reflect-metadata/Reflect.js',
                 'zone.js/dist/zone.js'
             ]
         },
         resolve: {
             extensions: ['.js', '.ts'],
-            modules: ['node_modules'],
-            alias: {}
+            modules: [path.join(srcPath, '../node_modules')]
         },
         output: {
             path: path.join(__dirname, '..', 'docs', outPath),
@@ -35,25 +33,18 @@ module.exports = function (env) {
             pathinfo: true
         },
         module: {
-            noParse: [],
-            loaders: [
+            rules: [
                 {
                     test: /\.ts$/,
-                    loaders: aotMode ? ['@ngtools/webpack'] : ['ts-loader?configFileName=config/tsconfig.demo.json', 'angular2-template-loader']
+                    loaders: aotMode ? ['@ngtools/webpack'] : ['ts-loader?configFileName=config/tsconfig.docs.json', 'angular2-template-loader']
                 },
-                {test: /\.css/, loader: 'raw'},
-                {test: /\.json/, loader: 'json'},
-                {test: /\.scss/, loader: 'raw!sass'},
-                {test: /\.html/, loader: 'raw'}
+                {test: /\.css/, loader: 'raw-loader'},
+                {test: /\.json/, loader: 'json-loader'},
+                {test: /\.scss/, loader: 'raw-loader!sass-loader'},
+                {test: /\.html/, loader: 'raw-loader'}
             ]
         },
         plugins: [
-            new webpack.LoaderOptionsPlugin({
-                test: /\.ts$/,
-                options: {
-                    resolve: {}
-                }
-            }),
             new webpack.DefinePlugin({
                 PRODUCTION: prodMode
             }),
@@ -62,18 +53,25 @@ module.exports = function (env) {
                 filename: 'common.js',
                 minChunks: Infinity
             }),
-            new webpack.NoErrorsPlugin()
+            new webpack.NoEmitOnErrorsPlugin(),
+            // Fix `Critical dependency: the request of a dependency is an expression` errors.
+            // See https://github.com/angular/angular/issues/11580#issuecomment-282705332
+            new webpack.ContextReplacementPlugin(
+                /angular(\\|\/)core(\\|\/)@angular/,
+                srcPath,
+                {}
+            )
         ],
         devtool: devtool
     };
     if (aotMode) {
         config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(true));
-        config.plugins.push(new ngtools.AotPlugin({
+        /*config.plugins.push(new ngtools.AotPlugin({
             tsConfigPath: './config/tsconfig.demo.aot.json',
             entryModule: path.resolve(__dirname, '..', 'docs/src/demo.module#DemoModule'),
             baseDir: path.resolve(__dirname, '..'),
             genDir: path.resolve(__dirname, '..', './docs/ngfactory')
-        }));
+        }));*/
     }
     if (prodMode) {
         config.plugins.push(new webpack.optimize.UglifyJsPlugin({

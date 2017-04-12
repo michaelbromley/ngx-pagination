@@ -8,7 +8,7 @@ import {MealsService} from '../../providers/meals.service';
 })
 export class BasicPageComponent {
     basicCodeT: string = require('./basic-example.component.html');
-    basicCodeC: string = require('!raw!./basic-example.component.ts');
+    basicCodeC: string = require('!raw-loader!./basic-example.component.ts');
     tab: string = 'html';
     meals: string[] = [];
 

@@ -37,9 +37,15 @@ module.exports = function(config) {
                 modules: ['node_modules']
             },
             module: {
-                loaders: [
-                    {test: /\.ts$/, loader: 'ts-loader?configFileName=config/tsconfig.tests.json'},
-                    {test: /\.json$/, loader: 'json'}
+                rules: [
+                    {
+                        test: /\.ts$/,
+                        loader: 'ts-loader',
+                        options: {
+                            configFileName: 'config/tsconfig.tests.json'
+                        }
+                    },
+                    {test: /\.json$/, loader: 'json-loader'}
                 ]
             }
         },

@@ -8,7 +8,7 @@ import {Highlighter} from '../../providers/highlighter.service';
 })
 export class CustomPageComponent {
     templateSource: string = require('./custom-template-example.component.html');
-    typescriptSource: string = require('!raw!./custom-template-example.component.ts');
+    typescriptSource: string = require('!raw-loader!./custom-template-example.component.ts');
     tab: string = 'html';
     meals: string[] = [];
 

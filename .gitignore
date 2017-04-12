@@ -1,8 +1,8 @@
 .idea
 aot
 node_modules
+/dist
+/build
 npm-debug.log
-/typings
 *.map
 /docs/build
-ngfactory

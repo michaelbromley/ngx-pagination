@@ -8,7 +8,7 @@ import {Highlighter} from '../../providers/highlighter.service';
 })
 export class AdvancedPageComponent {
     templateSource: string = require('./advanced-example.component.html');
-    typescriptSource: string = require('!raw!./advanced-example.component.ts');
+    typescriptSource: string = require('!raw-loader!./advanced-example.component.ts');
     tab: string = 'html';
     meals: string[] = [];
 

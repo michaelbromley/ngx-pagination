@@ -9,8 +9,8 @@ const hljs = require('highlight.js');
 export class Highlighter {
 
     constructor() {
-        require('!!style!raw!highlight.js/styles/github-gist.css');
-        require('!!style!raw!sass!../style.scss');
+        require('!!style-loader!raw-loader!highlight.js/styles/github-gist.css');
+        require('!!style-loader!raw-loader!sass-loader!../style.scss');
     }
 
     highlight() {

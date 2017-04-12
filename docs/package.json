@@ -1,0 +1,51 @@
+{
+  "name": "ng2-pagination-docs-app",
+  "version": "2.0.1",
+  "description": "Documentation and demos of ngx-pagination",
+  "scripts": {
+    "docs:watch": "webpack --config ../config/webpack.config.js --progress --colors --watch --display-error-details",
+    "docs:dist": "webpack --config ../config/webpack.config.js --progress --colors -p --env.prod"
+  },
+  "keywords": [],
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelbromley/ng2-pagination"
+  },
+  "bugs": {
+    "url": "https://github.com/michaelbromley/ng2-pagination/issues"
+  },
+  "author": "Michael Bromley <michael@michaelbromley.co.uk>",
+  "license": "MIT",
+  "devDependencies": {
+    "@angular/common": "4.0.2",
+    "@angular/compiler": "4.0.2",
+    "@angular/compiler-cli": "4.0.2",
+    "@angular/core": "4.0.2",
+    "@angular/forms": "4.0.2",
+    "@angular/platform-browser": "4.0.2",
+    "@angular/platform-browser-dynamic": "4.0.2",
+    "@angular/router": "4.0.2",
+    "@types/node": "^6.0.45",
+    "angular2-template-loader": "0.6.2",
+    "bulma": "0.2.3",
+    "core-js": "^2.4.0",
+    "css-loader": "^0.28.0",
+    "highlight.js": "^9.1.0",
+    "html-loader": "^0.4.3",
+    "json-loader": "^0.5.4",
+    "marked": "^0.3.6",
+    "node-sass": "4.5.2",
+    "phantomjs-prebuilt": "^2.1.7",
+    "raw-loader": "^0.5.1",
+    "reflect-metadata": "0.1.10",
+    "rxjs": "^5.0.3",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
+    "ts-loader": "^2.0.3",
+    "typescript": "2.2.2",
+    "webpack": "^2.3.3",
+    "zone.js": "0.8.5"
+  },
+  "dependencies": {}
+}

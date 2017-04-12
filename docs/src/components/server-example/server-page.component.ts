@@ -8,7 +8,7 @@ import {MealsService} from '../../providers/meals.service';
 })
 export class ServerPageComponent {
     templateSource: string = require('./server-example.component.html');
-    typescriptSource: string = require('!raw!./server-example.component.ts');
+    typescriptSource: string = require('!raw-loader!./server-example.component.ts');
     tab: string = 'html';
     meals: string[] = [];
 
