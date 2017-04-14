@@ -27,6 +27,8 @@ This library ships as a "flat ES module" (FESM). This means that all the JavaScr
 
 Webpack, Systemjs and Rollup all support this format and should work without problems.
 
+A UMD bundle is also provided for systems which do not support FESM.
+
 ## Simple Example
 
 ```TypeScript

@@ -3,10 +3,12 @@
 # 3.0.0 (in progress)
 
 #### Potentially Breaking Change
-The module format being used is now "flat ES modules" (FESM), which means there is a single .js file which uses ES2015 `import`s and `export`s rather than commonjs `require` and `module.exports`. 
+The primary module format being used is now "flat ES modules" (FESM), which means there is a single .js file which uses ES2015 `import`s and `export`s rather than commonjs `require` and `module.exports`. 
 
 This has been tested with an existing Webpack-based  project which used the last version of the library, and it worked fine. It has also been tested with Rollup- and Systemjs-based builds and seems to work.
 However, please report any compatibility issues which may have arisen from this change.
+
+In addition to this, a UMD bundle is also provided.
 
 ## 2.0.1 (2017-02-23)
 * Fix exception when config object uses accessors for itemsPerPage and currentPage ([#128](https://github.com/michaelbromley/ng2-pagination/issues/128))

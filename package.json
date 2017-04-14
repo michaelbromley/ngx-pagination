@@ -3,13 +3,15 @@
   "version": "2.0.1",
   "description": "Pagination for Angular",
   "module": "dist/ng2-pagination.js",
-  "typings": "dist/ng2-pagination.d.ts",
+  "main": "dist/ng2-pagination.umd.js",
+  "types": "dist/ng2-pagination.d.ts",
   "scripts": {
     "clean": "rm -rf build && rm -rf dist",
     "ngc": "ngc -p config/tsconfig.build.json",
-    "rollup": "rollup build/ng2-pagination.js -o dist/ng2-pagination.js",
+    "rollup:fesm": "rollup build/ng2-pagination.js -o dist/ng2-pagination.js",
+    "rollup:umd": "rollup build/ng2-pagination.js -o dist/ng2-pagination.umd.js --format umd --name ng2Pagination",
     "copy-metadata": "find build/* -not -name '*.js' -exec cp -t dist {} +",
-    "build": "npm run clean && npm run ngc && npm run rollup && npm run copy-metadata",
+    "build": "npm run clean && npm run ngc && npm run rollup:fesm && npm run rollup:umd && npm run copy-metadata",
     "test": "karma start config/karma.conf.js",
     "test:watch": "npm run test -- --auto-watch --no-single-run",
     "publish-lib": "npm run test && npm run build"
