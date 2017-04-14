@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
+// const ngtools = require('@ngtools/webpack');
 
 module.exports = function (env) {
     const aotMode = env && env.aot !== undefined;
@@ -9,7 +10,7 @@ module.exports = function (env) {
     const entryFile = aotMode ? 'bootstrap.aot.ts' : 'bootstrap.ts';
     const outPath = prodMode ? 'dist' : 'build';
     const devtool = prodMode ? 'source-map' : 'eval-source-map';
-    const srcPath = path.join(__dirname, '..', 'docs', 'src');
+    const srcPath = path.join(__dirname, 'src');
 
     let config = {
         target: 'web',
@@ -36,7 +37,7 @@ module.exports = function (env) {
             rules: [
                 {
                     test: /\.ts$/,
-                    loaders: aotMode ? ['@ngtools/webpack'] : ['ts-loader?configFileName=config/tsconfig.docs.json', 'angular2-template-loader']
+                    loaders: aotMode ? ['@ngtools/webpack'] : ['ts-loader?configFileName=./tsconfig.docs.json', 'angular2-template-loader']
                 },
                 {test: /\.css/, loader: 'raw-loader'},
                 {test: /\.json/, loader: 'json-loader'},
@@ -65,12 +66,10 @@ module.exports = function (env) {
         devtool: devtool
     };
     if (aotMode) {
-        config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(true));
-        /*config.plugins.push(new ngtools.AotPlugin({
-            tsConfigPath: './config/tsconfig.demo.aot.json',
-            entryModule: path.resolve(__dirname, '..', 'docs/src/demo.module#DemoModule'),
-            baseDir: path.resolve(__dirname, '..'),
-            genDir: path.resolve(__dirname, '..', './docs/ngfactory')
+       /* config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(true));
+        config.plugins.push(new ngtools.AotPlugin({
+            tsConfigPath: './tsconfig.docs.json',
+            entryModule: path.resolve(__dirname, '..', 'docs/src/demo.module#DemoModule')
         }));*/
     }
     if (prodMode) {

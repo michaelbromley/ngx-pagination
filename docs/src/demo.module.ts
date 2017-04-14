@@ -17,17 +17,19 @@ import {Highlighter} from './providers/highlighter.service';
 import {MealsService} from './providers/meals.service';
 import {DocumentationPageComponent} from './components/documentation/documentation-page.component';
 
+const ConfiguredRouterModule = RouterModule.forRoot([
+    { path: '', pathMatch: 'full', component: DocumentationPageComponent },
+    { path: 'basic', component: BasicPageComponent },
+    { path: 'advanced', component: AdvancedPageComponent },
+    { path: 'custom-template', component: CustomPageComponent },
+    { path: 'server-paging', component: ServerPageComponent }
+], { useHash: true });
+
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
-        RouterModule.forRoot([
-            { path: '', pathMatch: 'full', component: DocumentationPageComponent },
-            { path: 'basic', component: BasicPageComponent },
-            { path: 'advanced', component: AdvancedPageComponent },
-            { path: 'custom-template', component: CustomPageComponent },
-            { path: 'server-paging', component: ServerPageComponent }
-        ], { useHash: true }),
+        ConfiguredRouterModule,
         Ng2PaginationModule
     ],
     declarations: [
