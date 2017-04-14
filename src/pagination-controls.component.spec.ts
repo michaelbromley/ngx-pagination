@@ -320,7 +320,7 @@ describe('PaginationControlsComponent:', () => {
             let fixture = TestBed.createComponent(ComponentTestComponent);
             fixture.detectChanges();
 
-            let paginationUl = fixture.debugElement.query(By.css('ul.ng2-pagination')).nativeElement;
+            let paginationUl = fixture.debugElement.query(By.css('ul.ngx-pagination')).nativeElement;
             expect(paginationUl.getAttribute('aria-label')).toBe(TEST_LABEL);
         }));
 
@@ -344,7 +344,7 @@ describe('PaginationControlsComponent:', () => {
             expect(nextA.innerText).toContain(`Next ${TEST_LABEL}`);
             expect(nextA.getAttribute('aria-label')).toBe(`Next ${TEST_LABEL}`);
 
-            let pageA = fixture.debugElement.queryAll(By.css('.ng2-pagination li > a'))[1].nativeElement;
+            let pageA = fixture.debugElement.queryAll(By.css('.ngx-pagination li > a'))[1].nativeElement;
             expect(pageA.innerText).toContain(`${TEST_LABEL} 1`);
         }));
 
@@ -358,7 +358,7 @@ describe('PaginationControlsComponent:', () => {
 
             fixture.detectChanges();
 
-            let currentPage = fixture.debugElement.query(By.css('.ng2-pagination li.current > div')).nativeElement;
+            let currentPage = fixture.debugElement.query(By.css('.ngx-pagination li.current > div')).nativeElement;
             expect(currentPage.innerText).toContain(`${TEST_LABEL} 1`);
         }));
 

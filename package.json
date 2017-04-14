@@ -1,15 +1,15 @@
 {
-  "name": "ng2-pagination",
-  "version": "2.0.1",
+  "name": "ngx-pagination",
+  "version": "3.0.0-beta.1",
   "description": "Pagination for Angular",
-  "module": "dist/ng2-pagination.js",
-  "main": "dist/ng2-pagination.umd.js",
-  "types": "dist/ng2-pagination.d.ts",
+  "module": "dist/ngx-pagination.js",
+  "main": "dist/ngx-pagination.umd.js",
+  "types": "dist/ngx-pagination.d.ts",
   "scripts": {
     "clean": "rm -rf build && rm -rf dist",
     "ngc": "ngc -p config/tsconfig.build.json",
-    "rollup:fesm": "rollup build/ng2-pagination.js -o dist/ng2-pagination.js",
-    "rollup:umd": "rollup build/ng2-pagination.js -o dist/ng2-pagination.umd.js --format umd --name ng2Pagination",
+    "rollup:fesm": "rollup build/ngx-pagination.js -o dist/ngx-pagination.js",
+    "rollup:umd": "rollup build/ngx-pagination.js -o dist/ngx-pagination.umd.js --format umd --name ngxPagination",
     "copy-metadata": "find build/* -not -name '*.js' -exec cp -t dist {} +",
     "build": "npm run clean && npm run ngc && npm run rollup:fesm && npm run rollup:umd && npm run copy-metadata",
     "test": "karma start config/karma.conf.js",
@@ -17,9 +17,7 @@
     "publish-lib": "npm run test && npm run build"
   },
   "files": [
-    "dist",
-    "index.js",
-    "index.d.ts"
+    "dist"
   ],
   "keywords": [
     "angular",
@@ -28,10 +26,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/michaelbromley/ng2-pagination"
+    "url": "https://github.com/michaelbromley/ngx-pagination"
   },
   "bugs": {
-    "url": "https://github.com/michaelbromley/ng2-pagination/issues"
+    "url": "https://github.com/michaelbromley/ngx-pagination/issues"
   },
   "author": "Michael Bromley <michael@michaelbromley.co.uk>",
   "license": "MIT",

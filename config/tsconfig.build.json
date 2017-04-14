@@ -12,13 +12,13 @@
     "outDir": "../build"
   },
   "files": [
-    "../src/ng2-pagination.module.ts"
+    "../src/ngx-pagination.module.ts"
   ],
   "angularCompilerOptions": {
     "skipMetadataEmit": false,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "ng2-pagination.js",
-    "flatModuleId": "ng2-pagination"
+    "flatModuleOutFile": "ngx-pagination.js",
+    "flatModuleId": "ngx-pagination"
   }
 }

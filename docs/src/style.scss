@@ -153,6 +153,9 @@ pre {
         list-style-type: initial;
         > li {
             margin-left: 30px;
+            > ul {
+                margin-left: 30px;
+            }
         }
         margin-bottom: 16px;
     }

@@ -1,6 +1,6 @@
 {
-  "name": "ng2-pagination-docs-app",
-  "version": "2.0.1",
+  "name": "ngx-pagination-docs-app",
+  "version": "1.0.0",
   "description": "Documentation and demos of ngx-pagination",
   "scripts": {
     "docs:watch": "webpack --config webpack.config.js --progress --colors --watch",
@@ -10,10 +10,10 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/michaelbromley/ng2-pagination"
+    "url": "https://github.com/michaelbromley/ngx-pagination"
   },
   "bugs": {
-    "url": "https://github.com/michaelbromley/ng2-pagination/issues"
+    "url": "https://github.com/michaelbromley/ngx-pagination/issues"
   },
   "author": "Michael Bromley <michael@michaelbromley.co.uk>",
   "license": "MIT",

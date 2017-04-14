@@ -1,7 +1,7 @@
 import {Pipe} from "@angular/core";
 
 /**
- * A simple string filter, since ng2 does not yet have a filter pipe built in.
+ * A simple string filter, since Angular does not yet have a filter pipe built in.
  */
 @Pipe({
     name: 'stringFilter'

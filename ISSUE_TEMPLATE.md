@@ -9,9 +9,9 @@ possible, please provide as much of the following information as you can.
 
 =======
 
-**Angular 2 version**:
+**Angular version**:
 
-**ng2-pagination version**:
+**ngx-pagination version**:
 
 **Description of issue**:
 
