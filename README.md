@@ -1,4 +1,4 @@
-# Pagination for Angular (v2+)[![Build Status](https://travis-ci.org/michaelbromley/ng2-pagination.svg?branch=master)](https://travis-ci.org/michaelbromley/ng2-pagination)
+# Pagination for Angular (v2+)[![Build Status](https://travis-ci.org/michaelbromley/ngx-pagination.svg?branch=master)](https://travis-ci.org/michaelbromley/ng2-pagination)
 
 The simplest solution for pagination in Angular.
 
