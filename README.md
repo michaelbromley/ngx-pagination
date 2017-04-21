@@ -78,7 +78,8 @@ import {Component} from '@angular/core';
     `
 })
 export class MyComponent {
-    public collection: any[] = someArrayOfThings;  
+    p: number = 1;
+    collection: any[] = someArrayOfThings;  
 }
 ```
 
