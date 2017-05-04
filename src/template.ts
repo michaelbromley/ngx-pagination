@@ -87,6 +87,8 @@ export const DEFAULT_STYLES = `
     content: '…';
     padding: 0.1875rem 0.625rem;
     color: #0a0a0a; }
+  .ngx-pagination a, .ngx-pagination button {
+    cursor: pointer; }
 
 .ngx-pagination .pagination-previous a::before,
 .ngx-pagination .pagination-previous.disabled::before { 
