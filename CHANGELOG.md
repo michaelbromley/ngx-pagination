@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.1 (in progress)
+
+#### Fixes
+* Add `cursor: pointer` to default styles ([#153](https://github.com/michaelbromley/ngx-pagination/pull/153))
+
 # 3.0.0 (2017-04-14)
 
 #### Breaking Changes
