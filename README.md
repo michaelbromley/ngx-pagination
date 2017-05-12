@@ -213,6 +213,31 @@ To avoid specificity issues, just add your own custom class name to the element,
 <pagination-controls class="my-pagination"><pagination-controls>
 ```
 
+Also the `PaginationControlsComponent` can be styled with your own classes that you have or use existing classes from popular styles frameworks.
+It has the following inputs and object schema:
+
+```TypeScript
+@Input() classNames: IClassNamesSchema;
+
+interface IClassNamesSchema {
+    wrapper: string;
+    next: string;
+    prev: string;
+    current: string;
+}
+```
+
+Here is an example of how it would be used to pass classes into `PaginationControlsComponent` with defaults styles that are built in (you can pass yours):
+
+```HTML
+<pagination-controls classNames="{ wrapper: 'ngx-pagination', prev: 'pagination-previous', current: 'current', next: 'pagination-next' }"><pagination-controls>
+```
+
+* **`wrapper`** [`string`] Sets class that wrappes the `PaginationControlsComponent`.
+* **`next`** [`string`] Sets class for the next pagination button.
+* **`prev`** [`string`] Sets class for the previous pagination button.
+* **`current`** [`string`] Sets class for the current selected page button.
+
 ## Server-Side Paging
 
 In many cases - for example when working with very large data-sets - we do not want to work with the full collection 
