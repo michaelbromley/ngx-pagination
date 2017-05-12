@@ -22,3 +22,22 @@ export interface PaginationInstance {
      */
     totalItems?: number;
 }
+
+export interface IClassNamesSchema {
+    /**
+     * A class name for wrapping pagination ul tag
+     */
+    wrapper: string;
+    /**
+     * A class name for next pagination button
+     */
+    next: string;
+    /**
+     * A class name for previous pagination button
+     */
+    prev: string;
+    /**
+     * A class name for current active page
+     */
+    current: string;
+}
