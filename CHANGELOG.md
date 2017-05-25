@@ -4,6 +4,7 @@
 
 #### Fixes
 * Add `cursor: pointer` to default styles ([#153](https://github.com/michaelbromley/ngx-pagination/pull/153))
+* Import only `Subject` rather than whole of rxjs ([#162](https://github.com/michaelbromley/ngx-pagination/pull/162))
 
 # 3.0.0 (2017-04-14)
 
