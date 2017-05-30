@@ -10,15 +10,15 @@
 
 #### Breaking Changes
 * Project has been renamed from "ng2-pagination" to "ngx-pagination", since Angular is already way past version 2. Here are the changes you need to make:
-  1. Update your package.json: 
+  1. Update your package.json:
   ```Diff
   - "ng2-pagination": "^2.0.1",
   + "ngx-pagination": "^3.0.0",
   ```
   2. Rename the NgModule in your app module (and any other places you directly `import from 'ng2-pagination'` in your app):
   ```Diff
-  - import {Ng2PaginationModule} from 'ng2-pagination'; 
-  + import {NgxPaginationModule} from 'ngx-pagination'; 
+  - import {Ng2PaginationModule} from 'ng2-pagination';
+  + import {NgxPaginationModule} from 'ngx-pagination';
   ```
   3. Rename any styles which override the default component.
   ```Diff
@@ -29,9 +29,9 @@
   +   background: red;
   + }
   ```
-  
+
 * **The distribution format has changed from commonjs & system.register to ES modules & UMD.**
-The primary module format being used is now "flat ES modules" (FESM), which means there is a single .js file which uses ES2015 `import`s and `export`s rather than commonjs `require` and `module.exports`. 
+The primary module format being used is now "flat ES modules" (FESM), which means there is a single .js file which uses ES2015 `import`s and `export`s rather than commonjs `require` and `module.exports`.
 Tested with Webpack 2, Rollup & System.js.
 
 
@@ -113,7 +113,7 @@ This should not have a big impact if you are just consuming the NgModule, but th
 * **Note:** This version is only compatible with Angular 2 **beta.17** and above!
 * Update `*ngFor` syntax to align with beta.17.
 * Update PaginatePipe to use new pipe API from beta.16 ([PR #24](https://github.com/michaelbromley/ng2-pagination/pull/24)).
-* Update tests to reflect changes to async / inject API in beta.16 
+* Update tests to reflect changes to async / inject API in beta.16
 * Add missing devDependiencies to package.json
 
 # 0.1.0 (2016-04-28)

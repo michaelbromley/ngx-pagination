@@ -73,7 +73,7 @@ import {Component} from '@angular/core';
     <ul>
       <li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p }"> ... </li>
     </ul>
-               
+
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
     `
 })
@@ -87,7 +87,7 @@ export class MyComponent {
 
 ### PaginatePipe
 
-The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object conforming 
+The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object conforming
 to the [`PaginationInstance` interface](/src/pagination-instance.ts). The following config options are available:
 
 ```HTML
@@ -102,14 +102,14 @@ to the [`PaginationInstance` interface](/src/pagination-instance.ts). The follow
 * **`currentPage`** [`number`] - **required** The current (active) page number.
 * **`id`** [`string`] If you need to support more than one instance of pagination at a time, set the `id` and ensure it
 matches the id attribute of the `PaginationControlsComponent` / `PaginationControlsDirective` (see below).
-* **`totalItems`** [`number`] The total number of items in the collection. Only useful when doing server-side paging, 
-where the collection size is limited to a single page returned by the server API. For in-memory paging, 
+* **`totalItems`** [`number`] The total number of items in the collection. Only useful when doing server-side paging,
+where the collection size is limited to a single page returned by the server API. For in-memory paging,
 this property should not be set, as it will be automatically set to the value of `collection.length`.
 
 ### PaginationControlsComponent
 
 This a default component for displaying pagination controls. It is implemented on top of the `PaginationControlsDirective`, and has a pre-set
-template and styles based on the [Foundation 6 pagination component](http://foundation.zurb.com/sites/docs/pagination.html). If you require a more 
+template and styles based on the [Foundation 6 pagination component](http://foundation.zurb.com/sites/docs/pagination.html). If you require a more
 customised set of controls, you will need to use the `PaginationControlsDirective` and implement your own component.
 
 ```HTML
@@ -143,7 +143,7 @@ collection fit onto the first page. Default is `false`.
 
 ### PaginationControlsDirective
 
-The `PaginationControlsDirective` is used to build components for controlling your pagination instances. The directive selector is `pagination-template`, either as an element or an attribute. 
+The `PaginationControlsDirective` is used to build components for controlling your pagination instances. The directive selector is `pagination-template`, either as an element or an attribute.
 It exports an API named "paginationApi", which can then be used to build the controls component.
 
 It has the following inputs and outputs:
@@ -176,11 +176,11 @@ Here is an example of how it would be used to build a custom component:
         <div class="pagination-next" [class.disabled]="p.isLastPage()">
             <a *ngIf="!p.isLastPage()" (click)="p.next()"> > </a>
         </div>
-    
+
 </pagination-template>
 ```
 
-The key thing to note here is `#p="paginationApi"` - this provides a local variable, `p` (name it however you like), which can be used in the 
+The key thing to note here is `#p="paginationApi"` - this provides a local variable, `p` (name it however you like), which can be used in the
 template to access the directive's API methods and properties, which are explained below:
 
 * **`pages`** [`{ label: string, value: any }[]`] Array of page objects containing the page number and label.
@@ -215,10 +215,10 @@ To avoid specificity issues, just add your own custom class name to the element,
 
 ## Server-Side Paging
 
-In many cases - for example when working with very large data-sets - we do not want to work with the full collection 
+In many cases - for example when working with very large data-sets - we do not want to work with the full collection
 in memory, and use some kind of server-side paging, where the server sends just a single page at a time.
 
-This scenario is supported by ngx-pagination by using the `totalItems` config option. 
+This scenario is supported by ngx-pagination by using the `totalItems` config option.
 
 Given a server response json object like this:
 
@@ -279,12 +279,12 @@ export class MyComponent {
 
 ## Building from source
 
-Requires globally-installed node (tested with v5.x) & npm. 
+Requires globally-installed node (tested with v5.x) & npm.
 
 ```
 npm install
 npm run test
-npm run build 
+npm run build
 ```
 `test` runs the Karma tests once. You can also use `test:watch` to keep tests running in watch mode.
 

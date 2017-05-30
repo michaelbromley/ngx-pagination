@@ -8,12 +8,12 @@ export const DEFAULT_TEMPLATE = `
                          [id]="id"
                          [maxSize]="maxSize"
                          (pageChange)="pageChange.emit($event)">
-    <ul class="ngx-pagination" 
-        role="navigation" 
-        [attr.aria-label]="screenReaderPaginationLabel" 
+    <ul class="ngx-pagination"
+        role="navigation"
+        [attr.aria-label]="screenReaderPaginationLabel"
         *ngIf="!(autoHide && p.pages.length <= 1)">
 
-        <li class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="directionLinks"> 
+        <li class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="directionLinks">
             <a *ngIf="1 < p.getCurrent()" (click)="p.previous()" [attr.aria-label]="previousLabel + ' ' + screenReaderPageLabel">
                 {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </a>
@@ -29,7 +29,7 @@ export const DEFAULT_TEMPLATE = `
             </a>
             <div *ngIf="p.getCurrent() === page.value">
                 <span class="show-for-sr">{{ screenReaderCurrentLabel }} </span>
-                <span>{{ page.label }}</span> 
+                <span>{{ page.label }}</span>
             </div>
         </li>
 
@@ -66,7 +66,7 @@ export const DEFAULT_STYLES = `
     display: inline-block; }
   .ngx-pagination a,
   .ngx-pagination button {
-    color: #0a0a0a; 
+    color: #0a0a0a;
     display: block;
     padding: 0.1875rem 0.625rem;
     border-radius: 0; }
@@ -81,7 +81,7 @@ export const DEFAULT_STYLES = `
   .ngx-pagination .disabled {
     padding: 0.1875rem 0.625rem;
     color: #cacaca;
-    cursor: default; } 
+    cursor: default; }
     .ngx-pagination .disabled:hover {
       background: transparent; }
   .ngx-pagination .ellipsis::after {
@@ -92,7 +92,7 @@ export const DEFAULT_STYLES = `
     cursor: pointer; }
 
 .ngx-pagination .pagination-previous a::before,
-.ngx-pagination .pagination-previous.disabled::before { 
+.ngx-pagination .pagination-previous.disabled::before {
   content: '«';
   display: inline-block;
   margin-right: 0.5rem; }

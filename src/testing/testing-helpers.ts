@@ -12,22 +12,22 @@ import {PaginationControlsDirective} from '../pagination-controls.directive';
  * Get an array of the inner items text, e.g. ['item 1', 'item 2', 'item 3' ... ]
  */
 export function getListItemsText(fixture: ComponentFixture<any>): string[] {
-    return getListItems(fixture).map(el => el.innerText);
+  return getListItems(fixture).map(el => el.innerText);
 }
 
 /**
  * Return all the items in the component's list
  */
 export function getListItems(fixture: ComponentFixture<any>): HTMLLIElement[] {
-    return fixture.debugElement.queryAll(By.css('.list-item'))
-        .map((el: DebugElement) => el.nativeElement);
+  return fixture.debugElement.queryAll(By.css('.list-item'))
+    .map((el: DebugElement) => el.nativeElement);
 }
 
 /**
  * Returns the PaginationControlsDirective from the template of the ComponentTestComponent.
  */
 export function getControlsDirective(fixture: ComponentFixture<ComponentTestComponent>): PaginationControlsDirective {
-    return fixture.debugElement.query(By.css('pagination-template')).references['p'];
+  return fixture.debugElement.query(By.css('pagination-template')).references['p'];
 }
 
 /**
@@ -37,17 +37,17 @@ export function getControlsDirective(fixture: ComponentFixture<ComponentTestComp
  * If includeAll is set to true, the boundary links will also be included.
  */
 export function getPageLinkItems(fixture: ComponentFixture<any>,
-                                 selector: string = 'pagination-controls li',
-                                 includeAll: boolean = false): string[] {
-    let all = fixture.debugElement.queryAll(By.css(selector))
-        .map((el: DebugElement) => el.nativeElement.innerText);
+  selector: string = 'pagination-controls li',
+  includeAll: boolean = false): string[] {
+  let all = fixture.debugElement.queryAll(By.css(selector))
+    .map((el: DebugElement) => el.nativeElement.innerText);
 
-    if (includeAll) {
-        return all;
-    } else {
-        return all.filter(str => str.match(/\d+|\.\.\./))
-            .map(str => str.match(/\d+|\.\.\./)[0]);
-    }
+  if (includeAll) {
+    return all;
+  } else {
+    return all.filter(str => str.match(/\d+|\.\.\./))
+      .map(str => str.match(/\d+|\.\.\./)[0]);
+  }
 
 }
 
@@ -55,18 +55,18 @@ export function getPageLinkItems(fixture: ComponentFixture<any>,
  * Shortcut function for setting a custom template on a component under test.
  */
 export function overrideTemplate<T>(component: Type<T>, templateString: string): void {
-    TestBed.overrideComponent(component, {
-        set: {
-            template: templateString
-        }
-    });
+  TestBed.overrideComponent(component, {
+    set: {
+      template: templateString
+    }
+  });
 }
 
 /**
  * Test Component for testing the default controls component
  */
 @Component({
-    template: `
+  template: `
     <ul>
         <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
     </ul>
@@ -78,18 +78,18 @@ export function overrideTemplate<T>(component: Type<T>, templateString: string):
     </pagination-controls>`
 })
 export class ComponentTestComponent {
-    maxSize: number = 9;
-    directionLinks: boolean = true;
-    autoHide: boolean = true;
-    collection: string[] = [];
-    config: PaginationInstance = {
-        id: 'test',
-        itemsPerPage: 10,
-        currentPage: 1
-    };
-    pageChanged() {}
+  maxSize: number = 9;
+  directionLinks: boolean = true;
+  autoHide: boolean = true;
+  collection: string[] = [];
+  config: PaginationInstance = {
+    id: 'test',
+    itemsPerPage: 10,
+    currentPage: 1
+  };
+  pageChanged() { }
 
-    constructor() {
-        this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);
-    }
+  constructor() {
+    this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);
+  }
 }
