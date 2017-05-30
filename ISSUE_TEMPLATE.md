@@ -1,9 +1,9 @@
 Hi, thanks for contributing!
 
-This project is maintained in my spare time, so in order to help me address your issue as quickly as 
+This project is maintained in my spare time, so in order to help me address your issue as quickly as
 possible, please provide as much of the following information as you can.
 
--- Michael 
+-- Michael
 
 [^ delete this message]
 

@@ -12,13 +12,13 @@ export {PaginationControlsDirective} from './pagination-controls.directive';
 export {PaginatePipe} from './paginate.pipe';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [
-        PaginatePipe,
-        PaginationControlsComponent,
-        PaginationControlsDirective
-    ],
-    providers: [PaginationService],
-    exports: [PaginatePipe, PaginationControlsComponent, PaginationControlsDirective]
+  imports: [CommonModule],
+  declarations: [
+    PaginatePipe,
+    PaginationControlsComponent,
+    PaginationControlsDirective
+  ],
+  providers: [PaginationService],
+  exports: [PaginatePipe, PaginationControlsComponent, PaginationControlsDirective]
 })
 export class NgxPaginationModule { }
