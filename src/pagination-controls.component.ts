@@ -1,5 +1,7 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core'
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { IClassNamesSchema } from './pagination-instance';
 import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
+
 
 /**
  * The default pagination controls component. Actually just a default implementation of a custom template.
@@ -29,6 +31,13 @@ export class PaginationControlsComponent {
     set autoHide(value: boolean) {
         this._autoHide = !!value && <any>value !== 'false';
     }
+    @Input()
+    get classNames(): IClassNamesSchema {
+        return this._classNames;
+    }
+    set classNames(value: IClassNamesSchema) {
+        this._classNames = value;
+    }
     @Input() previousLabel: string = 'Previous';
     @Input() nextLabel: string = 'Next';
     @Input() screenReaderPaginationLabel: string = 'Pagination';
@@ -38,4 +47,10 @@ export class PaginationControlsComponent {
 
     private _directionLinks: boolean = true;
     private _autoHide: boolean = false;
+    private _classNames: IClassNamesSchema = {
+        wrapper: 'ngx-pagination',
+        next: 'pagination-next',
+        prev: 'pagination-previous',
+        current: 'current'
+    };
 }
