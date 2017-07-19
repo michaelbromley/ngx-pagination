@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Directive, EventEmitter, Input, Output} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
+import { ChangeDetectorRef, Directive, EventEmitter, Input, Output } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
-import {PaginationService} from './pagination.service';
-import {PaginationInstance} from './pagination-instance';
+import { PaginationService } from './pagination.service';
+import { PaginationInstance } from './pagination-instance';
 
 export interface Page {
     label: string;
@@ -27,7 +27,7 @@ export class PaginationControlsDirective {
     private changeSub: Subscription;
 
     constructor(private service: PaginationService,
-                private changeDetectorRef: ChangeDetectorRef) {
+        private changeDetectorRef: ChangeDetectorRef) {
         this.changeSub = this.service.change
             .subscribe(id => {
                 if (this.id === id) {
@@ -151,12 +151,34 @@ export class PaginationControlsDirective {
     }
 
     /**
+     * Returns an array of Page objects for maxSize's lower than 7.
+     */
+    private createLimitPageArray(currentPage: number, itemsPerPage: number, totalItems: number, paginationRange: number): Page[] {
+        const pages = [];
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        let startNumber =  ((Math.ceil(currentPage / paginationRange) - 1) * paginationRange) + 1;
+        let endNumber = Math.min(startNumber + paginationRange - 1, totalPages);
+        if (startNumber > endNumber) return pages;
+        for (let index = startNumber; index <= endNumber; index++) {
+            pages.push({
+                label: index,
+                value: index
+            });
+        }
+        return pages;
+    }
+
+    /**
      * Returns an array of Page objects to use in the pagination controls.
      */
     private createPageArray(currentPage: number, itemsPerPage: number, totalItems: number, paginationRange: number): Page[] {
         // paginationRange could be a string if passed from attribute, so cast to number.
-        paginationRange = +paginationRange;
         let pages = [];
+        if (paginationRange < 7) {
+            return this.createLimitPageArray(currentPage, itemsPerPage, totalItems, paginationRange);
+        }
+
+        paginationRange = +paginationRange;
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         const halfWay = Math.ceil(paginationRange / 2);
 
@@ -181,7 +203,7 @@ export class PaginationControlsDirective {
                 label: label,
                 value: pageNumber
             });
-            i ++;
+            i++;
         }
         return pages;
     }
