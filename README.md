@@ -252,12 +252,12 @@ It is possible to have any number of pagination pipe/controls pairs in the same 
 <ul>
   <li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p1, id: 'first' }"> ... </li>
 </ul>
-<pagination-controls (pageChange)="p = $event" id="first"></pagination-controls>
+<pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
 
 <ul>
   <li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p2, id: 'second' }"> ... </li>
 </ul>
-<pagination-controls (pageChange)="p = $event" id="second"></pagination-controls>
+<pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
 ```
 
 You can even have dynamically-generated instances, e.g. within an `ngFor` block:
