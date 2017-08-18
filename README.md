@@ -16,6 +16,8 @@ The simplest solution for pagination in Angular.
 * [Styling](#styling)
 * [Server-Side Paging](#server-side-paging)
 * [Multiple Instances](#multiple-instances)
+* [FAQ](#faq)
+  + [Why does my filter not work with pagination?](#why-does-my-filter-not-work-with-pagination)
 * [Building from source](#building-from-source)
 * [Building the docs](#building-the-docs)
 * [License](#license)
@@ -275,6 +277,22 @@ export class MyComponent {
    </ul>
    <pagination-controls (pageChange)="p[i] = $event" [id]="id"></pagination-controls>
 </div>
+```
+
+## FAQ
+
+### Why does my filter not work with pagination?
+
+A common issue is that people have trouble combining some kind of filter pipe with the paginate pipe. The typical symptom is that only the contents of the current page are filtered. The reason is that **the paginate pipe must come after the filter pipe**:
+
+```HTML
+<ul>
+  <li *ngFor="let item of collection | paginate: config | filter: queryString">WRONG</li> <-- This will not work as expected
+</ul>
+
+<ul>
+  <li *ngFor="let item of collection | filter: queryString | paginate: config">CORRECT</li>
+</ul>
 ```
 
 ## Building from source
