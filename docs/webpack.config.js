@@ -37,7 +37,15 @@ module.exports = function (env) {
             rules: [
                 {
                     test: /\.ts$/,
-                    loaders: aotMode ? ['@ngtools/webpack'] : ['ts-loader?configFileName=./tsconfig.docs.json', 'angular2-template-loader']
+                    loaders: aotMode ? ['@ngtools/webpack'] : [
+                        {
+                            loader: 'ts-loader',
+                            options: {
+                                configFile: 'tsconfig.docs.json'
+                            }
+                        },
+                        'angular2-template-loader'
+                    ]
                 },
                 {test: /\.css/, loader: 'raw-loader'},
                 {test: /\.json/, loader: 'json-loader'},

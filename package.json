@@ -1,6 +1,6 @@
 {
   "name": "ngx-pagination",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Pagination for Angular",
   "module": "dist/ngx-pagination.js",
   "main": "dist/ngx-pagination.umd.js",

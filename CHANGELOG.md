@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.2 (2017-09-29)
+
+#### Fixes
+* Cast numeric inputs to numbers  ([#190](https://github.com/michaelbromley/ngx-pagination/issues/190))
+
 ## 3.0.1 (2017-06-22)
 
 #### Fixes
