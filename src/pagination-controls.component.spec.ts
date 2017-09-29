@@ -91,6 +91,21 @@ describe('PaginationControlsComponent:', () => {
         expect(controlsDirective.getCurrent()).toBe(2);
     }));
 
+    it('should highlight the currently-active page when currentPage is passed as a numeric string',
+        fakeAsync(() => {
+            let fixture = TestBed.createComponent(ComponentTestComponent);
+            let instance: ComponentTestComponent = fixture.componentInstance;
+            instance.config.currentPage = '2' as any;
+            fixture.detectChanges();
+
+            let current: DebugElement = fixture.debugElement.query(By.css('.current'));
+
+            console.log('current', current);
+            expect(current).not.toBeNull();
+            expect(current.nativeElement.innerText).toContain('2');
+        })
+    );
+
     it('should update the currently-active page when currentPage becomes invalid (too high)', fakeAsync(() => {
         let fixture = TestBed.createComponent(ComponentTestComponent);
         let instance: ComponentTestComponent = fixture.componentInstance;

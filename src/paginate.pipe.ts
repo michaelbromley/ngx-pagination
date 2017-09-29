@@ -82,9 +82,9 @@ export class PaginatePipe {
 
         return {
             id: config.id || this.service.defaultId(),
-            itemsPerPage: config.itemsPerPage || 0,
-            currentPage: config.currentPage || 1,
-            totalItems: config.totalItems || collection.length
+            itemsPerPage: +config.itemsPerPage || 0,
+            currentPage: +config.currentPage || 1,
+            totalItems: +config.totalItems || collection.length
         };
     }
 
