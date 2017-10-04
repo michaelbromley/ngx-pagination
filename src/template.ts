@@ -62,7 +62,8 @@ export const DEFAULT_STYLES = `
     margin-right: 0.0625rem;
     border-radius: 0; }
   .ngx-pagination li {
-    display: inline-block; }
+    display: inline-block;
+    float: left; }
   .ngx-pagination a,
   .ngx-pagination button {
     color: #0a0a0a; 
