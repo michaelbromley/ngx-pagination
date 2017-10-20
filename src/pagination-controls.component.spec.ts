@@ -100,7 +100,6 @@ describe('PaginationControlsComponent:', () => {
 
             let current: DebugElement = fixture.debugElement.query(By.css('.current'));
 
-            console.log('current', current);
             expect(current).not.toBeNull();
             expect(current.nativeElement.innerText).toContain('2');
         })
