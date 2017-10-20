@@ -42,7 +42,7 @@ module.exports = function(config) {
                         test: /\.ts$/,
                         loader: 'ts-loader',
                         options: {
-                            configFileName: 'config/tsconfig.tests.json'
+                            configFile: 'config/tsconfig.tests.json'
                         }
                     },
                     {test: /\.json$/, loader: 'json-loader'}
