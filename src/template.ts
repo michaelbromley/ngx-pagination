@@ -49,7 +49,8 @@ export const DEFAULT_TEMPLATE = `
 export const DEFAULT_STYLES = `
 .ngx-pagination {
   margin-left: 0;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  list-style:none; }
   .ngx-pagination::before, .ngx-pagination::after {
     content: ' ';
     display: table; }
@@ -62,7 +63,7 @@ export const DEFAULT_STYLES = `
     margin-right: 0.0625rem;
     border-radius: 0; }
   .ngx-pagination li {
-    display: inline-block; }
+    float: left; }
   .ngx-pagination a,
   .ngx-pagination button {
     color: #0a0a0a; 
