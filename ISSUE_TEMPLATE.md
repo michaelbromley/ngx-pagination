@@ -21,7 +21,7 @@ possible, please provide as much of the following information as you can.
 
 **Actual result**:
 
-**Demo**: (if possible, edit [this Plunker demo](http://plnkr.co/edit/JVQMPvV8z2brCIzdG3N4?p=preview) and paste the link to your fork)
+**Demo**: (if possible, edit [this StackBlitz demo](https://stackblitz.com/edit/angular-e1f9hq) and paste the link to your fork)
 
 Any relevant code:
 ```
