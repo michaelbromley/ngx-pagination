@@ -27,7 +27,7 @@ The simplest solution for pagination in Angular.
 
 Check out the live demo here: http://michaelbromley.github.io/ngx-pagination/
 
-Play with it on Plunker here: http://plnkr.co/edit/JVQMPvV8z2brCIzdG3N4?p=preview
+Play with it on StackBlitz here: https://stackblitz.com/edit/angular-e1f9hq
 
 ## Quick Start
 
