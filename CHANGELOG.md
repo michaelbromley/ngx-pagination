@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.3 (2017-10-23)
+
+#### Fixes
+* Revert breaking change to Angular AoT metadata version ([#210](https://github.com/michaelbromley/ngx-pagination/issues/210))
+
 ## 3.0.2 (2017-09-29)
 
 #### Fixes
