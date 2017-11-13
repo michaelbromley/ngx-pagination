@@ -27,10 +27,10 @@ export const DEFAULT_TEMPLATE = `
                 <span class="show-for-sr">{{ screenReaderPageLabel }} </span>
                 <span>{{ page.label }}</span>
             </a>
-            <div *ngIf="p.getCurrent() === page.value">
+            <ng-container *ngIf="p.getCurrent() === page.value">
                 <span class="show-for-sr">{{ screenReaderCurrentLabel }} </span>
                 <span>{{ page.label }}</span> 
-            </div>
+            </ng-container>
         </li>
 
         <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="directionLinks">
