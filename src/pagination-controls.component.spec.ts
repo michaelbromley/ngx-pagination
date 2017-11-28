@@ -372,8 +372,8 @@ describe('PaginationControlsComponent:', () => {
 
             fixture.detectChanges();
 
-            let currentPage = fixture.debugElement.query(By.css('.ngx-pagination li.current > div')).nativeElement;
-            expect(currentPage.innerText).toContain(`${TEST_LABEL} 1`);
+            let currentPage = fixture.debugElement.query(By.css('.ngx-pagination li.current .show-for-sr')).nativeElement;
+            expect(currentPage.innerText).toContain(`${TEST_LABEL}`);
         }));
 
     });
