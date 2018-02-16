@@ -14,7 +14,7 @@ export const DEFAULT_TEMPLATE = `
         *ngIf="!(autoHide && p.pages.length <= 1)">
 
         <li class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="directionLinks"> 
-            <a tabindex="0" *ngIf="1 < p.getCurrent()" (click)="p.previous()" [attr.aria-label]="previousLabel + ' ' + screenReaderPageLabel">
+            <a tabindex="0" *ngIf="1 < p.getCurrent()" (keyup.enter)="p.previous()" (click)="p.previous()" [attr.aria-label]="previousLabel + ' ' + screenReaderPageLabel">
                 {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </a>
             <span *ngIf="p.isFirstPage()">
@@ -23,7 +23,7 @@ export const DEFAULT_TEMPLATE = `
         </li>
 
         <li [class.current]="p.getCurrent() === page.value" *ngFor="let page of p.pages">
-            <a tabindex="0" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+            <a tabindex="0" (keyup.enter)="p.setCurrent(page.value)" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                 <span class="show-for-sr">{{ screenReaderPageLabel }} </span>
                 <span>{{ page.label }}</span>
             </a>
@@ -34,7 +34,7 @@ export const DEFAULT_TEMPLATE = `
         </li>
 
         <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="directionLinks">
-            <a tabindex="0" *ngIf="!p.isLastPage()" (click)="p.next()" [attr.aria-label]="nextLabel + ' ' + screenReaderPageLabel">
+            <a tabindex="0" *ngIf="!p.isLastPage()" (keyup.enter)="p.next()" (click)="p.next()" [attr.aria-label]="nextLabel + ' ' + screenReaderPageLabel">
                  {{ nextLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </a>
             <span *ngIf="p.isLastPage()">
