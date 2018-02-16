@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.0 (2018-02-16)
+
+#### Features
+* Default pagination controls component is now accessible via keyboard controls ([#233](https://github.com/michaelbromley/ngx-pagination/pull/233))
+
 ## 3.0.3 (2017-10-23)
 
 #### Fixes
