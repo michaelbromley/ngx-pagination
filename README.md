@@ -18,6 +18,7 @@ The simplest solution for pagination in Angular.
 * [Multiple Instances](#multiple-instances)
 * [FAQ](#faq)
   + [Why does my filter not work with pagination?](#why-does-my-filter-not-work-with-pagination)
+  + [How do I use the ngFor index with the pagination pipe?](#how-do-i-use-the-ngfor-index-with-the-pagination-pipe)
 * [Building from source](#building-from-source)
 * [Building the docs](#building-the-docs)
 * [License](#license)
@@ -292,6 +293,20 @@ A common issue is that people have trouble combining some kind of filter pipe wi
 
 <ul>
   <li *ngFor="let item of collection | filter: queryString | paginate: config">CORRECT</li>
+</ul>
+```
+
+### How do I use the ngFor index with the pagination pipe?
+
+If you need to use the index of the `*ngFor` in combination with pagination pipe, **the index should be declared after the pagination pipe**:
+
+```HTML
+<ul>
+  <li *ngFor="let item of collection; let i = index | paginate: config">WRONG</li>
+</ul>
+
+<ul>
+  <li *ngFor="let item of collection | paginate: config; let i = index">CORRECT</li>
 </ul>
 ```
 
