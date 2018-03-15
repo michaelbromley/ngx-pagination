@@ -18,7 +18,7 @@ The simplest solution for pagination in Angular.
 * [Multiple Instances](#multiple-instances)
 * [FAQ](#faq)
   + [Why does my filter not work with pagination?](#why-does-my-filter-not-work-with-pagination)
-  + [How to use the ngFor index with pagination pipe?](#how-to-use-the-ngfor-index-with-pagination-pipe)
+  + [How do I use the ngFor index with the pagination pipe?](#how-do-i-use-the-ngfor-index-with-the-pagination-pipe)
 * [Building from source](#building-from-source)
 * [Building the docs](#building-the-docs)
 * [License](#license)
@@ -296,9 +296,9 @@ A common issue is that people have trouble combining some kind of filter pipe wi
 </ul>
 ```
 
-### How to use the ngFor index with pagination pipe?
+### How do I use the ngFor index with the pagination pipe?
 
-If you need to use the index of the *ngFor in combination with pagination pipe, **the index should be declared after the pagination pipe**:
+If you need to use the index of the `*ngFor` in combination with pagination pipe, **the index should be declared after the pagination pipe**:
 
 ```HTML
 <ul>
