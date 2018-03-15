@@ -18,7 +18,7 @@ The simplest solution for pagination in Angular.
 * [Multiple Instances](#multiple-instances)
 * [FAQ](#faq)
   + [Why does my filter not work with pagination?](#why-does-my-filter-not-work-with-pagination)
-  + [How to use the ngFor index with pagination pipe?](#how-to-use-the-ngFor-index-with-pagination-pipe)
+  + [How to use the ngFor index with pagination pipe?](#how-to-use-the-ngfor-index-with-pagination-pipe)
 * [Building from source](#building-from-source)
 * [Building the docs](#building-the-docs)
 * [License](#license)
