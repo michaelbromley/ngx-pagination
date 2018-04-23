@@ -24,7 +24,7 @@ export class PaginatePipe {
     constructor(private service: PaginationService) {
     }
 
-    public transform(collection: any[], args: any): any {
+    public transform(collection: any[] | ReadonlyArray<any>, args: any): any {
 
         // When an observable is passed through the AsyncPipe, it will output
         // `null` until the subscription resolves. In this case, we want to
