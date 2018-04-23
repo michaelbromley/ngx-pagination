@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.1 (2018-04-23)
+
+#### Fixes
+* Allow paginate pipe to work with ReadonlyArrays ([#248](https://github.com/michaelbromley/ngx-pagination/pull/248))
+
 ## 3.1.0 (2018-02-16)
 
 #### Features
