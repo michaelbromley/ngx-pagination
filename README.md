@@ -19,6 +19,7 @@ The simplest solution for pagination in Angular.
 * [FAQ](#faq)
   + [Why does my filter not work with pagination?](#why-does-my-filter-not-work-with-pagination)
   + [How do I use the ngFor index with the pagination pipe?](#how-do-i-use-the-ngfor-index-with-the-pagination-pipe)
+  + [How do I get the absolute index of a list item?](#how-do-I-get-the-absolute-index-of-a-list-item)
 * [Building from source](#building-from-source)
 * [Building the docs](#building-the-docs)
 * [License](#license)
@@ -307,6 +308,26 @@ If you need to use the index of the `*ngFor` in combination with pagination pipe
 
 <ul>
   <li *ngFor="let item of collection | paginate: config; let i = index">CORRECT</li>
+</ul>
+```
+
+### How do I get the absolute index of a list item?
+
+Using the `index` variable exposed by `ngFor` will always give you the index of the items relative to the current page. For example, if you have 10 items per page, you might expect the first item on page 2 to have an index value of 10, whereas you will find the index value to be 0. This is because `ngFor` has no knowledge of the pagination, it only ever knows about the 10 items of the current page.
+
+However, the absolute index can be calculated according to the following formula:
+
+```TypeScript
+absoluteIndex(indexOnPage: number): number {
+  return this.itemsPerPage * (this.currentPage - 1) + indexOnPage;
+}
+```
+In a template this would look something like:
+```HTML
+<ul>
+  <li *ngFor="let item of collection | paginate: { currentPage: currentPage, itemsPerPage: itemsPerPage }; let i = index">
+    {{ itemsPerPage * (currentPage - 1) + i }}
+  </li>
 </ul>
 ```
 
