@@ -19,7 +19,7 @@ The simplest solution for pagination in Angular.
 * [FAQ](#faq)
   + [Why does my filter not work with pagination?](#why-does-my-filter-not-work-with-pagination)
   + [How do I use the ngFor index with the pagination pipe?](#how-do-i-use-the-ngfor-index-with-the-pagination-pipe)
-  + [How do I get the absolute index of a list item?](#how-do-I-get-the-absolute-index-of-a-list-item)
+  + [How do I get the absolute index of a list item?](#how-do-i-get-the-absolute-index-of-a-list-item)
 * [Building from source](#building-from-source)
 * [Building the docs](#building-the-docs)
 * [License](#license)
