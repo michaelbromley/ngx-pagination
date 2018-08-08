@@ -196,6 +196,7 @@ template to access the directive's API methods and properties, which are explain
 * **`isFirstPage()`** [`() => boolean`] Returns true if the current page is the first page.
 * **`isLastPage()`** [`() => boolean`] Returns true if the current page is the last page
 * **`getLastPage()`** [`() => number`] Returns the page number of the last page.
+* **`getTotalItems()`** [`() => number`] Returns the total number of items in the collection.
 
 For a real-world implementation of a custom component, take a look at [the source for the PaginationControlsComponent](/src/pagination-controls.component.ts).
 

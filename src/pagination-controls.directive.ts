@@ -110,6 +110,10 @@ export class PaginationControlsDirective {
         return Math.ceil(inst.totalItems / inst.itemsPerPage);
     }
 
+    getTotalItems(): number {
+        return this.service.getInstance(this.id).totalItems;
+    }
+
     private checkValidId() {
         if (!this.service.getInstance(this.id).id) {
             console.warn(`PaginationControlsDirective: the specified id "${this.id}" does not match any registered PaginationInstance`);

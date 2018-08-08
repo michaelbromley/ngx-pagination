@@ -137,6 +137,30 @@ describe('PaginationControlsDirective:', () => {
             expect(controlsDirective.isLastPage()).toBe(true);
         }));
 
+        it('"getTotalItems()" should return the correct value for in-memory mode', fakeAsync(() => {
+            let fixture = TestBed.createComponent(DirectiveTestComponent);
+            let testCmpInstance = fixture.componentInstance;
+            let controlsDirective = getControlsDirective(fixture);
+            testCmpInstance.config.currentPage = 1;
+            testCmpInstance.collection.push(`item 100`);
+            fixture.detectChanges();
+            tick();
+
+            expect(controlsDirective.getTotalItems()).toBe(101);
+        }));
+
+        it('"getTotalItems()" should return the correct value for server-side mode', fakeAsync(() => {
+            let fixture = TestBed.createComponent(DirectiveTestComponent);
+            let testCmpInstance = fixture.componentInstance;
+            let controlsDirective = getControlsDirective(fixture);
+            testCmpInstance.config.currentPage = 1;
+            testCmpInstance.config.totalItems = 334;
+            fixture.detectChanges();
+            tick();
+
+            expect(controlsDirective.getTotalItems()).toBe(334);
+        }));
+
     });
 
     describe('custom templates', () => {

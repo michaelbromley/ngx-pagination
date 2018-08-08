@@ -4,6 +4,7 @@
 
 #### Features
 * Add `ellipsis` class to ellipsis link in default controls ([#263](https://github.com/michaelbromley/ngx-pagination/pull/263))
+* Add `getTotalItems()` method to PaginationControlsDirective ([#258](https://github.com/michaelbromley/ngx-pagination/pull/258))
 
 ## 3.1.1 (2018-04-23)
 
