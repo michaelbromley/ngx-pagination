@@ -11,6 +11,7 @@ export const DEFAULT_TEMPLATE = `
     <ul class="ngx-pagination" 
         role="navigation" 
         [attr.aria-label]="screenReaderPaginationLabel" 
+        [class.responsive]="responsive"
         *ngIf="!(autoHide && p.pages.length <= 1)">
 
         <li class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="directionLinks"> 
@@ -21,6 +22,10 @@ export const DEFAULT_TEMPLATE = `
                 {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </span>
         </li> 
+
+        <li class="small-screen">
+            {{ p.getCurrent() }} / {{ p.getLastPage() }}
+        </li>
 
         <li [class.current]="p.getCurrent() === page.value" 
             [class.ellipsis]="page.label === '...'"
@@ -105,4 +110,13 @@ export const DEFAULT_STYLES = `
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0); }`;
+  clip: rect(0, 0, 0, 0); }
+.ngx-pagination .small-screen {
+  display: none; }
+@media screen and (max-width: 601px) {
+  .ngx-pagination.responsive .small-screen {
+    display: inline-block; } 
+  .ngx-pagination.responsive li:not(.small-screen):not(.pagination-previous):not(.pagination-next) {
+    display: none; }
+}
+  `;

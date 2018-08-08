@@ -37,6 +37,10 @@
         <label class="checkbox">
             <input type="checkbox" class="checkbox" [(ngModel)]="autoHide">
             autoHide
+        </label><br>
+        <label class="checkbox">
+            <input type="checkbox" class="checkbox" [(ngModel)]="responsive">
+            responsive
         </label>
     </div>
 </div>
@@ -80,6 +84,7 @@
                          [maxSize]="maxSize"
                          [directionLinks]="directionLinks"
                          [autoHide]="autoHide"
+                         [responsive]="responsive"
                          [previousLabel]="labels.previousLabel"
                          [nextLabel]="labels.nextLabel"
                          [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"

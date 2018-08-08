@@ -1,6 +1,10 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core'
 import {DEFAULT_TEMPLATE, DEFAULT_STYLES} from './template';
 
+function coerceToBoolean(input: string | boolean): boolean {
+    return !!input && input !== 'false';
+}
+
 /**
  * The default pagination controls component. Actually just a default implementation of a custom template.
  */
@@ -20,14 +24,21 @@ export class PaginationControlsComponent {
         return this._directionLinks;
     }
     set directionLinks(value: boolean) {
-        this._directionLinks = !!value && <any>value !== 'false';
+        this._directionLinks = coerceToBoolean(value);
     }
     @Input()
     get autoHide(): boolean {
         return this._autoHide;
     }
     set autoHide(value: boolean) {
-        this._autoHide = !!value && <any>value !== 'false';
+        this._autoHide = coerceToBoolean(value);
+    }
+    @Input()
+    get responsive(): boolean {
+        return this._responsive;
+    }
+    set responsive(value: boolean) {
+        this._responsive = coerceToBoolean(value);
     }
     @Input() previousLabel: string = 'Previous';
     @Input() nextLabel: string = 'Next';
@@ -38,4 +49,5 @@ export class PaginationControlsComponent {
 
     private _directionLinks: boolean = true;
     private _autoHide: boolean = false;
+    private _responsive: boolean = false;
 }

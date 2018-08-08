@@ -122,6 +122,7 @@ customised set of controls, you will need to use the `PaginationControlsDirectiv
                       maxSize="9"
                       directionLinks="true"
                       autoHide="true"
+                      responsive="true"
                       previousLabel="Previous"
                       nextLabel="Next"
                       screenReaderPaginationLabel="Pagination"
@@ -139,6 +140,7 @@ the `currentPage` variable which was passed to the `PaginatePipe`.
 * **`directionLinks`** [`boolean`] If set to `false`, the "previous" and "next" links will not be displayed. Default is `true`.
 * **`autoHide`** [`boolean`] If set to `true`, the pagination controls will not be displayed when all items in the
 collection fit onto the first page. Default is `false`.
+* **`responsive`** [`boolean`] If set to `true`, individual page links will not be displayed on small screens. Default is `false`.
 * **`previousLabel`** [`string`] The label displayed on the "previous" link.
 * **`nextLabel`** [`string`] The label displayed on the "next" link.
 * **`screenReaderPaginationLabel`** [`string`] The word for "Pagination" used to label the controls for screen readers.

@@ -40,6 +40,7 @@ export function getPageLinkItems(fixture: ComponentFixture<any>,
                                  selector: string = 'pagination-controls li',
                                  includeAll: boolean = false): string[] {
     let all = fixture.debugElement.queryAll(By.css(selector))
+        .filter(el => (el.nativeElement as HTMLLIElement).classList.contains('small-screen') === false)
         .map((el: DebugElement) => el.nativeElement.innerText);
 
     if (includeAll) {
@@ -48,7 +49,6 @@ export function getPageLinkItems(fixture: ComponentFixture<any>,
         return all.filter(str => str.match(/\d+|\.\.\./))
             .map(str => str.match(/\d+|\.\.\./)[0]);
     }
-
 }
 
 /**
@@ -74,13 +74,15 @@ export function overrideTemplate<T>(component: Type<T>, templateString: string):
                          (pageChange)="pageChanged($event)"
                          [maxSize]="maxSize"
                          [directionLinks]="directionLinks"
-                         [autoHide]="autoHide">
+                         [autoHide]="autoHide"
+                         [responsive]="responsive">
     </pagination-controls>`
 })
 export class ComponentTestComponent {
     maxSize: number = 9;
     directionLinks: boolean = true;
     autoHide: boolean = true;
+    responsive: boolean = false;
     collection: string[] = [];
     config: PaginationInstance = {
         id: 'test',

@@ -14,6 +14,7 @@ export class AdvancedExampleComponent {
     public maxSize: number = 7;
     public directionLinks: boolean = true;
     public autoHide: boolean = false;
+    public responsive: boolean = false;
     public config: PaginationInstance = {
         id: 'advanced',
         itemsPerPage: 10,
