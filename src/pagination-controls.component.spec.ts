@@ -62,6 +62,20 @@ describe('PaginationControlsComponent:', () => {
         expect(getPageLinkItems(fixture)).toEqual(expected);
     }));
 
+    it('should add "ellipsis" class to ellipsis links', fakeAsync(() => {
+        let fixture = TestBed.createComponent(ComponentTestComponent);
+        let instance: ComponentTestComponent = fixture.componentInstance;
+        instance.config.itemsPerPage = 1;
+        instance.config.currentPage = 50;
+        fixture.detectChanges();
+
+        const listItems = fixture.debugElement.queryAll(By.css('pagination-controls li'))
+            .map((el: DebugElement) => el.nativeElement);
+
+        expect(listItems[2].classList.contains('ellipsis')).toBe(true);
+        expect(listItems[8].classList.contains('ellipsis')).toBe(true);
+    }));
+
     it('should update links when collection size changes', fakeAsync(() => {
         let fixture = TestBed.createComponent(ComponentTestComponent);
         let instance: ComponentTestComponent = fixture.componentInstance;

@@ -20,9 +20,11 @@ export const DEFAULT_TEMPLATE = `
             <span *ngIf="p.isFirstPage()">
                 {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </span>
-        </li>
+        </li> 
 
-        <li [class.current]="p.getCurrent() === page.value" *ngFor="let page of p.pages">
+        <li [class.current]="p.getCurrent() === page.value" 
+            [class.ellipsis]="page.label === '...'"
+            *ngFor="let page of p.pages">
             <a tabindex="0" (keyup.enter)="p.setCurrent(page.value)" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                 <span class="show-for-sr">{{ screenReaderPageLabel }} </span>
                 <span>{{ page.label }}</span>
@@ -83,10 +85,6 @@ export const DEFAULT_STYLES = `
     cursor: default; } 
     .ngx-pagination .disabled:hover {
       background: transparent; }
-  .ngx-pagination .ellipsis::after {
-    content: '…';
-    padding: 0.1875rem 0.625rem;
-    color: #0a0a0a; }
   .ngx-pagination a, .ngx-pagination button {
     cursor: pointer; }
 

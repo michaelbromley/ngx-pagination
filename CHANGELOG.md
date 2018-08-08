@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.0 (in progress)
+
+#### Features
+* Add `ellipsis` class to ellipsis link in default controls ([#263](https://github.com/michaelbromley/ngx-pagination/pull/263))
+
 ## 3.1.1 (2018-04-23)
 
 #### Fixes
