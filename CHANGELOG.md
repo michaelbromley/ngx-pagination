@@ -1,11 +1,17 @@
 # Changelog
 
+## 3.2.1 (2018-10-04)
+
+#### Fixes
+
+* Allow a pagination id of `0` ([#277](https://github.com/michaelbromley/ngx-pagination/issues/277))
+
 ## 3.2.0 (2018-08-08)
 
 #### Features
-* Add `ellipsis` class to ellipsis link in default controls ([#263](https://github.com/michaelbromley/ngx-pagination/pull/263))
-* Add `getTotalItems()` method to PaginationControlsDirective ([#258](https://github.com/michaelbromley/ngx-pagination/pull/258))
-* Add `responsive` input to PaginationControlsComponent ([#256](https://github.com/michaelbromley/ngx-pagination/pull/256))
+* Add `ellipsis` class to ellipsis link in default controls ([#263](https://github.com/michaelbromley/ngx-pagination/issues/263))
+* Add `getTotalItems()` method to PaginationControlsDirective ([#258](https://github.com/michaelbromley/ngx-pagination/issues/258))
+* Add `responsive` input to PaginationControlsComponent ([#256](https://github.com/michaelbromley/ngx-pagination/issues/256))
 
 ## 3.1.1 (2018-04-23)
 
