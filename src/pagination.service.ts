@@ -11,7 +11,7 @@ export class PaginationService {
     public defaultId(): string { return this.DEFAULT_ID }
 
     public register(instance: PaginationInstance) {
-        if (!instance.id) {
+        if (instance.id == null) {
             instance.id = this.DEFAULT_ID;
         }
 

@@ -21,6 +21,12 @@ describe('PaginationService:', () => {
         expect(service.getInstance(ID)).toEqual(instance);
     });
 
+    it('should allow an id of 0', () => {
+        instance.id = 0 as any;
+        service.register(instance);
+        expect(service.getInstance(0 as any)).toEqual(instance);
+    });
+
     it('getInstance() should return a clone of the instance', () => {
         service.register(instance);
         expect(service.getInstance(ID)).not.toBe(instance);

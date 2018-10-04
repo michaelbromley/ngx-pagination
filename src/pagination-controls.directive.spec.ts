@@ -41,6 +41,24 @@ describe('PaginationControlsDirective:', () => {
         expect(warnSpy).toHaveBeenCalledTimes(2);
     }));
 
+    it('should allow an id of 0 to be used', fakeAsync(() => {
+        overrideTemplate(DirectiveTestComponent, `
+                   <ul>
+                        <li *ngFor="let item of collection | paginate: { currentPage: config.currentPage, id: 0, itemsPerPage: config.itemsPerPage }" class="list-item">{{ item }}</li>
+                   </ul>
+                   <pagination-template [id]="0" #p="paginationApi">
+                     <a class="prev" (click)="p.previous()">prev</a>
+                     <a class="next" (click)="p.next()">next</a>
+                   </pagination-template>`);
+        let warnSpy = spyOn(console, 'warn');
+        let fixture = TestBed.createComponent(DirectiveTestComponent);
+        fixture.detectChanges();
+
+        const nextLink = fixture.debugElement.query(By.css('.next'));
+        nextLink.triggerEventHandler('click', nextLink.nativeElement);
+        expect(warnSpy).not.toHaveBeenCalled();
+    }));
+
     describe('template api', () => {
 
         function getControlsDirective(fixture: ComponentFixture<DirectiveTestComponent>): PaginationControlsDirective {

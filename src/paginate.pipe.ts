@@ -81,7 +81,7 @@ export class PaginatePipe {
         this.checkConfig(config);
 
         return {
-            id: config.id || this.service.defaultId(),
+            id: config.id != null ? config.id : this.service.defaultId(),
             itemsPerPage: +config.itemsPerPage || 0,
             currentPage: +config.currentPage || 1,
             totalItems: +config.totalItems || collection.length

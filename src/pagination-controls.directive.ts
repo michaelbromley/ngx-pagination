@@ -115,7 +115,7 @@ export class PaginationControlsDirective {
     }
 
     private checkValidId() {
-        if (!this.service.getInstance(this.id).id) {
+        if (this.service.getInstance(this.id).id == null) {
             console.warn(`PaginationControlsDirective: the specified id "${this.id}" does not match any registered PaginationInstance`);
         }
     }
