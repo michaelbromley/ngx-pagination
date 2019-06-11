@@ -1,6 +1,7 @@
-import {Pipe} from "@angular/core";
-import {PaginationService} from "./pagination.service";
-import {PaginationInstance} from './pagination-instance';
+import { Pipe } from '@angular/core';
+
+import { PaginationInstance } from './pagination-instance';
+import { PaginationService } from './pagination.service';
 
 const LARGE_NUMBER = Number.MAX_SAFE_INTEGER;
 
@@ -24,7 +25,7 @@ export class PaginatePipe {
     constructor(private service: PaginationService) {
     }
 
-    public transform(collection: any[] | ReadonlyArray<any>, args: any): any {
+    public transform<T = any>(collection: T[] | ReadonlyArray<T>, args: any): T[] {
 
         // When an observable is passed through the AsyncPipe, it will output
         // `null` until the subscription resolves. In this case, we want to
