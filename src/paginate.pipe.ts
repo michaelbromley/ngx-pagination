@@ -6,6 +6,13 @@ const LARGE_NUMBER = Number.MAX_SAFE_INTEGER;
 
 type Collection<T> = T[] | ReadonlyArray<T>;
 
+interface PaginatePipeArgs {
+    id?: string;
+    itemsPerPage?: string | number;
+    currentPage?: string | number;
+    totalItems?: string | number;
+}
+
 interface PipeState {
     collection: any[];
     size: number;
@@ -26,18 +33,14 @@ export class PaginatePipe {
     constructor(private service: PaginationService) {
     }
 
-    public transform<T, U extends Collection<T>>(collection: U, args: any): U {
+    public transform<T, U extends Collection<T>>(collection: U, args: PaginatePipeArgs): U {
 
         // When an observable is passed through the AsyncPipe, it will output
         // `null` until the subscription resolves. In this case, we want to
         // use the cached data from the `state` object to prevent the NgFor
         // from flashing empty until the real values arrive.
-        if (args instanceof Array) {
-          // compatible with angular2 before beta16
-          args = args[0];
-        }
         if (!(collection instanceof Array)) {
-            let _id = args.id || this.service.defaultId;
+            let _id = args.id || this.service.defaultId();
             if (this.state[_id]) {
                 return this.state[_id].slice as U;
             } else {
@@ -78,8 +81,7 @@ export class PaginatePipe {
     /**
      * Create an PaginationInstance object, using defaults for any optional properties not supplied.
      */
-    private createInstance(collection: any[], args: any): PaginationInstance {
-        let config = args;
+    private createInstance(collection: any[], config: PaginatePipeArgs): PaginationInstance {
         this.checkConfig(config);
 
         return {
@@ -93,7 +95,7 @@ export class PaginatePipe {
     /**
      * Ensure the argument passed to the filter contains the required properties.
      */
-    private checkConfig(config: any): void {
+    private checkConfig(config: PaginatePipeArgs): void {
         const required = ['itemsPerPage', 'currentPage'];
 
         const missing = required.filter(prop => !(prop in config));

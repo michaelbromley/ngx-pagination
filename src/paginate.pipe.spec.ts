@@ -22,7 +22,7 @@ describe('PaginatePipe:', () => {
     });
 
     it('should truncate collection', () => {
-        let result = pipe.transform(collection, [{ itemsPerPage: 10, currentPage: 1 }]);
+        let result = pipe.transform(collection, { itemsPerPage: 10, currentPage: 1 });
 
         expect(result.length).toBe(10);
         expect(result[0]).toBe('item 1');
@@ -30,7 +30,7 @@ describe('PaginatePipe:', () => {
     });
 
     it('should register with the PaginationService', () => {
-        pipe.transform(collection, [{ itemsPerPage: 10, currentPage: 1 }]);
+        pipe.transform(collection, { itemsPerPage: 10, currentPage: 1 });
         let instance = paginationService.getInstance();
         expect(instance).toBeDefined();
         expect(instance.itemsPerPage).toBe(10);
@@ -40,11 +40,11 @@ describe('PaginatePipe:', () => {
     it('should modify the same instance when called multiple times', () => {
         let instance;
 
-        pipe.transform(collection, [{ itemsPerPage: 10, currentPage: 1 }]);
+        pipe.transform(collection, { itemsPerPage: 10, currentPage: 1 });
         instance = paginationService.getInstance();
         expect(instance.itemsPerPage).toBe(10);
 
-        pipe.transform(collection, [{ itemsPerPage: 50, currentPage: 1 }]);
+        pipe.transform(collection, { itemsPerPage: 50, currentPage: 1 });
         instance = paginationService.getInstance();
         expect(instance.itemsPerPage).toBe(50);
     });
@@ -56,7 +56,7 @@ describe('PaginatePipe:', () => {
         };
 
         expect(paginationService.getInstance()).toEqual({});
-        pipe.transform(collection, [config]);
+        pipe.transform(collection, config);
         expect(paginationService.getInstance()).toBeDefined();
     });
 
@@ -67,7 +67,7 @@ describe('PaginatePipe:', () => {
             totalItems: 100
         };
 
-        let result = pipe.transform(collection, [config]);
+        let result = pipe.transform(collection, config);
         expect(result.length).toBe(10);
         expect(result[0]).toBe('item 1');
         expect(result[9]).toBe('item 10');
@@ -80,22 +80,22 @@ describe('PaginatePipe:', () => {
                 currentPage: 1
             };
             collection = ['1', '2', '3'];
-            let result1 = pipe.transform(collection, [config]);
+            let result1 = pipe.transform(collection, config);
 
             expect(result1.length).toBe(3);
 
             collection.push('4');
-            let result2 = pipe.transform(collection, [config]);
+            let result2 = pipe.transform(collection, config);
 
             expect(result2.length).toBe(4);
 
             collection.splice(3, 1); // remove 4th
-            let result3 = pipe.transform(collection, [config]);
+            let result3 = pipe.transform(collection, config);
 
             expect(result3.length).toBe(3);
 
             collection.shift(); // remove 1st
-            let result4 = pipe.transform(collection, [config]);
+            let result4 = pipe.transform(collection, config);
 
             expect(result4.length).toBe(2);
         });
@@ -106,11 +106,11 @@ describe('PaginatePipe:', () => {
                 currentPage: 1
             };
             collection = ['not changed', '2', '3'];
-            pipe.transform(collection, [config]);
+            pipe.transform(collection, config);
 
             let changed = 'changed';
             collection[0] = changed;
-            let result = pipe.transform(collection, [config]);
+            let result = pipe.transform(collection, config);
 
             expect(result[0]).toBe(changed)
 
@@ -128,8 +128,8 @@ describe('PaginatePipe:', () => {
             itemsPerPage: 50,
             currentPage: 2
         };
-        let result1 = pipe.transform(collection, [config1]);
-        let result2 = pipe.transform(collection, [config2]);
+        let result1 = pipe.transform(collection, config1);
+        let result2 = pipe.transform(collection, config2);
 
         expect(result1.length).toBe(10);
         expect(result1[0]).toBe('item 1');
@@ -154,7 +154,7 @@ describe('PaginatePipe:', () => {
 
         it('should truncate collection', () => {
             collection = collection.slice(0, 10);
-            let result = pipe.transform(collection, [config]);
+            let result = pipe.transform(collection, config);
 
             expect(result.length).toBe(10);
             expect(result[0]).toBe('item 1');
@@ -164,7 +164,7 @@ describe('PaginatePipe:', () => {
         it('should display page 2', () => {
             collection = collection.slice(10, 20);
             config.currentPage = 2;
-            let result = pipe.transform(collection, [config]);
+            let result = pipe.transform(collection, config);
 
             expect(result.length).toBe(10);
             expect(result[0]).toBe('item 11');
@@ -178,8 +178,8 @@ describe('PaginatePipe:', () => {
             itemsPerPage: 10,
             currentPage: 1
         };
-        let result1 = pipe.transform(collection, [config]);
-        let result2 = pipe.transform(collection, [config]);
+        let result1 = pipe.transform(collection, config);
+        let result2 = pipe.transform(collection, config);
 
         expect(result1 === result2).toBe(true);
     });
