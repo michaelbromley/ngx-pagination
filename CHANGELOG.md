@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.3.0 (2019-06-11)
+
+#### Features
+* Propagate type of collection in PaginatePipe ([#303](https://github.com/michaelbromley/ngx-pagination/issues/303))
+* Improve type safety of PaginatePipe args
+* Lib now built with Angular v8
+
 ## 3.2.1 (2018-10-04)
 
 #### Fixes
