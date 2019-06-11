@@ -4,6 +4,8 @@ import {PaginationInstance} from './pagination-instance';
 
 const LARGE_NUMBER = Number.MAX_SAFE_INTEGER;
 
+type Collection<T> = T[] | ReadonlyArray<T>;
+
 interface PipeState {
     collection: any[];
     size: number;
@@ -24,7 +26,7 @@ export class PaginatePipe {
     constructor(private service: PaginationService) {
     }
 
-    public transform(collection: any[] | ReadonlyArray<any>, args: any): any {
+    public transform<T, U extends Collection<T>>(collection: U, args: any): U {
 
         // When an observable is passed through the AsyncPipe, it will output
         // `null` until the subscription resolves. In this case, we want to
@@ -37,7 +39,7 @@ export class PaginatePipe {
         if (!(collection instanceof Array)) {
             let _id = args.id || this.service.defaultId;
             if (this.state[_id]) {
-                return this.state[_id].slice;
+                return this.state[_id].slice as U;
             } else {
                 return collection;
             }
@@ -58,12 +60,12 @@ export class PaginatePipe {
 
             let isIdentical = this.stateIsIdentical(id, collection, start, end);
             if (isIdentical) {
-                return this.state[id].slice;
+                return this.state[id].slice as U;
             } else {
                 let slice = collection.slice(start, end);
                 this.saveState(id, collection, slice, start, end);
                 this.service.change.emit(id);
-                return slice;
+                return slice as U;
             }
         }
 
