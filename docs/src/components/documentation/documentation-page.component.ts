@@ -8,7 +8,7 @@ const parsedReadme = marked(readme);
 
 @Component({
     selector: 'documentation-page',
-    templateUrl: 'documentation-page.component.html'
+    templateUrl: './documentation-page.component.html'
 })
 export class DocumentationPageComponent {
 

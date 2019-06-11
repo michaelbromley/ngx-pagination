@@ -44,11 +44,18 @@ module.exports = function (env) {
                                 configFile: 'tsconfig.docs.json'
                             }
                         },
-                        'angular2-template-loader'
+                        {
+                            loader: 'angular2-template-loader',
+                            options: {
+                                formatRequire(url) {
+                                    if (url.match(/\.scss$/)) return `require('${url}')`;
+                                    else if (url.match(/\.html$/)) return `require('${url}').default`;
+                                }
+                            }
+                        }
                     ]
                 },
                 {test: /\.css/, loader: 'raw-loader'},
-                {test: /\.json/, loader: 'json-loader'},
                 {test: /\.scss/, loader: 'raw-loader!sass-loader'},
                 {test: /\.html/, loader: 'raw-loader'}
             ]
@@ -56,11 +63,6 @@ module.exports = function (env) {
         plugins: [
             new webpack.DefinePlugin({
                 PRODUCTION: prodMode
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'common',
-                filename: 'common.js',
-                minChunks: Infinity
             }),
             new webpack.NoEmitOnErrorsPlugin(),
             // Fix `Critical dependency: the request of a dependency is an expression` errors.

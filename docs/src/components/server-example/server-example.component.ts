@@ -1,9 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/delay';
+import {Observable, of} from 'rxjs';
+import { delay, map, tap } from 'rxjs/operators';
 
 interface IServerResponse {
     items: string[];
@@ -29,13 +26,14 @@ export class ServerExampleComponent {
 
     getPage(page: number) {
         this.loading = true;
-        this.asyncMeals = serverCall(this.meals, page)
-            .do(res => {
+        this.asyncMeals = serverCall(this.meals, page).pipe(
+            tap(res => {
                 this.total = res.total;
                 this.p = page;
                 this.loading = false;
-            })
-            .map(res => res.items);
+            }),
+            map(res => res.items)
+        );
     }
 }
 
@@ -47,9 +45,8 @@ function serverCall(meals: string[], page: number): Observable<IServerResponse> 
     const start = (page - 1) * perPage;
     const end = start + perPage;
 
-    return Observable
-        .of({
+    return of({
             items: meals.slice(start, end),
             total: 100
-        }).delay(1000);
+        }).pipe(delay(1000));
 }
