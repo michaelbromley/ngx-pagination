@@ -339,13 +339,13 @@ describe('PaginationControlsComponent:', () => {
             fixture.detectChanges();
 
             let prevSpan = fixture.debugElement.query(By.css('.pagination-previous > span')).nativeElement;
-            expect(prevSpan.innerText).toContain(expected);
+            expect(prevSpan.innerText.replace(/\n/, ' ')).toContain(expected);
 
             instance.config.currentPage = 2;
             fixture.detectChanges();
 
             let prevA = fixture.debugElement.query(By.css('.pagination-previous > a')).nativeElement;
-            expect(prevA.innerText).toContain(expected);
+            expect(prevA.innerText.replace(/\n/, ' ')).toContain(expected);
             expect(prevA.getAttribute('aria-label')).toBe(expected);
         }));
 
@@ -361,14 +361,14 @@ describe('PaginationControlsComponent:', () => {
             fixture.detectChanges();
 
             let nextA = fixture.debugElement.query(By.css('.pagination-next > a')).nativeElement;
-            expect(nextA.innerText).toContain(expected);
+            expect(nextA.innerText.replace(/\n/, '')).toContain(expected);
             expect(nextA.getAttribute('aria-label')).toBe(expected);
 
             instance.config.currentPage = 10;
             fixture.detectChanges();
 
             let nextSpan = fixture.debugElement.query(By.css('.pagination-next > span')).nativeElement;
-            expect(nextSpan.innerText).toContain(expected);
+            expect(nextSpan.innerText.replace(/\n/, '')).toContain(expected);
         }));
 
         it('screenReaderPaginationLabel should bind in correct locations', fakeAsync(() => {
@@ -397,15 +397,15 @@ describe('PaginationControlsComponent:', () => {
             fixture.detectChanges();
 
             let prevA = fixture.debugElement.query(By.css('.pagination-previous > a')).nativeElement;
-            expect(prevA.innerText).toContain(`Previous ${TEST_LABEL}`);
+            expect(prevA.innerText.replace(/\n/, ' ')).toContain(`Previous ${TEST_LABEL}`);
             expect(prevA.getAttribute('aria-label')).toBe(`Previous ${TEST_LABEL}`);
 
             let nextA = fixture.debugElement.query(By.css('.pagination-next > a')).nativeElement;
-            expect(nextA.innerText).toContain(`Next ${TEST_LABEL}`);
+            expect(nextA.innerText.replace(/\n/, '')).toContain(`Next ${TEST_LABEL}`);
             expect(nextA.getAttribute('aria-label')).toBe(`Next ${TEST_LABEL}`);
 
             let pageA = fixture.debugElement.queryAll(By.css('.ngx-pagination li > a'))[1].nativeElement;
-            expect(pageA.innerText).toContain(`${TEST_LABEL} 1`);
+            expect(pageA.innerText.replace(/\n/, ' ')).toContain(`${TEST_LABEL} 1`);
         }));
 
         it('screenReaderCurrentLabel should bind in correct locations', fakeAsync(() => {
