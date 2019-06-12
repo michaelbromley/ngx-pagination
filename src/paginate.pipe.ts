@@ -4,16 +4,16 @@ import {PaginationInstance} from './pagination-instance';
 
 const LARGE_NUMBER = Number.MAX_SAFE_INTEGER;
 
-type Collection<T> = T[] | ReadonlyArray<T>;
+export type Collection<T> = T[] | ReadonlyArray<T>;
 
-interface PaginatePipeArgs {
+export interface PaginatePipeArgs {
     id?: string;
     itemsPerPage?: string | number;
     currentPage?: string | number;
     totalItems?: string | number;
 }
 
-interface PipeState {
+export interface PipeState {
     collection: any[];
     size: number;
     start: number;
