@@ -73,9 +73,21 @@ module.exports = function (env) {
                 {}
             )
         ],
-        devtool: devtool,
-        mode: prodMode ? 'production' : 'development',
+        devtool: devtool
     };
+    if (aotMode) {
+       /* config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin(true));
+        config.plugins.push(new ngtools.AotPlugin({
+            tsConfigPath: './tsconfig.docs.json',
+            entryModule: path.resolve(__dirname, '..', 'docs/src/demo.module#DemoModule')
+        }));*/
+    }
+    if (prodMode) {
+        config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+            sourceMap: devtool && (devtool.indexOf("sourcemap") >= 0 || devtool.indexOf("source-map") >= 0),
+            comments: false
+        }));
+    }
 
     return config;
 };

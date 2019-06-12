@@ -36,7 +36,6 @@ module.exports = function(config) {
                 extensions: ['.ts', '.js'],
                 modules: ['node_modules']
             },
-            mode: 'development',
             module: {
                 rules: [
                     {
