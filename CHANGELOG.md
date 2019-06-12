@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.1 (2019-06-12)
+
+#### Fixes
+* Revert Angular version to v4 so as still use v3 metadata ([#305](https://github.com/michaelbromley/ngx-pagination/issues/305))
+
 ## 3.3.0 (2019-06-11)
 
 #### Features
