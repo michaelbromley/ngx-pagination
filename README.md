@@ -1,4 +1,4 @@
-# Pagination for Angular (v2+)[![Build Status](https://travis-ci.org/michaelbromley/ngx-pagination.svg?branch=master)](https://travis-ci.org/michaelbromley/ngx-pagination)
+# Pagination for Angular [![Build Status](https://travis-ci.org/michaelbromley/ngx-pagination.svg?branch=master)](https://travis-ci.org/michaelbromley/ngx-pagination)
 
 The simplest solution for pagination in Angular.
 
@@ -39,7 +39,7 @@ npm install ngx-pagination --save
 
 ### Angular Version
 
-This library is built to work with **Angular 2.3.0+**, and support ahead-of-time compilation.
+This library is built to work with **Angular 5+**, and support ahead-of-time compilation.
 If you need to support an earlier or pre-release version of Angular for now, please see the changelog for advice on which version to use.
 
 ### Module Format

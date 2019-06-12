@@ -1,5 +1,11 @@
 # Changelog
 
+# 4.0.0 (2019-06-12)
+
+#### Breaking Changes
+
+* Lib is now built with Angular 8. This means it uses the version 4 metadata format and will **no longer work with Angular v4** or less.
+
 ## 3.3.1 (2019-06-12)
 
 #### Fixes
