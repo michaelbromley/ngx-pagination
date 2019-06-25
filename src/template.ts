@@ -33,12 +33,12 @@ export const DEFAULT_TEMPLATE = `
             <a tabindex="0" (keyup.enter)="p.setCurrent(page.value)" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                 <span class="show-for-sr">{{ screenReaderPageLabel }} </span>
                 <span *ngIf="page.label && page.label.constructor.name === 'Number'; else notANumber">{{ page.label | number }}</span>
-                <span #notANumber>{{ page.label }}</span>
+                <ng-template #notANumber>{{ page.label }}</ng-template>
             </a>
             <ng-container *ngIf="p.getCurrent() === page.value">
                 <span class="show-for-sr">{{ screenReaderCurrentLabel }} </span>
                 <span *ngIf="page.label && page.label.constructor.name === 'Number'; else notANumber">{{ page.label | number }}</span>
-                <span #notANumber>{{ page.label }}</span>
+                <ng-template #notANumber>{{ page.label }}</ng-template>
             </ng-container>
         </li>
 
