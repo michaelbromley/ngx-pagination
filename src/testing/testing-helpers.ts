@@ -46,8 +46,10 @@ export function getPageLinkItems(fixture: ComponentFixture<any>,
     if (includeAll) {
         return all;
     } else {
-        return all.filter(str => str.match(/\d+|\.\.\./))
-            .map(str => str.match(/\d+|\.\.\./)[0]);
+        return all.filter(str => {
+            return str.match(/\d*\,?\.?\d+|\.\.\./)
+        })
+            .map(str => str.match(/\d*\,?\.?\d+|\.\.\./)[0]);
     }
 }
 

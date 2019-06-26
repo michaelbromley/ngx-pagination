@@ -1,18 +1,23 @@
 import {By} from '@angular/platform-browser';
 import {TestBed, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
-import {DebugElement} from '@angular/core';
+import {DebugElement, LOCALE_ID} from '@angular/core';
 import {PaginationControlsComponent} from './pagination-controls.component';
 import {getPageLinkItems, ComponentTestComponent, overrideTemplate, getControlsDirective} from './testing/testing-helpers';
 import {PaginationService} from './pagination.service';
 import {PaginatePipe} from './paginate.pipe';
 import {PaginationControlsDirective} from './pagination-controls.directive';
 
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+
+registerLocaleData(localeDe)
+
 describe('PaginationControlsComponent:', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [PaginationControlsComponent, PaginationControlsDirective, ComponentTestComponent, PaginatePipe],
-            providers: [PaginationService],
+            providers: [PaginationService, {provide: LOCALE_ID, useValue: 'en_US' }],
         });
     });
 
@@ -24,6 +29,35 @@ describe('PaginationControlsComponent:', () => {
 
         let expected = ['1', '2', '3', '4'];
 
+        expect(getPageLinkItems(fixture)).toEqual(expected);
+    }));
+
+
+    it('should display the correct page links (formatted numbers over 1000) with comma', fakeAsync(() => {
+        let fixture = TestBed.createComponent(ComponentTestComponent);
+        let instance = fixture.componentInstance;
+        instance.collection = Array.from(new Array(1000), (x, i) => `item ${i + 1}`);
+        instance.config.itemsPerPage = 1;
+        fixture.detectChanges();
+
+        let expected = ['1', '2', '3', '4', '5', '6', '7', '...', '1,000'];
+        expect(getPageLinkItems(fixture)).toEqual(expected);
+    }));
+    
+    
+    it('should display the correct page links (formatted numbers over 1000) with dot', fakeAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [PaginationControlsComponent, PaginationControlsDirective, ComponentTestComponent, PaginatePipe],
+            providers: [PaginationService, {provide: LOCALE_ID, useValue: 'de_DE' }],
+        });
+
+        let fixture = TestBed.createComponent(ComponentTestComponent);
+        let instance = fixture.componentInstance;
+        instance.collection = Array.from(new Array(1000), (x, i) => `item ${i + 1}`);
+        instance.config.itemsPerPage = 1;
+        fixture.detectChanges();
+
+        let expected = ['1', '2', '3', '4', '5', '6', '7', '...', '1.000'];
         expect(getPageLinkItems(fixture)).toEqual(expected);
     }));
 
