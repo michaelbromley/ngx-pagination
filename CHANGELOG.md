@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.1.0 (2019-07-11)
+
+#### Features
+
+*  Formats page numbers with locale-aware separators ([#307](https://github.com/michaelbromley/ngx-pagination/issues/307))
+
+#### Fixes
+
+* Correct the peerDependencies field for Angular > 5.0.0 ([#306](https://github.com/michaelbromley/ngx-pagination/pull/306))
+
 # 4.0.0 (2019-06-12)
 
 #### Breaking Changes
