@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 // const ngtools = require('@ngtools/webpack');
 
 module.exports = function (env) {
@@ -75,6 +76,16 @@ module.exports = function (env) {
         ],
         devtool: devtool,
         mode: prodMode ? 'production' : 'development',
+        optimization: prodMode ? {
+            minimizer: [new TerserPlugin({
+                terserOptions: {
+                    output: {
+                        comments: false,
+                    },
+                },
+                extractComments: false,
+            })]
+        } : undefined,
     };
 
     return config;
