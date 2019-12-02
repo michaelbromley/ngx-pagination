@@ -7,7 +7,7 @@ import {PaginationInstance} from '../../../../src/ngx-pagination.module';
     changeDetection: ChangeDetectionStrategy.Default
 })
 export class AdvancedExampleComponent {
- 
+
     @Input('data') meals: string[] = [];
 
     public filter: string = '';
@@ -27,11 +27,17 @@ export class AdvancedExampleComponent {
         screenReaderPageLabel: 'page',
         screenReaderCurrentLabel: `You're on page`
     };
+    public eventLog: string[] = [];
 
     private popped = [];
 
     onPageChange(number: number) {
-        console.log('change to page', number);
+        this.logEvent(`pageChange(${number})`);
+        this.config.currentPage = number;
+    }
+
+    onPageBoundsCorrection(number: number) {
+        this.logEvent(`pageBoundsCorrection(${number})`);
         this.config.currentPage = number;
     }
 
@@ -42,5 +48,9 @@ export class AdvancedExampleComponent {
 
     popItem() {
         this.popped.push(this.meals.pop());
+    }
+
+    private logEvent(message: string) {
+        this.eventLog.unshift(`${new Date().toISOString()}: ${message}`)
     }
 }

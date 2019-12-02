@@ -74,6 +74,7 @@ export function overrideTemplate<T>(component: Type<T>, templateString: string):
     </ul>
     <pagination-controls [id]="config.id"
                          (pageChange)="pageChanged($event)"
+                         (pageBoundsCorrection)="pageChangedBoundsCorrection($event)"
                          [maxSize]="maxSize"
                          [directionLinks]="directionLinks"
                          [autoHide]="autoHide"
@@ -92,6 +93,7 @@ export class ComponentTestComponent {
         currentPage: 1
     };
     pageChanged() {}
+    pageChangedBoundsCorrection() {}
 
     constructor() {
         this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);

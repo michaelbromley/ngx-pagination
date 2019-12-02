@@ -90,5 +90,11 @@
                          [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
                          [screenReaderPageLabel]="labels.screenReaderPageLabel"
                          [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
-                         (pageChange)="onPageChange($event)"></pagination-controls>
+                         (pageChange)="onPageChange($event)"
+                         (pageBoundsCorrection)="onPageBoundsCorrection($event)"></pagination-controls>
+</div>
+
+<h3 class="title is-5">Event log</h3>
+<div class="event-log">
+    <div *ngFor="let event of eventLog">{{ event }}</div>
 </div>

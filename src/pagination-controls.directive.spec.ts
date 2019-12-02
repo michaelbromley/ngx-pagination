@@ -12,7 +12,7 @@ describe('PaginationControlsDirective:', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [PaginationControlsDirective, DirectiveTestComponent, PaginatePipe],
+            declarations: [PaginationControlsDirective, DirectiveTestComponent, PaginatePipe, BoundsCorrectionTestComponent],
             providers: [PaginationService],
         });
     });
@@ -233,6 +233,32 @@ describe('PaginationControlsDirective:', () => {
             expect(getPageLinkItems(fixture, 'div.page-link')).toEqual(expected);
         }));
     });
+
+    describe('bounds correction', () => {
+
+        it('corrects the currentPage to be within bounds when in server-side mode', fakeAsync(() => {
+            let fixture = TestBed.createComponent(BoundsCorrectionTestComponent);
+            fixture.detectChanges();
+            tick();
+            let testCmpInstance = fixture.componentInstance;
+            spyOn(testCmpInstance, 'pageChanged').and.callThrough();
+            spyOn(testCmpInstance, 'pageChangedBoundsCorrection').and.callThrough();
+
+            testCmpInstance.config.currentPage = 10;
+            fixture.detectChanges();
+            tick();
+            expect(testCmpInstance.config.currentPage).toBe(10);
+            expect(testCmpInstance.pageChanged).toHaveBeenCalledTimes(0);
+
+            testCmpInstance.config.totalItems = 50;
+            fixture.detectChanges();
+            tick();
+            expect(testCmpInstance.pageChanged).toHaveBeenCalledTimes(0);
+            expect(testCmpInstance.pageChangedBoundsCorrection).toHaveBeenCalledTimes(1);
+            expect(testCmpInstance.config.currentPage).toBe(5);
+        }));
+
+    });
 });
 
 /**
@@ -276,5 +302,46 @@ export class DirectiveTestComponent {
 
     constructor() {
         this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);
+    }
+}
+
+/**
+ * Test Component for testing bounds correction logic
+ */
+@Component({
+    template: `
+        <ul>
+            <li *ngFor="let item of collection | paginate: config" class="list-item">{{ item }}</li>
+        </ul>
+        <pagination-template #p="paginationApi"
+                             [id]="config.id"
+                             (pageChange)="pageChanged($event)"
+                             (pageBoundsCorrection)="pageChangedBoundsCorrection($event)">
+            <div class="custom-template">
+                <div class="page-link" [class.current]="p.getCurrent() === page.value" *ngFor="let page of p.pages">
+                    <span (click)="p.setCurrent(page.value)">{{ page.label }}</span>
+                </div>
+            </div>
+        </pagination-template>`
+})
+export class BoundsCorrectionTestComponent {
+    collection: string[] = [];
+    config: PaginationInstance = {
+        id: 'test',
+        itemsPerPage: 10,
+        currentPage: 1,
+        totalItems: 100,
+    };
+
+    pageChanged(page: number) {
+        this.config.currentPage = page;
+    }
+
+    pageChangedBoundsCorrection(page: number) {
+        this.config.currentPage = page;
+    }
+
+    constructor() {
+        this.collection = Array.from(new Array(10), (x, i) => `item ${i + 1}`);
     }
 }

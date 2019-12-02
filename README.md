@@ -119,6 +119,7 @@ customised set of controls, you will need to use the `PaginationControlsDirectiv
 ```HTML
 <pagination-controls  id="some_id"
                       (pageChange)="pageChanged($event)"
+                      (pageBoundsCorrection)="pageChanged($event)"
                       maxSize="9"
                       directionLinks="true"
                       autoHide="true"
@@ -134,8 +135,8 @@ customised set of controls, you will need to use the `PaginationControlsDirectiv
 * **`id`** [`string`] If you need to support more than one instance of pagination at a time, set the `id` and ensure it
 matches the id set in the PaginatePipe config.
 * **`pageChange`** [`event handler`] The expression specified will be invoked whenever the page changes via a click on one of the
-pagination controls. The `$event` argument will be the number of the new page. This should be used to update the value of
-the `currentPage` variable which was passed to the `PaginatePipe`.
+pagination controls. The `$event` argument will be the number of the new page. This should be used to update the value of the `currentPage` variable which was passed to the `PaginatePipe`.
+* **`pageBoundsCorrection`** [`event handler`] The expression specified will be invoked when the `currentPage` value is found to be out-of-bounds (e.g. the collection size was reduced). The `$event` argument will be the number of the closest valid page.
 * **`maxSize`** [`number`] Defines the maximum number of page links to display. Default is `7`.
 * **`directionLinks`** [`boolean`] If set to `false`, the "previous" and "next" links will not be displayed. Default is `true`.
 * **`autoHide`** [`boolean`] If set to `true`, the pagination controls will not be displayed when all items in the
@@ -158,6 +159,7 @@ It has the following inputs and outputs:
 @Input() id: string;
 @Input() maxSize: number;
 @Output() pageChange: EventEmitter<number>;
+@Output() pageBoundsCorrection: EventEmitter<number>;
 ```
 
 Here is an example of how it would be used to build a custom component:

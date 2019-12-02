@@ -159,6 +159,7 @@ describe('PaginationControlsComponent:', () => {
         let instance: ComponentTestComponent = fixture.componentInstance;
         let controlsDirective = getControlsDirective(fixture);
         spyOn(instance, 'pageChanged');
+        spyOn(instance, 'pageChangedBoundsCorrection');
 
         instance.collection.push('item 101');
         instance.config.currentPage = 11;
@@ -171,7 +172,8 @@ describe('PaginationControlsComponent:', () => {
         fixture.detectChanges();
         tick();
 
-        expect(instance.pageChanged).toHaveBeenCalledWith(10);
+        expect(instance.pageChanged).not.toHaveBeenCalled();
+        expect(instance.pageChangedBoundsCorrection).toHaveBeenCalledWith(10);
     }));
 
     it('should allow the pagination-controls to come before the PaginatePipe', () => {

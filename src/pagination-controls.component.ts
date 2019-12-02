@@ -46,6 +46,7 @@ export class PaginationControlsComponent {
     @Input() screenReaderPageLabel: string = 'page';
     @Input() screenReaderCurrentLabel: string = `You're on page`;
     @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() pageBoundsCorrection: EventEmitter<number> = new EventEmitter<number>();
 
     private _directionLinks: boolean = true;
     private _autoHide: boolean = false;

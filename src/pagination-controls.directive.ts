@@ -22,6 +22,7 @@ export class PaginationControlsDirective {
     @Input() id: string;
     @Input() maxSize: number = 7;
     @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() pageBoundsCorrection: EventEmitter<number> = new EventEmitter<number>();
     pages: Page[] = [];
 
     private changeSub: Subscription;
@@ -131,7 +132,7 @@ export class PaginationControlsDirective {
 
         if (correctedCurrentPage !== inst.currentPage) {
             setTimeout(() => {
-                this.setCurrent(correctedCurrentPage);
+                this.pageBoundsCorrection.emit(correctedCurrentPage);
                 this.pages = this.createPageArray(inst.currentPage, inst.itemsPerPage, inst.totalItems, this.maxSize);
             });
         } else {

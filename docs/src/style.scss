@@ -161,3 +161,16 @@ pre {
         margin-bottom: 16px;
     }
 }
+
+.event-log {
+    height: 150px;
+    overflow-y: auto;
+    font-family: Monaco, "Lucida Console", monospace;
+    padding: 6px;
+    background-color: #f1f1f1;
+    > div {
+        color: #555;
+        padding: 3px 0;
+        border-bottom: 1px solid #999;
+    }
+}

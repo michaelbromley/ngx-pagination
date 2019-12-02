@@ -1,5 +1,24 @@
 # Changelog
 
+## 5.0.0 (2019-12-02)
+
+#### Features
+
+* A new event `pageBoundsCorrection` has been added to both the `PaginationControlsDirective` and the `PaginationControlsComponent`. This is emitted when the `currentPage` value is found to be out-of-bounds (too high or too low). This change fixes [#155](https://github.com/michaelbromley/ngx-pagination/issues/155) and is intended to allow finer control over how page changes are handled by your application, which is especially important when dealing with server-side pagination in reducing network calls.
+
+#### Breaking Changes
+
+* The `pageChange` event will no longer emit when the `currentPage` value is found to be out-of-bounds. Instead, the new `pageBoundsCorrection` event will emit. To get the same behavior as the prior versions, make the following change:
+
+```HTML
+<!-- before -->
+<pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+
+<!-- after -->
+<pagination-controls (pageChange)="pageChanged($event)"
+                     (pageBoundsCorrection)="pageChanged($event)"></pagination-controls>
+```
+
 ## 4.1.0 (2019-07-11)
 
 #### Features
