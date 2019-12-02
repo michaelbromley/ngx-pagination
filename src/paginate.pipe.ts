@@ -54,7 +54,7 @@ export class PaginatePipe {
         let start, end;
         let perPage = instance.itemsPerPage;
 
-        this.service.register(instance);
+        let emitChange = this.service.register(instance);
 
         if (!serverSideMode && collection instanceof Array) {
             perPage = +perPage || LARGE_NUMBER;
@@ -70,12 +70,17 @@ export class PaginatePipe {
                 this.service.change.emit(id);
                 return slice as U;
             }
-        }
+        } else {
+            if (emitChange) {
+                this.service.change.emit(id);
+            }
 
-        // save the state for server-side collection to avoid null
-        // flash as new data loads.
-        this.saveState(id, collection, collection, start, end);
-        return collection;
+            // save the state for server-side collection to avoid null
+            // flash as new data loads.
+            this.saveState(id, collection, collection, start, end);
+
+            return collection;
+        }
     }
 
     /**
@@ -129,8 +134,8 @@ export class PaginatePipe {
             return false;
         }
         let isMetaDataIdentical = state.size === collection.length &&
-                                  state.start === start &&
-                                  state.end === end;
+            state.start === start &&
+            state.end === end;
 
         if(!isMetaDataIdentical) {
             return false;

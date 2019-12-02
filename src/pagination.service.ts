@@ -10,19 +10,21 @@ export class PaginationService {
 
     public defaultId(): string { return this.DEFAULT_ID }
 
-    public register(instance: PaginationInstance) {
+    /**
+     * Register a PaginationInstance with this service. Returns a
+     * boolean value signifying whether the instance is new or
+     * updated (true = new or updated, false = unchanged).
+     */
+    public register(instance: PaginationInstance): boolean {
         if (instance.id == null) {
             instance.id = this.DEFAULT_ID;
         }
 
         if (!this.instances[instance.id]) {
             this.instances[instance.id] = instance;
-            this.change.emit(instance.id);
+            return true;
         } else {
-            let changed = this.updateInstance(instance);
-            if (changed) {
-                this.change.emit(instance.id);
-            }
+            return this.updateInstance(instance);
         }
     }
 
