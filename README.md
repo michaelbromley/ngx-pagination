@@ -166,7 +166,8 @@ Here is an example of how it would be used to build a custom component:
 
 ```HTML
 <pagination-template #p="paginationApi"
-                     (pageChange)="pageChange.emit($event)">
+                     (pageChange)="pageChange.emit($event)"
+                     (pageBoundsCorrection)="pageBoundsCorrection.emit($event)">
 
         <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
             <a *ngIf="!p.isFirstPage()" (click)="p.previous()"> < </a>
