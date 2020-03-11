@@ -47,5 +47,7 @@
     "webpack-cli": "^3.3.10",
     "zone.js": "^0.10.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@angular/cli": "^9.0.6"
+  }
 }
