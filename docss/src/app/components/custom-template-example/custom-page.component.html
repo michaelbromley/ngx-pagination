@@ -1,0 +1,16 @@
+<h1 class="title">Custom Template Example</h1>
+<p class="page-lead">
+    This demonstrates how a custom template can be used to customize the structure and style of the
+    pagination links.
+</p>
+<custom-template-example [data]="meals"></custom-template-example>
+<hr>
+<h4 class="title is-4">Code</h4>
+<div class="tabs is-boxed">
+    <ul>
+        <li [class.is-active]="tab === 'html'" (click)="tab = 'html'"><a>HTML</a></li>
+        <li [class.is-active]="tab === 'ts'" (click)="tab = 'ts'"><a>TypeScript</a></li>
+    </ul>
+</div>
+<pre [class.hidden]="tab !== 'html'"><code>{{ templateSource }}</code></pre>
+<pre [class.hidden]="tab !== 'ts'"><code>{{ typescriptSource }}</code></pre>

@@ -1,0 +1,100 @@
+<!-- The form controls for the various config parameters -->
+<h4 class="title is-4">Modify Pagination Instance</h4>
+<div class="columns">
+    <div class="column is-one-third">
+        <label class="control">Filter items
+            <input type="text" class="input" placeholder="filter" [(ngModel)]="filter">
+        </label>
+    </div>
+    <div class="column">
+        <label class="control">itemsPerPage
+            <input type="number" class="input" min="0" [(ngModel)]="config.itemsPerPage">
+        </label>
+    </div>
+    <div class="column">
+        <label class="control">currentPage
+            <input type="number" class="input" min="0" [(ngModel)]="config.currentPage">
+        </label>
+    </div>
+    <div class="columns push-pop">
+        <button class="button small" (click)="pushItem()">Add Item</button>
+        <button class="button small" (click)="popItem()">Remove Item</button>
+    </div>
+</div>
+
+<h4 class="title is-4">Modify Pagination Controls</h4>
+<div class="columns">
+    <div class="column">
+        <label class="control">maxSize
+            <input type="number" class="input" min="5" max="100" [(ngModel)]="maxSize">
+        </label>
+    </div>
+    <div class="column control checkboxes">
+        <label class="checkbox">
+            <input type="checkbox" class="checkbox" [(ngModel)]="directionLinks">
+            directionLinks
+        </label><br>
+        <label class="checkbox">
+            <input type="checkbox" class="checkbox" [(ngModel)]="autoHide">
+            autoHide
+        </label><br>
+        <label class="checkbox">
+            <input type="checkbox" class="checkbox" [(ngModel)]="responsive">
+            responsive
+        </label>
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+        <label class="control">previousLabel
+            <input type="text" class="input" placeholder="previousLabel" [(ngModel)]="labels.previousLabel">
+        </label>
+    </div>
+    <div class="column">
+        <label class="control">nextLabel
+            <input type="text" class="input" placeholder="nextLabel" [(ngModel)]="labels.nextLabel">
+        </label>
+    </div>
+    <div class="column">
+        <label class="control">screenReaderPaginationLabel
+            <input type="text" class="input" placeholder="screenReaderPaginationLabel" [(ngModel)]="labels.screenReaderPaginationLabel">
+        </label>
+    </div>
+    <div class="column">
+        <label class="control">screenReaderPageLabel
+            <input type="text" class="input" placeholder="screenReaderPageLabel" [(ngModel)]="labels.screenReaderPageLabel">
+        </label>
+    </div>
+    <div class="column">
+        <label class="control">screenReaderCurrentLabel
+            <input type="text" class="input" placeholder="screenReaderCurrentLabel" [(ngModel)]="labels.screenReaderCurrentLabel">
+        </label>
+    </div>
+</div>
+
+<!-- here is the actual pagination code -->
+<ul class="meal-list">
+    <li *ngFor="let meal of meals | stringFilter: filter | paginate: config">
+        {{ meal }}
+    </li>
+</ul>
+
+<div class="has-text-centered">
+    <pagination-controls [id]="config.id"
+                         [maxSize]="maxSize"
+                         [directionLinks]="directionLinks"
+                         [autoHide]="autoHide"
+                         [responsive]="responsive"
+                         [previousLabel]="labels.previousLabel"
+                         [nextLabel]="labels.nextLabel"
+                         [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                         [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                         [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+                         (pageChange)="onPageChange($event)"
+                         (pageBoundsCorrection)="onPageBoundsCorrection($event)"></pagination-controls>
+</div>
+
+<h3 class="title is-5">Event log</h3>
+<div class="event-log">
+    <div *ngFor="let event of eventLog">{{ event }}</div>
+</div>

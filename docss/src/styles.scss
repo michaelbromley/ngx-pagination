@@ -1,0 +1,176 @@
+@charset "utf-8";
+
+$primary: #2d7fe8;
+
+@import "../node_modules/bulma/sass/utilities/all";
+
+
+@import "../node_modules/bulma/sass/base/all";
+@import "../node_modules/bulma/sass/elements/all";
+@import "../node_modules/bulma/sass/components/all";
+@import "../node_modules/bulma/sass/layout/all";
+@import "../node_modules/bulma/sass/grid/all";
+
+@import "spinner";
+
+.hero.is-primary {
+  background: linear-gradient(to bottom, #2181e0 0%, #62b2dd 100%);
+}
+.hero-content a {
+  color: #eee;
+}
+.twitter-link {
+  margin: -10px 0 30px 0;
+  a {
+
+  }
+}
+a.gh-btn {
+  display: inline-flex;
+  > * {
+    align-self: center;
+    margin: 0 3px;
+  }
+
+  > svg {
+    width: 24px;
+    height: 24px;
+  }
+  span {
+    color: #333;
+  }
+}
+
+.install-command {
+  height: 30px;
+  margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  code {
+    padding: 8px;
+    border-radius: 2px;
+  }
+}
+
+
+section.page-content {
+  margin: 20px 0 150px 0;
+}
+
+p.page-lead {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.meal-list {
+  font-size: 16px;
+  padding-left: 30px;
+  margin-bottom: 30px;
+}
+
+.push-pop button {
+  margin-top: 40px;
+}
+
+.checkboxes label.checkbox:first-child {
+  margin-top: 20px;
+}
+
+pre {
+  code {
+    border: 1px solid #eee;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+
+.custom-pagination {
+  display: flex;
+  max-width: 300px;
+  margin: auto;
+
+  > div {
+    flex: 1;
+    font-size: 18px;
+    text-align: center;
+    border-bottom: 3px solid transparent;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+
+  > div.current {
+    border-color: #3dffaf;
+  }
+}
+
+.spinner {
+  margin: 10px;
+  transition: opacity 0.5s;
+  &.hidden {
+    opacity: 0;
+  }
+}
+
+.readme {
+  h1 {
+    padding-bottom: 0.3em;
+    font-size: 2em;
+    border-bottom: 1px solid #eee;
+  }
+  h2 {
+    margin-top: 44px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+    padding-bottom: 0.3em;
+    font-size: 1.8em;
+    border-bottom: 1px solid #eee;
+  }
+  h3 {
+    font-size: 1.25em;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  p {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  pre {
+    margin-bottom: 16px;
+  }
+  strong > code {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+  }
+
+  > ul {
+    list-style-type: initial;
+    > li {
+      margin-left: 30px;
+      > ul {
+        margin-left: 30px;
+      }
+    }
+    margin-bottom: 16px;
+  }
+}
+
+.event-log {
+  height: 150px;
+  overflow-y: auto;
+  font-family: Monaco, "Lucida Console", monospace;
+  padding: 6px;
+  background-color: #f1f1f1;
+  > div {
+    color: #555;
+    padding: 3px 0;
+    border-bottom: 1px solid #999;
+  }
+}
