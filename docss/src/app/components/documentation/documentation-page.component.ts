@@ -3,8 +3,8 @@ import {SafeHtml, DomSanitizer} from '@angular/platform-browser';
 import {Highlighter} from '../../providers/highlighter.service';
 
 import * as marked from 'marked';
-import readme from 'raw-loader!../../../../README.md';
-const parsedReadme = marked(readme);
+import * as readme from '!!raw-loader!../../../../../README.md';
+const parsedReadme = marked(readme.default);
 
 @Component({
     selector: 'documentation-page',

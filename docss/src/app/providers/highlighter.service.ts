@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-const hljs = require('highlight.js');
+import * as hljs from 'highlight.js';
 
 /**
  * Wrapper for Highlight.js, should be called after a component containing code is initialized
@@ -9,8 +9,6 @@ const hljs = require('highlight.js');
 export class Highlighter {
 
     constructor() {
-        require('!!style-loader!raw-loader!highlight.js/styles/github-gist.css');
-        require('!!style-loader!raw-loader!sass-loader!../style.scss');
     }
 
     highlight() {

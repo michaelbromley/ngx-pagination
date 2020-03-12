@@ -36,14 +36,13 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.900.6",
     "@angular-devkit/schematics": "^9.0.6",
-    "@angular/common": "^8.0.0",
-    "@angular/compiler": "^8.0.0",
-    "@angular/compiler-cli": "^8.0.0",
-    "@angular/core": "^8.0.0",
-    "@angular/platform-browser": "^8.0.0",
-    "@angular/platform-browser-dynamic": "^8.0.0",
+    "@angular/common": "^9.0.6",
+    "@angular/compiler": "^9.0.6",
+    "@angular/compiler-cli": "^9.0.6",
+    "@angular/core": "^9.0.6",
+    "@angular/platform-browser": "^9.0.6",
+    "@angular/platform-browser-dynamic": "^9.0.6",
     "@types/jasmine": "2.5.41",
-    "@types/node": "^6.0.45",
     "jasmine-core": "^2.4.1",
     "json-loader": "^0.5.4",
     "karma": "1.7.1",
@@ -56,16 +55,11 @@
     "phantomjs-prebuilt": "^2.1.7",
     "reflect-metadata": "^0.1.13",
     "rollup": "^0.50.0",
-    "rxjs": "^6.5.2",
-    "ts-loader": "^6.0.2",
-    "typescript": "3.4.5",
+    "rxjs": "^6.5.4",
+    "typescript": "3.7.5",
     "webpack": "^4.33.0",
-    "zone.js": "^0.9.1"
+    "zone.js": "^0.10.2",
+    "docss": "file:docss"
   },
-  "peerDependencies": {
-    "@angular/core": ">=5.0.0",
-    "@angular/common": ">=5.0.0"
-  },
-  "dependencies": {
-  }
+  "peerDependencies": {}
 }

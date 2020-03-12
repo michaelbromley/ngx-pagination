@@ -20,6 +20,7 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "ngx-pagination.js",
-    "flatModuleId": "ngx-pagination"
+    "flatModuleId": "ngx-pagination",
+    "enableIvy": false
   }
 }

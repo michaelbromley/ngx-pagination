@@ -2,13 +2,16 @@ import {Component} from '@angular/core';
 import {MealsService} from '../../providers/meals.service';
 import {Highlighter} from '../../providers/highlighter.service';
 
+import * as basicCodeT from '!!raw-loader!./advanced-example.component.html';
+import * as basicCodeC from '!!raw-loader!./advanced-example.component.ts';
+
 @Component({
     selector: 'advanced-page',
     templateUrl: './advanced-page.component.html'
 })
 export class AdvancedPageComponent {
-    templateSource: string = require('./advanced-example.component.html');
-    typescriptSource: string = require('!raw-loader!./advanced-example.component.ts');
+    templateSource: string = basicCodeT.default;
+    typescriptSource: string = basicCodeC.default;
     tab: string = 'html';
     meals: string[] = [];
 

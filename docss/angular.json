@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "docss": {
@@ -16,6 +16,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
+          "aot": true,
           "options": {
             "outputPath": "dist/docss",
             "index": "src/index.html",
@@ -28,7 +29,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "../node_modules/highlight.js/styles/github-gist.css"
             ],
             "scripts": []
           },
@@ -92,7 +94,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "../node_modules/highlight.js/styles/github-gist.css"
             ],
             "scripts": []
           }

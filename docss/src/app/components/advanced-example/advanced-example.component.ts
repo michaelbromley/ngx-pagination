@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
-import {PaginationInstance} from '../../../../src/ngx-pagination.module';
+import {PaginationInstance} from '../../../../../src/pagination-instance';
 
 @Component({
     selector: 'advanced-example',
