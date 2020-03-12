@@ -3,7 +3,7 @@ import {SafeHtml, DomSanitizer} from '@angular/platform-browser';
 import {Highlighter} from '../../providers/highlighter.service';
 
 import * as marked from 'marked';
-import * as readme from '!!raw-loader!../../../../../README.md';
+import * as readme from '!!raw-loader!../../../../README.md';
 const parsedReadme = marked(readme.default);
 
 @Component({

@@ -1,5 +1,5 @@
 {
-  "name": "docss",
+  "name": "docs",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -24,6 +24,7 @@
     "highlight.js": "^9.15.8",
     "marked": "^0.8.0",
     "raw-loader": "^4.0.0",
+    "ngx-pagination": "^5.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -43,7 +44,6 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5"

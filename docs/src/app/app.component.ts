@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import * as packageInfo from '../../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +6,5 @@ import * as packageInfo from '../../../package.json';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  version = packageInfo.default.version;
+  version = '5.0.0';
 }

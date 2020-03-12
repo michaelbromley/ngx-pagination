@@ -59,7 +59,7 @@
     "typescript": "3.7.5",
     "webpack": "^4.33.0",
     "zone.js": "^0.10.2",
-    "docss": "file:docss"
+    "docs": "file:docs"
   },
   "peerDependencies": {}
 }
