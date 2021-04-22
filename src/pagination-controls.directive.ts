@@ -162,7 +162,10 @@ export class PaginationControlsDirective {
         // paginationRange could be a string if passed from attribute, so cast to number.
         paginationRange = +paginationRange;
         let pages = [];
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        
+        // Return 1 as default page number
+        // Make sense to show 1 instead of empty when there are no items
+        const totalPages = Math.max(Math.ceil(totalItems / itemsPerPage), 1);
         const halfWay = Math.ceil(paginationRange / 2);
 
         const isStart = currentPage <= halfWay;
