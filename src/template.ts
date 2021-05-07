@@ -9,8 +9,7 @@ export const DEFAULT_TEMPLATE = `
                          [maxSize]="maxSize"
                          (pageChange)="pageChange.emit($event)"
                          (pageBoundsCorrection)="pageBoundsCorrection.emit($event)">
-    <ul class="ngx-pagination" 
-        role="navigation" 
+    <ul class="ngx-pagination"
         [attr.aria-label]="screenReaderPaginationLabel" 
         [class.responsive]="responsive"
         *ngIf="!(autoHide && p.pages.length <= 1)">
