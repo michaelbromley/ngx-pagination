@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.1.0 (2020-05-10)
+
+#### Features
+
+* Show "1" as the default page number rather than empty when there are 0 items in collection ([#374](https://github.com/michaelbromley/ngx-pagination/pull/374))
+
+#### Fixes
+
+* Remove the "navigation" role from the default controls template as it is invalid markup ([#375](https://github.com/michaelbromley/ngx-pagination/pull/375)), fixes [#372](https://github.com/michaelbromley/ngx-pagination/issues/372)
+
 ## 5.0.0 (2019-12-02)
 
 #### Features
