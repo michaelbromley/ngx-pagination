@@ -51,4 +51,8 @@ export class PaginationControlsComponent {
     private _directionLinks: boolean = true;
     private _autoHide: boolean = false;
     private _responsive: boolean = false;
+
+    trackByIndex(index: number) {
+        return index;
+    }
 }

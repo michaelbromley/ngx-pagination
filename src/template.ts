@@ -29,7 +29,7 @@ export const DEFAULT_TEMPLATE = `
 
         <li [class.current]="p.getCurrent() === page.value" 
             [class.ellipsis]="page.label === '...'"
-            *ngFor="let page of p.pages">
+            *ngFor="let page of p.pages; trackBy: trackByIndex">
             <a tabindex="0" (keyup.enter)="p.setCurrent(page.value)" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                 <span class="show-for-sr">{{ screenReaderPageLabel }} </span>
                 <span>{{ (page.label === '...') ? page.label : (page.label | number:'') }}</span>
