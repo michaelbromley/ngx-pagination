@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.1 (2020-06-07)
+
+#### Fixes
+
+* Fix keyboard control on default pagination controls ([#370](https://github.com/michaelbromley/ngx-pagination/issues/370))
+
 ## 5.1.0 (2020-05-10)
 
 #### Features
