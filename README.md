@@ -207,14 +207,14 @@ For a real-world implementation of a custom component, take a look at [the sourc
 
 ## Styling
 
-The `PaginationControlsComponent` can be styled by simply overriding the default styles. To overcome Angular's view encapsulation, you may need to use the `/deep/` operator to target it (depending on the type of encapsulation your component is using).
+The `PaginationControlsComponent` can be styled by simply overriding the default styles. To overcome Angular's view encapsulation, you may need to use the `::ng-deep` operator to target it (depending on the type of encapsulation your component is using).
 
 To avoid specificity issues, just add your own custom class name to the element, which will allow your styles to override the defaults:
 
 ```HTML
 // head
 <style>
-  .my-pagination /deep/ .ngx-pagination .current {
+  .my-pagination ::ng-deep .ngx-pagination .current {
     background: red;
   }
 </style>
