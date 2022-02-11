@@ -9,16 +9,16 @@ export const DEFAULT_TEMPLATE = `
                          [maxSize]="maxSize"
                          (pageChange)="pageChange.emit($event)"
                          (pageBoundsCorrection)="pageBoundsCorrection.emit($event)">
-    <ul class="ngx-pagination"
-        [attr.aria-label]="screenReaderPaginationLabel" 
+    <nav role="navigation" [attr.aria-label]="screenReaderPaginationLabel">
+    <ul class="ngx-pagination" 
         [class.responsive]="responsive"
         *ngIf="!(autoHide && p.pages.length <= 1)">
 
         <li class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="directionLinks"> 
-            <a tabindex="0" *ngIf="1 < p.getCurrent()" (keyup.enter)="p.previous()" (click)="p.previous()" [attr.aria-label]="previousLabel + ' ' + screenReaderPageLabel">
+            <a tabindex="0" *ngIf="1 < p.getCurrent()" (keyup.enter)="p.previous()" (click)="p.previous()">
                 {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </a>
-            <span *ngIf="p.isFirstPage()">
+            <span *ngIf="p.isFirstPage()" aria-disabled="true">
                 {{ previousLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </span>
         </li> 
@@ -35,21 +35,24 @@ export const DEFAULT_TEMPLATE = `
                 <span>{{ (page.label === '...') ? page.label : (page.label | number:'') }}</span>
             </a>
             <ng-container *ngIf="p.getCurrent() === page.value">
+              <span aria-live="polite">
                 <span class="show-for-sr">{{ screenReaderCurrentLabel }} </span>
                 <span>{{ (page.label === '...') ? page.label : (page.label | number:'') }}</span> 
+              </span>
             </ng-container>
         </li>
 
         <li class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="directionLinks">
-            <a tabindex="0" *ngIf="!p.isLastPage()" (keyup.enter)="p.next()" (click)="p.next()" [attr.aria-label]="nextLabel + ' ' + screenReaderPageLabel">
+            <a tabindex="0" *ngIf="!p.isLastPage()" (keyup.enter)="p.next()" (click)="p.next()">
                  {{ nextLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </a>
-            <span *ngIf="p.isLastPage()">
+            <span *ngIf="p.isLastPage()" aria-disabled="true">
                  {{ nextLabel }} <span class="show-for-sr">{{ screenReaderPageLabel }}</span>
             </span>
         </li>
 
     </ul>
+    </nav>
     </pagination-template>
     `;
 
