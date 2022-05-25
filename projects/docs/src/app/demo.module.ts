@@ -13,7 +13,6 @@ import { BasicPageComponent } from './components/basic-example/basic-page.compon
 import { AdvancedPageComponent } from './components/advanced-example/advanced-page.component';
 import { CustomPageComponent } from './components/custom-template-example/custom-page.component';
 import { ServerPageComponent } from './components/server-example/server-page.component';
-import { Highlighter } from './providers/highlighter.service';
 import { MealsService } from './providers/meals.service';
 import { DocumentationPageComponent } from './components/documentation/documentation-page.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
@@ -48,7 +47,6 @@ const ConfiguredRouterModule = RouterModule.forRoot([
     StringFilterPipe
   ],
   providers: [
-    Highlighter,
     MealsService,
     {
       provide: HIGHLIGHT_OPTIONS,

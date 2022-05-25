@@ -1,6 +1,5 @@
-import {Component} from '@angular/core';
-import {MealsService} from '../../providers/meals.service';
-import {Highlighter} from '../../providers/highlighter.service';
+import { Component } from '@angular/core';
+import { MealsService } from '../../providers/meals.service';
 
 @Component({
     selector: 'advanced-page',
@@ -12,13 +11,8 @@ export class AdvancedPageComponent {
     tab: string = 'html';
     meals: string[] = [];
 
-    constructor(private highlighter: Highlighter,
-                private mealsService: MealsService) {
+    constructor(private mealsService: MealsService) {
         this.meals = mealsService.getMeals();
-    }
-
-    ngAfterViewInit() {
-        this.highlighter.highlight();
     }
 }
 

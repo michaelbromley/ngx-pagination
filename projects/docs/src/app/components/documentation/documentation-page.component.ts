@@ -1,10 +1,5 @@
-import {Component} from '@angular/core';
-import {SafeHtml, DomSanitizer} from '@angular/platform-browser';
-import {Highlighter} from '../../providers/highlighter.service';
-
-// const marked = require('marked');
-// const readme = require('!!raw-loader!../../../../README.md');
-// const parsedReadme = marked(readme);
+import { Component } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
     selector: 'documentation-page',
@@ -14,12 +9,7 @@ export class DocumentationPageComponent {
 
     readmeContent: SafeHtml;
 
-    constructor(private sanitizer: DomSanitizer,
-                private highlighter: Highlighter) {
+    constructor(private sanitizer: DomSanitizer) {
         this.readmeContent = sanitizer.bypassSecurityTrustHtml('parsedReadme');
-    }
-
-    ngAfterViewInit() {
-        this.highlighter.highlight();
     }
 }
