@@ -1,11 +1,12 @@
 {
   "name": "ngx-pagination",
-  "version": "5.1.1",
+  "version": "0.0.0",
   "description": "Pagination for Angular",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:docs": "ng build docs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -34,7 +35,7 @@
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
     "bulma": "0.2.3",
-    "marked": "^0.3.6",
+    "marked": "^4.0.16",
     "ngx-highlightjs": "^6.1.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

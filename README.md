@@ -337,8 +337,9 @@ npm run test
 npm run build 
 ```
 
-After running `npm run build`, the final output of the lib (which gets published to npm) is in the `/distngx-pagination` folder.
+After running `npm run build`, the final output of the lib (which gets published to npm) is in the `/dist/ngx-pagination` folder.
 
+To build the docs, run `npm run build:docs`, or serve them in dev mode with `npm run start`.
 
 ## License
 

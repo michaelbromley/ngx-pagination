@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.0 
+
+* Update to new Ivy package format for Angular v13+.
+
 ## 5.1.1 (2020-06-07)
 
 #### Fixes

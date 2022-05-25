@@ -16,6 +16,7 @@ import { ServerPageComponent } from './components/server-example/server-page.com
 import { MealsService } from './providers/meals.service';
 import { DocumentationPageComponent } from './components/documentation/documentation-page.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { HttpClientModule } from '@angular/common/http';
 
 const ConfiguredRouterModule = RouterModule.forRoot([
   {path: '', pathMatch: 'full', component: DocumentationPageComponent},
@@ -32,6 +33,7 @@ const ConfiguredRouterModule = RouterModule.forRoot([
     ConfiguredRouterModule,
     NgxPaginationModule,
     HighlightModule,
+    HttpClientModule,
   ],
   declarations: [
     DocumentationPageComponent,
@@ -51,7 +53,11 @@ const ConfiguredRouterModule = RouterModule.forRoot([
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
-        fullLibraryLoader: () => import('highlight.js'),
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          xml: () => import('highlight.js/lib/languages/xml')
+        },
       }
     }
   ],
