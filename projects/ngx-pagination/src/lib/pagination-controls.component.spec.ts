@@ -2,7 +2,7 @@ import {By} from '@angular/platform-browser';
 import {TestBed, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
 import {DebugElement, LOCALE_ID} from '@angular/core';
 import {PaginationControlsComponent} from './pagination-controls.component';
-import {getPageLinkItems, ComponentTestComponent, overrideTemplate, getControlsDirective} from './testing/testing-helpers';
+import {getPageLinkItems, ComponentTestComponent, overrideTemplate, getControlsDirective} from '../testing-helpers';
 import {PaginationService} from './pagination.service';
 import {PaginatePipe} from './paginate.pipe';
 import {PaginationControlsDirective} from './pagination-controls.directive';
@@ -43,8 +43,8 @@ describe('PaginationControlsComponent:', () => {
         let expected = ['1', '2', '3', '4', '5', '6', '7', '...', '1,000'];
         expect(getPageLinkItems(fixture)).toEqual(expected);
     }));
-    
-    
+
+
     it('should display the correct page links (formatted numbers over 1000) with dot', fakeAsync(() => {
         TestBed.configureTestingModule({
             declarations: [PaginationControlsComponent, PaginationControlsDirective, ComponentTestComponent, PaginatePipe],
@@ -196,9 +196,9 @@ describe('PaginationControlsComponent:', () => {
     });
 
     it('should allow multiple independent instances (controller test)', () => {
-        overrideTemplate(ComponentTestComponent, ` 
+        overrideTemplate(ComponentTestComponent, `
             <ul class="list1">
-               <li *ngFor="let item of collection | paginate: {id: 'test1', itemsPerPage: 10, currentPage: p1 }" 
+               <li *ngFor="let item of collection | paginate: {id: 'test1', itemsPerPage: 10, currentPage: p1 }"
                    class="list-item">{{ item }}</li>
             </ul>
             <pagination-controls id="test1"></pagination-controls>
@@ -230,9 +230,9 @@ describe('PaginationControlsComponent:', () => {
     });
 
     it('should allow multiple independent instances (template test)', fakeAsync(() => {
-        overrideTemplate(ComponentTestComponent, ` 
+        overrideTemplate(ComponentTestComponent, `
             <ul class="list1">
-               <li *ngFor="let item of collection | paginate: {id: 'test1', itemsPerPage: 10, currentPage: p1 }" 
+               <li *ngFor="let item of collection | paginate: {id: 'test1', itemsPerPage: 10, currentPage: p1 }"
                    class="list-item">{{ item }}</li>
             </ul>
             <pagination-controls id="test1" (pageChange)="p1 = $event"></pagination-controls>

@@ -1,5 +1,5 @@
 import {async, TestBed} from '@angular/core/testing';
-import {getListItems, getListItemsText, ComponentTestComponent} from './testing/testing-helpers';
+import {getListItems, getListItemsText, ComponentTestComponent} from '../testing-helpers';
 import {PaginationControlsComponent} from './pagination-controls.component';
 import {PaginationService} from './pagination.service';
 import {PaginatePipe} from './paginate.pipe';
@@ -55,7 +55,7 @@ describe('PaginatePipe:', () => {
             currentPage: 1
         };
 
-        expect(paginationService.getInstance()).toEqual({});
+        expect(paginationService.getInstance()).toEqual({} as any);
         pipe.transform(collection, config);
         expect(paginationService.getInstance()).toBeDefined();
     });

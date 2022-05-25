@@ -1,8 +1,8 @@
 import {Component, DebugElement, Type} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {TestBed, ComponentFixture} from '@angular/core/testing';
-import {PaginationInstance} from '../ngx-pagination.module';
-import {PaginationControlsDirective} from '../pagination-controls.directive';
+import {PaginationInstance} from './lib/ngx-pagination.module';
+import {PaginationControlsDirective} from './lib/pagination-controls.directive';
 
 /**
  * Helper Functions and test components for use in unit tests.
@@ -93,7 +93,7 @@ export class ComponentTestComponent {
         currentPage: 1
     };
     pageChanged() {}
-    pageChangedBoundsCorrection() {}
+    pageChangedBoundsCorrection(page: number) {}
 
     constructor() {
         this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);

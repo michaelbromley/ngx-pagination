@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {TestBed, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
 
-import {getPageLinkItems, overrideTemplate} from './testing/testing-helpers';
+import {getPageLinkItems, overrideTemplate} from '../testing-helpers';
 import {PaginationService} from './pagination.service';
 import {PaginatePipe} from './paginate.pipe';
 import {PaginationControlsDirective} from './pagination-controls.directive';
@@ -277,11 +277,11 @@ describe('PaginationControlsDirective:', () => {
             <div class="pagination-previous" [class.disabled]="p.isFirstPage()" *ngIf="p.directionLinks">
                 <span *ngIf="!p.isFirstPage()" (click)="p.previous()">back</span>
             </div>
-        
+
             <div class="page-link" [class.current]="p.getCurrent() === page.value" *ngFor="let page of p.pages">
                 <span (click)="p.setCurrent(page.value)">{{ page.label }}</span>
             </div>
-        
+
             <div class="pagination-next" [class.disabled]="p.isLastPage()" *ngIf="p.directionLinks">
                 <span *ngIf="!p.isLastPage()" (click)="p.next()">forward</span>
             </div>
@@ -298,7 +298,7 @@ export class DirectiveTestComponent {
         itemsPerPage: 10,
         currentPage: 1
     };
-    pageChanged() {}
+    pageChanged(page: number) {}
 
     constructor() {
         this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);

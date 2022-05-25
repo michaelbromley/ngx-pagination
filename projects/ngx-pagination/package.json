@@ -1,0 +1,18 @@
+{
+  "name": "ngx-pagination",
+  "version": "6.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelbromley/ngx-pagination"
+  },
+  "bugs": {
+    "url": "https://github.com/michaelbromley/ngx-pagination/issues"
+  },
+  "peerDependencies": {
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

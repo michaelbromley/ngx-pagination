@@ -50,6 +50,7 @@ export class PaginationService {
         if (this.instances[id]) {
             return this.instances[id].currentPage;
         }
+        return 1;
     }
 
     /**

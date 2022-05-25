@@ -14,11 +14,11 @@ export interface PaginatePipeArgs {
 }
 
 export interface PipeState {
-    collection: any[];
+    collection: ArrayLike<any>;
     size: number;
     start: number;
     end: number;
-    slice: any[];
+    slice: ArrayLike<any>;
 }
 
 @Pipe({
@@ -86,7 +86,7 @@ export class PaginatePipe {
     /**
      * Create an PaginationInstance object, using defaults for any optional properties not supplied.
      */
-    private createInstance(collection: any[], config: PaginatePipeArgs): PaginationInstance {
+    private createInstance(collection: readonly any[], config: PaginatePipeArgs): PaginationInstance {
         this.checkConfig(config);
 
         return {
@@ -115,7 +115,7 @@ export class PaginatePipe {
      * need to check that the collection, start and end points are all identical, and if so, return the
      * last sliced array.
      */
-    private saveState(id: string, collection: any[], slice: any[], start: number, end: number) {
+    private saveState(id: string, collection: ArrayLike<any>, slice: ArrayLike<any>, start: number, end: number) {
         this.state[id] = {
             collection,
             size: collection.length,
@@ -128,7 +128,7 @@ export class PaginatePipe {
     /**
      * For a given id, returns true if the collection, size, start and end values are identical.
      */
-    private stateIsIdentical(id: string, collection: any[], start: number, end: number): boolean {
+    private stateIsIdentical(id: string, collection: ArrayLike<any>, start: number, end: number): boolean {
         let state = this.state[id];
         if (!state) {
             return false;
@@ -141,6 +141,6 @@ export class PaginatePipe {
             return false;
         }
 
-        return state.slice.every((element, index) => element === collection[start + index]);
+        return (state.slice as Array<any>).every((element, index) => element === collection[start + index]);
     }
 }
