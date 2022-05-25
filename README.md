@@ -7,7 +7,6 @@ The simplest solution for pagination in Angular.
 * [Demo](#demo)
 * [Quick Start](#quick-start)
   + [Angular Version](#angular-version)
-  + [Module Format](#module-format)
 * [Simple Example](#simple-example)
 * [API](#api)
   + [PaginatePipe](#paginatepipe)
@@ -21,7 +20,6 @@ The simplest solution for pagination in Angular.
   + [How do I use the ngFor index with the pagination pipe?](#how-do-i-use-the-ngfor-index-with-the-pagination-pipe)
   + [How do I get the absolute index of a list item?](#how-do-i-get-the-absolute-index-of-a-list-item)
 * [Building from source](#building-from-source)
-* [Building the docs](#building-the-docs)
 * [License](#license)
 
 
@@ -39,16 +37,8 @@ npm install ngx-pagination --save
 
 ### Angular Version
 
-This library is built to work with **Angular 5+**, and support ahead-of-time compilation.
-If you need to support an earlier or pre-release version of Angular for now, please see the changelog for advice on which version to use.
-
-### Module Format
-
-This library ships as a "flat ES module" (FESM). This means that all the JavaScript code is located in a single ES5-compatible file, but makes use of ES2015 `import` and `export` statements.
-
-Webpack, Systemjs and Rollup all support this format and should work without problems.
-
-A UMD bundle is also provided for systems which do not support FESM.
+This library is built to work with **Angular 13+**.
+If you need to support an earlier version of Angular, please use v5.x.
 
 ## Simple Example
 
@@ -346,19 +336,8 @@ npm install
 npm run test
 npm run build 
 ```
-`test` runs the Karma tests once. You can also use `test:watch` to keep tests running in watch mode.
 
-`npm run build` creates an intermediate `/build` folder, but the final output of the lib (which gets published to npm) is in the `/dist` folder.
-
-## Building the docs
-```
-cd docs
-npm install
-npm run docs:watch // dev mode
-npm run docs:dist // production mode
-```
-
-When in dev mode, serve the `/docs` folder with an http server, and go to `http://localhost:<port>/index-dev.html` in your browser.
+After running `npm run build`, the final output of the lib (which gets published to npm) is in the `/distngx-pagination` folder.
 
 
 ## License
