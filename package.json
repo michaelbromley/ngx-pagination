@@ -33,6 +33,7 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "bulma": "0.2.3",
     "marked": "^0.3.6",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
