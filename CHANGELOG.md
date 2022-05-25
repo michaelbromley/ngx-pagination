@@ -1,8 +1,14 @@
 # Changelog
 
-## 6.0.0 
+## 6.0.0 (not released)
+
+#### Features
 
 * Update to new Ivy package format for Angular v13+.
+
+#### Fixes
+
+* Improve accessibility ([#386](https://github.com/michaelbromley/ngx-pagination/pull/386))
 
 ## 5.1.1 (2020-06-07)
 
