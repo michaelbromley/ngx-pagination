@@ -1,24 +1,13 @@
-# NgxPagination
+# ngx-pagination
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+The simplest solution for pagination in Angular.
 
-## Code scaffolding
+## Demo
 
-Run `ng generate component component-name --project ngx-pagination` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-pagination`.
-> Note: Don't forget to add `--project ngx-pagination` or else it will be added to the default project in your `angular.json` file. 
+Check out the live demo here: http://michaelbromley.github.io/ngx-pagination/
 
-## Build
+Play with it on StackBlitz here: https://stackblitz.com/edit/angular-e1f9hq
 
-Run `ng build ngx-pagination` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Documentation
 
-## Publishing
-
-After building your library with `ng build ngx-pagination`, go to the dist folder `cd dist/ngx-pagination` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test ngx-pagination` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+For full documentation, see https://github.com/michaelbromley/ngx-pagination/blob/master/README.md

@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.1 (2022-05-26)
+
+#### Fixes
+
+* Fix publishing of readme on npm
+
 ## 6.0.0 (2022-05-25)
 
 #### Features
