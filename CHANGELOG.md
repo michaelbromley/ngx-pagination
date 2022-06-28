@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.2 (2022-06-28)
+
+#### Fixes
+
+* Loosen peer dependencies to allow Angular versions > 13. Fixes ([#390](https://github.com/michaelbromley/ngx-pagination/issues/390))
+
 ## 6.0.1 (2022-05-26)
 
 #### Fixes
