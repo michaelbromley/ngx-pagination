@@ -82,7 +82,7 @@ export class MyComponent {
 ### PaginatePipe
 
 The PaginatePipe should be placed at the end of an NgFor expression. It accepts a single argument, an object conforming 
-to the [`PaginationInstance` interface](/src/pagination-instance.ts). The following config options are available:
+to the [`PaginationInstance` interface](/projects/ngx-pagination/src/lib/pagination-instance.ts). The following config options are available:
 
 ```HTML
 <some-element *ngFor="let item of collection | paginate: { id: 'foo',
