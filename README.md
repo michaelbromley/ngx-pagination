@@ -193,7 +193,7 @@ template to access the directive's API methods and properties, which are explain
 * **`getLastPage()`** [`() => number`] Returns the page number of the last page.
 * **`getTotalItems()`** [`() => number`] Returns the total number of items in the collection.
 
-For a real-world implementation of a custom component, take a look at [the source for the PaginationControlsComponent](/src/pagination-controls.component.ts).
+For a real-world implementation of a custom component, take a look at [the source for the PaginationControlsComponent](/projects/ngx-pagination/src/lib/pagination-controls.component.ts).
 
 ## Styling
 
