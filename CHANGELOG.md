@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.3 (2022-11-21)
+
+#### Fixes
+
+* Include license data in published package.json. Fixes ([#400](https://github.com/michaelbromley/ngx-pagination/issues/400))
+
 ## 6.0.2 (2022-06-28)
 
 #### Fixes
