@@ -30,9 +30,11 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-pagination/src/test.ts",
             "tsConfig": "projects/ngx-pagination/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-pagination/karma.conf.js"
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         }
       }
@@ -52,17 +54,16 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "docs",
             "index": "projects/docs/src/index.html",
-            "main": "projects/docs/src/main.ts",
-            "polyfills": "projects/docs/src/polyfills.ts",
+            "browser": "projects/docs/src/main.ts",
+            "polyfills": ["projects/docs/src/polyfills.ts"],
             "tsConfig": "projects/docs/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/docs/src/favicon.ico",
-              "projects/docs/src/assets",
               "projects/docs/src/assets"
             ],
             "styles": [
@@ -93,9 +94,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -107,10 +106,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "docs:build:production"
+              "buildTarget": "docs:build:production"
             },
             "development": {
-              "browserTarget": "docs:build:development"
+              "buildTarget": "docs:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -118,16 +117,14 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "docs:build"
+            "buildTarget": "docs:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/docs/src/test.ts",
             "polyfills": "projects/docs/src/polyfills.ts",
             "tsConfig": "projects/docs/tsconfig.spec.json",
-            "karmaConfig": "projects/docs/karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/docs/src/favicon.ico",

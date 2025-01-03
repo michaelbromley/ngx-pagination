@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { MealsService } from '../../providers/meals.service';
+import { HighlightModule } from 'ngx-highlightjs';
+import { CustomTemplateExampleComponent } from './custom-template-example.component';
 
 @Component({
     selector: 'custom-page',
-    templateUrl: './custom-page.component.html'
+    templateUrl: './custom-page.component.html',
+    imports: [HighlightModule, CustomTemplateExampleComponent]
 })
 export class CustomPageComponent {
     templateSource = templateSource;

@@ -16,9 +16,9 @@ describe('PaginationControlsComponent:', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [PaginationControlsComponent, PaginationControlsDirective, ComponentTestComponent, PaginatePipe],
-            providers: [PaginationService, {provide: LOCALE_ID, useValue: 'en_US' }],
-        });
+    declarations: [PaginationControlsComponent, PaginationControlsDirective, ComponentTestComponent, PaginatePipe],
+    providers: [PaginationService, { provide: LOCALE_ID, useValue: 'en_US' }],
+});
     });
 
     it('should display the correct page links (simple)', fakeAsync(() => {
@@ -47,9 +47,9 @@ describe('PaginationControlsComponent:', () => {
 
     it('should display the correct page links (formatted numbers over 1000) with dot', fakeAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [PaginationControlsComponent, PaginationControlsDirective, ComponentTestComponent, PaginatePipe],
-            providers: [PaginationService, {provide: LOCALE_ID, useValue: 'de_DE' }],
-        });
+    declarations: [PaginationControlsComponent, PaginationControlsDirective, ComponentTestComponent, PaginatePipe],
+    providers: [PaginationService, { provide: LOCALE_ID, useValue: 'de_DE' }],
+});
 
         let fixture = TestBed.createComponent(ComponentTestComponent);
         let instance = fixture.componentInstance;

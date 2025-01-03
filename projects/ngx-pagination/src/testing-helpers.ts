@@ -1,7 +1,7 @@
 import {Component, DebugElement, Type} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {TestBed, ComponentFixture} from '@angular/core/testing';
-import {PaginationInstance} from './lib/ngx-pagination.module';
+import {PaginationInstance, PaginatePipe} from './lib/ngx-pagination.module';
 import {PaginationControlsDirective} from './lib/pagination-controls.directive';
 
 /**
@@ -39,6 +39,7 @@ export function getControlsDirective(fixture: ComponentFixture<ComponentTestComp
 export function getPageLinkItems(fixture: ComponentFixture<any>,
                                  selector: string = 'pagination-controls li',
                                  includeAll: boolean = false): string[] {
+
     let all = fixture.debugElement.queryAll(By.css(selector))
         .filter(el => (el.nativeElement as HTMLLIElement).classList.contains('small-screen') === false)
         .map((el: DebugElement) => el.nativeElement.innerText);
@@ -79,7 +80,9 @@ export function overrideTemplate<T>(component: Type<T>, templateString: string):
                          [directionLinks]="directionLinks"
                          [autoHide]="autoHide"
                          [responsive]="responsive">
-    </pagination-controls>`
+    </pagination-controls>`,
+    imports: [PaginatePipe],
+    standalone: false
 })
 export class ComponentTestComponent {
     maxSize: number = 9;

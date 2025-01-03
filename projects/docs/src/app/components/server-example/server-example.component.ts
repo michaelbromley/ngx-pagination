@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
 import {Observable, of} from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgClass, NgFor, AsyncPipe } from '@angular/common';
 
 interface IServerResponse {
     items: string[];
@@ -10,7 +12,8 @@ interface IServerResponse {
 @Component({
     selector: 'server-example',
     templateUrl: './server-example.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [NgxPaginationModule, NgClass, NgFor, AsyncPipe]
 })
 export class ServerExampleComponent {
 

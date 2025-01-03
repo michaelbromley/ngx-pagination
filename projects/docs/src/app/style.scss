@@ -2,16 +2,14 @@
 
 $primary: #2d7fe8;
 
-@import "~bulma/sass/utilities/all";
+@use "bulma/sass/utilities/" as utils;
+@use "bulma/sass/base/" as base;
+@use "bulma/sass/elements/" as elems;
+@use "bulma/sass/components/" as comps;
+@use "bulma/sass/layout/" as layout;
+@use "bulma/sass/grid/" as grid;
 
-
-@import "~bulma/sass/base/all";
-@import "~bulma/sass/elements/all";
-@import "~bulma/sass/components/all";
-@import "~bulma/sass/layout/all";
-@import "~bulma/sass/grid/all";
-
-@import "spinner";
+@use "spinner";
 
 .hero.is-primary {
     background: linear-gradient(to bottom, #2181e0 0%, #62b2dd 100%);

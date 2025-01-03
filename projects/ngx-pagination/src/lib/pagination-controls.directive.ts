@@ -16,7 +16,8 @@ export interface Page {
  */
 @Directive({
     selector: 'pagination-template,[pagination-template]',
-    exportAs: 'paginationApi'
+    exportAs: 'paginationApi',
+    standalone: false
 })
 export class PaginationControlsDirective {
     @Input() id: string;

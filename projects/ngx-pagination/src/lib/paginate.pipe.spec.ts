@@ -1,4 +1,4 @@
-import {async, TestBed} from '@angular/core/testing';
+import {fakeAsync, TestBed} from '@angular/core/testing';
 import {getListItems, getListItemsText, ComponentTestComponent} from '../testing-helpers';
 import {PaginationControlsComponent} from './pagination-controls.component';
 import {PaginationService} from './pagination.service';
@@ -237,23 +237,23 @@ describe('PaginatePipe:', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                declarations: [PaginationControlsComponent, PaginationControlsDirective, ComponentTestComponent, PaginatePipe],
-                providers: [PaginationService],
-            });
+    declarations: [PaginationControlsComponent, PaginationControlsDirective, ComponentTestComponent, PaginatePipe],
+    providers: [PaginationService],
+});
         });
 
-        beforeEach(async(() => {
+        beforeEach(fakeAsync(() => {
             TestBed.compileComponents();
         }));
 
-        it('should display the correct number of items per page (10)', async(() => {
+        it('should display the correct number of items per page (10)', fakeAsync(() => {
             let fixture = TestBed.createComponent(ComponentTestComponent);
             fixture.detectChanges();
 
             expect(getListItems(fixture).length).toBe(10);
         }));
 
-        it('should display the correct number of items per page (50)', async(() => {
+        it('should display the correct number of items per page (50)', fakeAsync(() => {
             let fixture = TestBed.createComponent(ComponentTestComponent);
             let instance: ComponentTestComponent = fixture.componentInstance;
             instance.config.itemsPerPage = 50;
@@ -262,7 +262,7 @@ describe('PaginatePipe:', () => {
             expect(getListItems(fixture).length).toBe(50);
         }));
 
-        it('should display the correct number of items, after itemsPerPage & currentPage change', async(() => {
+        it('should display the correct number of items, after itemsPerPage & currentPage change', fakeAsync(() => {
             let fixture = TestBed.createComponent(ComponentTestComponent);
             let instance: ComponentTestComponent = fixture.componentInstance;
             instance.config.itemsPerPage = 10;
@@ -279,7 +279,7 @@ describe('PaginatePipe:', () => {
             expect(getListItems(fixture).length).toBe(3);
         }));
 
-        it('should display the correct items on init', async(() => {
+        it('should display the correct items on init', fakeAsync(() => {
             let fixture = TestBed.createComponent(ComponentTestComponent);
             let instance: ComponentTestComponent = fixture.componentInstance;
             instance.config.itemsPerPage = 3;
@@ -289,7 +289,7 @@ describe('PaginatePipe:', () => {
             expect(getListItemsText(fixture)).toEqual(expected);
         }));
 
-        it('should not mutate the collection', async(() => {
+        it('should not mutate the collection', fakeAsync(() => {
             let fixture = TestBed.createComponent(ComponentTestComponent);
             let instance: ComponentTestComponent = fixture.componentInstance;
 
@@ -306,7 +306,7 @@ describe('PaginatePipe:', () => {
             expect(instance.collection.length).toBe(100);
         }));
 
-        it('should default to page 1 if currentPage not set', async(() => {
+        it('should default to page 1 if currentPage not set', fakeAsync(() => {
             let fixture = TestBed.createComponent(ComponentTestComponent);
             let instance: ComponentTestComponent = fixture.componentInstance;
             instance.config.itemsPerPage = 3;

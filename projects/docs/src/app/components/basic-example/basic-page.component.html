@@ -12,5 +12,5 @@
         <li [class.is-active]="tab === 'ts'" (click)="tab = 'ts'"><a>TypeScript</a></li>
     </ul>
 </div>
-<pre [class.hidden]="tab !== 'html'"><code [highlight]="basicCodeT"></code></pre>
-<pre [class.hidden]="tab !== 'ts'"><code [highlight]="basicCodeC" [languages]="['typescript']"></code></pre>
+<pre [class.hidden]="tab !== 'html'"><code [highlight]="basicCodeT" [language]="'typescript'"></code></pre>
+<pre [class.hidden]="tab !== 'ts'"><code [highlight]="basicCodeC" [language]="'typescript'"></code></pre>

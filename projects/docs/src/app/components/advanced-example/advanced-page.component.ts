@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { MealsService } from '../../providers/meals.service';
+import { HighlightModule } from 'ngx-highlightjs';
+import { AdvancedExampleComponent } from './advanced-example.component';
 
 @Component({
     selector: 'advanced-page',
-    templateUrl: './advanced-page.component.html'
+    templateUrl: './advanced-page.component.html',
+    imports: [AdvancedExampleComponent, HighlightModule]
 })
 export class AdvancedPageComponent {
     templateSource = templateSource;

@@ -11,9 +11,10 @@ function coerceToBoolean(input: string | boolean): boolean {
 @Component({
     selector: 'pagination-controls',
     template: DEFAULT_TEMPLATE,
-    styles: [DEFAULT_STYLES],
+    styleUrls: [DEFAULT_STYLES],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class PaginationControlsComponent {
 
